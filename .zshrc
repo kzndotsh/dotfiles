@@ -1,3 +1,7 @@
+################
+#  ZSH config  #
+################
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,25 +9,46 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Path to oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
 
+# Prompt theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+#################
+#  ZSH Plugins  #
+#################
 plugins=(git extract docker ansible)
 
+# Custom plugins
 source /home/kaizen/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/kaizen/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# "Launch" Oh-My-Zsh
 source $ZSH/oh-my-zsh.sh
 
+# Source environment variables
 source $HOME/.zshenv
+
+# Source custom aliases
 source $HOME/.zshaliases
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
+# setup SSH_AUTH_SOCK for screen
+# if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
+    # ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
+# fi
+# export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
+
+
+
 # node version manager script
 source /usr/share/nvm/init-nvm.sh
+
+
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -123,4 +148,5 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
+autoload -Uz compinit
+compinit

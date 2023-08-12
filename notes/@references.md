@@ -4,9 +4,18 @@
 > https://wiki.haskell.org/Xmonad/Config_archive
 > https://www.reddit.com/r/dotfiles/
 > https://tanguy.ortolo.eu/blog/article25/shrc
+> https://zsh.sourceforge.io/Intro/intro_3.html
 
 # Dotfile repo inspiration
 > https://github.com/folke/dot
+> https://github.com/elifarley/shellbase/
+> https://github.com/DoomHammer/dotfiles/
+> https://github.com/akupila/dotfiles/
+> https://github.com/esphen/dotfiles
+> https://github.com/gverilla/dotfiles
+> https://github.com/mes5k/dotfiles
+> https://github.com/Soneji/dotfiles/
+> https://github.com/schneiderfelipe/dotfiles
 
 # Themes
 > https://github.com/chriskempson/base16
