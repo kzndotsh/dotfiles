@@ -16,6 +16,8 @@ source /home/kaizen/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosugges
 
 source $ZSH/oh-my-zsh.sh
 
+source $HOME/.zshenv
+
 export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$HOME/.local/bin:$PATH"
 export LANG=en_US.UTF-8
@@ -94,9 +96,9 @@ function _pip_completion {
 compctl -K _pip_completion pip
 #
 
-# terminal colors
-/usr/share/LS_COLORS/dircolors.sh
-
+if [ -r "$HOME/.dircolors" ]; then
+    eval `dircolors $HOME/.dir_colors`
+fi
 
 ###-begin-npm-completion-###
 
