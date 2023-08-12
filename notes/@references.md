@@ -3,6 +3,7 @@
 > https://mywiki.wooledge.org/DotFiles
 > https://wiki.haskell.org/Xmonad/Config_archive
 > https://www.reddit.com/r/dotfiles/
+> https://tanguy.ortolo.eu/blog/article25/shrc
 
 # Dotfile repo inspiration
 > https://github.com/folke/dot

@@ -17,62 +17,13 @@ source /home/kaizen/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosugges
 source $ZSH/oh-my-zsh.sh
 
 source $HOME/.zshenv
-
-export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$HOME/.local/bin:$PATH"
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export QT_QPA_PLATFORMTHEME=qt5ct
-export GTK_USE_PORTAL=1
-export TERMINAL=alacritty
-export BROWSER=firefox
-export PAGER=less
-export VISUAL=micro
-export EDITOR=micro
-export MICRO_TRUECOLOR=1
+source $HOME/.zshaliases
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # node version manager script
 source /usr/share/nvm/init-nvm.sh
-
-alias shutdown='sudo shutdown now'
-alias restart='sudo reboot'
-alias suspend='sudo pm-suspend'
-alias audio-reset="puleaudio -k && sudo alsa force-reload && pulseaudio --start"
-## exa
-# alias ls="exa" # ls
-# alias ll='exa -lbF --git' # list, size, type, git
-# alias llm='exa -lbGd --git --sort=modified' # long list, modified date sort
-# alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale' # all list
-# alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
-# alias lS='exa -1' # one column, just names
-# alias lt='exa --tree --level=2' # tree
-alias ls='exa --icons'
-alias l='exa -lbF --git --icons'
-# alias ll='ls -lahF --color=auto'
-# alias lls='ls -lahFtr --color=auto'
-# alias la='ls -A --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias ln='ln -iv'
-alias mkdir='mkdir -v'
-alias rm='rm -iv'
-alias c='clear'
-alias edit-i3="micro ~/.config/i3/config"
-alias edit-polybar="micro ~/.config/polybar/config.ini"
-alias edit-zsh="micro ~/.zshrc"
-alias cat='bat'
-alias bat='bat'
-alias nano='micro'
-alias emptydirs='find . -type d -empty -delete'
-alias htop='btop'
-alias http='http -s dracula --verbose'
-alias nc='new-component'
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
