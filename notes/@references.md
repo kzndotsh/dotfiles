@@ -16,6 +16,7 @@
 > https://github.com/mes5k/dotfiles
 > https://github.com/Soneji/dotfiles/
 > https://github.com/schneiderfelipe/dotfiles
+> https://github.com/jrona1do/tokyofiles
 
 # Themes
 > https://github.com/chriskempson/base16
@@ -27,6 +28,7 @@
 > https://github.com/peterhellberg/dircolors-jellybeans
 > https://github.com/seebi/dircolors-solarized
 > https://github.com/sharkdp/vivid
+> https://gogh-co.github.io/Gogh/
 
 # Tweaks
 > https://www.peterp.me/articles/speed-up-your-ssh-with-this-one-weird-trick/

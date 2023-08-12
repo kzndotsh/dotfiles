@@ -42,8 +42,8 @@ floating_modifier $mod
 
 #tiling_drag modifier titlebar
 
-gaps inner 0
-gaps outer 0
+# gaps inner 15
+# gaps outer 15
 
 # # Smart gaps
 # smart_gaps on

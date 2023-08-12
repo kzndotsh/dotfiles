@@ -6,23 +6,23 @@ window:
     y: 5
 
   decorations: full
-  opacity: 0.97
+  opacity: 0.85
 
 scrolling:
   history: 10000
   
 font:
   normal:
-    family: HackNerdFont
+    family: Hack Nerd Font
     style: Regular
   bold:
-    family: HackNerdFont
+    family: Hack Nerd Font Mono
     style: Bold
   italic:
-    family: HackNerdFont
+    family: Hack Nerd Font Mono
     style: Italic
   bold_italic:
-    family: HackNerdFont
+    family: Hack Nerd Font Mono
     style: Bold Italic
   size: 14.0
 
