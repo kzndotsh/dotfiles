@@ -1,0 +1,11 @@
+--langdef=markdown
+--langmap=markdown:.md.markdown.tmd
+--regex-markdown=/^(# \S.*)/\1/h,h1/
+
+--regex-markdown=/\/\/\s*(TODO.*$)/\1/h,todo/
+
+--regex-markdown=/^(# \S.*)/\1/h,toc/
+--regex-markdown=/^(## \S.*)/. . . . \1/h,toc/
+--regex-markdown=/^(### \S.*)/. . . . . . . . \1/h,toc/
+
+

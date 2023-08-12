@@ -1,0 +1,13 @@
+[Default Applications]
+x-scheme-handler/notion=notion-app.desktop
+x-scheme-handler/discord-409416265891971072=discord-409416265891971072.desktop
+x-scheme-handler/postman=Postman.desktop
+video/x-msvideo=io.github.celluloid_player.Celluloid.desktop
+x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
+x-scheme-handler/fleet=jetbrains-fleet.desktop
+application/pdf=org.pwmt.zathura.desktop
+
+[Added Associations]
+inode/directory=io.github.celluloid_player.Celluloid.desktop;
+video/x-msvideo=io.github.celluloid_player.Celluloid.desktop;
+application/pdf=org.pwmt.zathura.desktop;
