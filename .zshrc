@@ -72,8 +72,6 @@ alias htop='btop'
 alias http='http -s dracula --verbose'
 alias nc='new-component'
 
-export OPENAI_API_KEY=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
-
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
