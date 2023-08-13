@@ -19,16 +19,16 @@ configuration {
     mainbox-margin:              50px;
     message-margin:              0px 300px;
     message-padding:             12px;
-    message-border-radius:       12px;
+    message-border-radius:       0px;
     listview-spacing:            25px;
     element-padding:             35px 0px;
-    element-border-radius:       60px;
+    element-border-radius:       0px;
 
-    prompt-font:                 "Iosevka Nerd Font Bold 48";
-    textbox-font:                "Iosevka Nerd Font 12";
+    prompt-font:                 "Inter Nerd Font Bold 48";
+    textbox-font:                "Inter Nerd Font 12";
     element-text-font:           "feather 48";
 
-    background-window:           black/20%;
+    background-window:           #1a1b26;
     background-normal:           white/5%;
     background-selected:         white/15%;
     foreground-normal:           white;
@@ -42,7 +42,7 @@ window {
     anchor:                      center;
     fullscreen:                  false;
     width:                       1000px;
-    border-radius:               50px;
+    border-radius:               0px;
     cursor:                      "default";
     background-color:            var(background-window);
 }
