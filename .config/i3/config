@@ -106,7 +106,11 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec --no-startup-id dmenu_run
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec /home/kaizen/.config/rofi/scripts/launcher_t7 
+# bindsym Mod1+d exec rofi -show drun -kb-cancel Super
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
@@ -226,8 +230,7 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection c
 
 bindsym Ctrl+Shift+t exec --no-startup-id /home/kaizen/scripts/dropdown-terminal.sh toggle
 
-# Emoji picker
-bindsym $mod+period exec --no-startup-id rofimoji
+# bindsym $mod+period exec --no-startup-id rofimoji --selector-args "-theme ~/.config/rofi/colors/tokyonight.rasi"
 
 exec --no-startup-id picom --config /home/kaizen/.config/picom/picom.conf
 exec_always --no-startup-id feh --bg-fill /home/kaizen/.wallpaper.jpg
