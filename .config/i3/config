@@ -221,8 +221,8 @@ bindsym Ctrl+$mod+Delete exec --no-startup-id ~/.config/rofi/powermenu/type-4/po
 
 # Screenshots
 # bindsym Ctrl+Print exec --no-startup-id maim "/home/kaizen/screenshots/$(date).png"
-# bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/kaizen/screenshots/$(date).png"
-# bindsym Ctrl+Shift+Print exec --no-startup-id maim --select "/home/kaizen/screenshots/$(date).png"
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/kaizen/screenshots/$(date).png"
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select "/home/kaizen/screenshots/$(date).png"
 # bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 # bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 # bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png

@@ -34,7 +34,7 @@ alias emptydirs='find . -type d -empty -delete'
 alias htop='btop'
 alias http='http -s dracula --verbose'
 alias nc='new-component'
-
+alias dotfiles='~/dotfiles'
 
 
 # Not all servers support rxvt-univode-256color,
