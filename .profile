@@ -1,5 +1,6 @@
+###########
+#  LOCAL  #
+###########
 
-
-# Added by Toolbox App
-export PATH="$PATH:/home/kaizen/.local/share/JetBrains/Toolbox/scripts"
-
+[[ -f ~/.local.profile ]] && \
+    source ~/.local.profile

@@ -33,22 +33,19 @@ source $HOME/.zshenv
 # Source custom aliases
 source $HOME/.zshaliases
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
 # setup SSH_AUTH_SOCK for screen
 # if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
     # ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
 # fi
 # export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
 
-
+# eval dircolors
+if [ -r "$HOME/.dircolors" ]; then
+    eval `dircolors $HOME/.dir_colors`
+fi
 
 # node version manager script
 source /usr/share/nvm/init-nvm.sh
-
-
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -72,9 +69,6 @@ function _pip_completion {
 compctl -K _pip_completion pip
 #
 
-if [ -r "$HOME/.dircolors" ]; then
-    eval `dircolors $HOME/.dir_colors`
-fi
 
 ###-begin-npm-completion-###
 

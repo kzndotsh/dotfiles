@@ -179,3 +179,4 @@ configuration {
 	me-accept-custom: "Control+MouseDPrimary";
 */
 }
+@theme "/home/kaizen/dotfiles/.config/rofi/tokyonight.rasi"

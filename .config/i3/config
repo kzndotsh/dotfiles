@@ -233,10 +233,10 @@ bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && 
 exec --no-startup-id /home/kaizen/scripts/dropdown-terminal.sh start
 bindsym Ctrl+Shift+t exec --no-startup-id /home/kaizen/scripts/dropdown-terminal.sh toggle
 
-# Rofimoji
-# bindsym $mod+period exec --no-startup-id rofimoji --selector-args "-theme ~/.config/rofi/colors/tokyonight.rasi"
+bindsym $mod+period exec --no-startup-id rofimoji --selector-args "-theme tokyonight"
 
 exec --no-startup-id picom --config /home/kaizen/.config/picom/picom.conf
+
 exec_always --no-startup-id feh --bg-fill /home/kaizen/.wallpaper.jpg
 exec_always --no-startup-id /home/kaizen/.config/polybar/start-polybar.sh
 exec_always --no-startup-id autotiling
@@ -246,4 +246,3 @@ exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
 
 exec --no-startup-id xrandr --output DisplayPort-0 --mode 1920x1080 --rate 165 --set TearFree on
-

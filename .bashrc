@@ -5,8 +5,16 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+
+# profile
+[[ -f "$HOME/.bash_profile" ]] \
+    && source "$HOME/.bash_profile"
+
+# eval dircolors
+[[ -f "$HOME/.dir_colors" ]] \
+    && eval "$(dircolors "$HOME/.dir_colors")"
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-PS1='[\u@\h \W]\$ '
 
-PATH=~/.console-ninja/.bin:$PATH
+PS1='[\[\033[1;31m\]\u\[\033[0m\]@\H \w]$ '
