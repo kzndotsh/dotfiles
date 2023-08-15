@@ -1,12 +1,18 @@
+# <code>kaizen@arch ᐱ ~/dotfiles</code>
+
 ![](https://img.shields.io/github/last-commit/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/forks/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/stars/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/watchers/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-closed/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr-closed/kaizensh/dotfiles.svg) 
 
-# kaizen@arch ᐱ ~/dotfiles
-
-<p>
-  <a href="#about">About</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#installation">More links go here ---- </a>
-</p>
+<table>
+  <tr>
+    <td>
+      <p>
+        <a href="#about">About</a> •
+        <a href="#installation">Installation</a> •
+        <a href="#installation">More links go here</a>
+      </p>
+    </td>
+  </tr>
+</table>
 
 ## :question: About
 Welcome to my home, a curated collection of my personal dotfiles, tweaks, themes, and configurations that I use to make my Arch Linux experience truly unique and stylish while also productive.
