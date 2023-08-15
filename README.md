@@ -1,9 +1,11 @@
+![](https://img.shields.io/github/last-commit/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/forks/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/stars/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/watchers/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-closed/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr-closed/kaizensh/dotfiles.svg) 
+
 # kaizen@arch ᐱ ~/dotfiles
 
 <p>
   <a href="#about">About</a> •
   <a href="#installation">Installation</a> •
-  <a href="#installation">More inks go here ---- </a> •
+  <a href="#installation">More links go here ---- </a>
 </p>
 
 ## :question: <samp>About</samp>
@@ -148,4 +150,3 @@ A big shoutout to the open-source community, fellow Arch enthusiasts, and creato
 Contributions are welcome – whether it's bug fixes, new features, or additional themes. Please fork this repository, create a new branch, commit your changes, and open a pull request. Let's make Arch Linux even better, together!
 
 ---
-![](https://img.shields.io/github/last-commit/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/forks/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/stars/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/watchers/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-closed/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr-closed/kaizensh/dotfiles.svg) 
