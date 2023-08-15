@@ -8,7 +8,7 @@
   <a href="#installation">More links go here ---- </a>
 </p>
 
-## :question: <samp>About</samp>
+## :question: About
 Welcome to my home, a curated collection of my personal dotfiles, tweaks, themes, and configurations that I use to make my Arch Linux experience truly unique and stylish while also productive.
 
 I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU Stow is a symlink farm manager which takes distinct packages of software and/or data located in separate directories on the filesystem, and makes them appear to be installed in the same place. 
