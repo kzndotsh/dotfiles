@@ -4,9 +4,8 @@ window:
   padding:
     x: 5
     y: 5
-
   decorations: full
-  opacity: 0.85
+  opacity: 0.90
 
 scrolling:
   history: 10000
@@ -27,15 +26,16 @@ font:
   size: 14.0
 
 schemes:
+
   # Tokyo Night theme, based on both:
   #   https://github.com/ghifarit53/tokyonight-vim
   #   https://github.com/enkia/tokyo-night-vscode-theme
+  
   tokyo-night: &tokyo-night
     # Default colors
     primary:
       background: '#1a1b26'
       foreground: '#a9b1d6'
-
     # Normal colors
     normal:
       black:   '#32344a'
@@ -46,7 +46,6 @@ schemes:
       magenta: '#ad8ee6'
       cyan:    '#449dab'
       white:   '#787c99'
-
     # Bright colors
     bright:
       black:   '#444b6a'

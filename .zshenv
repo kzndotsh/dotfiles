@@ -29,7 +29,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # qt theme
-export QT_QPA_PLATFORMTHEME='gtk2'
+export QT_QPA_PLATFORMTHEME='gtk3'
 # export QT_QPA_PLATFORMTHEME='qt5ct'
 
 export GTK_USE_PORTAL=1
