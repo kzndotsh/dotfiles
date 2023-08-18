@@ -62,7 +62,7 @@ EXAMPLE TEXT
 </tr>
 <tr>
 <td>
-<img src="https://via.placeholder.com/468x200?text=App+Screenshot+Here" />
+<img src="https://github.com/kaizensh/dotfiles/blob/main/demo/discord-spotify.png" height="100%" />
 </td>
 <td>
 <img src="https://via.placeholder.com/468x200?text=App+Screenshot+Here" />
