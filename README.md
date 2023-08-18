@@ -42,9 +42,7 @@ EXAMPLE TEXT
 <img src="https://via.placeholder.com/468x200?text=App+Screenshot+Here" />
 </td>
 </tr>
-</table>
-<table>
-<tr>
+ <tr>
 <th align="center">
 <img width="441" height="1px">
 <p> 
@@ -72,6 +70,7 @@ EXAMPLE TEXT
 </tr>
 </table>
 
+
 <details>
  <summary><h3>More screenshots</h3></summary>
 </details>
@@ -91,25 +90,22 @@ EXAMPLE TEXT
 ## :mag: Overview
 | Feature              | Package                                                 |
 | -------------------- | ------------------------------------------------------- |
-| Window Manager       | [`bspwm`](https://github.com/baskerville/bspwm)         |
-| Compositor           | [`pijulius/picom`](https://github.com/pijulius/picom)   |
+| Window Manager       | [`i3`](https://github.com/i3/i3)       |
+| Compositor           | [`picom`](https://github.com/yshui/picom)   |
 | Terminal             | [`alacritty`](https://github.com/alacritty/alacritty)   |
 | Shell                | [`zsh`](https://www.zsh.org/)                           |
-| Editor               | [`neovim`](https://github.com/neovim/neovim)            |
-| Panel                | [`eww`](https://github.com/elkowar/eww)                 |
-| System Tray          | [`stalonetray`](https://github.com/kolbusa/stalonetray) |
-| Dock                 | [`plank`](https://github.com/ricotz/plank)              |
+| Editor               | [`vscode`](https://github.com/microsoft/vscode)    |
+| Dock                 | [`polybar`](https://github.com/polybar/polybar)         |
 | Notification Manager | [`dunst`](https://github.com/dunst-project/dunst)       |
 | Application Launcher | [`rofi`](https://github.com/davatorium/rofi)            |
-| Application Menu     | [`jgmenu`](https://github.com/johanmalm/jgmenu)         |
 
 ## :art: Theme
 
 ### <samp>Fonts</samp>
 | Use                 | Font List                                                                                              |  
 | ------------------- | -------------------------------------------------------------------------------------------------------- 
-| Primary Font        | [`Inter Nerd Font`]()                                                      |
-| Primary UI Font     | [`Hack Nerd Font`]()                            | 
+| Primary Font        | [`Inter Nerd Font`](https://aur.archlinux.org/packages/nerd-fonts-inter)                               |
+| Primary Mono Font   | [`Hack Nerd Font`](https://github.com/ryanoasis/nerd-fonts)                            | 
 | Primary Icon Font   | [`Font Awesome`]()                                          | 
 
 
