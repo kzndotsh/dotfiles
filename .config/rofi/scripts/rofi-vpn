@@ -1,0 +1,104 @@
+#!/usr/bin/env sh
+#
+# Rofi powered menu to connect/disconnect to VPNs using Network Manager.
+# Uses: grep nmcli notify-send rofi
+
+# Connections listed by nmcli are separated with the newline character.
+IFS='
+'
+
+# $1 The connection(s) retrieved by nmcli.
+parse() {
+    # Only consider VPN connections listed by nmcli.
+    for vpn in $(printf '%s\n' "$1" | grep 'vpn'); do
+        # Only keep the ID of the connection (not its type since it's always
+        # 'vpn').
+        printf '%s\n' "${vpn%:vpn}"
+    done
+}
+
+# $1 ID of the VPN connection to disconnect from.
+disconnect() {
+    if nmcli con down id "$1"; then
+        notify-send "Disconnected from <b>$1</b>"
+
+    else
+        notify-send "<b>Error</b> disconnecting from <b>$1</b>!"
+    fi
+}
+
+# $1 ID of the VPN connection to connect to.
+connect() {
+    if nmcli con up id "$1"; then
+        notify-send "Now connected to <b>$1</b>"
+
+    else
+        notify-send "<b>Error</b> connecting to <b>$1</b>!"
+    fi
+}
+
+# $1 Status state:
+#   - 'on'
+#   - 'off'
+get_style() {
+    printf '#prompt { background-color: @%s; }' "$1"
+}
+
+# The main difference between the 2 states of this menu is the '-a 0' argument
+# when there's an active VPN connection. Passing this argument as a shell
+# variable doesn't work, so a conditional statement is used as a workaround.
+bring_menu() {
+    # There's an active VPN connection.
+    if [ -n "$active" ]; then
+        printf '%s\n' "$list" \
+            | rofi -theme-str '@import "vpn.rasi"' \
+                   -theme-str "$(get_style 'on')" \
+                   -dmenu \
+                   -i \
+                   -p '   Connected' \
+                   -a 0
+
+    # No active VPN connection.
+    else
+        printf '%s\n' "$list" \
+            | rofi -theme-str '@import "vpn.rasi"' \
+                   -theme-str "$(get_style 'off')" \
+                   -dmenu \
+                   -i \
+                   -p '   Disconnected'
+    fi
+}
+
+# List of IDs of available VPN connections.
+list=$(parse "$(nmcli --get-values 'name,type' con)")
+
+# ID of the active VPN connection (if there's one).
+active=$(parse "$(nmcli --get-values 'name,type' con show --active)")
+
+chosen=$(bring_menu)
+
+# No entry chosen (happens when Escape is pressed).
+[ -z "$chosen" ] && exit 0
+
+# Disconnect from the active VPN connection if it's the chosen one.
+if [ "$chosen" = "$active" ]; then
+    disconnect "$active"
+
+# Otherwise as long as the chosen one is part of the list, there's something to
+# do.
+elif printf '%s\n' "$list" | grep -q "$chosen"; then
+    # There's an active VPN connection so disconnect from it before connecting
+    # to the chosen one.
+    if [ -n "$active" ]; then
+        disconnect "$active"
+
+        # HACK Asking Network Manager to connect right after disconnecting
+        # fails, however waiting one second fixes this issue.
+        sleep 1
+    fi
+
+    connect "$chosen"
+
+else
+    exit 1
+fi

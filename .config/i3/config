@@ -114,10 +114,14 @@ bindsym $mod+d exec /home/kaizen/.config/rofi/scripts/launcher_t7
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+l focus up
+# bindsym $mod+semicolon focus right
+
+# rofi i3 layout
+# bindsym $mod+l exec --no-startup-id /home/kaizen/dotfiles/.config/rofi/scripts/rofi-i3-layout
+
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
