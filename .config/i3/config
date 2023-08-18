@@ -37,8 +37,8 @@ floating_modifier $mod
 
 #tiling_drag modifier titlebar
 
-# gaps inner 15
-# gaps outer 15
+# gaps inner 10
+# gaps outer 10
 
 # # Smart gaps
 # smart_gaps on
@@ -225,12 +225,11 @@ bindsym Ctrl+$mod+Delete exec --no-startup-id ~/.config/rofi/powermenu/type-4/po
 # bindsym Ctrl+Shift+Print exec --no-startup-id maim --select "/home/kaizen/screenshots/$(date).png"
 # bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 # bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-# bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
+bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
 # bindsym Ctrl+Shift+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
 
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
-# Drop town terminal
 exec --no-startup-id /home/kaizen/scripts/dropdown-terminal.sh start
 bindsym Ctrl+Shift+t exec --no-startup-id /home/kaizen/scripts/dropdown-terminal.sh toggle
 
