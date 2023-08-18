@@ -42,9 +42,7 @@ EXAMPLE TEXT
 <img src="https://via.placeholder.com/468x200?text=App+Screenshot+Here" />
 </td>
 </tr>
-</table>
-<table>
-<tr>
+ <tr>
 <th align="center">
 <img width="441" height="1px">
 <p> 
@@ -71,6 +69,7 @@ EXAMPLE TEXT
 </td>
 </tr>
 </table>
+
 
 <details>
  <summary><h3>More screenshots</h3></summary>
