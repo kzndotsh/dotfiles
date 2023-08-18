@@ -37,13 +37,13 @@ floating_modifier $mod
 
 #tiling_drag modifier titlebar
 
-# gaps inner 10
-# gaps outer 10
+gaps inner 0
+gaps outer 0
 
 # # Smart gaps
-# smart_gaps on
+smart_gaps on
 # # Smart borders
-# smart_borders on
+smart_borders on
 
 #Hide window title bar
 default_border pixel 0
