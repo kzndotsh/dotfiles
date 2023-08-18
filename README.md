@@ -98,6 +98,7 @@ EXAMPLE TEXT
 | Dock                 | [`polybar`](https://github.com/polybar/polybar)         |
 | Notification Manager | [`dunst`](https://github.com/dunst-project/dunst)       |
 | Application Launcher | [`rofi`](https://github.com/davatorium/rofi)            |
+| File Manager         | [`pcmanfm`](https://wiki.archlinux.org/title/PCManFM)   |
 
 ## :art: Theme
 
@@ -105,8 +106,13 @@ EXAMPLE TEXT
 | Use                 | Font List                                                                                              |  
 | ------------------- | -------------------------------------------------------------------------------------------------------- 
 | Primary Font        | [`Inter Nerd Font`](https://aur.archlinux.org/packages/nerd-fonts-inter)                               |
-| Primary Mono Font   | [`Hack Nerd Font`](https://github.com/ryanoasis/nerd-fonts)                            | 
-| Primary Icon Font   | [`Font Awesome`]()                                          | 
+| Primary Mono Font   | [`Hack Nerd Font`](https://github.com/ryanoasis/nerd-fonts)                                            | 
+| Primary Icon Font   | [`Font Awesome`]()                                                                                     | 
+
+### <samp>Icons</samp>
+[`Tokyo Night SE`](https://github.com/ljmill/tokyo-night-icons)
+
+<img src='https://github.com/ljmill/tokyo-night-icons/raw/main/assets/main.svg' width='450px' />
 
 
 ### <samp>Colors</samp>
