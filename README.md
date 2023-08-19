@@ -96,8 +96,18 @@ git clone https://github.com/kaizensh/dotfiles.git
 
 ## Acknowledgements
 A big shoutout to the open-source community, fellow Arch enthusiasts, and creators of the tools and themes that have inspired and helped shape this repository. I have tried my best to give credit to all original authors that I have used or modified work from but if any were missed, please reach out.
-- [@octokatherine](https://www.github.com/octokatherine)
-- 
+- [@enkia](https://github.com/enkia)
+- [@ljmill](https://github.com/ljmill)
+- [@dyzean](https://github.com/Dyzean)
+- [@fausto-korpsvart](https://github.com/Fausto-Korpsvart)
+- [@zatchheems](https://github.com/zatchheems)
+- [@stronk-dev](https://github.com/stronk-dev)
+- [@alexadhy](https://github.com/alexadhy)
+- [@mino29](https://github.com/mino29)
+- [@rototrash](https://github.com/rototrash)
+- [@adi1090x](https://github.com/adi1090x)
+- [@magdalipka](https://github.com/magdalipka)
+- [@ataraxiasjel](https://github.com/AtaraxiaSjel)
 
 ## Contributions
 Contributions are welcome – whether it's bug fixes, new features, or additional themes. Please fork this repository, create a new branch, commit your changes, and open a pull request. Let's make Arch Linux even better, together!
