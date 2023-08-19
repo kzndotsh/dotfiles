@@ -22,6 +22,11 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 | ---------------------- | ---------------------- |
 | ![sddm](demo/sddm.png) | ![grub2](demo/grub2.png) |
 
+| VS Code            | File Manager              |
+| ---------------------- | ---------------------- |
+| ![vscode](demo/vscode.png) | ![pcmanfm](demo/pcmanfm.png) |
+
+
 <details>
  <summary><h3>More screenshots</h3></summary>
 </details>
