@@ -15,60 +15,13 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 
 ## :camera: Showcase
 
-<table>
-<tr>
-<th align="center">
-<img width="441" height="1px">
-<p> 
-<small>
-EXAMPLE TEXT
-</small>
-</p>
-</th>
-<th align="center">
-<img width="441" height="1">
-<p> 
-<small>
-EXAMPLE TEXT
-</small>
-</p>
-</th>
-</tr>
-<tr>
-<td>
-<img src="https://github.com/kaizensh/dotfiles/blob/main/demo/terminal-colors.png" height="100%" />
-</td>
-<td>
-<img src="https://github.com/kaizensh/dotfiles/blob/main/demo/terminal-colors.png" height="100%" />
-</td>
-</tr>
- <tr>
-<th align="center">
-<img width="441" height="1px">
-<p> 
-<small>
-EXAMPLE TEXT
-</small>
-</p>
-</th>
-<th align="center">
-<img width="441" height="1">
-<p> 
-<small>
-EXAMPLE TEXT
-</small>
-</p>
-</th>
-</tr>
-<tr>
-<td>
-<img src="https://github.com/kaizensh/dotfiles/blob/main/demo/discord-spotify.png" height="100%" />
-</td>
-<td>
-<img src="https://via.placeholder.com/468x200?text=App+Screenshot+Here" />
-</td>
-</tr>
-</table>
+| Terminal Colors              | Discord/Spotify              |
+| ---------------------- | ---------------------- |
+| ![terminal-colors](demo/terminal-colors.png) | ![discord-spotify](demo/discord-spotify.png) |
+
+| SDDM Greeter            | GRUB2              |
+| ---------------------- | ---------------------- |
+| ![sddm](demo/sddm.png) | ![grub2](https://github.com/mino29/tokyo-night-grub/raw/master/screenshot.png) |
 
 
 <details>
