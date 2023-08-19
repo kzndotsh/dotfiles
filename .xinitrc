@@ -51,9 +51,22 @@ fi
 # exec i3
 
 # see https://unix.stackexchange.com/a/295652/332452
-source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+# source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 # see https://wiki.archlinux.org/title/GNOME/Keyring#xinitrc
-exec eval $(/usr/bin/gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
+# exec eval $(/usr/bin/gnome-keyring-daemon --start)
+# export SSH_AUTH_SOCK
 # see https://github.com/NixOS/nixpkgs/issues/14966#issuecomment-520083836
-mkdir -p "$HOME"/.local/share/keyrings
+# mkdir -p "$HOME"/.local/share/keyrings
+
+
+# eval $(dbus-launch -sh-syntax --exit-with-session)
+# dbus-update-activation-environment --systemd DISPLAY
+# 
+# xrdb -merge ~/.Xresources
+# 
+# xrandr --output DVI-D-0 --off --output HDMI-1 --off --output HDMI-0 --mode 3840x2160 --pos 0x0 --rotate normal --output DP-3 --off --output DP-2 --primary --mode 3840x2160 --pos 3840x0 --rotate normal --output DP-1 --off --output DP-0 --mode 3840x2160 --pos 7680x0 --rotate normal
+# 
+# eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+# export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
+# 
+# exec i3

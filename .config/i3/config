@@ -189,16 +189,18 @@ exec --no-startup-id xrandr --output DisplayPort-0 --mode 1920x1080 --rate 165
 
 ########### MISC
 
+# Polkit
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
 # Screenshot binds
 # bindsym Ctrl+Print exec --no-startup-id maim "/home/kaizen/screenshots/$(date).png"
 # bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/kaizen/screenshots/$(date).png"
 # bindsym Ctrl+Shift+Print exec --no-startup-id maim --select "/home/kaizen/screenshots/$(date).png"
 # bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 # bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-# bindsym Ctrl+Shift+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
-
+bindsym Ctrl+Shift+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
+# bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+# bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
 
 # Alacritty - Start a terminal instance
 bindsym $mod+Return exec alacritty
@@ -245,3 +247,4 @@ for_window [class="(?i)1password"] floating enable
 for_window [class="(?i)bottles"] floating enable
 for_window [title="Process Explorer"] floating enable
 #for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable

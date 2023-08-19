@@ -1,38 +1,17 @@
-*.foreground:    #A9B1D6
-*.background:    #1A1B26
-*.cursorColor:   #A9B1D6
-*.highlightColor:#3A3F4B
+Xft.dpi:       96
+Xft.antialias: true
+Xft.hinting:   true
+Xft.rgba:      rgb
+Xft.autohint:  false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
 
+XTerm.termName: xterm-256color
 XTerm.vt100.bellIsUrgent: true
 XTerm.vt100.alternateScroll: true
 XTerm.vt100.selectToClipboard: true
-URxvt.scrollBar: false
-URxvt.perl-ext-common: default,selection-to-clipboard
-URxvt.clipboard.autocopy: true  ! sync primary and clipboard buffers
-URxvt.secondaryScreen:  1
-URxvt.secondaryScroll:  0
-URxvt.secondaryWheel:   1
-URxvt*urgentOnBell: true
-URxvt*scrollTtyOutput: false
-URxvt*scrollWithBuffer: true
-URxvt*scrollTtyKeypress: true
-URxvt.font: xft:Consolas:pixelsize=12, xft:HackNerdFont:style=Mono:pixelsize=12, xft:Unifont:pixelsize=12
-URxvt.letterSpace : -2 ! Put characters slightly closer together
-URxvt.termName : rxvt-unicode-256color
-!Urxvt*termName:  screen-256color
-URxvt.iso14755 : false
-URxvt.iso14755_52: false
-! transparency in i3
-!URxvt.transparent: true
-!URxvt.shading:20
 
-Xft.dpi: 96
-Xft.Hinting: 1
-Xft.RGBA: rgb
-Xft.HintStyle: hintslight
-Xft.Antialias: 1
-
-! TokyoNight colors for Xresources
+! Tokyo Night
 *background: #1a1b26
 *foreground: #c0caf5
 
@@ -53,4 +32,3 @@ Xft.Antialias: 1
 *color13: #bb9af7
 *color14: #7dcfff
 *color15: #c0caf5
- 
