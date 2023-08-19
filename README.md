@@ -52,6 +52,8 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 | Notification Manager | [`dunst`](https://github.com/dunst-project/dunst)       |
 | Application Launcher | [`rofi`](https://github.com/davatorium/rofi)            |
 | File Manager         | [`pcmanfm`](https://wiki.archlinux.org/title/PCManFM)   |
+| Greeter              | [`sddm`](https://github.com/sddm/sddm)                  |
+
 
 ## :art: Theme
 
