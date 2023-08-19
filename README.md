@@ -3,7 +3,6 @@
 ![](https://img.shields.io/github/last-commit/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/forks/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/stars/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/watchers/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-closed/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr-closed/kaizensh/dotfiles.svg) 
 
 
-
 <pre align="center">
 <a href="#">SETUP</a> • <a href="#">SETUP</a> • <a href="#">SETUP</a> • <a href="#">SETUP</a> • <a href="#">SETUP</a> • <a href="#">SETUP</a> 
 </pre>
@@ -23,10 +22,10 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 | ---------------------- | ---------------------- |
 | ![sddm](demo/sddm.png) | ![grub2](demo/grub2.png) |
 
-
 <details>
  <summary><h3>More screenshots</h3></summary>
 </details>
+
 
 ## :star: Features
 
@@ -39,6 +38,7 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 **Scripts:** Access a set of handy scripts that automate repetitive tasks, making your Linux journey even more enjoyable.
 
 **Notes:** Various notes, references and bookmarks I've come across when building this repo and navigating through the world of Linux.
+
 
 ## :mag: Overview
 | Feature              | Package                                                 |
@@ -69,7 +69,6 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 
 <img src='https://github.com/ljmill/tokyo-night-icons/raw/main/assets/main.svg' width='450px' />
 
-
 ### <samp>Colors</samp>
 |        Color           | Hex code |PNG |        Color           | Hex code |PNG|
 | ---------------------- | -------- |- | ---------------------- | -------- |-|
@@ -77,7 +76,7 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 |  background 2          | #282A36  |![#282A36](https://placehold.co/15x15/282A36/282A36.png) |  green                 | #999f63  |![#999f63](https://placehold.co/15x15/999f63/999f63.png)|
 |  background 3          | #16161e  |![#16161e](https://placehold.co/15x15/16161e/16161e.png) |  yellow                | #d4a067  |![#d4a067](https://placehold.co/15x15/d4a067/d4a067.png)|
 |  border                | #343746  |![#343746](https://placehold.co/15x15/343746/343746.png) |  blue                  | #6c90a8  |![#6c90a8](https://placehold.co/15x15/6c90a8/6c90a8.png)|
-|  foreground            | #dedede  |![#dedede](https://placehold.co/15x15/dedede/dedede.png) |  purple                | #776690  |![#776690](https://placehold.co/15x15/776690/776690.png)|
+|  foreground            | #A9B1D6  |![#A9B1D6](https://placehold.co/15x15/A9B1D6/A9B1D6.png) |  purple                | #776690  |![#776690](https://placehold.co/15x15/776690/776690.png)|
 |  white                 | #eeffff  |![#eeffff](https://placehold.co/15x15/eeffff/eeffff.png) |  cyan                  | #528a9b  |![#528a9b](https://placehold.co/15x15/528a9b/528a9b.png)|
 |  gray                  | #727480  |![#727480](https://placehold.co/15x15/727480/727480.png) |   pink                  | #ffa8c5  |![#ffa8c5](https://placehold.co/15x15/ffa8c5/ffa8c5.png)|
 |  black                 | #15121c  |![#15121c](https://placehold.co/15x15/15121c/15121c.png) |  orange                | #c87c3e  |![#c87c3e](https://placehold.co/15x15/c87c3e/c87c3e.png)|
@@ -90,18 +89,15 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 
 ## :gear: Installation
 > **Warning**
-> Be careful running this with elevated privileges. Code execution can be achieved with write permissions on the config file.
+> Be careful running commands found on the internet blindly!
 ```sh
 git clone https://github.com/kaizensh/dotfiles.git
 ```
 
 ## Acknowledgements
 A big shoutout to the open-source community, fellow Arch enthusiasts, and creators of the tools and themes that have inspired and helped shape this repository. I have tried my best to give credit to all original authors that I have used or modified work from but if any were missed, please reach out.
-
- 
-## Authors
 - [@octokatherine](https://www.github.com/octokatherine)
-
+- 
 
 ## Contributions
 Contributions are welcome – whether it's bug fixes, new features, or additional themes. Please fork this repository, create a new branch, commit your changes, and open a pull request. Let's make Arch Linux even better, together!
