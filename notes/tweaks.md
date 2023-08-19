@@ -76,3 +76,23 @@ EOF
 ## Enable fstrim.timer
 
 `sudo systemctl enable fstrim.timer --now`
+
+# AMD stuffs
+
+```
+# /etc/X11/xorg.conf.d/20-amdgpu.conf
+
+Section "OutputClass"
+     Identifier "AMD"
+     MatchDriver "amdgpu"
+     Driver "amdgpu"
+     Option "EnablePageFlip" "off"
+     Option "TearFree" "false"
+EndSection
+
+Section "Device"
+     Identifier "AMD"
+     Driver "amdgpu"
+     Option "VariableRefresh" "true"
+EndSection 
+```
