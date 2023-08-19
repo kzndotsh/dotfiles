@@ -1,10 +1,11 @@
-TERM: xterm-256color
+env:
+  TERM: xterm-256color
 
 window:
   padding:
     x: 5
     y: 5
-  decorations: full
+  decorations: none
   opacity: 0.90
 
 scrolling:
@@ -12,17 +13,18 @@ scrolling:
   
 font:
   normal:
-    family: Hack Nerd Font
+    family: JetBrainsMono Nerd Font Mono
     style: Regular
   bold:
-    family: Hack Nerd Font Mono
+    family: JetBrainsMono Nerd Font Mono
     style: Bold
   italic:
-    family: Hack Nerd Font Mono
+    family: JetBrainsMono Nerd Font Mono
     style: Italic
   bold_italic:
-    family: Hack Nerd Font Mono
+    family: JetBrainsMono Nerd Font Mono
     style: Bold Italic
+    
   size: 14.0
 
 schemes:
