@@ -21,7 +21,7 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 
 | SDDM Greeter            | GRUB2              |
 | ---------------------- | ---------------------- |
-| ![sddm](demo/sddm.png) | ![grub2](https://github.com/mino29/tokyo-night-grub/raw/master/screenshot.png) |
+| ![sddm](demo/sddm.png) | ![grub2](demo/grub2.png) |
 
 
 <details>
