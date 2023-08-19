@@ -61,7 +61,7 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 | Use                 | Font List                                                                                              |  
 | ------------------- | -------------------------------------------------------------------------------------------------------- 
 | Primary Font        | [`Inter Nerd Font`](https://aur.archlinux.org/packages/nerd-fonts-inter)                               |
-| Primary Mono Font   | [`Hack Nerd Font`](https://github.com/ryanoasis/nerd-fonts)                                            | 
+| Primary Mono Font   | [`JetBrainsMono Nerd Font`](https://www.programmingfonts.org/#jetbrainsmono)                           | 
 | Primary Icon Font   | [`Font Awesome`]()                                                                                     | 
 
 ### <samp>Icons</samp>
