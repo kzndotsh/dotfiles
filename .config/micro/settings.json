@@ -1,3 +1,37 @@
 {
-    "colorscheme": "catppuccin-mocha"
+    "autosu": true,
+    "colorcolumn": 80,
+    "colorscheme": "catppuccin-mocha",
+    "diffgutter": true,
+    "eofnewline": false,
+    "fastdirty": true,
+    "ftoptions": false,
+    "fzf": true,
+    "ignorecase": false,
+    "initlua": true,
+    "joinLines": true,
+    "manipulator": true,
+    "matchbrace": false,
+    "mkparents": true,
+    "pluginchannels": [
+        "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
+    ],
+    "pluginrepos": [
+        "https://raw.githubusercontent.com/gamemaker1/micro-plugin-prettier/main/repo.json"
+    ],
+    "rmtrailingws": true,
+    "rust": true,
+    "rust-plugin.linter-cargo-check": false,
+    "rust-plugin.linter-clippy": false,
+    "rust-plugin.onsave-build": false,
+    "rust-plugin.onsave-fmt": true,
+    "rust-plugin.rustfmt-backup": false,
+    "rust-plugin.tool-cargo-rustc": false,
+    "savecursor": true,
+    "saveundo": true,
+    "scrollbar": true,
+    "softwrap": true,
+    "statusformatr": "$(bind:ToggleKeyMenu):bindings,$(bind:ToggleHelp):help",
+    "tabmovement": true,
+    "tabstospaces": true
 }

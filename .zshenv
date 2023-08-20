@@ -10,7 +10,7 @@ export PATH="$GOPATH/bin:/opt/go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.bin:$PATH"
 export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
-export PATH="$PATH:/home/kaizen/.local/share/JetBrains/Toolbox/scripts"
+export PATH="$HOME/eww/target/release:$PATH"
 
 # Terminal
 export TERMINAL=alacritty
@@ -56,7 +56,7 @@ export MICRO_TRUECOLOR=1
 
 # SSH Agent
 # ssh_env="$HOME/.ssh/agent-env"
-# 
+#
 # if pgrep ssh-agent >/dev/null; then
   # if [[ -f $ssh_env ]]; then
     # source "$ssh_env"
@@ -66,7 +66,7 @@ export MICRO_TRUECOLOR=1
 # else
   # ssh-agent | grep -Fv echo > "$ssh_env"
   # source "$ssh_env"
-# 
+#
   # # Use pass(1), via wrapper script, to unlock SSH key
   # DISPLAY=99 SSH_ASKPASS="$HOME/.local/bin/ssh-askpass" ssh-add </dev/null
 # fi
