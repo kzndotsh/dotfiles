@@ -69,10 +69,12 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 | Primary Mono Font   | [`JetBrainsMono Nerd Font`](https://www.programmingfonts.org/#jetbrainsmono) (Previously used [`Hack Nerd Font`](https://www.programmingfonts.org/#hack))                  | 
 | Primary Icon Font   | [`Font Awesome`]()                                                                                     | 
 
-### <samp>Icons</samp>
-[`Tokyo Night SE`](https://github.com/ljmill/tokyo-night-icons)
+### <samp>Icons and Cursors</samp>
 
-<img src='https://github.com/ljmill/tokyo-night-icons/raw/main/assets/main.svg' width='450px' />
+| [`Tokyo Night SE`](https://github.com/ljmill/tokyo-night-icons)              | [`Simp1e Tokyo Night`](https://gitlab.com/cursors/simp1e)             |
+| ---------------------- | ---------------------- |
+| <img src='https://github.com/ljmill/tokyo-night-icons/raw/main/assets/main.svg' width='450px' /> | <img src='https://i.imgur.com/TxtdjiC.png' width='450px' />|
+
 
 ### <samp>Colors</samp>
 |        Color           | Hex code |PNG |        Color           | Hex code |PNG|
