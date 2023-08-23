@@ -17,7 +17,7 @@ TERMINAL_STATE=/tmp/dropdown_terminal_state
 # Adjust the sleep time and step size as necessary to make the animation smooth
 STEP_SIZE=10
 STEP_DIRECTION_OP="up"   # Swap these two to reverse direction.
-STEP_DIRECTION_CL="down" 
+STEP_DIRECTION_CL="down"
 SLEEP_TIME=0.0002
 
 usage() {

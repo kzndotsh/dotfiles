@@ -85,17 +85,6 @@ bindsym $mod+space focus mode_toggle
 # Kill focused window
 bindsym $mod+Shift+q kill
 
-# bindsym $mod+j focus left
-# bindsym $mod+k focus down
-# bindsym $mod+l focus up
-# bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
-# bindsym $mod+Left focus left
-# bindsym $mod+Down focus down
-# bindsym $mod+Right focus right
-# bindsym $mod+Up focus up
-
 # Move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
@@ -137,7 +126,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Fast workspace switching
 bindsym $mod+Tab                			workspace prev
-bindsym $mod+Shift+Tab          			workspace next 
+bindsym $mod+Shift+Tab          			workspace next
 bindsym $mod+Control+Left 					workspace prev
 bindsym $mod+Control+Right 					workspace next
 
@@ -148,7 +137,7 @@ bindsym $mod+Control+Right 					workspace next
 bindsym $mod+period 						exec --no-startup-id rofimoji --selector-args "-theme tokyonight"
 
 # Rofi - App Launcher
-bindsym $mod+d exec ~/dotfiles/.config/rofi/scripts/launcher_t7 
+bindsym $mod+d exec ~/dotfiles/.config/rofi/scripts/launcher_t7
 
 # Rofi - Power Menu
 bindsym Ctrl+$mod+Delete 					exec --no-startup-id ~/dotfiles/.config/rofi/powermenu/type-4/powermenu.sh
@@ -174,10 +163,10 @@ exec --no-startup-id nm-applet
 # Start picom compositor
 exec --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
 
-# Disable automatic monitor power saving 
+# Disable automatic monitor power saving
 exec --no-startup-id xset dpms 0 0 0
 
-# Disable screensaver 
+# Disable screensaver
 exec --no-startup-id xset s off
 
 # Disable DPMS from X entirely
@@ -198,8 +187,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # bindsym Ctrl+Shift+Print exec --no-startup-id maim --select "/home/kaizen/screenshots/$(date).png"
 # bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 # bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Ctrl+Shift+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
-# bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+# bindsym Ctrl+Shift+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 # bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
 
 # Alacritty - Start a terminal instance
