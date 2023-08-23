@@ -46,7 +46,7 @@ Target = *
 
 [Action]
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/pacman -Qqe > ~/dotfiles/pkglist.txt'
+Exec = /bin/sh -c '/usr/bin/pacman -Qqe > /home/kaizen/dotfiles/pkglist.txt'
 EOF
 ```
 
@@ -94,5 +94,5 @@ Section "Device"
      Identifier "AMD"
      Driver "amdgpu"
      Option "VariableRefresh" "true"
-EndSection 
+EndSection
 ```
