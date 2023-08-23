@@ -25,13 +25,6 @@ rm -rf yay
 ### Enable verbose package lists
 
 `sudo sed -i "s/#VerbosePkgLists/VerbosePkgLists/g" /etc/pacman.conf`
-
-## Update makepkg to utilize more cores
-
-`sudo sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j8"/g' /etc/makepkg.conf`
-
-`sudo sed -i 's/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T 8 -z -)/g' /etc/makepkg.conf`
-
 ## Create update-pkglist hook
 
 `sudo touch /usr/share/libalpm/hooks/pkglist.hook`

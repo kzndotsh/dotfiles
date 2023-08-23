@@ -33,6 +33,7 @@ composer
 conky
 conky-manager
 cpupower
+ctop
 dbgate-bin
 ddrescue
 dex
@@ -51,6 +52,7 @@ easystroke
 editorconfig-core-c
 efibootmgr
 emacs
+ethtool
 exa
 expressvpn-gui-gtk
 fd
@@ -120,6 +122,7 @@ milkytracker
 mirage
 mlocate
 modprobed-db
+mold
 ncdu
 ncmpcpp
 ncspot
@@ -232,6 +235,7 @@ ttf-meslo-nerd-font-powerlevel10k
 ttf-ms-fonts
 ttf-nerd-fonts-symbols
 ttf-tahoma
+tuna
 udisks2
 unrar
 unzip
@@ -247,6 +251,7 @@ virtualbox-guest-utils
 virtualbox-unattended-templates
 visual-studio-code-bin
 vmware-workstation
+vnstat
 vulkan-tools
 w3m
 wayfarer
