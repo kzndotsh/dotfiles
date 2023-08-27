@@ -8,5 +8,5 @@ killall -q polybar
 
 # Launch bottom bar
 echo "---" | tee -a /tmp/polybar1.log
-polybar bottom 2>&1 | tee -a /tmp/polybar1.log & disown
+polybar bottom -c ~/dotfiles/.config/polybar/config.ini 2>&1 | tee -a /tmp/polybar1.log & disown
 echo "Bars launched..."

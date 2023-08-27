@@ -180,4 +180,4 @@ configuration {
 */
 }
 
-@theme "/home/kaizen/dotfiles/.config/rofi/tokyonight.rasi"
+@theme "~/dotfiles/.config/rofi/tokyonight.rasi"

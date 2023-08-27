@@ -18,6 +18,8 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+workspace 9 output HDMI-1
+
 # Reload i3 configuration file
 bindsym $mod+Shift+c 						reload
 
@@ -131,6 +133,11 @@ bindsym $mod+Control+Left 					workspace prev
 bindsym $mod+Control+Right 					workspace next
 
 
+# exec -> On start-up
+# exec_always -> On start-up and reload
+
+
+
 ########## ROFI
 
 # Rofi - Emoji Picker
@@ -155,31 +162,36 @@ exec_always --no-startup-id ~/dotfiles/.config/polybar/start-polybar.sh
 exec_always --no-startup-id autotiling
 
 # Start NetworkManager systray applet
-exec --no-startup-id nm-applet
+exec_always --no-startup-id nm-applet
 
+exec --no-startup-id dex --autostart --environment i3
+
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 ########## DISPLAY
 
 # Start picom compositor
-exec --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
+exec_always --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
 
 # Disable automatic monitor power saving
-exec --no-startup-id xset dpms 0 0 0
+# exec --no-startup-id xset dpms 0 0 0
 
 # Disable screensaver
-exec --no-startup-id xset s off
+# exec --no-startup-id xset s off
 
 # Disable DPMS from X entirely
-exec --no-startup-id xset -dpms
+# exec --no-startup-id xset -dpms
 
 # Ensure display is set to 165hz
-exec --no-startup-id xrandr --output DisplayPort-0 --mode 1920x1080 --rate 165
+# exec --no-startup-id xrandr --output DisplayPort-0 --mode 1920x1080 --rate 165
 
 
 ########### MISC
 
-# Polkit
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/gsd-xsettings
+
+
 
 # Screenshot binds
 # bindsym Ctrl+Print exec --no-startup-id maim "/home/kaizen/screenshots/$(date).png"
@@ -188,8 +200,17 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 # bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 # bindsym Ctrl+Shift+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+# bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 # bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
+
+bindsym $mod+Shift+s --release exec flameshot gui
+
+
+
+# exec -> On start-up
+# exec_always -> On start-up and reload
+
+
 
 # Alacritty - Start a terminal instance
 bindsym $mod+Return exec alacritty
