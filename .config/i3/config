@@ -7,6 +7,9 @@ set $mod Mod1
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 
+set $mon1 DP-1
+set $mon2 HDMI-1
+
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -18,7 +21,17 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-workspace 9 output HDMI-1
+workspace $ws1 output $mon1
+workspace $ws2 output $mon1
+workspace $ws3 output $mon1
+workspace $ws4 output $mon1
+workspace $ws5 output $mon1
+workspace $ws6 output $mon1
+workspace $ws7 output $mon1
+workspace $ws8 output $mon1
+workspace $ws9 output $mon2
+workspace $ws10 output $mon2
+
 
 # Reload i3 configuration file
 bindsym $mod+Shift+c 						reload
@@ -49,8 +62,8 @@ client.background       #1a1b26
 #gaps inner 0
 #gaps outer 0
 #smart_gaps on
-#smart_borders on
-smart_borders no_gaps
+smart_borders on
+hide_edge_borders none
 default_border pixel 0
 default_floating_border pixel 0
 for_window [class="^.*"] border pixel 0
@@ -153,7 +166,7 @@ bindsym Ctrl+$mod+Delete 					exec --no-startup-id ~/dotfiles/.config/rofi/power
 ########## DESKTOP ENVIRONMENT
 
 # Feh - Set desktop wallpaper
-exec_always --no-startup-id feh --bg-fill ~/.wallpaper.jpg
+# exec_always --no-startup-id feh --bg-fill ~/.wallpaper.jpg
 
 # Polybar - Start polybar
 exec_always --no-startup-id ~/dotfiles/.config/polybar/start-polybar.sh
@@ -200,7 +213,7 @@ exec --no-startup-id /usr/lib/gsd-xsettings
 # bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 # bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 # bindsym Ctrl+Shift+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
-# bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 # bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
 
 bindsym $mod+Shift+s --release exec flameshot gui

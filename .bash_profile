@@ -1,7 +1,5 @@
-##################
-#  BASH_PROFILE  #
-##################
+#
+# ~/.bash_profile
+#
 
-# profile
-[[ -f ~/.profile ]] \
-    && source ~/.profile
+[[ -f ~/.bashrc ]] && . ~/.bashrc
