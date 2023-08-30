@@ -2,10 +2,7 @@
 
 ![](https://img.shields.io/github/last-commit/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/forks/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/stars/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/watchers/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-closed/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr/kaizensh/dotfiles.svg) ![](https://img.shields.io/github/issues-pr-closed/kaizensh/dotfiles.svg) 
 
-
-<pre align="center">
-<a href="#">SETUP</a> • <a href="#">SETUP</a> • <a href="#">SETUP</a> • <a href="#">SETUP</a> • <a href="#">SETUP</a> • <a href="#">SETUP</a> 
-</pre>
+<h3>⚠️ WORK IN PROGRESS ⚠️</h3>
 
 ## :question: About
 Welcome to my home, a curated collection of my personal dotfiles, tweaks, themes, and configurations that I use to make my Arch Linux experience truly unique and stylish while also productive.
