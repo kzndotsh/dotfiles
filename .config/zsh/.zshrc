@@ -52,8 +52,7 @@ export ANDROID_SDK_HOME="$XDG_CONFIG_HOME"/android
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 
 
-
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="agnoster"
 
 # CASE_SENSITIVE="true"
 # HYPHEN_INSENSITIVE="true"
@@ -84,7 +83,9 @@ export LC_ALL=en_US.UTF-8
 export BROWSER='firefox'
 export TERMINAL='alacritty'
 export EDITOR='micro'
-export PAGER='less'
+# export MANPAGER='bat'
+# export MANROFFOPT="-c"
+export PAGER='bat'
 export READER='zathura'
 export FILE='pcmanfm'
 
@@ -168,6 +169,9 @@ alias jp="git add . && git commit -m \"$(date)\" && git push"
 # alias la='exa -a'
 # alias l='exa -CF'
 
+
+
+
 # --interactive     prompt before overwrite
 # --verbose         explain what is being done
 alias cp="cp --interactive --verbose"
@@ -187,5 +191,10 @@ path+=('~/.local/share/flatpak/exports/bin')
 # cargo
 path+=('$HOME/.cargo/bin')
 path+=('$HOME/.local/share/cargo/bin')
-
+# java
+path+=('$HOME/.jenv/bin')
 export PATH
+
+eval "$(jenv init -)"
+
+eval "$(starship init zsh)"
