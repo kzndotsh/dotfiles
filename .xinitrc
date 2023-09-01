@@ -63,8 +63,8 @@ export $(run-parts /usr/lib/systemd/user-environment-generators | sed '/:$/d; /^
 
 source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 
-keychain ~/.ssh/id_ed25519
-keychain ~/.ssh/id_rsa
+keychain --dir "$XDG_RUNTIME_DIR"/keychain ~/.ssh/id_ed25519 
+keychain --dir "$XDG_RUNTIME_DIR"/keychain ~/.ssh/id_rsa
 [ -f ~/.keychain/$HOSTNAME-sh ] && . ~/.keychain/$HOSTNAME-sh 2>/dev/null
 [ -f ~/.keychain/$HOSTNAME-sh-gpg ] && . ~/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 

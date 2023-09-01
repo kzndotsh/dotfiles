@@ -1,5 +1,6 @@
-.config/micro/backups/*
-.config/micro/buffers/*
-.config/micro/plug/*
+.config/micro/backups/
+.config/micro/buffers/
+.config/micro/plug/
 .icons/default
-.config/tmux/plugins/*
+.config/tmux/plugins/
+walls/

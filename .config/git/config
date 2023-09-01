@@ -1,6 +1,6 @@
 [user]
-	email = admin@kaizen.wtf
-	name = kaizen
+email = admin@kaizen.wtf
+name = kaizen
 
 [core]
 	editor = micro

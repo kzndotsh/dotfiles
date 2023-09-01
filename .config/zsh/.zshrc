@@ -29,7 +29,7 @@ setopt incappendhistory  # Immediately append to the history file, not just
 ##### GTK EXPORTS
 # export GTK_THEME=TokyoNight
 # export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
-# export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 # export GDK_BACKEND=x11
 # export GTK_CSD=0 # titlebars
 export GTK_USE_PORTAL=1
@@ -65,7 +65,7 @@ export GOPATH="$XDG_DATA_HOME"/go
 export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 
 ##### MISC EXPORTS
-# export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME"/android
@@ -217,7 +217,7 @@ source /usr/share/doc/git-extras/git-extras-completion.zsh
 # gpg (for Github)
 # export GPG_TTY="$(tty)"
 
-eval $(keychain --eval --quiet id_ed25519 id_rsa)
+eval $(keychain --dir "$XDG_RUNTIME_DIR"/keychain --eval --quiet id_ed25519 id_rsa )
 
 ########## ALIASES 
 alias edit-i3="micro ~/dotfiles/.config/i3/config"
@@ -226,7 +226,9 @@ alias edit-zsh="micro ~/dotfiles/.config/zsh/.zshrc"
 alias cat='bat'
 alias bat='bat'
 alias nano='micro'
+alias flattendir='find . -mindepth 2 -type f -print -exec mv {} . \;'
 alias emptydirs='find . -type d -empty -delete'
+alias count='ls | wc -l'
 alias dotfiles='~/dotfiles'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -282,8 +284,11 @@ path+=('$HOME/.cargo/bin')
 path+=('$HOME/.local/share/cargo/bin')
 # java
 path+=('$HOME/.jenv/bin')
+# console ninja
+path+=('~/.console-ninja/.bin')
 export PATH
 
+# jenv 
 eval "$(jenv init -)"
 
 # zsh-syntax-highlighting and autosuggestions

@@ -168,6 +168,12 @@ bindsym Ctrl+$mod+Delete 					exec --no-startup-id ~/dotfiles/.config/rofi/power
 # Feh - Set desktop wallpaper
 # exec_always --no-startup-id feh --bg-fill ~/.wallpaper.jpg
 
+# Delete wallpaper
+bindsym $mod+Shift+n exec ~/scripts/delete-wallpaper.sh
+# Ranomdize wallpaper
+bindsym $mod+Shift+s exec ~/scripts/wallpaper-changer.sh
+
+
 # Polybar - Start polybar
 exec_always --no-startup-id ~/dotfiles/.config/polybar/start-polybar.sh
 
@@ -185,6 +191,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Start picom compositor
 exec_always --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
+
 
 # Disable automatic monitor power saving
 # exec --no-startup-id xset dpms 0 0 0
@@ -216,14 +223,12 @@ exec --no-startup-id /usr/lib/gsd-xsettings
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 # bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
 
-bindsym $mod+Shift+s --release exec flameshot gui
+# bindsym $mod+Shift+s --release exec flameshot gui
 
 
 
 # exec -> On start-up
 # exec_always -> On start-up and reload
-
-
 
 # Alacritty - Start a terminal instance
 bindsym $mod+Return exec alacritty
