@@ -51,23 +51,22 @@ font pango:JetBrainsMono Nerd Font Mono 12
 
 # Define colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #1a1b26 #1a1b26 #F0C674 #1a1b26   #1a1b26
-client.focused_inactive #1a1b26 #1a1b26 #ffffff #1a1b26   #1a1b26
-client.unfocused        #1a1b26 #1a1b26 #A54242 #1a1b26   #1a1b26
-client.urgent           #1a1b26 #1a1b26 #ffffff #1a1b26   #1a1b26
-client.placeholder      #1a1b26 #1a1b26 #ffffff #1a1b26   #1a1b26
-client.background       #1a1b26
+client.focused          #ffffff #1a1b26 #F0C674 #ffffff   #ffffff
+client.focused_inactive #ffffff #1a1b26 #ffffff #ffffff   #ffffff
+client.unfocused        #ffffff #1a1b26 #A54242 #ffffff   #ffffff
+client.urgent           #ffffff #1a1b26 #ffffff #ffffff   #ffffff
+client.placeholder      #ffffff #1a1b26 #ffffff #ffffff   #ffffff
+client.background       #ffffff
 
 # Disable titles, gaps and borders
-#gaps inner 0
-#gaps outer 0
-#smart_gaps on
-smart_borders on
-hide_edge_borders none
-default_border pixel 0
-default_floating_border pixel 0
-for_window [class="^.*"] border pixel 0
-
+gaps inner 8
+gaps outer 4
+smart_gaps off
+# smart_borders on
+# hide_edge_borders none
+# default_border pixel 1
+# default_floating_border pixel 1
+for_window [class="^.*"] border pixel 1
 
 ########### I3 TILING
 
@@ -112,6 +111,7 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+popup_during_fullscreen smart
 
 ########### I3 MOVEMENT
 

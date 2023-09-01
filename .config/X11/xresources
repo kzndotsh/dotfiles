@@ -1,7 +1,14 @@
+Xft.dpi:       96
+Xft.antialias: true
+Xft.hinting:   true
+Xft.rgba:      rgb
+Xft.autohint:  true
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+
 ! Tokyo Night
 *background: #1a1b26
 *foreground: #c0caf5
-
 *color0: #15161e
 *color1: #f7768e
 *color2: #9ece6a
@@ -10,7 +17,6 @@
 *color5: #bb9af7
 *color6: #7dcfff
 *color7: #a9b1d6
-
 *color8: #414868
 *color9: #f7768e
 *color10: #9ece6a
@@ -19,3 +25,35 @@
 *color13: #bb9af7
 *color14: #7dcfff
 *color15: #c0caf5
+
+URxvt.termName : rxvt-unicode-256color
+
+URxvt.font: xft:JetBrainsMono Nerd Font:size=15
+URxvt.boldFont: xft:JetBrainsMono Nerd Font:size=15
+URxvt.letterSpace : -2
+
+! hide scrollbar
+URxvt.scrollBar: false
+
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! Scrollback buffer in secondary screen
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.secondaryWheel: 1
+
+! Clipboard
+URxvt.perl-ext-common: default,selection-to-clipboard,resize-font
+URxvt.clipboard.autocopy: true  ! sync primary and clipboard buffers
+
+! Resize font
+URxvt.keysym.C-minus:resize-font:smaller
+URxvt.keysym.C-equal:resize-font:bigger
+URxvt.keysym.C-0:resize-font:reset
