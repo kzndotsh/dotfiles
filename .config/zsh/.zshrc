@@ -89,7 +89,7 @@ export EDITOR='micro'
 # export MANPAGER='bat'
 # export MANROFFOPT="-c"
 export PAGER='less'
-export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
+# export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
 export LESS='-R '
 export READER='zathura'
 export FILE='pcmanfm'
@@ -100,14 +100,15 @@ eval $(dircolors "$XDG_CONFIG_HOME"/dircolors)
 # export TERM=rxvt-unicode-256color
 export TERM=xterm-256color
 export MICRO_TRUECOLOR=1
+export COLORTERM=truecolor
 export CLICOLOR=1
-# export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
-# export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
-# export LESS_TERMCAP_me=$(printf '\e[0m')     # turn off all appearance modes (mb, md, so, us)
-# export LESS_TERMCAP_se=$(printf '\e[0m')     # leave standout mode
-# export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
-# export LESS_TERMCAP_ue=$(printf '\e[0m')     # leave underline mode
-# export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
+export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
+export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
+export LESS_TERMCAP_me=$(printf '\e[0m')     # turn off all appearance modes (mb, md, so, us)
+export LESS_TERMCAP_se=$(printf '\e[0m')     # leave standout mode
+export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
+export LESS_TERMCAP_ue=$(printf '\e[0m')     # leave underline mode
+export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
 # Fix java apps for non-re-parenting window managers (like sway)
 # export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -205,18 +206,7 @@ source /usr/share/fzf/completion.zsh
 # git-extras
 source /usr/share/doc/git-extras/git-extras-completion.zsh
 
-########## SSH/GPG STUFF
-
-# if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    # ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
-# fi
-# if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
-    # source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-# fi
-
-# gpg (for Github)
-# export GPG_TTY="$(tty)"
-
+# ssh-agent
 eval $(keychain --dir "$XDG_RUNTIME_DIR"/keychain --eval --quiet id_ed25519 id_rsa )
 
 ########## ALIASES 

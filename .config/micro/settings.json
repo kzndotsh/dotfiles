@@ -1,3 +1,7 @@
 {
-    "colorscheme": "catppuccin-mocha"
+    "clipboard": "terminal",
+    "colorscheme": "catppuccin-mocha",
+    "diffgutter": true,
+    "mkparents": true,
+    "xterm": true
 }

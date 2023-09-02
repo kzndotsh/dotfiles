@@ -4,3 +4,4 @@
 .icons/default
 .config/tmux/plugins/
 walls/
+.config/ranger/plugins/
