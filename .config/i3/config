@@ -32,7 +32,6 @@ workspace $ws8 output $mon1
 workspace $ws9 output $mon2
 workspace $ws10 output $mon2
 
-
 # Reload i3 configuration file
 bindsym $mod+Shift+c 						reload
 
@@ -42,31 +41,34 @@ bindsym $mod+Shift+r 						restart
 # Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e 						exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-
 ########## I3 UI
 
 # Define fonts
-font pango:JetBrainsMono Nerd Font 12
+# font pango:Inter Nerd Font Bold 12
+# font pango:Symbols Nerd Font Regular 8
+# font pango:Font Awesome 8
 font pango:JetBrainsMono Nerd Font Mono 12
 
 # Define colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #ffffff #1a1b26 #F0C674 #ffffff   #ffffff
+client.focused          #ffffff #1a1b26 #ffffff #ffffff   #ffffff
 client.focused_inactive #ffffff #1a1b26 #ffffff #ffffff   #ffffff
-client.unfocused        #ffffff #1a1b26 #A54242 #ffffff   #ffffff
+client.unfocused        #ffffff #1a1b26 #ffffff #ffffff   #ffffff
 client.urgent           #ffffff #1a1b26 #ffffff #ffffff   #ffffff
 client.placeholder      #ffffff #1a1b26 #ffffff #ffffff   #ffffff
 client.background       #ffffff
 
 # Disable titles, gaps and borders
 gaps inner 8
-gaps outer 4
+gaps outer 2
 smart_gaps off
 # smart_borders on
 # hide_edge_borders none
-# default_border pixel 1
-# default_floating_border pixel 1
+default_border pixel 0
+default_floating_border pixel 0
 for_window [class="^.*"] border pixel 1
+
+for_window [all] title_window_icon padding 0px
 
 ########### I3 TILING
 
@@ -145,12 +147,6 @@ bindsym $mod+Shift+Tab          			workspace next
 bindsym $mod+Control+Left 					workspace prev
 bindsym $mod+Control+Right 					workspace next
 
-
-# exec -> On start-up
-# exec_always -> On start-up and reload
-
-
-
 ########## ROFI
 
 # Rofi - Emoji Picker
@@ -162,9 +158,7 @@ bindsym $mod+d exec ~/dotfiles/.config/rofi/scripts/launcher_t7
 # Rofi - Power Menu
 bindsym Ctrl+$mod+Delete 					exec --no-startup-id ~/dotfiles/.config/rofi/powermenu/type-4/powermenu.sh
 
-
 ########## DESKTOP ENVIRONMENT
-
 # Feh - Set desktop wallpaper
 # exec_always --no-startup-id feh --bg-fill ~/.wallpaper.jpg
 
@@ -172,7 +166,6 @@ bindsym Ctrl+$mod+Delete 					exec --no-startup-id ~/dotfiles/.config/rofi/power
 bindsym $mod+Shift+n exec ~/scripts/delete-wallpaper.sh
 # Ranomdize wallpaper
 bindsym $mod+Shift+s exec ~/scripts/wallpaper-changer.sh
-
 
 # Polybar - Start polybar
 exec_always --no-startup-id ~/dotfiles/.config/polybar/start-polybar.sh
@@ -184,51 +177,30 @@ exec_always --no-startup-id autotiling
 exec_always --no-startup-id nm-applet
 
 exec --no-startup-id dex --autostart --environment i3
-
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 ########## DISPLAY
 
 # Start picom compositor
 exec_always --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
 
-
 # Disable automatic monitor power saving
 # exec --no-startup-id xset dpms 0 0 0
-
 # Disable screensaver
 # exec --no-startup-id xset s off
-
 # Disable DPMS from X entirely
 # exec --no-startup-id xset -dpms
 
 # Ensure display is set to 165hz
-# exec --no-startup-id xrandr --output DisplayPort-0 --mode 1920x1080 --rate 165
-
+exec --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 165
 
 ########### MISC
-
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id /usr/lib/gsd-xsettings
 
-
-
 # Screenshot binds
-# bindsym Ctrl+Print exec --no-startup-id maim "/home/kaizen/screenshots/$(date).png"
-# bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/kaizen/screenshots/$(date).png"
-# bindsym Ctrl+Shift+Print exec --no-startup-id maim --select "/home/kaizen/screenshots/$(date).png"
-# bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
-# bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-# bindsym Ctrl+Shift+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-# bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
-
-# bindsym $mod+Shift+s --release exec flameshot gui
-
-
-
-# exec -> On start-up
-# exec_always -> On start-up and reload
+bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
 
 # Alacritty - Start a terminal instance
 bindsym $mod+Return exec alacritty
@@ -239,9 +211,7 @@ exec --no-startup-id /home/kaizen/scripts/dropdown-terminal.sh start
 # Alacritty - Display dropdown terminal toggle
 bindsym Ctrl+Shift+t 						exec --no-startup-id ~/dotfiles/scripts/dropdown-terminal.sh toggle
 
-
 ########### I3 WINDOW RULES
-
 # # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 # for_window [class="^Steam$" title="^Friends$"] floating enable
 # for_window [class="^Steam$" title="Steam - News"] floating enable

@@ -207,6 +207,7 @@ source /usr/share/fzf/completion.zsh
 source /usr/share/doc/git-extras/git-extras-completion.zsh
 
 # ssh-agent
+[ ! -d "$XDG_RUNTIME_DIR/keychain" ] && mkdir "$XDG_RUNTIME_DIR/keychain"
 eval $(keychain --dir "$XDG_RUNTIME_DIR"/keychain --eval --quiet id_ed25519 id_rsa )
 
 ########## ALIASES 
