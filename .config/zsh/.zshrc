@@ -27,16 +27,19 @@ setopt sharehistory      # Share history across terminals
 setopt incappendhistory  # Immediately append to the history file, not just
 
 ##### GTK EXPORTS
-# export GTK_THEME=TokyoNight
-# export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
+export ICON_THEME=TokyoNight
+export GTK_THEME=TokyoNight
+export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 # export GDK_BACKEND=x11
-# export GTK_CSD=0 # titlebars
+export GTK_CSD=0 # titlebars
 export GTK_USE_PORTAL=1
-export QT_SCREEN_SCALE_FACTORS=1.75
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCREEN_SCALE_FACTORS=1
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+export QT_ENABLE_HIGHDPI_SCALING=1
+export GDK_SCALE=1
 export GDK_CORE_DEVICE_EVENTS=1
-export QT_QPA_PLATFORMTHEME='gtk3'
+export QT_QPA_PLATFORMTHEME='qt5ct'
 
 ###### DEVELOPMENT EXPORTS
 
@@ -83,7 +86,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 ########## TOOLS
-export BROWSER='firefox'
+export BROWSER='firefoxdeveloperedition'
 export TERMINAL='alacritty'
 export EDITOR='micro'
 # export MANPAGER='bat'

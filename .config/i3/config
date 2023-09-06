@@ -157,6 +157,9 @@ bindsym $mod+d exec ~/dotfiles/.config/rofi/scripts/launcher_t7
 # Rofi - Power Menu
 bindsym Ctrl+$mod+Delete 					exec --no-startup-id ~/dotfiles/.config/rofi/powermenu/type-4/powermenu.sh
 
+# Rofi - Calc
+bindsym Ctrl+Shift+C exec rofi --no-startup-idrofi -show calc -modi calc -no-show-match -no-sort -show calc -modi calc -no-show-match -no-sort
+
 ########## DESKTOP ENVIRONMENT
 # Feh - Set desktop wallpaper
 # exec_always --no-startup-id feh --bg-fill ~/.wallpaper.jpg
