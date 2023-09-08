@@ -66,7 +66,6 @@ smart_gaps off
 default_border pixel 0
 default_floating_border pixel 0
 for_window [class="^.*"] border pixel 1
-
 for_window [all] title_window_icon padding 0px
 
 ########### I3 TILING
@@ -159,6 +158,10 @@ bindsym Ctrl+$mod+Delete 					exec --no-startup-id ~/dotfiles/.config/rofi/power
 
 # Rofi - Calc
 bindsym Ctrl+Shift+C exec rofi --no-startup-idrofi -show calc -modi calc -no-show-match -no-sort -show calc -modi calc -no-show-match -no-sort
+
+# Rofi - Clipboard
+exec --no-startup-id greenclip daemon>/dev/null
+bindsym Ctrl+Shift+H exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 ########## DESKTOP ENVIRONMENT
 # Feh - Set desktop wallpaper

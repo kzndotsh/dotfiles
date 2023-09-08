@@ -195,6 +195,8 @@ zmodload zsh/complist
 [ ! -d "$XDG_CACHE_HOME/zsh" ] && mkdir "$XDG_CACHE_HOME/zsh"
 compinit -d $XDG_CACHE_HOME/zsh/zcompdump
 
+fpath=(~/dotfiles/.config/zsh/functions/ $fpath)
+
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 # nvm
