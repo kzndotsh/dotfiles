@@ -5,3 +5,5 @@
 .config/tmux/plugins/
 walls/
 .config/ranger/plugins/
+.config/zsh/.zcompdump-arch-5.9
+.config/zsh/.zcompdump-arch-5.9.zwc
