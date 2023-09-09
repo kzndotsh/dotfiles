@@ -189,27 +189,20 @@ plugins=(git gh extract git-extras virtualenv virtualenvwrapper z tmux transfer 
 source $ZSH/oh-my-zsh.sh
 
 ########## COMPLETIONS
-autoload -Uz compinit
+fpath+="~/dotfiles/.config/zsh/.zfunc"
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
 zmodload zsh/complist
 [ ! -d "$XDG_CACHE_HOME/zsh" ] && mkdir "$XDG_CACHE_HOME/zsh"
-compinit -d $XDG_CACHE_HOME/zsh/zcompdump
-
-fpath=(~/dotfiles/.config/zsh/functions/ $fpath)
-
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
-
-# nvm
+source /usr/share/doc/find-the-command/ftc.zsh
 source /usr/share/nvm/nvm.sh
 source /usr/share/nvm/bash_completion
 source /usr/share/nvm/install-nvm-exec
-
-# fzf
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
-
-# git-extras
 source /usr/share/doc/git-extras/git-extras-completion.zsh
+autoload -Uz compinit
+compinit -d $XDG_CACHE_HOME/zsh/zcompdump
 
 # ssh-agent
 [ ! -d "$XDG_RUNTIME_DIR/keychain" ] && mkdir "$XDG_RUNTIME_DIR/keychain"

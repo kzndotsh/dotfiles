@@ -61,6 +61,7 @@ feh
 ffmpeg4.4
 ffmpegthumbnailer
 file-roller
+find-the-command
 firefox-developer-edition
 firmware-manager
 flameshot
@@ -118,6 +119,7 @@ libcaca
 linux
 linux-firmware
 linux-headers
+linux-tools-meta
 linux-zen
 linux-zen-headers
 linuxconsole
@@ -165,6 +167,8 @@ nvtop
 obs-studio
 openssh
 pacman-contrib
+pacman-log-orphans-hook
+pacutils
 pastel
 pavucontrol
 pcmanfm
@@ -172,6 +176,8 @@ peek
 picom
 pipewire-alsa
 pipewire-pulse
+pkgdiff
+pkgfile
 playerctl
 polkit-gnome
 polybar
