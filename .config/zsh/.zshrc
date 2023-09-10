@@ -105,6 +105,7 @@ export TERM=xterm-256color
 export MICRO_TRUECOLOR=1
 export COLORTERM=truecolor
 export CLICOLOR=1
+
 export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
 export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
 export LESS_TERMCAP_me=$(printf '\e[0m')     # turn off all appearance modes (mb, md, so, us)
@@ -185,15 +186,19 @@ ZSH_HIGHLIGHT_STYLES[cursor]='fg=#c0caf5'
 
 ##### OMZ PLUGINS
 plugins=(git gh extract git-extras virtualenv virtualenvwrapper z tmux transfer npm nvm safe-paste sudo last-working-dir magic-enter fd fzf archlinux command-not-found copybuffer copyfile copypath dirhistory direnv)
+
 ##### OMZ SOURCE
 source $ZSH/oh-my-zsh.sh
 
 ########## COMPLETIONS
 fpath+="~/dotfiles/.config/zsh/.zfunc"
+
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
 zmodload zsh/complist
+
 [ ! -d "$XDG_CACHE_HOME/zsh" ] && mkdir "$XDG_CACHE_HOME/zsh"
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
 source /usr/share/doc/find-the-command/ftc.zsh
 source /usr/share/nvm/nvm.sh
 source /usr/share/nvm/bash_completion
@@ -201,6 +206,7 @@ source /usr/share/nvm/install-nvm-exec
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 source /usr/share/doc/git-extras/git-extras-completion.zsh
+
 autoload -Uz compinit
 compinit -d $XDG_CACHE_HOME/zsh/zcompdump
 
@@ -219,23 +225,28 @@ alias flattendir='find . -mindepth 2 -type f -print -exec mv {} . \;'
 alias emptydirs='find . -type d -empty -delete'
 alias count='ls | wc -l'
 alias dotfiles='~/dotfiles'
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias tree="tree -C"
 alias diff="diff --color"
+
 # Packages I Installed
 alias pii="comm -23 <(pacman -Qqett | sort) <(pacman -Qqg base -g base-devel | sort | uniq)"
+
 # Some tmux aliases
 alias tl='tmux list-sessions'
 alias tk="tmux kill-session -t tmux list-sessions | fzf | cut -d ':' -f1"
 alias td='tmux detach'
+
 # Some git aliases
 alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
 alias gs="git status"
 alias gd="git diff"
+
 # Prints your command history
 alias h="history"
 # Use grep to search your command history
@@ -244,13 +255,16 @@ alias hs="history | grep"
 alias hsi="history | grep -i" 	
 # Display PATH with each entry per line
 alias path="print -l $path"
+
 # [J]ust [P]ush
 # Sometimes I just need to push the code and dont care about the commit message
 alias jp="git add . && git commit -m \"$(date)\" && git push"
+
 alias cp="cp --interactive --verbose"
 alias mv="mv --interactive --verbose"
 alias rm="rm --verbose"
 alias mkdir="mkdir -pv"
+
 # Exa wrapper
 if command -v exa >/dev/null; then
     alias ls="~/scripts/exa-wrapper.sh"
@@ -286,4 +300,3 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ########## STARSHIP PROMPT
 eval "$(starship init zsh)"
-

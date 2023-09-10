@@ -63,13 +63,11 @@ ffmpegthumbnailer
 file-roller
 find-the-command
 firefox-developer-edition
-firmware-manager
 flameshot
 flatpak
 flatpak-xdg-utils
 flatseal
 font-manager
-fwupd
 gdu
 giggle
 git
@@ -110,6 +108,7 @@ jake
 jdk8-openjdk
 jenv
 jetring
+journalwatch
 kakoune
 kernel-modules-hook
 keychain
@@ -125,6 +124,7 @@ linux-zen-headers
 linuxconsole
 logiops
 logrotate
+logwatch
 lostfiles
 lsof
 lsp-plugins-lv2
@@ -181,6 +181,7 @@ pkgfile
 playerctl
 polkit-gnome
 polybar
+power-profiles-daemon
 powerline
 powerline-fonts
 preload
@@ -193,6 +194,7 @@ python-pyqt5-webengine
 python-virtualenv
 python-virtualenvwrapper
 python-yaml
+qjournalctl
 qpwgraph
 qt5ct
 qtcurve-qt5
@@ -200,6 +202,7 @@ radeontop
 ranger
 ranger_devicons-git
 rbenv
+realtime-privileges
 rofi
 rofi-calc
 rofi-greenclip
@@ -221,7 +224,6 @@ stow
 systemd-ui
 terminus-font
 testdisk
-thermald
 thunar
 timeshift
 tmux
