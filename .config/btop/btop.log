@@ -16,3 +16,9 @@ btop++ needs an interactive shell to run.
 2023/07/11 (12:56:29) | ===> btop++ v.1.2.13
 2023/07/11 (12:56:29) | ERROR: No tty detected!
 btop++ needs an interactive shell to run.
+
+2023/09/10 (04:56:30) | ===> btop++ v.1.2.13
+2023/09/10 (04:56:30) | INFO: Logger set to INFO
+2023/09/10 (04:56:31) | INFO: Logger set to DEBUG
+2023/09/10 (04:56:31) | INFO: Logger set to INFO
+2023/09/10 (04:56:32) | INFO: Logger set to DEBUG

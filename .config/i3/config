@@ -181,7 +181,9 @@ exec_always --no-startup-id autotiling
 # Start NetworkManager systray applet
 exec_always --no-startup-id nm-applet
 
-exec --no-startup-id dex --autostart --environment i3
+exec_always --no-startup-id pasystray
+
+# exec --no-startup-id dex --autostart --environment i3
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 ########## DISPLAY
