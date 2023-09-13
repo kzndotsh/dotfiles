@@ -191,15 +191,6 @@ exec_always --no-startup-id pasystray
 # Start picom compositor
 exec_always --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
 
-# Disable automatic monitor power saving
-exec --no-startup-id xset dpms 0 0 0
-# Disable screensaver
-exec --no-startup-id xset s off
-# Disable DPMS from X entirely
-exec --no-startup-id xset -dpms
-
-# Ensure display is set to 165hz
-exec --no-startup-id xrandr --output DisplayPort-2 --mode 1920x1080 --rate 165
 
 ########### MISC
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

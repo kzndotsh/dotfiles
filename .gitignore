@@ -8,3 +8,4 @@ walls/
 .config/zsh/.zcompdump-arch-5.9
 .config/zsh/.zcompdump-arch-5.9.zwc
 .config/terminator/plugins/__pycache__
+.config/zsh/plugins/

@@ -2,7 +2,7 @@
 
 ## Change following to '0' for output to be like ls and '1' for exa features
 # Don't list implied . and .. by default with -a
-dot=0
+dot=1
 # Show human readable file sizes by default
 hru=1
 # Show file sizes in decimal (1KB=1000 bytes) as opposed to binary units (1KiB=1024 bytes)
@@ -14,11 +14,11 @@ lnk=0
 # Show file git status automatically (can cause a slight delay in large repo trees)
 git=1
 # Show icons
-ico=0
+ico=1
 # Show column headers
-hed=0
+hed=1
 # Group directories first in long listing by default
-gpd=0
+gpd=1
 # Colour always even when piping (can be disabled with -N switch when not wanted)
 col=1
 
@@ -63,7 +63,7 @@ EOF
 
 [[ "$*" =~ --help ]] && help
 
-exa_opts=()
+exa_opts=(-o)
 
 while getopts ':aAbtuUSI:rkhnsXL:MNg1lFGRdDioTx@' arg; do
   case $arg in
