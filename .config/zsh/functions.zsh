@@ -42,3 +42,37 @@ function copyfile {
   emulate -L zsh
   clipcopy $1
 }
+
+
+# Repo creation helper
+
+# function create-repo() {
+# 	# Get user input
+# 	echo "Enter name for new repo"
+# 	read REPONAME
+# 	echo "Do you want to make it private? (y/n)"
+# 	read -r -n PRIVATE_ANSWER
+# 
+# 	if [[ "$PRIVATE_ANSWER" =~ ^[Yy]$ ]]; then
+# 		PRIVATE_TF=true
+# 	else
+# 		PRIVATE_TF=false
+# 	fi
+# 
+# 	# Curl some json to the github API oh damn we so fancy
+# 	curl -u gretzky https://api.github.com/user/repos -d "{\"name\": \"$REPONAME\", \"private\": $PRIVATE_TF}" >/dev/null
+# 
+# 	# first commit
+# 	git init 1>/dev/null
+# 	gi macos,visualstudiocode >>.gitignore 1>/dev/null
+# 	print_success ".gitignore added"
+# 	git add . 1>/dev/null
+# 	git commit -m "initial commit" 1>/dev/null
+# 	print_success "initial commit"
+# 	git remote add origin https://github.com/gretzky/$REPONAME.git 1>/dev/null
+# 	git push -u origin master --force 1>/dev/null
+# 
+# 	sleep 0.5
+# 	print_success "\nRepo created"
+# 	print_in_cyan "You can view your new repo at https://github.com/gretzky/$REPONAME.git"
+# }

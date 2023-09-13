@@ -9,7 +9,7 @@ alias edit-zsh='"$EDITOR" "$DOTFILES"/.config/zsh/.zshrc'
 alias nano='micro'
 alias cat='bat'
 alias man='batman'
-# alias grep='batgrep'
+alias grep='batgrep'
 
 # Some useful one liners
 alias emptydirs='find . -type d -empty -delete'
@@ -66,6 +66,15 @@ alias gp="git push"
 alias gs="git status"
 alias gd="git diff"
 
+# Lazy
+alias md="mkdir"
+alias t="touch"
+alias x="exit"
+alias c="clear"
+# alias o="xdg-open"
+alias x+="chmod +x"
+alias get="curl -O -L"
+
 # WIP:
 alias shutdown='sudo shutdown now'
 alias restart='sudo reboot'
@@ -73,12 +82,26 @@ alias suspend='sudo pm-suspend'
 alias audio-reset="puleaudio -k && sudo alsa force-reload && pulseaudio --start"
 
 # Command line head / tail shortcuts
-alias -g H='| head'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g L="| less"
-alias -g M="| most"
-alias -g LL="2>&1 | less"
-alias -g CA="2>&1 | cat -A"
-alias -g NE="2> /dev/null"
-alias -g NUL="> /dev/null 2>&1"
+# alias -g H='| head'
+# alias -g T='| tail'
+# alias -g G='| grep'
+# alias -g L="| less"
+# alias -g M="| most"
+# alias -g LL="2>&1 | less"
+# alias -g CA="2>&1 | cat -A"
+# alias -g NE="2> /dev/null"
+# alias -g NUL="> /dev/null 2>&1"
+
+
+
+# commonly used dirs
+
+# alias dev="cd ~/dev"
+# alias work="cd ~/dev/work"
+# alias desk="cd ~/desktop"
+# alias docs="cd ~/documents"
+# alias dl="cd ~/downloads"
+# alias home="cd ~"
+# alias dots="cd ~/dotfiles"
+# alias dotfiles="cd ~/dotfiles"
+

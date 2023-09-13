@@ -24,6 +24,7 @@ bind
 bleachbit
 bluez
 booster
+boxes
 brave-bin
 btop
 catimg
@@ -61,6 +62,7 @@ eza
 feh
 ffmpeg4.4
 ffmpegthumbnailer
+figlet
 file-roller
 find-the-command
 firefox-developer-edition
@@ -74,6 +76,7 @@ giggle
 git
 git-delta
 git-extras
+git-grab
 git-lfs
 github-cli
 gitui
