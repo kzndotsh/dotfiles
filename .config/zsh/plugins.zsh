@@ -32,3 +32,7 @@
 
 source "$ZDOTDIR"/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source "$ZDOTDIR"/plugins/zsh-alias-tips/alias-tips.plugin.zsh
+
+
+# TBD:
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git-commit/git-commit.plugin.zsh
