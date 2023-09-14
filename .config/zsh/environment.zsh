@@ -89,6 +89,7 @@ path+=(
 # Function Paths
 fpath+=(
   "$DOTFILES"/.config/zsh/functions
+  # "$DOTFILES"/.config/zsh/functions.zsh
   /usr/local/share/zsh/site-functions
   /usr/share/zsh/site-functions
   $fpath

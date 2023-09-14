@@ -29,3 +29,6 @@
 # source $ZSH/oh-my-zsh.sh
 
 # source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+source "$ZDOTDIR"/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source "$ZDOTDIR"/plugins/zsh-alias-tips/alias-tips.plugin.zsh

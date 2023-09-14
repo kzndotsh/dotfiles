@@ -40,4 +40,3 @@ mkdir -p "$XDG_CACHE_HOME/zsh"
 
 # Ensure history directory and file exist for zsh
 mkdir -p "$XDG_STATE_HOME/zsh"
-touch "$XDG_CACHE_HOME/zsh/history"
