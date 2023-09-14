@@ -157,6 +157,8 @@ menutray
 mesa-utils
 meson
 micro
+mitmproxy
+mitmproxy2swagger
 mkinitcpio-firmware
 mkinitcpio-systemd-tool
 mlocate

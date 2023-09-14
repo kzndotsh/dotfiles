@@ -15,7 +15,7 @@ source "${0:h}"/completions.zsh
 source "${0:h}"/history.zsh
 source "${0:h}"/directories.zsh
 source "${0:h}"/aliases.zsh
-# source "${0:h}/utility.zsh
+# source "${0:h}"/utility.zsh
 source "${0:h}"/plugins.zsh
 source "${0:h}"/functions.zsh
 source "${0:h}"/misc.zsh
