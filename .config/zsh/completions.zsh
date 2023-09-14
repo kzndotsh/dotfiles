@@ -68,7 +68,7 @@ zstyle ':completion:*' verbose yes
 #zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # https://goo.gl/QwQgwN
 # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-1
+
 # fuzzy match mistyped completions
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
