@@ -1,14 +1,20 @@
-# prompt.zsh
+## prompt.zsh
 
+## Custom prompts
 path+="$ZDOTDIR"/prompts
 
-# autoload -Uz promptinit; promptinit
-
+## P10k prompt
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Starship prompt
-if [[ $(command -v starship) ]]; then
-  eval "$(starship init zsh)"
-else
-  echo "No prompt not installed"
-fi
+## Pure prompt
+fpath+=($ZDOTDIR/prompts/pure)
+autoload -Uz promptinit; promptinit
+prompt pure
+zstyle :prompt:pure:git:stash show yes
+
+## Starship prompt
+# if [[ $(command -v starship) ]]; then
+#   eval "$(starship init zsh)"
+# else
+#   echo "No prompt not installed"
+# fi
