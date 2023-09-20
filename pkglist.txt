@@ -18,6 +18,7 @@ autotiling
 awesome-terminal-fonts
 base
 base-devel
+bash-completion-git
 bashtop
 bat
 bat-extras
@@ -69,6 +70,7 @@ figlet
 file-roller
 find-the-command
 firefox-developer-edition
+fish
 flameshot
 flatpak
 flatpak-xdg-utils
@@ -174,6 +176,7 @@ mkinitcpio-systemd-tool
 mlocate
 modprobed-db
 moreutils
+most
 mvnvm
 nano
 navi

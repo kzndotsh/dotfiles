@@ -56,6 +56,9 @@ export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 export LEDGER_FILE="$XDG_DATA_HOME"/hledger.journal
 export WAKATIME_HOME="$XDG_CONFIG_HOME"/wakatime
 export _Z_DATA="$XDG_DATA_HOME"/z
+export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
+export CABAL_DIR="$XDG_DATA_HOME"/cabal
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 
 typeset -Ug path PATH cdpath CDPATH fpath FPATH manpath MANPATH mailpath MAILPATH infopath INFOPATH
 

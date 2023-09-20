@@ -80,6 +80,12 @@ alias restart='sudo reboot'
 alias suspend='sudo pm-suspend'
 alias audio-reset="puleaudio -k && sudo alsa force-reload && pulseaudio --start"
 
+# XDG Fixes
+alias yarn='yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config'
+alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
+
+
+
 # Command line head / tail shortcuts
 # alias -g H='| head'
 # alias -g T='| tail'
