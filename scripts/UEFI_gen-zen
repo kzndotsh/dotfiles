@@ -1,0 +1,5 @@
+#!/bin/bash
+efibootmgr --disk /dev/nvme1n1 --part 1 --create --label "Arch Linux (linux-zen)-Fallback" --loader /vmlinuz-linux-zen --unicode 'root=UUID=2e0708e4-5405-4a1e-aeba-30a234e455ce resume=UUID= rw initrd=\amd-ucode.img initrd=\initramfs-linux-zen-fallback.img'
+efibootmgr --disk /dev/nvme1n1 --part 1 --create --label "Arch Linux (linux-zen)" --loader /vmlinuz-linux-zen --unicode 'root=UUID=2e0708e4-5405-4a1e-aeba-30a234e455ce resume=UUID= rw initrd=\amd-ucode.img initrd=\initramfs-linux-zen.img'
+exit 0
+# See man efibootmgr

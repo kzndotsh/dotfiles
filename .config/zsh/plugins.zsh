@@ -28,10 +28,10 @@
 # plugins=(git gh extract git-extras virtualenv virtualenvwrapper z tmux transfer npm nvm safe-paste sudo last-working-dir magic-enter fd fzf archlinux command-not-found copybuffer copyfile copypath dirhistory direnv)
 # source $ZSH/oh-my-zsh.sh
 
-# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source "$ZDOTDIR"/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source "$ZDOTDIR"/plugins/zsh-alias-tips/alias-tips.plugin.zsh
+source "$ZDOTDIR"/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh   
 
 
 # TBD:

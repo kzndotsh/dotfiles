@@ -57,14 +57,14 @@ client.urgent           #ffffff #1a1b26 #ffffff #ffffff   #ffffff
 client.placeholder      #ffffff #1a1b26 #ffffff #ffffff   #ffffff
 client.background       #ffffff
 
-# Disable titles, gaps and borders
-gaps inner 8
-gaps outer 2
-smart_gaps off
 # smart_borders on
 # hide_edge_borders none
+smart_gaps off
+gaps inner 0
+gaps outer 0
 default_border pixel 0
 default_floating_border pixel 0
+
 for_window [class="^.*"] border pixel 1
 for_window [all] title_window_icon padding 0px
 
@@ -179,18 +179,19 @@ exec_always --no-startup-id ~/dotfiles/.config/polybar/start-polybar.sh
 exec_always --no-startup-id autotiling
 
 # Start NetworkManager systray applet
-exec_always --no-startup-id nm-applet
+exec --no-startup-id nm-applet &
+# Start Pulse Audio systray applet
+exec --no-startup-id pasystray &
 
-exec_always --no-startup-id pasystray
+# Start emacs daemon
+# exec emacs --daemon &
 
 # exec --no-startup-id dex --autostart --environment i3
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 ########## DISPLAY
-
 # Start picom compositor
 exec_always --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
-
 
 ########### MISC
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

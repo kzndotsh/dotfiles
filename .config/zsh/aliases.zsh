@@ -7,9 +7,9 @@ alias edit-zsh='"$EDITOR" "$DOTFILES"/.config/zsh/.zshrc'
 
 # Replacing tools with better ones
 alias nano='micro'
-alias cat='bat'
-alias man='batman'
-alias grep='batgrep'
+# alias cat='bat'
+# alias man='batman'
+# alias grep='batgrep'
 
 # Some useful one liners
 alias emptydirs='find . -type d -empty -delete'

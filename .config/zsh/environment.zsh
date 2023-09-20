@@ -35,6 +35,7 @@ export PNPM_HOME="$XDG_DATA_HOME"/pnpm
 export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
 export PYTHON_EGG_CACHE="$XDG_CACHE_HOME"/python-eggs
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
+export GRAB_HOME="$HOME"/repos
 
 # MISC
 export TERM="xterm-256color"
@@ -64,10 +65,12 @@ path+=(
   /usr/sbin
   /usr/local/bin
   /usr/bin
+  "$HOME"/scripts
   "$HOME"/bin
   "$HOME"/.bin
   "$HOME"/.local/bin
   "$HOME"/.local/share/JetBrains/Toolbox/bin
+  "$HOME"/.config/emacs/bin
 )
 
 # Flatpak Paths

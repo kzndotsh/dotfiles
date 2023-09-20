@@ -13,6 +13,7 @@ archlinux-xdg-menu
 aspell
 atool
 atop
+autopep8
 autotiling
 awesome-terminal-fonts
 base
@@ -23,7 +24,6 @@ bat-extras
 bind
 bleachbit
 bluez
-booster
 boxes
 brave-bin
 btop
@@ -53,12 +53,15 @@ dunst
 dust
 efibootmgr
 element-desktop
+emacs
 eog
 eog-plugins
 etckeeper
 expressvpn-gui
 extundelete
 eza
+fastfetch
+fd
 feh
 ffmpeg4.4
 ffmpegthumbnailer
@@ -71,6 +74,7 @@ flatpak
 flatpak-xdg-utils
 flatseal
 font-manager
+fwupd
 gdu
 giggle
 git
@@ -88,6 +92,7 @@ gnome-tweaks
 gotop
 gparted
 gpgkeymgr
+gron
 gspell
 gtk-chtheme
 gtk-engine-murrine
@@ -95,22 +100,26 @@ gtk-engines
 gtk2-perl
 gtkspell
 gtop
+guake
 gvfs
 handlr
 helix
 highlight
 htop
 httpie
+hwdetect
 i2c-tools
 i3-wm
 i3blocks
 i3lock
 i3status
 imagemagick
+inetutils
 inxi
 iotop
 iptables-nft
 irqbalance
+ispell
 iwd
 jack2-dbus
 jake
@@ -119,7 +128,9 @@ jdk8-openjdk
 jenv
 jetring
 jless
+jo
 journalwatch
+jshon
 kakoune
 keychain
 kitty
@@ -132,8 +143,6 @@ libudev0-shim
 linux
 linux-firmware
 linux-headers
-linux-lts
-linux-lts-headers
 linux-zen
 linux-zen-headers
 linuxconsole
@@ -142,6 +151,7 @@ logrotate
 logwatch
 lolcat
 lostfiles
+lshw
 lsof
 lxappearance
 ly
@@ -175,6 +185,10 @@ net-tools
 network-manager-applet
 networkmanager
 ninja
+nix
+nix-docs
+nixfmt
+nixpkgs-fmt
 notion-app
 noto-fonts
 noto-fonts-cjk
@@ -207,6 +221,7 @@ pulseaudio
 pulseaudio-alsa
 pulsemixer
 pyenv
+python-black
 python-pipx
 python-psutil
 python-pyaml
@@ -223,6 +238,7 @@ ranger
 ranger_devicons-git
 rbenv
 realtime-privileges
+reflector
 rofi
 rofi-calc
 rofi-greenclip
@@ -236,6 +252,7 @@ sassc
 sbxkb
 scrot
 secure-delete
+semi
 shellcheck
 shellharden
 shfmt
@@ -243,6 +260,7 @@ smartmontools
 sndio
 sof-firmware
 spotify
+sshfs
 st
 starship
 stow

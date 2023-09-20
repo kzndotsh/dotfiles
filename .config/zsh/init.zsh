@@ -10,7 +10,7 @@ autoload -Uz compinit && compinit -i -d "$XDG_CACHE_HOME"/zsh/zcompdump
 # source "${0:h}/helper.zsh"
 source "${0:h}"/environment.zsh
 # source "${0:h}/terminal.zsh
-# source "${0:h}/keyboard.zsh
+source "${0:h}"/keyboard.zsh
 source "${0:h}"/completions.zsh
 source "${0:h}"/history.zsh
 source "${0:h}"/directories.zsh
