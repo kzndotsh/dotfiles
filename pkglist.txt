@@ -38,6 +38,7 @@ ckb-next
 clean
 cloc
 cmatrix
+composer
 crash
 cronie
 dbus-broker
@@ -160,6 +161,7 @@ lostfiles
 lsdesktopf
 lshw
 lsof
+luarocks
 lxappearance
 ly
 maim
@@ -213,6 +215,7 @@ pasystray
 pavucontrol
 pcmanfm
 peek
+php
 picom
 pkgdiff
 pkgfile
@@ -230,6 +233,7 @@ python-black
 python-pipx
 python-psutil
 python-pyaml
+python-pynvim
 python-pyqt5-webengine
 python-virtualenv
 python-virtualenvwrapper
