@@ -4,7 +4,6 @@ amd-ucode
 amdctl
 amdfand
 amdvlk
-anki-qt5
 apple-fonts
 arandr
 arch-install-scripts
@@ -25,6 +24,8 @@ bat-extras
 bind
 bleachbit
 bluez
+booster
+bootconfig
 boxes
 brave-bin
 btop
@@ -40,6 +41,7 @@ cmatrix
 crash
 cronie
 dbus-broker
+dbxtool
 dex
 dfc
 dialog
@@ -50,9 +52,13 @@ dmidecode
 dnsmasq
 docker
 docker-compose
+drawing
 dunst
 dust
 efibootmgr
+efiedit
+efifs
+efitools
 element-desktop
 emacs
 eog
@@ -67,6 +73,7 @@ feh
 ffmpeg4.4
 ffmpegthumbnailer
 figlet
+figma-linux-bin
 file-roller
 find-the-command
 firefox-developer-edition
@@ -74,7 +81,6 @@ fish
 flameshot
 flatpak
 flatpak-xdg-utils
-flatseal
 font-manager
 fwupd
 gdu
@@ -84,6 +90,7 @@ git-delta
 git-extras
 git-grab
 git-lfs
+gitg
 github-cli
 gitui
 glances
@@ -120,7 +127,6 @@ inetutils
 inxi
 iotop
 iptables-nft
-irqbalance
 ispell
 iwd
 jack2-dbus
@@ -133,6 +139,7 @@ jless
 jo
 journalwatch
 jshon
+kak-lsp
 kakoune
 keychain
 kitty
@@ -140,11 +147,8 @@ kmon
 lazydocker
 lazygit
 libcaca
-libguestfs
 libudev0-shim
-linux
 linux-firmware
-linux-headers
 linux-zen
 linux-zen-headers
 linuxconsole
@@ -153,6 +157,7 @@ logrotate
 logwatch
 lolcat
 lostfiles
+lsdesktopf
 lshw
 lsof
 lxappearance
@@ -171,8 +176,6 @@ meson
 micro
 mitmproxy
 mitmproxy2swagger
-mkinitcpio-firmware
-mkinitcpio-systemd-tool
 mlocate
 modprobed-db
 moreutils
@@ -218,7 +221,6 @@ polkit-gnome
 polybar
 powerline
 powerline-fonts
-preload
 profile-sync-daemon
 pulseaudio
 pulseaudio-alsa
@@ -287,9 +289,9 @@ ttf-mac-fonts
 ttf-ms-fonts
 ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
+tty-clock
 udisks2
 ueberzug
-uksmd
 unrar
 unzip
 usbutils
