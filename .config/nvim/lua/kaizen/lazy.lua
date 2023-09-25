@@ -30,6 +30,7 @@ require("lazy").setup {
 					vim.cmd("MasonUpdate")
 				end,
 			},
+
 			{ "williamboman/mason-lspconfig.nvim" },
 
 			-- Autocompletion --
@@ -47,13 +48,94 @@ require("lazy").setup {
 			{ "onsails/lspkind.nvim" },
 		},
 	},
+
 	{ "williamboman/mason.nvim" },
 
 	{"akinsho/toggleterm.nvim", version = "*", config = true},
+
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
 		opts = {},
+	},
+
+	{
+		'stevearc/dressing.nvim',
+		opts = {},
+	},
+
+	    -- Colorizer
+    	{ "NvChad/nvim-colorizer.lua" },
+
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+		}
+	},
+
+	{ "lukas-reineke/indent-blankline.nvim" },
+
+	{ "folke/todo-comments.nvim" },
+
+	{ 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+
+	{
+		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons", -- optional dependency
+		},
+		opts = {
+			-- configurations go here
+		},
+	},
+
+	{ 'andweeb/presence.nvim' },
+
+	{
+		'glepnir/dashboard-nvim',
+		event = 'VimEnter',
+		config = function()
+			require('dashboard').setup {
+				theme = 'hyper',
+				config = {
+					week_header = {
+						enable = true,
+					},
+					shortcut = {
+						{ desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
+						{
+							icon = ' ',
+							icon_hl = '@variable',
+							desc = 'Files',
+							group = 'Label',
+							action = 'Telescope find_files',
+							key = 'f',
+						},
+						{
+							desc = ' Apps',
+							group = 'DiagnosticHint',
+							action = 'Telescope app',
+							key = 'a',
+						},
+						{
+							desc = ' dotfiles',
+							group = 'Number',
+							action = 'Telescope dotfiles',
+							key = 'd',
+						},
+					},
+				},
+
+			}
+		end,
+		dependencies = { {'nvim-tree/nvim-web-devicons'}}
 	}
 }
