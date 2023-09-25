@@ -1,13 +1,13 @@
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system {
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    }
+	vim.fn.system {
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	}
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -51,6 +51,8 @@ require("lazy").setup {
 
 	{ "williamboman/mason.nvim" },
 
+	{'wakatime/vim-wakatime'},
+
 	{"akinsho/toggleterm.nvim", version = "*", config = true},
 
 	{
@@ -60,13 +62,17 @@ require("lazy").setup {
 		opts = {},
 	},
 
+	{ 'nvim-lualine/lualine.nvim' },
+
 	{
 		'stevearc/dressing.nvim',
 		opts = {},
 	},
 
-	    -- Colorizer
-    	{ "NvChad/nvim-colorizer.lua" },
+	{'f-person/git-blame.nvim'},
+
+	-- Colorizer
+	{ "NvChad/nvim-colorizer.lua" },
 
 	{
 		"nvim-neo-tree/neo-tree.nvim",
@@ -96,6 +102,17 @@ require("lazy").setup {
 			-- configurations go here
 		},
 	},
+
+
+	{
+		'altermo/ultimate-autopair.nvim',
+		event={'InsertEnter','CmdlineEnter'},
+		branch='v0.6',
+		opts={
+			--Config goes here
+		},
+	},
+
 
 	{ 'andweeb/presence.nvim' },
 

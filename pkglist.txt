@@ -197,6 +197,7 @@ nix
 nix-docs
 nixfmt
 nixpkgs-fmt
+nnn
 notion-app
 noto-fonts
 noto-fonts-cjk
@@ -323,6 +324,7 @@ xorg-xclipboard
 xorg-xfontsel
 xorg-xinit
 xorg-xinput
+xplr
 xsel
 xsettingsd
 xterm
