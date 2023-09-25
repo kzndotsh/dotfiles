@@ -10,3 +10,4 @@ walls/
 .config/terminator/plugins/__pycache__
 .config/zsh/plugins/
 .config/zsh/prompts/pure/
+.config/emacs/.local/ 

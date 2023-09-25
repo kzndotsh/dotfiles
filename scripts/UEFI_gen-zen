@@ -1,3 +1,0 @@
-#!/bin/bash
-efibootmgr --disk /dev/nvme1n1 --part 1 --create --label "arch" --loader /vmlinuz-linux-zen --unicode 'root=UUID=2e0708e4-5405-4a1e-aeba-30a234e455ce resume=UUID= rw initrd=\amd-ucode.img initrd=\booster-linux-zen.img'
-exit 0
