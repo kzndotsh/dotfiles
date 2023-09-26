@@ -48,6 +48,7 @@ dfc
 dialog
 direnv
 discord
+discord-screenaudio
 dmenu
 dmidecode
 dnsmasq
@@ -64,7 +65,6 @@ element-desktop
 emacs
 eog
 eog-plugins
-etckeeper
 expressvpn-gui
 extundelete
 eza

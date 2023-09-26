@@ -1,53 +1,54 @@
 [user]
-	email = admin@kaizen.wtf
-	name = kaizen
+email = admin@kaizen.wtf
+name = kaizen
 
 [core]
-	editor = micro
-	pager = delta
+editor = nvim
+pager = delta
 
 [merge]
-	tool = meld
+tool = meld
 
 [color]
-	ui = true
-
-[url "ssh://git@github.com/"]
-# insteadOf = https://github.com/
-[url "ssh://git@gitlab.com/"]
-# insteadOf = https://gitlab.com/
-[url "ssh://git@bitbucket.org/"]
-# insteadOf = https://bitbucket.org/
+ui = true
 
 [delta]
-	minus-style                   = syntax "#37222c"
-	minus-non-emph-style          = syntax "#37222c"
-	minus-emph-style              = syntax "#713137"
-	minus-empty-line-marker-style = syntax "#37222c"
-	line-numbers-minus-style      = "#b2555b"
-	plus-style                    = syntax "#20303b"
-	plus-non-emph-style           = syntax "#20303b"
-	plus-emph-style               = syntax "#2c5a66"
-	plus-empty-line-marker-style  = syntax "#20303b"
-	line-numbers-plus-style       = "#266d6a"
-	line-numbers-zero-style       = "#3b4261"
+minus-style                   = syntax "#37222c"
+minus-non-emph-style          = syntax "#37222c"
+minus-emph-style              = syntax "#713137"
+minus-empty-line-marker-style = syntax "#37222c"
+line-numbers-minus-style      = "#b2555b"
+plus-style                    = syntax "#20303b"
+plus-non-emph-style           = syntax "#20303b"
+plus-emph-style               = syntax "#2c5a66"
+plus-empty-line-marker-style  = syntax "#20303b"
+line-numbers-plus-style       = "#266d6a"
+line-numbers-zero-style       = "#3b4261"
+
+[url "ssh://git@github.com/"]
+[url "ssh://git@gitlab.com/"]
+[url "ssh://git@bitbucket.org/"]
 
 [init]
-	defaultBranch = main
+defaultBranch = main
 
 [fetch]
-    prune = true
+prune = true
 
 [commit]
-	verbose = true
+verbose = true
 
 [status]
-	showUntrackedFiles = all
+showUntrackedFiles = all
 
 [help]
-	autocorrect = 1
+autocorrect = 1
+
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+
+[safe]
+directory = /etc

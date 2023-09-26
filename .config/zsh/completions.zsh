@@ -63,6 +63,12 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
+
+# Rehash newly installed commands 
+
+zstyle ':completion:*' rehash true
+
+
 # WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
 # _comp_options+=(globdots) # With hidden files

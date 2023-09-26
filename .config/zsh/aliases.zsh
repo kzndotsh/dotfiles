@@ -19,9 +19,9 @@ alias path='print -l "$PATH"'
 alias pii="comm -23 <(pacman -Qqett | sort) <(pacman -Qqg base -g base-devel | sort | uniq)"
 
 # Color output for some commands
-# alias grep='grep --color=auto'
-# alias fgrep='fgrep --color=auto'
-# alias egrep='egrep --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias tree="tree -C"
 alias diff="diff --color"
 alias http='http -s dracula --verbose'
@@ -58,6 +58,7 @@ alias tk="tmux kill-session -t tmux list-sessions | fzf | cut -d ':' -f1"
 alias td='tmux detach'
 
 # Git aliases
+alias gsudo='sudo git -c "include.path='"${XDG_CONFIG_DIR:-$HOME/.config}/git/config\" -c \"include.path=$HOME/.gitconfig\""
 alias jp="git add . && git commit -m \"$(date)\" && git push"
 alias ga="git add"
 alias gc="git commit"
@@ -83,7 +84,6 @@ alias audio-reset="puleaudio -k && sudo alsa force-reload && pulseaudio --start"
 # XDG Fixes
 alias yarn='yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config'
 alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
-
 
 
 # Command line head / tail shortcuts
