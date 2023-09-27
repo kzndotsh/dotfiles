@@ -24,6 +24,11 @@ bat-extras
 bind
 bleachbit
 bluez
+bluez-cups
+bluez-plugins
+bluez-qt
+bluez-tools
+bluez-utils
 booster
 bootconfig
 boxes
@@ -33,6 +38,7 @@ catimg
 cbonsai
 celluloid
 cfs-zen-tweaks
+check-broken-packages-pacman-hook-git
 cht.sh-git
 ckb-next
 clean
@@ -48,7 +54,6 @@ dfc
 dialog
 direnv
 discord
-discord-screenaudio
 dmenu
 dmidecode
 dnsmasq
@@ -65,6 +70,7 @@ element-desktop
 emacs
 eog
 eog-plugins
+etckeeper
 expressvpn-gui
 extundelete
 eza
@@ -81,9 +87,12 @@ firefox-developer-edition
 fish
 flameshot
 flatpak
+flatpak-builder
+flatpak-docs
 flatpak-xdg-utils
 font-manager
 fwupd
+galculator
 gdu
 giggle
 git
@@ -129,6 +138,7 @@ inxi
 iotop
 iptables-nft
 ispell
+iucode-tool
 iwd
 jack2-dbus
 jake
@@ -139,6 +149,7 @@ jetring
 jless
 jo
 journalwatch
+jqp
 jshon
 kak-lsp
 kakoune
@@ -148,6 +159,9 @@ kmon
 lazydocker
 lazygit
 libcaca
+libportal-gtk4
+libportal-qt5
+libqtxdg
 libudev0-shim
 linux-firmware
 linux-zen
@@ -185,6 +199,7 @@ most
 mvnvm
 nano
 navi
+needrestart
 neofetch
 neovim
 nerd-fonts-inter
@@ -208,7 +223,9 @@ nvme-cli
 nvtop
 openbsd-netcat
 openssh
+overdue
 pacman-contrib
+pacman-pstatus
 pacseek
 pacutils
 pastel
@@ -261,6 +278,7 @@ rustup
 sassc
 sbxkb
 scrot
+sd
 secure-delete
 semi
 shellcheck
@@ -275,6 +293,7 @@ st
 starship
 stow
 systemd-ui
+sysz
 terminator
 terminus-font
 testdisk
@@ -294,12 +313,15 @@ ttf-mac-fonts
 ttf-ms-fonts
 ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
+ttop
 tty-clock
 udisks2
 ueberzug
+ugrep
 unrar
 unzip
 usbutils
+uwufetch
 vim
 virt-manager
 visual-studio-code-bin
@@ -329,6 +351,7 @@ xsel
 xsettingsd
 xterm
 yay
+yayfzf
 z
 zathura
 zathura-cb
