@@ -134,6 +134,7 @@ i3lock
 i3status
 imagemagick
 inetutils
+insomnia-bin
 inxi
 iotop
 iptables-nft
