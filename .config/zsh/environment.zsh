@@ -13,6 +13,7 @@ export LANGUAGE=en_US.UTF-8
 export LESSCHARSET=utf-8
 
 # Applications
+export BROWSER='firefoxdeveloperedition'
 export TERMINAL='alacritty'
 export FILE='thunar'
 export READER='zathura'
@@ -20,7 +21,6 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export PAGER='less'
 export LESS='-R '
-export BROWSER='firefoxdeveloperedition'
 
 # DEV
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup

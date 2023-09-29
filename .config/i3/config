@@ -65,7 +65,7 @@ gaps outer 0
 default_border pixel 0
 default_floating_border pixel 0
 
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 0
 for_window [all] title_window_icon padding 0px
 
 ########### I3 TILING
@@ -181,7 +181,7 @@ exec_always --no-startup-id autotiling
 # Start NetworkManager systray applet
 exec --no-startup-id nm-applet &
 # Start Pulse Audio systray applet
-exec --no-startup-id pasystray &
+# exec --no-startup-id pasystray &
 
 # Start emacs daemon
 # exec emacs --daemon &

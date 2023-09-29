@@ -1,5 +1,6 @@
 1password
 alacritty
+alsa-utils
 amd-ucode
 amdctl
 amdfand
@@ -29,7 +30,6 @@ bluez-plugins
 bluez-qt
 bluez-tools
 bluez-utils
-booster
 bootconfig
 boxes
 brave-bin
@@ -62,8 +62,6 @@ docker-compose
 drawing
 dunst
 dust
-efibootmgr
-efiedit
 efifs
 efitools
 element-desktop
@@ -91,6 +89,7 @@ flatpak-builder
 flatpak-docs
 flatpak-xdg-utils
 font-manager
+fsearch
 fwupd
 galculator
 gdu
@@ -113,6 +112,7 @@ gparted
 gpgkeymgr
 gron
 gspell
+gst-plugin-pipewire
 gtk-chtheme
 gtk-engine-murrine
 gtk-engines
@@ -123,6 +123,7 @@ guake
 gvfs
 handlr
 helix
+helvum
 highlight
 htop
 httpie
@@ -141,7 +142,7 @@ iptables-nft
 ispell
 iucode-tool
 iwd
-jack2-dbus
+jack_mixer
 jake
 jc
 jdk8-openjdk
@@ -159,6 +160,8 @@ kitty
 kmon
 lazydocker
 lazygit
+lib32-alsa-lib
+lib32-libpipewire
 libcaca
 libportal-gtk4
 libportal-qt5
@@ -193,6 +196,11 @@ meson
 micro
 mitmproxy
 mitmproxy2swagger
+mkinitcpio
+mkinitcpio-archiso
+mkinitcpio-firmware
+mkinitcpio-systemd-tool
+mkinitcpio-utils
 mlocate
 modprobed-db
 moreutils
@@ -236,6 +244,10 @@ pcmanfm
 peek
 php
 picom
+pipewire-alsa
+pipewire-audio
+pipewire-jack
+pipewire-pulse
 pkgdiff
 pkgfile
 playerctl
@@ -244,9 +256,6 @@ polybar
 powerline
 powerline-fonts
 profile-sync-daemon
-pulseaudio
-pulseaudio-alsa
-pulsemixer
 pyenv
 python-black
 python-pipx
@@ -265,6 +274,7 @@ radeontop
 ranger
 ranger_devicons-git
 rbenv
+rclone
 realtime-privileges
 reflector
 rofi
@@ -288,6 +298,7 @@ shfmt
 smartmontools
 sndio
 sof-firmware
+spicetify-cli
 spotify
 sshfs
 st
