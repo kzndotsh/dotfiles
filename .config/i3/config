@@ -62,10 +62,10 @@ client.background       #ffffff
 smart_gaps off
 gaps inner 0
 gaps outer 0
-default_border pixel 0
-default_floating_border pixel 0
+#default_border pixel 1px
+#default_floating_border pixel 0px
 
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 1px
 for_window [all] title_window_icon padding 0px
 
 ########### I3 TILING

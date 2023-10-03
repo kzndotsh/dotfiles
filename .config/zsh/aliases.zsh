@@ -86,6 +86,11 @@ alias yarn='yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config'
 alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
 
 
+
+# Systemd
+alias list-autostart='systemctl list-unit-files | grep enabled && systemctl --user list-unit-files | grep enabled'
+
+
 # Command line head / tail shortcuts
 # alias -g H='| head'
 # alias -g T='| tail'
