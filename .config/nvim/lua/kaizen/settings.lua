@@ -9,3 +9,4 @@ opt.cursorcolumn = false
 opt.relativenumber = true
 opt.number = true
 opt.numberwidth = 1
+

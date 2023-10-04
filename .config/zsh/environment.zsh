@@ -1,5 +1,8 @@
 # environment.zsh
 
+# Secrets
+source $HOME/.env
+
 # Language
 export LC_COLLATE=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
@@ -136,6 +139,6 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export QT_SCREEN_SCALE_FACTORS=1
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
-export QT_QPA_PLATFORMTHEME='qt5ct'
+export QT_QPA_PLATFORMTHEME='gtk3'
 # GTK3 apps try to contact org.a11y.Bus. Disable that.
 export NO_AT_BRIDGE=1

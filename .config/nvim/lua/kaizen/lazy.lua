@@ -17,12 +17,22 @@ g.mapleader = " "
 g.maplocalleader = " "
 
 require("lazy").setup {
-	-- lsp & completion --
+
+  -- Git related plugins
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+
+  -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth',
+
+---------------------------------------------------
+--- LSP & COMPLETIONS
+---------------------------------------------------	
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
 		dependencies = {
-			-- LSP Support --
+			-- LSP Support
 			{ "neovim/nvim-lspconfig" },
 			{
 				"williamboman/mason.nvim",
@@ -30,10 +40,9 @@ require("lazy").setup {
 					vim.cmd("MasonUpdate")
 				end,
 			},
-
 			{ "williamboman/mason-lspconfig.nvim" },
 
-			-- Autocompletion --
+			-- Autocompletion
 			{ "hrsh7th/nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{
@@ -46,15 +55,20 @@ require("lazy").setup {
 			{ "dcampos/nvim-snippy" },
 			{ "dcampos/cmp-snippy" },
 			{ "onsails/lspkind.nvim" },
+			{ 'folke/neodev.nvim' },
+			{ 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 		},
 	},
 
 	{ "williamboman/mason.nvim" },
 
-	{'wakatime/vim-wakatime'},
+  { 'folke/which-key.nvim', opts = {} },
 
-	{"akinsho/toggleterm.nvim", version = "*", config = true},
+---------------------------------------------------
+--- THEME, UI, COLORS
+---------------------------------------------------	
 
+	-- Theme
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
@@ -62,7 +76,14 @@ require("lazy").setup {
 		opts = {},
 	},
 
-	{ 'nvim-lualine/lualine.nvim' },
+	-- Colorizer
+	{ "NvChad/nvim-colorizer.lua" },
+
+	{ 'nvim-lualine/lualine.nvim',
+	opts = {
+		theme = 'tokyonight'
+	},
+},
 
 	{
 		'stevearc/dressing.nvim',
@@ -71,8 +92,22 @@ require("lazy").setup {
 
 	{'f-person/git-blame.nvim'},
 
-	-- Colorizer
-	{ "NvChad/nvim-colorizer.lua" },
+
+
+
+---------------------------------------------------
+--- MISC
+---------------------------------------------------	
+
+	-- Wakatime tracking
+	{'wakatime/vim-wakatime'},
+
+	-- Discord RPC
+	{ 'andweeb/presence.nvim' },
+
+
+	{"akinsho/toggleterm.nvim", version = "*", config = true},
+
 
 	{
 		"nvim-neo-tree/neo-tree.nvim",
@@ -100,6 +135,7 @@ require("lazy").setup {
 		},
 		opts = {
 			-- configurations go here
+			theme = 'tokyonight',
 		},
 	},
 
@@ -114,7 +150,27 @@ require("lazy").setup {
 	},
 
 
-	{ 'andweeb/presence.nvim' },
+  -- Fuzzy Finder (files, lsp, etc)
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+      -- Only load if `make` is available. Make sure you have the system
+      -- requirements installed.
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        -- NOTE: If you are having trouble with this installation,
+        --       refer to the README for telescope-fzf-native for more instructions.
+        build = 'make',
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
+      },
+    },
+  },
+
 
 	{
 		'glepnir/dashboard-nvim',

@@ -40,6 +40,7 @@ catimg
 cbonsai
 celluloid
 cfs-zen-tweaks
+chatblade
 check-broken-packages-pacman-hook-git
 cht.sh-git
 ckb-next
@@ -110,6 +111,7 @@ glow
 gnome-settings-daemon
 gnome-themes-extra
 gnome-tweaks
+gnu-free-fonts
 gotop
 gparted
 gpgkeymgr
@@ -237,6 +239,7 @@ nvm
 nvme-cli
 nvtop
 openbsd-netcat
+opendesktop-fonts
 openssh
 overdue
 pacman-contrib
@@ -328,13 +331,16 @@ tmux
 trayer
 tree
 ttf-bitstream-vera
+ttf-croscore
 ttf-dejavu
+ttf-droid
 ttf-eurof
 ttf-font-awesome
 ttf-hannom
 ttf-ibm-plex
 ttf-input
 ttf-joypixels
+ttf-junicode
 ttf-khmer
 ttf-mac-fonts
 ttf-ms-fonts
@@ -343,6 +349,7 @@ ttf-nerd-fonts-symbols-mono
 ttf-opensans
 ttf-roboto
 ttf-tahoma
+ttf-vista-fonts
 ttop
 tty-clock
 tuned
