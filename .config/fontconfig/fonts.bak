@@ -28,24 +28,13 @@
     <family>sans-serif</family>
     <prefer>
       <family>Inter Nerd Font</family>
-      <family>Noto Sans</family>
-      <family>Open Sans</family>
-      <family>Droid Sans</family>
-      <family>Roboto</family>
-      <family>Tholoth</family>
-      <family>Noto Sans Arabic</family>
     </prefer>
   </alias>
   
   <alias>
     <family>serif</family>
     <prefer>
-      <family>Inter Nerd Font</Family>
-      <family>Noto Serif</family>
-      <family>Droid Serif</family>
-      <family>Roboto Slab</family>
-      <family>Tholoth</family>
-      <family>Noto Sans Arabic</family>
+      <family>Inter Nerd Font</family>
     </prefer>
   </alias>
   
@@ -53,10 +42,6 @@
     <family>monospace</family>
     <prefer>
       <family>JetBrainsMono Nerd Font Mono</family>
-      <family>Noto Sans Mono</family>
-      <family>Inconsolata</family>
-      <family>Droid Sans Mono</family>
-      <family>Roboto Mono</family>
       <family>Font Awesome 6 Free</family>
 			<family>Font Awesome 6 Brands</family>
 			<family>Symbols Nerd Font Mono</family>

@@ -11,6 +11,8 @@ arch-install-scripts
 archlinux-contrib
 archlinux-xdg-menu
 aria2
+asar
+asdf-vm
 aspell
 atool
 atop
@@ -55,7 +57,6 @@ dbxtool
 dex
 dfc
 dialog
-direnv
 discord
 dmenu
 dmidecode
@@ -68,6 +69,7 @@ dunst
 dust
 efifs
 efitools
+electron
 element-desktop
 emacs
 eog
@@ -85,6 +87,7 @@ figlet
 figma-linux-bin
 file-roller
 find-the-command
+firefox
 firefox-developer-edition
 fish
 flameshot
@@ -115,6 +118,7 @@ gnu-free-fonts
 gotop
 gparted
 gpgkeymgr
+gpt-engineer
 gron
 gspell
 gst-plugin-pipewire
@@ -152,7 +156,6 @@ jake
 jc
 jdk8-openjdk
 jdownloader2
-jenv
 jetring
 jless
 jo
@@ -235,7 +238,6 @@ noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 noto-fonts-extra
-nvm
 nvme-cli
 nvtop
 openbsd-netcat
@@ -267,11 +269,20 @@ powerline-fonts
 profile-sync-daemon
 pyenv
 python-black
+python-dataclasses-json
+python-jinja-time
+python-matrix-client-git
+python-matrix-common
+python-matrix-nio
+python-mongoengine
+python-pipenv
+python-pipenv-to-requirements
 python-pipx
 python-psutil
 python-pyaml
 python-pynvim
 python-pyqt5-webengine
+python-tabulate
 python-virtualenv
 python-virtualenvwrapper
 python-yaml
@@ -284,7 +295,6 @@ qtcurve-qt5
 radeontop
 ranger
 ranger_devicons-git
-rbenv
 rclone
 realtime-privileges
 reflector
@@ -299,6 +309,7 @@ run-parts
 rustup
 sassc
 sbxkb
+schildichat-desktop-bin
 scrot
 sd
 secure-delete
