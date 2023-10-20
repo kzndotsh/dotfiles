@@ -8,6 +8,7 @@ plugins=(
   git-extras
   safe-paste
   copyfile
+  extract
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -49,3 +50,7 @@ source "$ZDOTDIR"/personal/plugins/zsh-syntax-highlighting/zsh-syntax-highlighti
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
 # source "$HOME/.rye/env"
+
+
+# Aliases
+source "$ZDOTDIR"/personal/aliases.zsh

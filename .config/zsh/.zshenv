@@ -172,7 +172,7 @@ export PATH
 export GDK_BACKEND=x11
 export GDK_SCALE=1
 export GDK_CORE_DEVICE_EVENTS=1
-export GTK_USE_PORTAL=1
+# export GTK_USE_PORTAL=1
 export GTK_CSD=0
 export GTK_THEME=TokyoNight
 export ICON_THEME=TokyoNight

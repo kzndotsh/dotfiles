@@ -4,6 +4,7 @@
     "Alt-f": "command:format",
     "Alt-k": "command:hover",
     "Alt-r": "command:references",
+    "AltCtrlSpace": "command:palettero",
     "CtrlSpace": "command:lspcompletion",
     "CtrlUnderscore": "lua:comment.comment",
     "F5": "lua:wc.wordCount"

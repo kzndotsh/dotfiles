@@ -11,7 +11,6 @@ arch-install-scripts
 archlinux-contrib
 archlinux-xdg-menu
 aria2
-asar
 asdf-vm
 aspell
 atool
@@ -67,13 +66,13 @@ dotnet-sdk
 drawing
 dunst
 dust
+efibootmgr
 efifs
 efitools
 electron
 element-desktop
 emacs
 eog
-eog-plugins
 etckeeper
 expressvpn-gui
 extundelete
@@ -111,9 +110,7 @@ github-cli
 gitui
 glances
 glow
-gnome-settings-daemon
 gnome-themes-extra
-gnome-tweaks
 gnu-free-fonts
 gotop
 gparted
@@ -212,6 +209,7 @@ mkinitcpio-firmware
 mkinitcpio-systemd-tool
 mkinitcpio-utils
 mlocate
+mnemosyne
 modprobed-db
 moreutils
 most
@@ -288,7 +286,6 @@ python-virtualenvwrapper
 python-yaml
 qbittorrent
 qbittorrent-cli-bin
-qemu-full
 qjournalctl
 qt5ct
 qtcurve-qt5
@@ -339,6 +336,7 @@ thunar-vcs-plugin
 thunar-volman
 timeshift
 tmux
+tmuxinator
 trayer
 tree
 ttf-bitstream-vera
@@ -372,8 +370,8 @@ unzip
 usbutils
 uwufetch
 vim
-virt-manager
 visual-studio-code-bin
+vmware-workstation
 vnstat
 w3m
 wget
@@ -383,6 +381,7 @@ wireless_tools
 x11-ssh-askpass
 xclip
 xcolor
+xdg-desktop-portal-gtk
 xdg-ninja
 xdg-user-dirs
 xdg-utils

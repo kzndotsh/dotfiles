@@ -195,11 +195,25 @@ exec_always --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
 
 ########### MISC
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id /usr/lib/gsd-xsettings
+# exec --no-startup-id /usr/lib/gsd-xsettings
 
-# Screenshot binds
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-bindsym Ctrl+Print exec --no-startup-id path="$HOME/screenshots/$(date).png" && maim --select "$path" && xclip -selection clipboard -t image/png "$path"
+
+
+##  Screenshots in files
+bindsym Print exec --no-startup-id maim --format=png "/home/$USER/shots/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
+bindsym $mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-current.png"
+bindsym Shift+Print exec --no-startup-id maim --format=png --select "/home/$USER/shots/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-selected.png"
+
+## Screenshots in clipboards
+bindsym Ctrl+Print exec --no-startup-id maim --format=png | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip -selection clipboard -t image/png
+
+
+
+
+
+
 
 # Alacritty - Start a terminal instance
 bindsym $mod+Return exec alacritty
@@ -245,3 +259,6 @@ for_window [class="(?i)bottles"] floating enable
 for_window [title="Process Explorer"] floating enable
 #for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
+
+
+for_window [class="^Anki$" title="Add"] floating enable
