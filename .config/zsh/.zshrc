@@ -29,6 +29,8 @@ fi
 source "$ZDOTDIR"/personal/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source "$ZDOTDIR"/personal/plugins/zsh-alias-tips/alias-tips.plugin.zsh
 source "$ZDOTDIR"/personal/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source "$ZDOTDIR"/personal/plugins/zsh-autopair/autopair.zsh
+autopair-init
 fpath+="$ZDOTDIR"/personal/plugins/zsh-completions/src
 
 # source /usr/share/nvm/nvm.sh
@@ -43,7 +45,8 @@ fpath+="$ZDOTDIR"/personal/plugins/zsh-completions/src
 # Z DIRECTORY JUMPING
 # [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
-source "$ZDOTDIR"/personal/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source "$ZDOTDIR"/personal/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$ZDOTDIR"/personal/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # ASDF version manager
 . /opt/asdf-vm/asdf.sh

@@ -171,7 +171,8 @@ export PATH
 # GTK/QT stuff
 export GDK_BACKEND=x11
 export GDK_SCALE=1
-export GDK_CORE_DEVICE_EVENTS=1
+# export GDK_CORE_DEVICE_EVENTS=1
+unset GDK_CORE_DEVICE_EVENTS
 # export GTK_USE_PORTAL=1
 export GTK_CSD=0
 export GTK_THEME=TokyoNight

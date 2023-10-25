@@ -11,6 +11,7 @@ arch-install-scripts
 archlinux-contrib
 archlinux-xdg-menu
 aria2
+asar
 asdf-vm
 aspell
 atool
@@ -32,6 +33,7 @@ bluez-plugins
 bluez-qt5
 bluez-tools
 bluez-utils
+board4you-bin
 bootconfig
 bottles
 boxes
@@ -116,6 +118,7 @@ gotop
 gparted
 gpgkeymgr
 gpt-engineer
+gromit-mpx-git
 gron
 gspell
 gst-plugin-pipewire
@@ -303,6 +306,7 @@ rtkit
 ruby
 rubygems
 run-parts
+runelite
 rustup
 sassc
 sbxkb
@@ -362,6 +366,8 @@ ttf-vista-fonts
 ttop
 tty-clock
 tuned
+typescript
+typescript-language-server
 udisks2
 ueberzug
 ugrep

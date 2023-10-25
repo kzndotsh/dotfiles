@@ -186,7 +186,7 @@ exec --no-startup-id nm-applet &
 # Start emacs daemon
 # exec emacs --daemon &
 
-# exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id dex --autostart --environment i3
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 ########## DISPLAY
@@ -196,8 +196,6 @@ exec_always --no-startup-id picom --config ~/dotfiles/.config/picom/picom.conf
 ########### MISC
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id /usr/lib/gsd-xsettings
-
-
 
 ##  Screenshots in files
 bindsym Print exec --no-startup-id maim --format=png "/home/$USER/shots/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
