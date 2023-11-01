@@ -9,6 +9,7 @@ plugins=(
   safe-paste
   copyfile
   extract
+  transfer
 )
 
 source $ZSH/oh-my-zsh.sh

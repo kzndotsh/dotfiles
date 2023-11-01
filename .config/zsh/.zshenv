@@ -82,6 +82,8 @@ export PNPM_HOME="$XDG_DATA_HOME"/pnpm
 export PYTHON_EGG_CACHE="$XDG_CACHE_HOME"/python-eggs
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
 export GRAB_HOME="$HOME"/repos
+export MYPY_CACHE_DIR="$XDG_CACHE_HOME"/mypy
+export ASDF_DATA_DIR="${XDG_DATA_HOME}"/asdf
 
 # MISC
 export TERM="xterm-256color"

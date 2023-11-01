@@ -25,6 +25,7 @@ bash-completion-git
 bashtop
 bat
 bat-extras
+bfg
 bind
 bleachbit
 bluez
@@ -98,6 +99,8 @@ flatpak-docs
 flatpak-xdg-utils
 font-manager
 fsearch
+fuse-overlayfs
+fuse2fs
 fwupd
 galculator
 gdu
@@ -169,6 +172,7 @@ kitty
 kmon
 lazydocker
 lazygit
+lazynpm
 lib32-alsa-lib
 lib32-libpipewire
 libcaca
@@ -234,7 +238,6 @@ nix-docs
 nixfmt
 nixpkgs-fmt
 nnn
-notion-app
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
@@ -292,6 +295,7 @@ qbittorrent-cli-bin
 qjournalctl
 qt5ct
 qtcurve-qt5
+qutebrowser
 radeontop
 ranger
 ranger_devicons-git
@@ -327,6 +331,7 @@ sshfs
 st
 starship
 stow
+supabase-bin
 systemd-ui
 sysz
 terminator
@@ -381,6 +386,7 @@ vmware-workstation
 vnstat
 w3m
 wget
+whois
 wineasio
 wireless-regdb
 wireless_tools
@@ -405,6 +411,7 @@ xplr
 xsel
 xsettingsd
 xterm
+yaml-language-server
 yay
 yayfzf
 z
@@ -413,6 +420,7 @@ zathura-cb
 zathura-djvu
 zathura-pdf-mupdf
 zathura-ps
+zellij
 zenith
 zip
 zscroll-git
