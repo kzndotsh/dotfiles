@@ -1,0 +1,3 @@
+[submodule ".local/share/themes/catppuccin/micro"]
+	path = .local/share/themes/catppuccin/micro
+	url = https://github.com/catppuccin/micro.git

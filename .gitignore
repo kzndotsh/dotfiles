@@ -1,12 +1,9 @@
 .config/micro/backups/
 .config/micro/buffers/
 .config/micro/plug/
-.icons/default
 .config/tmux/plugins/
-walls/
 .config/ranger/plugins/
-.config/zsh/.zcompdump-arch-5.9
-.config/zsh/.zcompdump-arch-5.9.zwc
+.config/zsh/.zcompdump-arch*
 .config/terminator/plugins/__pycache__
 .config/zsh/plugins/
 .config/zsh/personal/plugins/
