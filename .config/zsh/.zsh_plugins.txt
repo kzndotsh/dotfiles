@@ -192,47 +192,17 @@
 # zdharma-continuum/fast-syntax-highlighting kind:defer
 # 
 # 
-# ### Completions
-# #
-# # You may want to add some additional completions to Zsh. Completions look in your fpath
-# # for completion functions, which are functions named with a leading underscore
-# # (eg: _git). You need to add all supplemental completions to your fpath prior to
-# # running `compinit` to use completions functionality properly. You will want to find
-# # a completion plugin that runs `compinit` for you, or you can run it yourself in
-# # your .zshrc after antidote loads like this:
-# #
-# #   autoload -Uz compinit && compinit
-# #
-# ###
-# 
-# # zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
-# # We combine the `path:` and `kind:fpath` annotations here:
-# zsh-users/zsh-completions path:src kind:fpath
-# 
-# # Compinit plugins should be near the end of .zsh_plugins.txt so that $fpath has been
-# # fully populated. Use zsh-utils for its completion plugin.
-# belak/zsh-utils path:completion
-# 
-# 
-# ### Final Plugins
-# #
-# # Remember plugin order matters! Put plugins that need run last at the bottom of your
-# # .zsh_plugins.txt file.
-# #
-# ###
-# 
-# # These popular core plugins should be loaded at the end
-# zsh-users/zsh-autosuggestions kind:defer
-# zsh-users/zsh-history-substring-search
 
+belak/zsh-utils path:history
+belak/zsh-utils path:utility
+belak/zsh-utils path:editor
 
-
-
-
-# zsh-users/zsh-autosuggestions kind:defer
 z-shell/zsh-fancy-completions
-z-shell/F-Sy-H
-zsh-users/zsh-completions
-zsh-users/zsh-autosuggestions
+z-shell/F-Sy-H kind:defer
 hlissner/zsh-autopair
+romkatv/powerlevel10k
+zsh-users/zsh-completions path:src kind:fpath
+belak/zsh-utils path:completion
 marlonrichert/zsh-autocomplete
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-history-substring-search
