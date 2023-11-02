@@ -229,4 +229,10 @@
 
 
 
-zsh-users/zsh-autosuggestions kind:defer
+# zsh-users/zsh-autosuggestions kind:defer
+z-shell/zsh-fancy-completions
+z-shell/F-Sy-H
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+hlissner/zsh-autopair
+marlonrichert/zsh-autocomplete

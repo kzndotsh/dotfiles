@@ -4,7 +4,7 @@
 .config/tmux/plugins/
 .local/share/tmux/
 .config/ranger/plugins/
-.config/zsh/.zcompdump-arch*
+.config/zsh/.zcompdump*
 .config/terminator/plugins/__pycache__
 .config/zsh/plugins/
 .config/zsh/personal/plugins/
