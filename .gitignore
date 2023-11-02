@@ -2,6 +2,7 @@
 .config/micro/buffers/
 .config/micro/plug/
 .config/tmux/plugins/
+.local/share/tmux/
 .config/ranger/plugins/
 .config/zsh/.zcompdump-arch*
 .config/terminator/plugins/__pycache__
