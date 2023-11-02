@@ -7,3 +7,6 @@
 [submodule ".local/share/themes/catppuccin/foot"]
 	path = .local/share/themes/catppuccin/foot
 	url = https://github.com/catppuccin/foot.git
+[submodule ".local/share/themes/catppuccin/waybar"]
+	path = .local/share/themes/catppuccin/waybar
+	url = https://github.com/catppuccin/waybar.git
