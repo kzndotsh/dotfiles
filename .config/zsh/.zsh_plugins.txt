@@ -193,10 +193,10 @@
 # 
 # 
 
+# zpm-zsh/colors
 belak/zsh-utils path:history
 belak/zsh-utils path:utility
 belak/zsh-utils path:editor
-
 z-shell/zsh-fancy-completions
 z-shell/F-Sy-H kind:defer
 hlissner/zsh-autopair

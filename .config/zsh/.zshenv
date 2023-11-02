@@ -58,3 +58,10 @@ manpath+=(
 )
 
 export PATH
+
+export TERMINAL='foot'
+
+export TERM="xterm-256color"
+export CLICOLOR=1
+export MICRO_TRUECOLOR=1
+export COLORTERM=truecolor

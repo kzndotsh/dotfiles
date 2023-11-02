@@ -12,3 +12,5 @@ antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 eval "$(/home/kaizen/.local/share/rtx/bin/rtx activate zsh)"
+
+source ~/.config/dircolors/LS_COLORS/lscolors.sh

@@ -10,3 +10,9 @@
 [submodule ".local/share/themes/catppuccin/waybar"]
 	path = .local/share/themes/catppuccin/waybar
 	url = https://github.com/catppuccin/waybar.git
+[submodule ".local/share/themes/nord/dircolors"]
+	path = .local/share/themes/nord/dircolors
+	url = https://github.com/nordtheme/dircolors.git
+[submodule ".config/dircolors/LS_COLORS"]
+	path = .config/dircolors/LS_COLORS
+	url = https://github.com/trapd00r/LS_COLORS.git
