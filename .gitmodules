@@ -4,3 +4,6 @@
 [submodule ".config/zsh/.antidote"]
 	path = .config/zsh/.antidote
 	url = https://github.com/mattmc3/antidote.git
+[submodule ".local/share/themes/catppuccin/foot"]
+	path = .local/share/themes/catppuccin/foot
+	url = https://github.com/catppuccin/foot.git
