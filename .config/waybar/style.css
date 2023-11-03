@@ -4,7 +4,7 @@
     all: unset;
     border: none;
     border-radius: 4;
-    font-family: JetBrains Mono;
+    font-family: JetBrains Mono Nerd Font;
     font-size: 13px;
     min-height: 0;
 }

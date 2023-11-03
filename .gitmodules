@@ -16,3 +16,24 @@
 [submodule ".config/dircolors/LS_COLORS"]
 	path = .config/dircolors/LS_COLORS
 	url = https://github.com/trapd00r/LS_COLORS.git
+[submodule ".local/share/themes/catppuccin/gtk"]
+	path = .local/share/themes/catppuccin/gtk
+	url = https://github.com/catppuccin/gtk.git
+[submodule ".local/share/themes/catppuccin/limine"]
+	path = .local/share/themes/catppuccin/limine
+	url = https://github.com/catppuccin/limine.git
+[submodule ".local/share/themes/catppuccin/tty"]
+	path = .local/share/themes/catppuccin/tty
+	url = https://github.com/catppuccin/tty.git
+[submodule ".local/share/themes/catppuccin/xresources"]
+	path = .local/share/themes/catppuccin/xresources
+	url = https://github.com/catppuccin/xresources.git
+[submodule ".local/share/themes/catppuccin/i3"]
+	path = .local/share/themes/catppuccin/i3
+	url = https://github.com/catppuccin/i3.git
+[submodule ".local/share/themes/catppuccin/kitty"]
+	path = .local/share/themes/catppuccin/kitty
+	url = https://github.com/catppuccin/kitty.git
+[submodule ".local/share/themes/catppuccin/bottom"]
+	path = .local/share/themes/catppuccin/bottom
+	url = https://github.com/catppuccin/bottom.git
