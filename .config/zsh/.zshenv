@@ -23,6 +23,7 @@ typeset -Ug path PATH cdpath CDPATH fpath FPATH manpath MANPATH mailpath MAILPAT
 
 # Standards
 path+=(
+	/bin
   /usr/local/sbin
   /usr/sbin
   /usr/local/bin
@@ -31,12 +32,14 @@ path+=(
   "$HOME"/bin
   "$HOME"/.bin
   "$HOME"/.local/bin
+  $path
 )
 
 # Flatpak Paths
 path+=(
   /var/lib/flatpak/exports/bin
   "$HOME"/.local/share/flatpak/exports/bin
+  $path
 )
 
 # Function Paths
@@ -64,14 +67,21 @@ manpath+=(
 
 export PATH
 
+export BROWSER='firefox'
+export EDITOR='micro'
+export VISUAL='micro'
+export PAGER='less'
+export LESS='-R '
 export TERMINAL='kitty'
-export TERM="xterm-256color"
+
+export TERM=xterm-kitty #xterm-256color
 export CLICOLOR=1
 export MICRO_TRUECOLOR=1
 export COLORTERM=truecolor
 
 # Wayland stuff
-export MOZ_ENABLE_WAYLAND=1 firefox
+export GDK_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
 export QT_QPA_PLATFORM=wayland
 export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -81,7 +91,29 @@ export NO_AT_BRIDGE=1
 # GTK
 export GTK_THEME="Catppuccin-Mocha-Standard-Rosewater-Dark"
 
+# FZF
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
+if command -v eza >/dev/null; then
+    alias ls="eza-wrapper.sh"
+else
+    alias ls="command ls $LS_OPTIONS"
+fi
+
+
+# List directory contents
+alias l='ls -lFh'   #size,show type,human readable
+alias la='ls -lAFh' #long list,show almost all,show type,human readable
+alias lr='ls -tRFh' #sorted by date,recursive,show type,human readable
+alias lt='ls -ltFh' #long list,sorted by date,show type,human readable
+alias ll='ls -l'    #long list
+alias ldot='ls -ld .*'
+alias lS='ls -1FSsh'
+alias lart='ls -1Fcart'
+alias lrt='ls -1Fcrt'
+alias lsr='ls -lARFh' #Recursive list of files and directories
+alias lsn='ls -1'     #A column contains name of files and directories
+
