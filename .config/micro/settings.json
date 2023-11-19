@@ -1,5 +1,6 @@
 {
     "colorscheme": "catppuccin-mocha",
     "mkparents": true,
+    "softwrap": true,
     "tabsize": 2
 }

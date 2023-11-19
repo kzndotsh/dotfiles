@@ -1,6 +1,6 @@
 {
   "name": "bottom",
-    "modules-left": ["sway/workspaces", "tray", "sway/mode"],
-    "modules-center": ["sway/window", ""],
-    "modules-right": ["sway/scratchpad", ""],
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["sway/scratchpad", "tray"],
 } 

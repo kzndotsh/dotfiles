@@ -37,3 +37,15 @@
 [submodule ".local/share/themes/catppuccin/bottom"]
 	path = .local/share/themes/catppuccin/bottom
 	url = https://github.com/catppuccin/bottom.git
+[submodule ".local/share/themes/catppuccin/alacritty"]
+	path = .local/share/themes/catppuccin/alacritty
+	url = https://github.com/catppuccin/alacritty.git
+[submodule ".local/share/themes/catppuccin/swaync"]
+	path = .local/share/themes/catppuccin/swaync
+	url = https://github.com/catppuccin/swaync.git
+[submodule ".local/share/themes/catppuccin/spotify-tui"]
+	path = .local/share/themes/catppuccin/spotify-tui
+	url = https://github.com/catppuccin/spotify-tui.git
+[submodule ".local/share/themes/catppuccin/thunderbird"]
+	path = .local/share/themes/catppuccin/thunderbird
+	url = git@github.com:catppuccin/thunderbird.git

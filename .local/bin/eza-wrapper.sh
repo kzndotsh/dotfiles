@@ -114,4 +114,4 @@ shift "$((OPTIND - 1))"
 (( git == 1 )) && \
   [[ $(git -C ${*:-.} rev-parse --is-inside-work-tree) == true ]] 2>/dev/null && eza_opts+=(--git)
 
-eza --color-scale "${eza_opts[@]}" "$@"
+eza "${eza_opts[@]}" "$@"
