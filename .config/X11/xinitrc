@@ -43,32 +43,32 @@ source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/runtime-$USER}"
 mkdir -p "$XDG_RUNTIME_DIR"
 
-# Create or ensure the keychain directory exists
-KEYCHAIN_DIR="$XDG_RUNTIME_DIR/keychain"
-mkdir -p "$KEYCHAIN_DIR"
-
-# Add SSH keys to keychain
-keychain --dir "$KEYCHAIN_DIR" ~/.ssh/id_ed25519 || {
-    echo "Error adding id_ed25519 to keychain" >&2
-    exit 1
-}
-
-keychain --dir "$KEYCHAIN_DIR" ~/.ssh/id_rsa || {
-    echo "Error adding id_rsa to keychain" >&2
-    exit 1
-}
-
-# Source keychain files if they exist
-if [ -f "$KEYCHAIN_DIR/$HOSTNAME-sh" ]; then
-    source "$KEYCHAIN_DIR/$HOSTNAME-sh" 2>/dev/null
-fi
-
-if [ -f "$KEYCHAIN_DIR/$HOSTNAME-sh-gpg" ]; then
-    source "$KEYCHAIN_DIR/$HOSTNAME-sh-gpg" 2>/dev/null
-fi
-
-# Set SSH_ASKPASS
-export SSH_ASKPASS="/usr/lib/ssh/x11-ssh-askpass"
+# # Create or ensure the keychain directory exists
+# KEYCHAIN_DIR="$XDG_RUNTIME_DIR/keychain"
+# mkdir -p "$KEYCHAIN_DIR"
+# 
+# # Add SSH keys to keychain
+# keychain --dir "$KEYCHAIN_DIR" ~/.ssh/id_ed25519 || {
+#     echo "Error adding id_ed25519 to keychain" >&2
+#     exit 1
+# }
+# 
+# keychain --dir "$KEYCHAIN_DIR" ~/.ssh/id_rsa || {
+#     echo "Error adding id_rsa to keychain" >&2
+#     exit 1
+# }
+# 
+# # Source keychain files if they exist
+# if [ -f "$KEYCHAIN_DIR/$HOSTNAME-sh" ]; then
+#     source "$KEYCHAIN_DIR/$HOSTNAME-sh" 2>/dev/null
+# fi
+# 
+# if [ -f "$KEYCHAIN_DIR/$HOSTNAME-sh-gpg" ]; then
+#     source "$KEYCHAIN_DIR/$HOSTNAME-sh-gpg" 2>/dev/null
+# fi
+# 
+# # Set SSH_ASKPASS
+# export SSH_ASKPASS="/usr/lib/ssh/x11-ssh-askpass"
 
 # Start your window manager or desktop environment
 if [ -x /usr/bin/i3 ]; then

@@ -17,3 +17,53 @@ alias lrt='ls -1Fcrt'
 alias lsr='ls -lARFh' #Recursive list of files and directories
 alias lsn='ls -1'     #A column contains name of files and directories
 
+alias emptydirs='find . -type d -empty -delete'
+alias flattendir='find . -mindepth 2 -type f -print -exec mv {} . \;'
+alias count='ls | wc -l'
+alias path='print -l "$PATH"'
+alias pii="comm -23 <(pacman -Qqett | sort) <(pacman -Qqg base -g base-devel | sort | uniq)"
+
+
+alias edit-i3='"$EDITOR" "$DOTFILES"/.config/i3/config'
+alias edit-polybar='"$EDITOR" "$DOTFILES"/.config/polybar/config.ini'
+alias edit-zsh='"$EDITOR" "$DOTFILES"/.config/zsh/.zshrc'
+
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -v"
+alias mkdir="mkdir -pv"
+
+alias tl='tmux list-sessions'
+alias tk="tmux kill-session -t tmux list-sessions | fzf | cut -d ':' -f1"
+alias td='tmux detach'
+
+alias gsudo='sudo git -c "include.path='"${XDG_CONFIG_DIR:-$HOME/.config}/git/config\" -c \"include.path=$HOME/.gitconfig\""
+alias jp="git add . && git commit -m \"$(date)\" && git push"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gs="git status"
+alias gd="git diff"
+
+# Lazy
+alias md="mkdir"
+alias t="touch"
+alias x="exit"
+alias c="clear"
+# alias o="xdg-open"
+alias x+="chmod +x"
+alias get="curl -O -L"
+
+# WIP:
+alias shutdown='sudo shutdown now'
+alias restart='sudo reboot'
+alias suspend='sudo pm-suspend'
+alias audio-reset="puleaudio -k && sudo alsa force-reload && pulseaudio --start"
+
+# XDG Fixes
+alias yarn='yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config'
+alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
+
+# Systemd
+alias list-autostart='systemctl list-unit-files | grep enabled && systemctl --user list-unit-files | grep enabled'
+

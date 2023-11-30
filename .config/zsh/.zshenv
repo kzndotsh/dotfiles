@@ -93,13 +93,11 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 # export QT_QPA_PLATFORMTHEME=qt6ct
 export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
-# export CLUTTER_BACKEND=wayland
+export CLUTTER_BACKEND=wayland
 export NO_AT_BRIDGE=1
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export GDK_BACKEND=wayland
-
-
-export GTK_THEME="Catppuccin-Mocha-Standard-Rosewater-Dark"
+export GTK_THEME="TokyoNight"
 export GTK_CSD=0
 
 # FZF
@@ -126,7 +124,7 @@ export ANDROID_SDK_HOME="$XDG_CONFIG_HOME"/android
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 export LEDGER_FILE="$XDG_DATA_HOME"/hledger.journal
-# export WAKATIME_HOME="$XDG_CONFIG_HOME"/wakatime
+export WAKATIME_HOME="$XDG_CONFIG_HOME"/wakatime
 export _Z_DATA="$XDG_DATA_HOME"/z
 export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
 export CABAL_DIR="$XDG_DATA_HOME"/cabal
@@ -136,3 +134,6 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc 
 export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+
+
+

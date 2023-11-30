@@ -28,8 +28,8 @@ Xft.lcdfilter: lcddefault
 
 URxvt.termName : rxvt-unicode-256color
 
-URxvt.font: xft:JetBrainsMono Nerd Font:size=15
-URxvt.boldFont: xft:JetBrainsMono Nerd Font:size=15
+URxvt.font: xft:JetBrainsMono Nerd Font:size=14
+URxvt.boldFont: xft:JetBrainsMono Nerd Font:size=14
 URxvt.letterSpace : -2
 
 ! hide scrollbar
