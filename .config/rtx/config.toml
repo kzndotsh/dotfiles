@@ -1,8 +1,0 @@
-[tools]
-node = "latest"
-python = "latest"
-poetry = "latest"
-pnpm = "latest"
-direnv = "latest"
-java = "latest"
-go = "latest"
