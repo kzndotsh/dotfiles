@@ -1,0 +1,6 @@
+# Config for sway
+# Read `man 5 sway` for a complete reference.
+
+include $HOME/.config/sway/config.d/*.conf
+
+# include /etc/sway/config.d/*

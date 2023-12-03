@@ -1,0 +1,50 @@
+[global_config]
+  enabled_plugins = LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler, SaveLastSessionLayout, ActivityWatch, TerminatorThemes
+[keybindings]
+[profiles]
+  [[default]]
+    background_color = "#1a1b26"
+    foreground_color = "#c0caf5"
+    palette = "#15161e:#f7768e:#9ece6a:#e0af68:#7aa2f7:#bb9af7:#7dcfff:#a9b1d6:#414868:#f7768e:#9ece6a:#e0af68:#7aa2f7:#bb9af7:#7dcfff:#9d7cd8"
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+  [[SaveLastSessionLayout]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 0:0
+      maximised = False
+      fullscreen = False
+      size = 1918, 1052
+      title = kaizen@arch:~
+      last_active_window = True
+    [[[child1]]]
+      type = Notebook
+      parent = child0
+      order = 0
+      labels = None, None
+      last_active_term = def56fe9-2f20-4479-b617-899df8f4bcfe, 90b1d9b4-2721-4198-b719-d6af6deb4d00
+      active_page = 1
+    [[[terminal2]]]
+      type = Terminal
+      parent = child1
+      order = 0
+      profile = default
+      uuid = def56fe9-2f20-4479-b617-899df8f4bcfe
+      directory = /home/kaizen
+    [[[terminal3]]]
+      type = Terminal
+      parent = child1
+      order = 1
+      profile = default
+      uuid = 90b1d9b4-2721-4198-b719-d6af6deb4d00
+      directory = /home/kaizen
+[plugins]

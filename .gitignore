@@ -14,3 +14,4 @@
 .config/zsh/omz/
 .config/emacs/.local/ 
 .config/zsh/.antidote/
+.config/gh/hosts.yml

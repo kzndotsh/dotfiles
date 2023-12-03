@@ -1,0 +1,324 @@
+# #!/usr/bin/env bash
+# 
+# # 256 colors
+# set -s default-terminal 'tmux-256color'
+# 
+# # Start with index 1
+# set -g base-index 1
+# setw -g pane-base-index 1
+# 
+# # make delay shorter
+# set -sg escape-time 0
+# 
+# # Enable mouse mode (tmux 2.1 and above)
+# set -g mouse on
+# 
+# # First remove *all* keybindings
+# unbind-key -a
+# 
+# # List keys
+# bind-key ? list-keys
+# 
+# # Copy mode
+# bind-key [ copy-mode
+# 
+# # Paste buffer
+# bind-key ] paste-buffer
+# 
+# # Refresh client
+# bind-key r refresh-client \; display-message "Refresh already"
+# 
+# # Start with index 1
+# set -g base-index 1
+# setw -g pane-base-index 1
+# 
+# # Set new prefix
+# # Note : you can press super key by set M.
+# # (tested with tty only)
+# set-option -g prefix C-a
+# bind-key a send-prefix
+# 
+# 
+# # Split window
+# bind-key h split-window -h
+# bind-key v split-window -v
+# 
+# # Rotate Window
+# bind-key -n M-o rotate-window
+# 
+# # Swap pane
+# bind-key -r L swap-pane -U
+# bind-key -r K swap-pane -D
+# 
+# # Move pane with Control (no prefix)
+# bind-key -n M-j select-pane -L
+# bind-key -n M-k select-pane -D
+# bind-key -n M-l select-pane -U
+# bind-key -n M-\; select-pane -R
+# 
+# # Resize pane with Alt (prefix with repeat)
+# bind-key -r j resize-pane -L 5 \; display-message "Resize left"
+# bind-key -r k resize-pane -D 5 \; display-message "Resize down"
+# bind-key -r l resize-pane -U 5 \; display-message "Resize up"
+# bind-key -r \; resize-pane -R 5 \; display-message "Resize right"
+# 
+# # Automatically set window title
+# set-window-option -g automatic-rename on
+# set-option -g set-titles on
+# 
+# # Choose Window
+# bind-key w choose-window
+# 
+# # New Window with number
+# bind-key 1 new-window -t 1
+# bind-key 2 new-window -t 2
+# bind-key 3 new-window -t 3
+# bind-key 4 new-window -t 4
+# bind-key 5 new-window -t 5
+# bind-key 6 new-window -t 6
+# bind-key 7 new-window -t 7
+# bind-key 8 new-window -t 8
+# bind-key 9 new-window -t 9
+# bind-key 0 new-window -t 10
+# 
+# # Switch windows alt+number
+# bind-key -n M-1 select-window -t 1
+# bind-key -n M-2 select-window -t 2
+# bind-key -n M-3 select-window -t 3
+# bind-key -n M-4 select-window -t 4
+# bind-key -n M-5 select-window -t 5
+# bind-key -n M-6 select-window -t 6
+# bind-key -n M-7 select-window -t 7
+# bind-key -n M-8 select-window -t 8
+# bind-key -n M-9 select-window -t 9
+# bind-key -n M-0 select-window -t 10
+# 
+# # Change current pane to next window
+# bind-key ! join-pane -t :1
+# bind-key @ join-pane -t :2
+# bind-key '#' join-pane -t :3
+# bind-key '$' join-pane -t :4
+# bind-key '%' join-pane -t :5
+# bind-key '^' join-pane -t :6
+# bind-key '&' join-pane -t :7
+# bind-key '*' join-pane -t :8
+# bind-key '(' join-pane -t :9
+# bind-key ')' join-pane -t :10
+# 
+# # Kill Selected Pane
+# bind-key Q kill-pane
+# 
+# 
+# # TokyoNight colors for Tmux
+# 
+# 
+# set -g mode-style "fg=#7aa2f7,bg=#3b4261"
+# 
+# set -g message-style "fg=#7aa2f7,bg=#3b4261"
+# set -g message-command-style "fg=#7aa2f7,bg=#3b4261"
+# 
+# set -g pane-border-style "fg=#3b4261"
+# set -g pane-active-border-style "fg=#7aa2f7"
+# 
+# set -g status "on"
+# set -g status-justify "left"
+# 
+# set -g status-style "fg=#7aa2f7,bg=#16161e"
+# 
+# set -g status-left-length "100"
+# set -g status-right-length "100"
+# 
+# set -g status-left-style NONE
+# set -g status-right-style NONE
+# 
+# set -g status-left "#[fg=#15161e,bg=#7aa2f7,bold] #S #[fg=#7aa2f7,bg=#16161e,nobold,nounderscore,noitalics]"
+# set -g status-right "#[fg=#16161e,bg=#16161e,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#16161e] #{prefix_highlight} #[fg=#3b4261,bg=#16161e,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#3b4261] %Y-%m-%d  %I:%M %p #[fg=#7aa2f7,bg=#3b4261,nobold,nounderscore,noitalics]#[fg=#15161e,bg=#7aa2f7,bold] #h "
+# if-shell '[ "$(tmux show-option -gqv "clock-mode-style")" == "24" ]' {
+#   set -g status-right "#[fg=#16161e,bg=#16161e,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#16161e] #{prefix_highlight} #[fg=#3b4261,bg=#16161e,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#3b4261] %Y-%m-%d  %H:%M #[fg=#7aa2f7,bg=#3b4261,nobold,nounderscore,noitalics]#[fg=#15161e,bg=#7aa2f7,bold] #h "
+# }
+# 
+# setw -g window-status-activity-style "underscore,fg=#a9b1d6,bg=#16161e"
+# setw -g window-status-separator ""
+# setw -g window-status-style "NONE,fg=#a9b1d6,bg=#16161e"
+# setw -g window-status-format "#[fg=#16161e,bg=#16161e,nobold,nounderscore,noitalics]#[default] #I  #W #F #[fg=#16161e,bg=#16161e,nobold,nounderscore,noitalics]"
+# setw -g window-status-current-format "#[fg=#16161e,bg=#3b4261,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#3b4261,bold] #I  #W #F #[fg=#3b4261,bg=#16161e,nobold,nounderscore,noitalics]"
+# 
+# 
+# # set -g @plugin 'fabioluciano/tmux-tokyo-night'
+# # 
+# # ### Tokyo Night Theme configuration
+# # set -g @theme_variation 'moon'
+# # set -g @theme_left_separator ''
+# # set -g @theme_right_separator ''
+# 
+# 
+# 
+# # tmux-plugins/tmux-prefix-highlight support
+# set -g @prefix_highlight_output_prefix "#[fg=#e0af68]#[bg=#16161e]#[fg=#16161e]#[bg=#e0af68]"
+# set -g @prefix_highlight_output_suffix ""
+# 
+# # List of plugins
+# set -g @plugin 'tmux-plugins/tpm'
+# set -g @plugin 'tmux-plugins/tmux-sensible'
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @plugin 'tmux-plugins/tmux-continuum'
+# set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
+# 
+# # Other examples:
+# # set -g @plugin 'github_username/plugin_name'
+# # set -g @plugin 'git@github.com:user/plugin'
+# # set -g @plugin 'git@bitbucket.com:user/plugin'
+# 
+# # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+# run '~/dotfiles/.config/tmux/plugins/tpm/tpm'
+
+
+
+
+# Session is a set of windows, plus a notion of which window is current.
+
+# Window is a single screen covered with panes. (Once might compare it to a ‘virtual desktop’ or a ‘space’.)
+
+# Pane is a rectangular part of a window that runs a specific command, e.g. a shell.
+
+
+
+
+# -- general -------------------------------------------------------------------
+
+setw -g xterm-keys on
+
+# faster command sequences
+set -s escape-time 10
+
+# increase repeat timeout                    
+set -sg repeat-time 600          
+         
+set -s focus-events on
+
+# Boost history
+set -g history-limit 20000
+
+# Enable mouse support
+set -g mouse on
+
+# -- display -------------------------------------------------------------------
+
+# colors
+set -g default-terminal "tmux-256color"
+
+# start windows numbering at 1
+set -g base-index 1 
+
+# make pane numbering consistent with windows
+setw -g pane-base-index 1
+
+# rename window to reflect current program
+setw -g automatic-rename on
+
+# renumber windows when a window is closed
+set -g renumber-windows on    
+
+# set terminal title
+set -g set-titles on          
+
+# slightly longer pane indicators display time
+set -g display-panes-time 800
+
+# slightly longer status messages display time
+set -g display-time 1000      
+
+# redraw status line every 10 seconds
+set -g status-interval 10     
+
+# activity
+set -g monitor-activity on
+set -g visual-activity off
+
+# handle resizing
+setw -g aggressive-resize on
+
+# -- bindings -------------------------------------------------------------------
+
+# First remove *all* keybindings
+unbind-key -a
+
+# set prefix to Ctrl-a
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+# List keys
+bind-key ? list-keys
+
+# Split window
+bind-key h split-window -h
+bind-key v split-window -v
+
+# Kill selected pane
+bind-key q kill-pane
+
+# Create a new window with Ctrl-a Shift+number
+bind -n S-1 new-window
+bind -n S-2 new-window
+bind -n S-3 new-window
+bind -n S-4 new-window
+bind -n S-5 new-window
+bind -n S-6 new-window
+bind -n S-7 new-window
+bind -n S-8 new-window
+bind -n S-9 new-window
+bind -n S-0 new-window
+
+# Switch between windows with Ctrl-a number
+bind -n C-1 select-window -t 1
+bind -n C-2 select-window -t 2
+bind -n C-3 select-window -t 3
+bind -n C-4 select-window -t 4
+bind -n C-5 select-window -t 5
+bind -n C-6 select-window -t 6
+bind -n C-7 select-window -t 7
+bind -n C-8 select-window -t 8
+bind -n C-9 select-window -t 9
+bind -n C-0 select-window -t 0
+
+
+# ==========================
+# ===   Key bindings     ===
+# ==========================
+
+# set -g buffer-limit 20
+# set -g remain-on-exit off
+# set -g repeat-time 300
+# setw -g allow-rename off
+# setw -g aggressive-resize on
+
+
+
+# # set window split
+# unbind v
+# unbind h
+# unbind %
+# unbind '"'
+# bind v split-window -h -c "#{pane_current_path}"
+# bind h split-window -c "#{pane_current_path}"
+# 
+# # vim pane selection
+# bind -n C-h select-pane -L
+# bind -n C-j select-pane -D
+# bind -n C-k select-pane -U
+# bind -n C-l select-pane -R
+# 
+# 
+# # key bindings for moving over pannels
+# # binded to arrows for normal people
+# bind-key -n M-Left select-pane -L
+# bind-key -n M-Right select-pane -R
+# bind-key -n M-Up select-pane -U
+# bind-key -n M-Down select-pane -D
+# 
+# 
+# 
+# # Reload tmux configuration
+# bind-key r source-file ~/.config/tmux/tmux.conf \; display-message "tmux.conf reloaded"
+# 

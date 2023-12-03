@@ -1,0 +1,253 @@
+# i3 config
+
+########### I3 META
+
+set $mod Mod1
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+
+set $mon1 DisplayPort-0
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+workspace $ws1 output $mon1
+workspace $ws2 output $mon1
+workspace $ws3 output $mon1
+workspace $ws4 output $mon1
+workspace $ws5 output $mon1
+workspace $ws6 output $mon1
+workspace $ws7 output $mon1
+workspace $ws8 output $mon1
+workspace $ws9 output $mon1
+workspace $ws10 output $mon1
+
+# Reload i3 configuration file
+bindsym $mod+Shift+c 						reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r 						restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e 						exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+########## I3 UI
+
+# Define fonts
+# font pango:Inter Nerd Font Bold 12
+# font pango:Symbols Nerd Font Regular 8
+# font pango:Font Awesome 8
+font pango:JetBrainsMono Nerd Font Mono 12
+
+# Define colors
+# class                 border  backgr. text    indicator child_border
+client.focused          #ffffff #1a1b26 #ffffff #ffffff   #ffffff
+client.focused_inactive #ffffff #1a1b26 #ffffff #ffffff   #ffffff
+client.unfocused        #ffffff #1a1b26 #ffffff #ffffff   #ffffff
+client.urgent           #ffffff #1a1b26 #ffffff #ffffff   #ffffff
+client.placeholder      #ffffff #1a1b26 #ffffff #ffffff   #ffffff
+client.background       #ffffff
+
+# smart_borders on
+# hide_edge_borders none
+smart_gaps off
+gaps inner 0
+gaps outer 0
+#default_border pixel 1px
+#default_floating_border pixel 0px
+
+for_window [class="^.*"] border pixel 1px
+for_window [all] title_window_icon padding 0px
+
+########### I3 TILING
+
+# Only initiate a tiling drag when the modifier is held:
+tiling_drag modifier
+
+# Split in horizontal orientation
+bindsym $mod+h split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+
+
+# Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# Alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+popup_during_fullscreen smart
+
+########### I3 MOVEMENT
+
+# Switch to a workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+
+
+########## ROFI
+
+# Rofi - Emoji Picker
+bindsym $mod+period 						exec --no-startup-id rofimoji --selector-args "-theme tokyonight"
+
+# Rofi - App Launcher
+bindsym $mod+d exec ~/dotfiles/.config/rofi/scripts/launcher_t7
+
+# Rofi - Power Menu
+bindsym Ctrl+$mod+Delete 					exec --no-startup-id ~/dotfiles/.config/rofi/powermenu/type-4/powermenu.sh
+
+# Rofi - Calc
+bindsym Ctrl+Shift+C exec rofi --no-startup-idrofi -show calc -modi calc -no-show-match -no-sort -show calc -modi calc -no-show-match -no-sort
+
+# Rofi - Clipboard
+bindsym Ctrl+Shift+H exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+########## DESKTOP ENVIRONMENT
+# Feh - Set desktop wallpaper
+# exec_always --no-startup-id feh --bg-fill ~/.wallpaper.jpg
+
+# Delete wallpaper
+bindsym $mod+Shift+n exec ~/scripts/delete-wallpaper.sh
+# Ranomdize wallpaper
+bindsym $mod+Shift+s exec ~/scripts/wallpaper-changer.sh
+
+
+
+
+
+
+# Start Pulse Audio systray applet
+# exec --no-startup-id pasystray &
+
+
+exec --no-startup-id dex --autostart --environment i3
+
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+########## DISPLAY
+
+
+########### MISC
+
+
+
+
+##  Screenshots in files
+bindsym Print exec --no-startup-id maim --format=png "/home/$USER/shots/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
+bindsym $mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-current.png"
+bindsym Shift+Print exec --no-startup-id maim --format=png --select "/home/$USER/shots/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-selected.png"
+
+## Screenshots in clipboards
+bindsym Ctrl+Print exec --no-startup-id maim --format=png | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip -selection clipboard -t image/png
+
+
+
+# bindsym --release Print exec --no-startup-id "maim --hidecursor $HOME/Pictures/screenshots/$(date +%Y-%m-%d_%H_%M_%S).png"
+# bindsym --release Shift+Print exec --no-startup-id "maim -s -c 0.96,0.5,0.09,0.6 --hidecursor $HOME/Pictures/screenshots/$(date +%Y-%m-%d_%H_%M_%S).png"
+# bindsym --release Mod1+Print exec --no-startup-id 'maim --hidecursor -i "$(xdotool getactivewindow)" "$HOME/Pictures/screenshots/$(date +%Y-%m-%d_%H_%M_%S).png"'
+
+
+# Alacritty - Start a terminal instance
+bindsym $mod+Return exec alacritty
+
+# Alacritty - Start dropdown terminal "state" at login
+exec --no-startup-id /home/kaizen/scripts/dropdown-terminal.sh start
+
+# Alacritty - Display dropdown terminal toggle
+bindsym Ctrl+Shift+t 						exec --no-startup-id ~/dotfiles/scripts/dropdown-terminal.sh toggle
+
+########### I3 WINDOW RULES
+# # https://github.com/ValveSoftware/steam-for-linux/issues/1040
+# for_window [class="^Steam$" title="^Friends$"] floating enable
+# for_window [class="^Steam$" title="Steam - News"] floating enable
+# for_window [class="^Steam$" title=".* - Chat"] floating enable
+# for_window [class="^Steam$" title="^Settings$"] floating enable
+# for_window [class="^Steam$" title=".* - event started"] floating enable
+# for_window [class="^Steam$" title=".* CD key"] floating enable
+# for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+# for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+# for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+# for_window [title="^Steam Keyboard$"] floating enable
+for_window [instance="Places"] floating enable
+for_window [window_role="About"] floating enable
+for_window [window_role="Organizer"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="page-info"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="toolbox"] floating enable
+for_window [window_role="webconsole"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [class="File-roller"] floating enable, border normal
+for_window [class="Speedcrunch"] floating enable, border normal
+for_window [class="Gloobus-preview"] floating enable, border none
+for_window [class="Pavucontrol"] floating enable, border normal
+for_window [class="(?i)recordmydesktop"] floating enable
+for_window [instance="arandr"] floating enable
+for_window [class="(?i)1password"] floating enable
+for_window [class="(?i)bottles"] floating enable
+for_window [title="Process Explorer"] floating enable
+#for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
+
+
+for_window [class="^Anki$" title="Add"] floating enable
