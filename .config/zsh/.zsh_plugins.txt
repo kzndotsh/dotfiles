@@ -28,7 +28,7 @@
 https://github.com/peterhurford/up.zsh
 rummik/zsh-tailf
 mattmc3/zman
-agkozak/zsh-z
+# agkozak/zsh-z
 
 
 ### Local Plugins
