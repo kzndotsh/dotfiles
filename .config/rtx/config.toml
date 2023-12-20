@@ -1,6 +1,6 @@
 [tools]
-node = "latest"
-python = "latest"
+node = "system"
+python = "system"
 poetry = "latest"
 pnpm = "latest"
 direnv = "latest"

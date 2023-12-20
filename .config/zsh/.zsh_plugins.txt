@@ -117,6 +117,7 @@ mattmc3/zman
 #   ohmyzsh/ohmyzsh path:lib/clipboard.zsh
 #
 ####
+
 ohmyzsh/ohmyzsh path:lib/clipboard.zsh
 ohmyzsh/ohmyzsh path:plugins/copybuffer
 ohmyzsh/ohmyzsh path:plugins/copyfile
@@ -124,6 +125,7 @@ ohmyzsh/ohmyzsh path:plugins/copypath
 ohmyzsh/ohmyzsh path:plugins/extract
 ohmyzsh/ohmyzsh path:plugins/magic-enter
 ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+ohmyzsh/ohmyzsh path:plugins/transfer
 
 
 ### Framework: Prezto
@@ -224,3 +226,6 @@ belak/zsh-utils path:completion
 # These popular core plugins should be loaded at the end
 zsh-users/zsh-autosuggestions kind:defer
 zsh-users/zsh-history-substring-search
+
+# Prompt
+sindresorhus/pure

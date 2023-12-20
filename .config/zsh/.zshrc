@@ -8,7 +8,9 @@ setopt extended_glob
 
 # Autoload functions you might want to use with antidote.
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+
 fpath=($ZFUNCDIR $fpath)
+
 autoload -Uz $fpath[1]/*(.:t)
 
 # Source zstyles you might use with antidote.
@@ -20,6 +22,9 @@ autoload -Uz $fpath[1]/*(.:t)
 
 # Create an amazing Zsh config using antidote plugins.
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+
 antidote load
 
 eval "$(/usr/bin/rtx activate zsh)"
+
+source ${ZDOTDIR}/.aliases

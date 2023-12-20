@@ -1,6 +1,175 @@
-{
-  "name": "bottom",
-    "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["sway/scratchpad", "tray"],
-} 
+[
+  {
+    "name": "topbar",
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": [
+      "disk",
+      "memory",
+      "cpu",
+      "temperature",
+      "pulseaudio",
+      "idle_inhibitor"
+    ],
+    "modules-center": [
+      "sway/window"
+    ],
+    "modules-right": [
+      "network#vpn",
+      "network#ethernet",
+      "network#disconnected",
+      "custom/mail",
+      "custom/weather",
+      "clock",
+      "custom/poweroff"
+    ],
+    "sway/window": {
+      "format": "{} ",
+      "on-click": "swaymsg kill"
+    },
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+        "activated": "",
+        "deactivated": ""
+      }
+    },
+    "clock": {
+      "interval": 1,
+      "format": "<b>{:%H:%M:%S}</b>",
+      "format-alt": "{:%Y-%m-%d}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+      "format": " {usage}%",
+      "tooltip": false
+    },
+    "disk": {
+      "format": " {}%",
+      "tooltip-format": "{used} / {total} used"
+    },
+    "memory": {
+      "format": " {}%",
+      "tooltip-format": "{used:0.1f}G / {total:0.1f}G used"
+    },
+    "temperature": {
+      "critical-threshold": 80,
+      "format": "{icon} {temperatureC}°C",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "network#disconnected": {
+      "tooltip-format": "No connection!",
+      "format-ethernet": "",
+      "format-wifi": "",
+      "format-linked": "",
+      "format-disconnected": "",
+      "on-click": "nm-connection-editor"
+    },
+    "network#ethernet": {
+      "interface": "enp*",
+      "format-ethernet": "",
+      "format-wifi": "",
+      "format-linked": "",
+      "format-disconnected": "",
+      "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+      "on-click": "nm-connection-editor"
+    },
+    "network#vpn": {
+      "interface": "tun0",
+      "format": "",
+      "format-disconnected": "",
+      "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+      "on-click": "nm-connection-editor"
+    },
+    "pulseaudio": {
+      "scroll-step": 1,
+      "format": "{icon} {volume}%{format_source}",
+      "format-bluetooth": "{icon} {volume}%{format_source}",
+      "format-bluetooth-muted": " {icon}{format_source}",
+      "format-muted": " {format_source}",
+      "format-source": "  {volume}%",
+      "format-source-muted": " ",
+      "format-icons": {
+        "headphone": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "on-click": "pavucontrol"
+    },
+    "custom/weather": {
+      "return-type": "json",
+      "exec": "sh $HOME/.config/waybar/scripts/weather.sh",
+      "interval": 300,
+      "on-click": "firefox https://wttr.in"
+    },
+    "custom/poweroff": {
+      "tooltip": false,
+      "format": "",
+      "on-click": "bash $HOME/.config/waybar/scripts/poweroff.sh"
+    },
+    "custom/mail": {
+      "tooltip": false,
+      "exec": "sh $HOME/.config/waybar/scripts/mail.sh",
+      "interval": 120,
+      "on-click": "thunderbird && swaymsg '[app_id=thunderbird] focus'"
+    }
+  },
+  {
+    "name": "bottombar",
+    "layer": "top",
+    "position": "bottom",
+    "height": 30,
+    "modules-left": [
+      "sway/workspaces",
+      "sway/mode"
+    ],
+    "modules-center": [],
+    "modules-right": [
+      "keyboard-state",
+      "custom/updater"
+    ],
+    "tray": {
+      "icon-size": 13,
+      "spacing": 10
+    },
+    "custom/updater": {
+      "format": "{} Updates",
+      "exec": "checkupdates | wc -l",
+      "exec-if": "[[ $(checkupdates | wc -l) != 0 ]]",
+      "interval": 15,
+      "on-click": "kitty -e yay -Syu"
+    },
+    "wlr/taskbar": {
+      "format": "{icon} {name}",
+      "icon-size": 10,
+      "tooltip": false,
+      "on-click": "activate",
+      "on-click-right": "close"
+    },
+    "sway/mode": {
+      "format": "<span style=\"italic\">{}</span>"
+    },
+    "keyboard-state": {
+      "numlock": false,
+      "capslock": true,
+      "format": "  {name} {icon}",
+      "format-icons": {
+        "locked": "",
+        "unlocked": ""
+      }
+    }
+  }
+]
