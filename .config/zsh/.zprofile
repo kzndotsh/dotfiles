@@ -22,7 +22,7 @@ export READER='zathura'
 export FILE='thunar'
 export PAGER='less'
 export LESS='-R '
-export TERMINAL='kitty'
+export TERMINAL='alacritty'
 
 #
 # Paths
@@ -70,7 +70,7 @@ export PATH
 # Misc
 #
 
-export TERM=xterm-kitty #xterm-256color
+export TERM=xterm-256color
 export CLICOLOR=1
 export MICRO_TRUECOLOR=1
 export COLORTERM=truecolor
@@ -84,7 +84,7 @@ export MAKEFLAGS="-j$(nproc)"
 export MOZ_ENABLE_WAYLAND=1
 export MOZ_DBUS_REMOTE=1
 export QT_QPA_PLATFORM=wayland
-export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORMTHEME=gtk3
 export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
 export CLUTTER_BACKEND=wayland
