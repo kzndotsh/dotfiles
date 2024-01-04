@@ -1,0 +1,8 @@
+{
+    "clipboard": "terminal",
+    "colorscheme": "catppuccin-mocha",
+    "diffgutter": true,
+    "mkparents": true,
+    "wordwrap": true,
+    "xterm": true
+}
