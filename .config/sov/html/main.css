@@ -1,6 +1,6 @@
 #main {
     border-radius: 10px;
-    background-color: #00000044;
+    background-color: #15161e;
 }
 
 #base {
@@ -25,7 +25,7 @@
 .workspace {
     margin: 10px;
     border-radius: 8px;
-    background-color: #000000FF;
+    background-color: #15161e;
     border-width: 1px;
     border-color: #555555FF;
 }
@@ -33,7 +33,7 @@
 .window {
     width: 100px;
     height: 80px;
-    background-color: #222222FF;
+    background-color: #15161e;
     border-radius: 8px;
     border-width: 1px;
     border-color: #BCBCBCFF;

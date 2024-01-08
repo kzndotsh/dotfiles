@@ -30,3 +30,4 @@ eval "$(/usr/bin/rtx activate zsh)"
 source ${ZDOTDIR}/.aliases
 
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+

@@ -5,11 +5,14 @@
     "position": "top",
     "height": 30,
     "modules-left": [
+      "battery#bat1",
+      "battery#bat2",
       "disk",
       "memory",
       "cpu",
       "temperature",
       "pulseaudio",
+      "backlight",
       "idle_inhibitor"
     ],
     "modules-center": [
@@ -17,9 +20,9 @@
     ],
     "modules-right": [
       "network#vpn",
+      "network#wifi",
       "network#ethernet",
       "network#disconnected",
-      "custom/mail",
       "custom/weather",
       "clock",
       "custom/poweroff"
@@ -64,6 +67,62 @@
         ""
       ]
     },
+    "backlight": {
+      "device": "intel_backlight",
+      "interval": 1,
+      "on-scroll-down": "brightlight -pd 1",
+      "on-scroll-up": "brightlight -pi 1",
+      "format": "{icon} {percent}%",
+      "format-icons": [
+        "",
+        ""
+      ],
+      "on-click": "wdisplays"
+    },
+    "battery#bat1": {
+      "bat": "BAT0",
+      "adapter": "AC",
+      "interval": 10,
+      "full-at": 99,
+      "states": {
+        "full": 100,
+        "good": 99,
+        "empty": 5
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-empty": "",
+      "format-full": "",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "battery#bat2": {
+      "bat": "BAT1",
+      "adapter": "AC",
+      "interval": 10,
+      "states": {
+        "full": 100,
+        "good": 99,
+        "critical": 15
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-full": "",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
     "network#disconnected": {
       "tooltip-format": "No connection!",
       "format-ethernet": "",
@@ -76,6 +135,15 @@
       "interface": "enp*",
       "format-ethernet": "",
       "format-wifi": "",
+      "format-linked": "",
+      "format-disconnected": "",
+      "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+      "on-click": "nm-connection-editor"
+    },
+    "network#wifi": {
+      "interface": "wlp*",
+      "format-ethernet": "",
+      "format-wifi": " {essid} ({signalStrength}%)",
       "format-linked": "",
       "format-disconnected": "",
       "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
@@ -138,38 +206,21 @@
     ],
     "modules-center": [],
     "modules-right": [
-      "keyboard-state",
-      "custom/updater"
+      "tray"
     ],
     "tray": {
       "icon-size": 13,
       "spacing": 10
     },
-    "custom/updater": {
-      "format": "{} Updates",
-      "exec": "checkupdates | wc -l",
-      "exec-if": "[[ $(checkupdates | wc -l) != 0 ]]",
-      "interval": 15,
-      "on-click": "kitty -e yay -Syu"
-    },
     "wlr/taskbar": {
       "format": "{icon} {name}",
-      "icon-size": 10,
+      "icon-size": 13,
       "tooltip": false,
       "on-click": "activate",
       "on-click-right": "close"
     },
     "sway/mode": {
       "format": "<span style=\"italic\">{}</span>"
-    },
-    "keyboard-state": {
-      "numlock": false,
-      "capslock": true,
-      "format": "  {name} {icon}",
-      "format-icons": {
-        "locked": "",
-        "unlocked": ""
-      }
     }
   }
 ]

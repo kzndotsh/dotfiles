@@ -60,7 +60,7 @@
 # Show memory values in the processes widget as values by default
 #mem_as_value = false
 # Show tree mode by default in the processes widget.
-#tree = false
+tree = true
 # Shows an indicator in table widgets tracking where in the list you are.
 #show_table_scroll_position = false
 # Show processes as their commands by default in the process widget.
@@ -213,3 +213,4 @@ medium_battery_color = "#f9e2af"
 low_battery_color = "#f38ba8"
 gpu_core_colors = ["#74c7ec","#cba6f7","#f38ba8","#fab387","#f9e2af","#a6e3a1"]
 arc_color = "#89dceb"
+

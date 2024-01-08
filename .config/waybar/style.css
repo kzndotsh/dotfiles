@@ -1,39 +1,40 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "Inter Semi Bold", "Font Awesome 6 Free Solid";
+    font-family: "Inter", "Font Awesome 6 Free Solid";
     font-size: 14px;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 1);
-    color: #ffffff;
-    transition-property: background-color;
-    transition-duration: .5s;
+    background-color: #15161e;
+    color: #c0caf5;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
 }
 
 window#waybar.empty {
-    color: rgba(0,0,0,0);
+    /* color: #15161e; */
 }
 
+
 .topbar {
-    border-bottom: 3px solid rgba(100, 114, 125, 1);
+    border-bottom: 3px solid #292e42;
 }
 
 .bottombar {
-    border-top: 3px solid rgba(100, 114, 125, 1);
+    border-top: 3px solid #292e42;
 }
+
 
 #workspaces button {
-    padding: 0 2px;
-    background-color: transparent;
-    color: #ffffff;
-}
-
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 3px #ffffff;
+    /* padding: 0 5px; */
+    /* background-color: transparent; */
+    color: #c0caf5;
+    margin: 0;
+    min-width: 30px;
 }
 
 #workspaces button.focused {
@@ -42,13 +43,25 @@ window#waybar.empty {
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: #ff9e64;
 }
 
 #mode {
     background-color: #64727D;
     border-top: 3px solid #ffffff;
 }
+
+#workspaces button:first-child {
+    border-left: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
 
 #backlight,
 #battery.bat1,
@@ -58,7 +71,6 @@ window#waybar.empty {
 #custom-mail,
 #custom-poweroff,
 #custom-weather,
-#custom-updater,
 #disk,
 #idle_inhibitor,
 #memory,
@@ -73,7 +85,7 @@ window#waybar.empty {
 #tray {
     padding: 0 6px;
     margin: 0 0px;
-    color: #ffffff;
+    color: #c0caf5;
 }
 
 @keyframes blink {
@@ -85,7 +97,7 @@ window#waybar.empty {
 
 #battery.bat2.critical:not(.charging) {
     background-color: #f53c3c;
-    color: #ffffff;
+    color: #c0caf5;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -105,9 +117,4 @@ window#waybar.empty {
 #taskbar button.active {
     background-color: #64727D;
     box-shadow: inset 0 3px #ffffff;
-}
-
-#custom-updater {
-    color:black;
-    background-color: #64727D;
 }
