@@ -1,5 +1,5 @@
 [tools]
-node = "system"
+node = "latest"
 python = "system"
 poetry = "latest"
 pnpm = "latest"
