@@ -31,3 +31,4 @@ source ${ZDOTDIR}/.aliases
 
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 
+eval "$(/home/kaizen/.local/bin/mise activate zsh)"
