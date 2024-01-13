@@ -25,7 +25,7 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
 antidote load
 
-eval "$(/usr/bin/rtx activate zsh)"
+# eval "$(/usr/bin/rtx activate zsh)"
 
 source ${ZDOTDIR}/.aliases
 
