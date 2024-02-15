@@ -225,7 +225,7 @@ belak/zsh-utils path:completion
 
 # These popular core plugins should be loaded at the end
 zsh-users/zsh-autosuggestions kind:defer
-zsh-users/zsh-history-substring-search
+# zsh-users/zsh-history-substring-search
 
 # Prompt
 sindresorhus/pure

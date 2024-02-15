@@ -1,7 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
-- /home/kaizen/dev/allthingslinux/tux
 - /home/kaizen/dotfiles
+- /home/kaizen/.config/nvim
+- /home/kaizen/dev/allthingslinux/tux
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false

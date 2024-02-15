@@ -29,7 +29,6 @@
     ],
     "sway/window": {
       "format": "{} ",
-      "on-click": "swaymsg kill"
     },
     "idle_inhibitor": {
       "format": "{icon}",

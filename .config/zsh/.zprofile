@@ -41,6 +41,8 @@ path+=(
 	$HOME/.local/bin
 	/var/lib/flatpak/exports/bin
 	$HOME/.local/share/flatpak/exports/bin
+	$HOME/.local/share/JetBrains/Toolbox/scripts
+	$HOME/.config/emacs/bin
 	$path
 )
 
@@ -83,14 +85,15 @@ export MAKEFLAGS="-j$(nproc)"
 #
 export MOZ_ENABLE_WAYLAND=1
 export MOZ_DBUS_REMOTE=1
-export QT_QPA_PLATFORM=wayland
+# export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORM="wayland;xcb"
 export QT_QPA_PLATFORMTHEME=gtk3
 export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
 export CLUTTER_BACKEND=wayland
 export NO_AT_BRIDGE=1
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-export GDK_BACKEND=wayland
+export GDK_BACKEND=“wayland,x11”
 export GTK_THEME="TokyoNight"
 export GTK_CSD=0
 
