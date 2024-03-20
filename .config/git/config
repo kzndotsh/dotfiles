@@ -1,6 +1,6 @@
 [user]
 email = admin@kaizen.wtf
-name = kaizen
+	name = kzndotsh
 
 [core]
 editor = nvim
@@ -61,3 +61,8 @@ helper = /usr/lib/git-core/git-credential-libsecret
   insteadOf = https://gitlab.com/
 [url "ssh://git@bitbucket.org/"]
   insteadOf = https://bitbucket.org/
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

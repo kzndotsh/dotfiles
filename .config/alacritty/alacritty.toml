@@ -4,30 +4,6 @@ live_config_reload = true
 [colors]
 draw_bold_text_with_bright_colors = true
 
-[colors.bright]
-black = "#444b6a"
-blue = "#7da6ff"
-cyan = "#0db9d7"
-green = "#b9f27c"
-magenta = "#bb9af7"
-red = "#ff7a93"
-white = "#acb0d0"
-yellow = "#ff9e64"
-
-[colors.normal]
-black = "#32344a"
-blue = "#7aa2f7"
-cyan = "#449dab"
-green = "#9ece6a"
-magenta = "#ad8ee6"
-red = "#f7768e"
-white = "#787c99"
-yellow = "#e0af68"
-
-[colors.primary]
-background = "#1a1b26"
-foreground = "#a9b1d6"
-
 [cursor]
 unfocused_hollow = true
 
@@ -83,3 +59,34 @@ instance = "Alacritty"
 [window.padding]
 x = 6
 y = 6
+
+# Colors (Alabaster Dark)
+# author tonsky
+
+[colors.primary]
+background = '#0E1415'
+foreground = '#CECECE'
+
+[colors.cursor]
+text = '#0E1415'
+cursor = '#CECECE'
+
+[colors.normal]
+black = '#0E1415'
+red = '#e25d56'
+green = '#73ca50'
+yellow = '#e9bf57'
+blue = '#4a88e4'
+magenta = '#915caf'
+cyan = '#23acdd'
+white = '#f0f0f0'
+
+[colors.bright]
+black = '#777777'
+red = '#f36868'
+green = '#88db3f'
+yellow = '#f0bf7a'
+blue = '#6f8fdb'
+magenta = '#e987e9'
+cyan = '#4ac9e2'
+white = '#FFFFFF'

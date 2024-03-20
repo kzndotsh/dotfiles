@@ -118,13 +118,13 @@ mattmc3/zman
 #
 ####
 
-ohmyzsh/ohmyzsh path:lib/clipboard.zsh
-ohmyzsh/ohmyzsh path:plugins/copybuffer
-ohmyzsh/ohmyzsh path:plugins/copyfile
-ohmyzsh/ohmyzsh path:plugins/copypath
+# ohmyzsh/ohmyzsh path:lib/clipboard.zsh
+# ohmyzsh/ohmyzsh path:plugins/copybuffer
+# ohmyzsh/ohmyzsh path:plugins/copyfile
+# ohmyzsh/ohmyzsh path:plugins/copypath
 ohmyzsh/ohmyzsh path:plugins/extract
-ohmyzsh/ohmyzsh path:plugins/magic-enter
-ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+# ohmyzsh/ohmyzsh path:plugins/magic-enter
+# ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 ohmyzsh/ohmyzsh path:plugins/transfer
 
 
@@ -190,7 +190,7 @@ belak/zsh-utils path:editor
 #
 ###
 # Syntax highlighting
-#zsh-users/zsh-syntax-highlighting kind:defer
+# zsh-users/zsh-syntax-highlighting kind:defer
 zdharma-continuum/fast-syntax-highlighting kind:defer
 
 
