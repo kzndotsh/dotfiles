@@ -15,14 +15,7 @@ fi
 # Tools
 #
 
-export BROWSER='firefox'
-export EDITOR='micro'
-export VISUAL='micro'
-export READER='zathura'
-export FILE='thunar'
-export PAGER='less'
-export LESS='-R '
-export TERMINAL='alacritty'
+
 
 #
 # Paths
@@ -97,13 +90,9 @@ export GDK_BACKEND=“wayland,x11”
 export GTK_THEME="TokyoNight"
 export GTK_CSD=0
 
-#
-# XDG
-#
 
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
-export GOPATH="$XDG_DATA_HOME"/go
 export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 export PNPM_HOME="$XDG_DATA_HOME"/pnpm
 export WORKON_HOME="$XDG_DATA_HOME/"virtualenvs
