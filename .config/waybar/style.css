@@ -1,8 +1,9 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "Inter", "Font Awesome 6 Free Solid";
+    font-family: "Inter Nerd Font Propo Display", "Font Awesome 6 Free Solid";
     font-size: 14px;
+    font-weight: bold;
     min-height: 0;
 }
 

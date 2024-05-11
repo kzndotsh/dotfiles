@@ -1,5 +1,5 @@
-if command -v exa >/dev/null; then
-    alias ls="exa-wrapper.sh"
+if command -v eza >/dev/null; then
+    alias ls="eza-wrapper.sh"
 else
     alias ls="command ls $LS_OPTIONS"
 fi
@@ -17,17 +17,16 @@ alias lrt='ls -1Fcrt'
 alias lsr='ls -lARFh' #Recursive list of files and directories
 alias lsn='ls -1'     #A column contains name of files and directories
 
-alias quit='exit'
-
-alias cat='bat --paging=never'
-alias man='batman'
-alias rg='batgrep'
-
 alias emptydirs='find . -type d -empty -delete'
 alias flattendir='find . -mindepth 2 -type f -print -exec mv {} . \;'
 alias count='ls | wc -l'
 alias path='print -l "$PATH"'
 alias pii="comm -23 <(pacman -Qqett | sort) <(pacman -Qqg base -g base-devel | sort | uniq)"
+
+
+alias edit-i3='"$EDITOR" "$DOTFILES"/.config/i3/config'
+alias edit-polybar='"$EDITOR" "$DOTFILES"/.config/polybar/config.ini'
+alias edit-zsh='"$EDITOR" "$DOTFILES"/.config/zsh/.zshrc'
 
 alias cp="cp -iv"
 alias mv="mv -iv"
@@ -46,13 +45,25 @@ alias gp="git push"
 alias gs="git status"
 alias gd="git diff"
 
+# Lazy
 alias md="mkdir"
 alias t="touch"
 alias x="exit"
 alias c="clear"
+# alias o="xdg-open"
 alias x+="chmod +x"
 alias get="curl -O -L"
+
+# WIP:
+alias shutdown='sudo shutdown now'
+alias restart='sudo reboot'
+alias suspend='sudo pm-suspend'
+alias audio-reset="puleaudio -k && sudo alsa force-reload && pulseaudio --start"
 
 # XDG Fixes
 alias yarn='yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config'
 alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
+
+# Systemd
+alias list-autostart='systemctl list-unit-files | grep enabled && systemctl --user list-unit-files | grep enabled'
+

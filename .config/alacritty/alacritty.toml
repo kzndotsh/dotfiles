@@ -64,8 +64,8 @@ y = 6
 # author tonsky
 
 [colors.primary]
-background = '#0E1415'
-foreground = '#CECECE'
+background = '#1a1b26'
+foreground = '#a9b1d6'
 
 [colors.cursor]
 text = '#0E1415'

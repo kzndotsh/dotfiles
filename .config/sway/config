@@ -1,6 +1,134 @@
-# Config for sway
-# Read `man 5 sway` for a complete reference.
+set $mod Mod1
+set $term alacritty
+set $menu fuzzel
 
-include $HOME/.config/sway/config.d/*.conf
+set $ws1 number 1
+set $ws2 number 2
+set $ws3 number 3
+set $ws4 number 4
+set $ws5 number 5
+set $ws6 number 6
+set $ws7 number 7
+set $ws8 number 8
+set $ws9 number 9
+set $ws10 number 10
 
-# include /etc/sway/config.d/*
+font pango:JetBrainsMono Nerd Font Mono 11
+
+gaps inner 4
+gaps outer 0
+gaps left 0
+gaps right 0
+gaps top 0
+gaps bottom 0
+smart_gaps on
+
+default_border pixel 2
+hide_edge_borders --i3 smart_no_gaps
+
+floating_modifier $mod normal
+
+client.focused          #7aa2f7   #1a1b26   #c0caf5   #73daca     #7aa2f7
+client.focused_inactive #292e42   #1a1b26   #545c7e   #292e42     #292e42
+client.unfocused        #15161e   #1a1b26   #a9b1d6   #414868     #15161e
+client.urgent           #db4b4b   #1a1b26   #f7768e   #ff9e64     #db4b4b
+client.placeholder      #15161e   #1a1b26   #c0caf5   #15161e     #15161e
+client.background       #1a1b26
+
+bindsym $mod+Return exec $term
+bindsym $mod+d exec $menu
+bindsym $mod+c exec wl-color-picker clipboard
+bindsym $mod+Period exec rofimoji 
+bindsym $mod+Shift+n exec swaync-client -t -sw
+bindsym Print exec grim -t png -l 0 - | wl-copy -t image/png
+bindsym --release Control+Print exec --no-startup-id swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp | grim -g - - | swappy -f -
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+h splith
+bindsym $mod+v splitv
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+bindsym $mod+s move left; move right; layout stacking
+bindsym $mod+w move left; move right; layout tabbed
+bindsym $mod+e move left; move right; layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+f focus parent; fullscreen; focus child
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+bindsym $mod+Shift+q kill
+
+bindsym $mod+Shift+r exec swaymsg reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+bindsym --locked XF86AudioRaiseVolume exec volumectl raise
+bindsym --locked XF86AudioLowerVolume exec volumectl lower
+bindsym --locked XF86AudioMute exec volumectl toggle-mute
+bindsym --locked XF86AudioMicMute exec volumectl -m toggle-mute
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked $mod+Shift+c exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked $mod+Shift+Next exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked $mod+Shift+Prior exec playerctl previous
+
+bar { 
+     swaybar_command waybar
+}
+
+exec_always import-gsettings.sh
+
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+exec swaync
+
+exec_always autotiling-rs
+
+exec_always nm-applet --indicator
+
+exec eval $(gnome-keyring-daemon --start)
+
+exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+
+exec systemctl --user import-environment DISPLAY \
+                                         SWAYSOCK \
+                                         WAYLAND_DISPLAY \
+                                         XDG_CURRENT_DESKTOP
+
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY \
+                                                  SWAYSOCK \
+                                                  XDG_CURRENT_DESKTOP=sway \
+                                                  WAYLAND_DISPLAY
