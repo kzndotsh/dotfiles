@@ -1,0 +1,71 @@
+#compdef procs
+
+autoload -U is-at-least
+
+_procs() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" \
+'-W+[Watch mode with custom interval]:second: ' \
+'--watch-interval=[Watch mode with custom interval]:second: ' \
+'*-i+[Insert column to slot]:kind: ' \
+'*--insert=[Insert column to slot]:kind: ' \
+'--only=[Specified column only]:kind: ' \
+'(--sortd -t --tree)--sorta=[Sort column by ascending]:kind: ' \
+'(--sorta -t --tree)--sortd=[Sort column by descending]:kind: ' \
+'-c+[Color mode]:COLOR:(auto always disable)' \
+'--color=[Color mode]:COLOR:(auto always disable)' \
+'--theme=[Theme mode]:THEME:(auto dark light)' \
+'-p+[Pager mode]:PAGER:(auto always disable)' \
+'--pager=[Pager mode]:PAGER:(auto always disable)' \
+'--interval=[Interval to calculate throughput]:millisec: ' \
+'--use-config=[Use built-in configuration]:name:(default large)' \
+'--load-config=[Load configuration from file]:path:_files' \
+'--gen-completion=[Generate shell completion file]:shell:(bash elvish fish powershell zsh)' \
+'--gen-completion-out=[Generate shell completion file and write to stdout]:shell:(bash elvish fish powershell zsh)' \
+'(-o --or -d --nand -r --nor)-a[AND  logic for multi-keyword]' \
+'(-o --or -d --nand -r --nor)--and[AND  logic for multi-keyword]' \
+'(-a --and -d --nand -r --nor)-o[OR   logic for multi-keyword]' \
+'(-a --and -d --nand -r --nor)--or[OR   logic for multi-keyword]' \
+'(-a --and -o --or -r --nor)-d[NAND logic for multi-keyword]' \
+'(-a --and -o --or -r --nor)--nand[NAND logic for multi-keyword]' \
+'(-a --and -o --or -d --nand)-r[NOR  logic for multi-keyword]' \
+'(-a --and -o --or -d --nand)--nor[NOR  logic for multi-keyword]' \
+'-l[Show list of kind]' \
+'--list[Show list of kind]' \
+'--thread[Show thread]' \
+'-t[Tree view]' \
+'--tree[Tree view]' \
+'-w[Watch mode with default interval (1s)]' \
+'--watch[Watch mode with default interval (1s)]' \
+'--gen-config[Generate configuration sample file]' \
+'--no-header[Suppress header]' \
+'--debug[Show debug message]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::KEYWORD -- Keywords for search:' \
+&& ret=0
+}
+
+(( $+functions[_procs_commands] )) ||
+_procs_commands() {
+    local commands; commands=()
+    _describe -t commands 'procs commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_procs" ]; then
+    _procs "$@"
+else
+    compdef _procs procs
+fi

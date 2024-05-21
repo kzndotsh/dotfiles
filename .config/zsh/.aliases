@@ -19,10 +19,6 @@ alias lsn='ls -1'     #A column contains name of files and directories
 
 alias quit='exit'
 
-alias cat='bat --paging=never'
-alias man='batman'
-alias rg='batgrep'
-
 alias emptydirs='find . -type d -empty -delete'
 alias flattendir='find . -mindepth 2 -type f -print -exec mv {} . \;'
 alias count='ls | wc -l'
@@ -56,3 +52,12 @@ alias get="curl -O -L"
 # XDG Fixes
 alias yarn='yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config'
 alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
+
+# Replacements
+alias cat='bat --paging=never'
+alias man='batman'
+alias rg='batgrep'
+alias ncdu='gdu'
+alias find='fd'
+alias fp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
+alias du='dust'

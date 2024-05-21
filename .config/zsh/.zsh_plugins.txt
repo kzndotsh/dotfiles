@@ -33,15 +33,15 @@
 
 # With antidote, using Zephyr's completion plugin is recommended. This plugin is meant
 # to be run near the TOP of your .zsh_plugins.txt file.
-mattmc3/zephyr path:plugins/completion
+# mattmc3/zephyr path:plugins/completion
 
 # zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
 # We combine the `path:` and `kind:fpath` annotations here:
-# zsh-users/zsh-completions path:src kind:fpath
+zsh-users/zsh-completions path:src kind:fpath
 
 # Most other compinit plugins should be near the END of .zsh_plugins.txt so that $fpath
 # has been fully populated. One such plugin is zsh-utils and its completion subplugin.
-# belak/zsh-utils path:completion
+belak/zsh-utils path:completion
 
 ### Regular Plugins
 #
@@ -145,7 +145,7 @@ sindresorhus/pure
 # ohmyzsh/ohmyzsh path:plugins/copybuffer
 # ohmyzsh/ohmyzsh path:plugins/copyfile
 # ohmyzsh/ohmyzsh path:plugins/copypath
-# ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/extract
 # ohmyzsh/ohmyzsh path:plugins/magic-enter
 # ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 
@@ -196,7 +196,7 @@ sindresorhus/pure
 # If you want a really thin framework, this is great.
 #
 ###
-# belak/zsh-utils path:history
+belak/zsh-utils path:history
 # belak/zsh-utils path:utility
 # belak/zsh-utils path:editor
 

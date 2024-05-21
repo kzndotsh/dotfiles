@@ -37,3 +37,10 @@
 .config/google-chrome-unstable/*
 .config/google-chrome/*
 .config/btop/btop.log
+.config/Element/*
+.config/rclone/*
+.config/qBittorrent/*
+.config/obs-studio/*
+.config/Code/*
+.config/nautilus/*
+.config/modprobed.db

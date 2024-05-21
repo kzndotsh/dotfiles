@@ -132,3 +132,9 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
                                                   SWAYSOCK \
                                                   XDG_CURRENT_DESKTOP=sway \
                                                   WAYLAND_DISPLAY
+
+
+output * bg ~/dotfiles/.config/sway/bg.jpg fit
+
+# Monitor
+output DP-1 mode 1920x1080@165.003Hz

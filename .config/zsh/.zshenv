@@ -14,6 +14,8 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
+export HISTFILE="$HOME/.cache/zsh_history"
+
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export XDG_CONFIG_HOME="$HOME"/.config
 export XDG_DATA_HOME="$HOME"/.local/share
@@ -115,3 +117,4 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+. "/home/kaizen/.local/share/cargo/env"
