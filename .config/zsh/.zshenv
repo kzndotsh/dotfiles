@@ -32,6 +32,7 @@ export MOZ_ENABLE_WAYLAND=1
 export SDL_VIDEODRIVER=wayland
 export CLUTTER_BACKEND=wayland
 export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORMTHEME="qt5ct"
 export GDK_BACKEND="wayland,x11"
 export GTK_CSD=0
 
@@ -52,7 +53,7 @@ export BAT_THEME="tokyonight_night"
 export GTK_CSD=0
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export _JAVA_AWT_WM_NONREPARENTING=1
-export QT_QPA_PLATFORMTHEME=gtk3
+# export QT_QPA_PLATFORMTHEME=gtk3
 
 # Ensure path arrays do not contain duplicates.
 typeset -Ug path PATH cdpath CDPATH fpath FPATH manpath MANPATH mailpath MAILPATH infopath INFOPATH
@@ -117,4 +118,5 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+
 . "/home/kaizen/.local/share/cargo/env"

@@ -44,3 +44,13 @@
 .config/Code/*
 .config/nautilus/*
 .config/modprobed.db
+.config/wakatime*
+.config/icloud-for-linux*
+.config/vlc*
+.config/op*
+.config/sourcery*
+.config/configstore*
+.config/Meltytech*
+.config/.parallel/*
+.config/fontforge/*
+.config/QtProject.conf
