@@ -15,6 +15,8 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
 fi
 
 export HISTFILE="$HOME/.cache/zsh_history"
+export HISTSIZE=1000000000
+export SAVEHIST=1000000000
 
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export XDG_CONFIG_HOME="$HOME"/.config
@@ -27,12 +29,12 @@ export XDG_CURRENT_DESKTOP=sway
 export DE=sway
 export WM=sway
 
-export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_TYPE="wayland"
 export MOZ_ENABLE_WAYLAND=1
-export SDL_VIDEODRIVER=wayland
-export CLUTTER_BACKEND=wayland
-export QT_QPA_PLATFORM=wayland
-export QT_QPA_PLATFORMTHEME="qt5ct"
+export SDL_VIDEODRIVER="wayland"
+export CLUTTER_BACKEND="wayland"
+export QT_QPA_PLATFORM="wayland,xcb"
+export QT_QPA_PLATFORMTHEME="gtk3"
 export GDK_BACKEND="wayland,x11"
 export GTK_CSD=0
 
@@ -120,3 +122,5 @@ export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
 . "/home/kaizen/.local/share/cargo/env"
+
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock

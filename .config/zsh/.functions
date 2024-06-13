@@ -1,0 +1,73 @@
+df() {
+    if [[ "$1" == "-h" ]]; then
+        duf
+    else
+        command df "$@"
+    fi
+}
+
+group_videos() {
+    local video_dir="videos"
+    mkdir -p "$video_dir"
+    local video_extensions=("mp4" "avi" "mkv" "mov" "flv" "wmv" "mpg" "mpeg" "webm")
+    for ext in "${video_extensions[@]}"; do
+        find . -maxdepth 1 -type f -iname "*.${ext}" -exec mv -nv {} "$video_dir/" \;
+    done
+}
+
+group_images() {
+    local image_dir="images"
+    mkdir -p "$image_dir"
+    local image_extensions=("jpg" "jpeg" "png" "gif" "bmp" "tiff" "svg" "webp" "heif" "heic")
+    for ext in "${image_extensions[@]}"; do
+        find . -maxdepth 1 -type f -iname "*.${ext}" -exec mv -nv {} "$image_dir/" \;
+    done
+}
+
+mvwithsuffix() {
+    local src_dir=$1
+    local dest_dir=$2
+
+    # Check if both arguments are supplied
+    if [ -z "$src_dir" ] || [ -z "$dest_dir" ]; then
+        echo "Usage: mvwithsuffix <source-directory> <destination-directory>"
+        return 1
+    fi
+
+    # Ensure source directory exists
+    if [ ! -d "$src_dir" ]; then
+        echo "Source directory '$src_dir' does not exist."
+        return 1
+    fi
+
+    # Ensure destination directory exists
+    mkdir -p "$dest_dir"
+
+    # Move files
+    for file in "$src_dir"/*; do
+        if [ -f "$file" ]; then
+            local filename=$(basename "$file")
+            local dest_file="$dest_dir/$filename"
+
+            # Check if a file with the same name already exists in the destination directory
+            if [ -e "$dest_file" ]; then
+                local counter=1
+                local new_filename="${filename%.*}_${counter}.${filename##*.}"
+                local new_dest_file="$dest_dir/$new_filename"
+
+                # Increment counter until a unique filename is found
+                while [ -e "$new_dest_file" ]; do
+                    counter=$((counter + 1))
+                    new_filename="${filename%.*}_${counter}.${filename##*.}"
+                    new_dest_file="$dest_dir/$new_filename"
+                done
+
+                # Move file with new name
+                mv "$file" "$new_dest_file"
+            else
+                # Move file if no conflict
+                mv "$file" "$dest_file"
+            fi
+        fi
+    done
+}

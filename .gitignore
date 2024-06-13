@@ -54,3 +54,14 @@
 .config/.parallel/*
 .config/fontforge/*
 .config/QtProject.conf
+.config/redact/*
+.config/hexchat/*
+.config/celluloid/*
+.config/Slack/*
+.config/SchildiChat/*
+.config/Notion/*
+.config/Mullvad VPN/*
+.config/Electron/*
+.config/czkawka/*
+.config/dleyna-renderer-service.conf
+.config/torbrowser/*

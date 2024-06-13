@@ -20,7 +20,7 @@ alias lsn='ls -1'     #A column contains name of files and directories
 alias quit='exit'
 
 alias emptydirs='find . -type d -empty -delete'
-alias flattendir='find . -mindepth 2 -type f -print -exec mv {} . \;'
+alias flattendir='find . -mindepth 2 -type f -print -exec mv -nv {} . \;'
 alias count='ls | wc -l'
 alias path='print -l "$PATH"'
 alias pii="comm -23 <(pacman -Qqett | sort) <(pacman -Qqg base -g base-devel | sort | uniq)"
@@ -58,14 +58,6 @@ alias cat='bat --paging=never'
 alias man='batman'
 alias rg='batgrep'
 alias ncdu='gdu'
-alias find='fd'
+# alias find='fd'
 alias fp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
 alias du='dust'
-
-df() {
-    if [[ "$1" == "-h" ]]; then
-        duf
-    else
-        command df "$@"
-    fi
-}
