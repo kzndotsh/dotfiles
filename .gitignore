@@ -68,3 +68,4 @@
 .config/libresprite/*
 .config/aseprite/*
 .config/gajim/*
+.config/bash/.bash_history
