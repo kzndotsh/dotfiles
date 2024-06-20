@@ -11,13 +11,24 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 
 ## :camera: Showcase
 
-| neofetch                       | ncspot/cava                        |
-| ------------------------------ | ---------------------------------- |
-| ![neofetch](.assets/fetch.png) | ![ncspot-cava](.assets/ncspot.png) |
-
-| pcmanfm                         | fuzzel                        |
-| ------------------------------- | ----------------------------- |
-| ![pcmanfm](.assets/pcmanfm.png) | ![fuzzel](.assets/fuzzel.png) |
+<table>
+  <tr>
+    <th>neofetch</th>
+    <th>ncspot/cava</th>
+  </tr>
+  <tr>
+    <td><img src=".assets/fetch.png" alt="neofetch" style="width:100%;"></td>
+    <td><img src=".assets/ncspot.png" alt="ncspot-cava" style="width:100%;"></td>
+  </tr>
+  <tr>
+    <th>pcmanfm</th>
+    <th>fuzzel</th>
+  </tr>
+  <tr>
+    <td><img src=".assets/pcmanfm.png" alt="pcmanfm" style="width:100%;"></td>
+    <td><img src=".assets/fuzzel.png" alt="fuzzel" style="width:100%;"></td>
+  </tr>
+</table>
 
 
 <details>
