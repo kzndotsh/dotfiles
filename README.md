@@ -91,14 +91,28 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 | black        | #15121c  | ![#15121c](https://placehold.co/15x15/15121c/15121c.png) | orange | #c87c3e  | ![#c87c3e](https://placehold.co/15x15/c87c3e/c87c3e.png) |
 
 
-## Keybinds to know
+## Useful keybinds to know
+
 - <code>super + Return</code> Open a terminal.
-- <code>super + Alt + Return</code> Open a floating terminal.
-- ...
+- <code>super + d</code> Open the application launcher (fuzzel).
+- <code>super + c</code> Open color picker and copy to clipboard.
+- <code>super + Period</code> Open emoji picker (rofimoji).
+- <code>super + Shift + n</code> Toggle notifications with swaync.
+- <code>Print</code> Capture entire screen and copy to clipboard.
+- <code>Control + Print</code> Capture selected area to clipboard with swappy.
+- <code>super + Shift + s</code> Capture selected area and copy to clipboard.
+- <code>super + s</code> Change layout to stacking.
+- <code>super + w</code> Change layout to tabbed.
+- <code>super + e</code> Toggle split layout.
+- <code>super + f</code> Fullscreen the focused container.
+- <code>super + Shift + f</code> Fullscreen the parent container and then the child.
+- <code>super + Shift + space</code> Toggle floating mode for the focused container.
+- <code>super + Shift + q</code> Kill the focused window.
+- <code>super + Shift + r</code> Reload sway configuration.
+- <code>super + Shift + e</code> Exit sway with confirmation.
 
 ## :gear: Installation
-> **Warning**
-> Be careful running commands found on the internet blindly!
+> **Warning**: Be careful running commands found on the internet blindly!
 ```sh
 git clone https://github.com/kaizensh/dotfiles.git
 ```
