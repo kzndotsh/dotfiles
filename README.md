@@ -15,9 +15,9 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 | ------------------------------ | ---------------------------------- |
 | ![neofetch](.assets/fetch.png) | ![ncspot-cava](.assets/ncspot.png) |
 
-| fuzzel                        | pcmanfm                         |
-| ----------------------------- | ------------------------------- |
-| ![fuzzel](.assets/fuzzel.png) | ![pcmanfm](.assets/pcmanfm.png) |
+| pcmanfm                         | fuzzel                        |
+| ------------------------------- | ----------------------------- |
+| ![pcmanfm](.assets/pcmanfm.png) | ![fuzzel](.assets/fuzzel.png) |
 
 
 <details>
