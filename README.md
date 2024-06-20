@@ -11,13 +11,9 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 
 ## :camera: Showcase
 
-| Terminal Colors                              | Discord/Spotify                              |
-| -------------------------------------------- | -------------------------------------------- |
-| ![terminal-colors](demo/terminal-colors.png) | ![discord-spotify](demo/discord-spotify.png) |
-
-| SDDM Greeter           | GRUB2                    |
-| ---------------------- | ------------------------ |
-| ![sddm](demo/sddm.png) | ![grub2](demo/grub2.png) |
+| neofetch                       | ncspot/cava                        |
+| ------------------------------ | ---------------------------------- |
+| ![neofetch](.assets/fetch.png) | ![ncspot-cava](.assets/ncspot.png) |
 
 | VS Code                    | File Manager                 |
 | -------------------------- | ---------------------------- |
