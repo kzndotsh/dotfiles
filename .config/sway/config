@@ -1,6 +1,7 @@
 set $mod Mod1
 set $term alacritty
 set $menu fuzzel
+set $BIN_DIR $HOME/.local/bin/sway
 
 set $ws1 number 1
 set $ws2 number 2
@@ -108,7 +109,8 @@ bar {
      swaybar_command waybar
 }
 
-exec_always import-gsettings.sh
+# GTK theming
+exec_always $BIN_DIR/import-gsettings
 
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
