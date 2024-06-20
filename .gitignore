@@ -69,3 +69,4 @@
 .config/aseprite/*
 .config/gajim/*
 .config/bash/.bash_history
+.config/mpd/database
