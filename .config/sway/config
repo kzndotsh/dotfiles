@@ -110,6 +110,7 @@ bar {
 }
 
 # GTK theming
+# https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland#setting-values-in-gsettings
 exec_always $BIN_DIR/import-gsettings
 
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
