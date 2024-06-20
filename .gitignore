@@ -65,3 +65,6 @@
 .config/czkawka/*
 .config/dleyna-renderer-service.conf
 .config/torbrowser/*
+.config/libresprite/*
+.config/aseprite/*
+.config/gajim/*
