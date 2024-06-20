@@ -59,11 +59,10 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage my dotfiles. GNU 
 ## :art: Theme
 
 ### <samp>Fonts</samp>
-| Use               | Font List                                                                                                                                                 |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Primary Font      | [`Inter Nerd Font`](https://aur.archlinux.org/packages/nerd-fonts-inter)                                                                                  |
-| Primary Mono Font | [`JetBrainsMono Nerd Font`](https://www.programmingfonts.org/#jetbrainsmono) (Previously used [`Hack Nerd Font`](https://www.programmingfonts.org/#hack)) |
-| Primary Icon Font | [`Font Awesome`]()                                                                                                                                        |
+| Use               | Font List                                                                    |
+| ----------------- | ---------------------------------------------------------------------------- |
+| Primary Font      | [`Inter Nerd Font`](https://aur.archlinux.org/packages/nerd-fonts-inter)     |
+| Primary Mono Font | [`JetBrainsMono Nerd Font`](https://www.programmingfonts.org/#jetbrainsmono) |
 
 ### <samp>Icons and Cursors</samp>
 
