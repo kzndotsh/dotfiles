@@ -1,12 +1,4 @@
 <h1><code>kaizen@arch ᐱ ~/dotfiles</code></h1>
-<img src="https://img.shields.io/github/last-commit/kaizensh/dotfiles.svg" />
-<img src="https://img.shields.io/github/forks/kaizensh/dotfiles.svg" />
-<img src="https://img.shields.io/github/stars/kaizensh/dotfiles.svg" />
-<img src="https://img.shields.io/github/watchers/kaizensh/dotfiles.svg" />
-<img src="https://img.shields.io/github/issues/kaizensh/dotfiles.svg" />
-<img src="https://img.shields.io/github/issues-closed/kaizensh/dotfiles.svg" />
-<img src="https://img.shields.io/github/issues-pr/kaizensh/dotfiles.svg" />
-<img src="https://img.shields.io/github/issues-pr-closed/kaizensh/dotfiles.svg" />
 
 <h3>⚠️ WORK IN PROGRESS ⚠️</h3>
 
