@@ -1,305 +1,247 @@
 # Top General Extensions
 
-Name: Error Lens
-Id: usernamehw.errorlens
-Description: Improve highlighting of errors, warnings and other language diagnostics.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens
+### [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
+- **Id:** usernamehw.errorlens
+- **Description:** Improve highlighting of errors, warnings and other language diagnostics.
 
-Name: GitHub Copilot
-Id: GitHub.copilot
-Description: Your AI pair programmer
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=GitHub.copilot
+### [GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
+- **Id:** GitHub.copilot
+- **Description:** Your AI pair programmer
 
-Name: Better Comments
-Id: aaron-bond.better-comments
-Description: Improve your code commenting by annotating with alert, informational, TODOs, and more!
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments
+### [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
+- **Id:** aaron-bond.better-comments
+- **Description:** Improve your code commenting by annotating with alert, informational, TODOs, and more!
 
-Name: Sourcery
-Id: sourcery.sourcery
-Description: Refactor Python instantly with Sourcery
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=sourcery.sourcery
+### [Sourcery](https://marketplace.visualstudio.com/items?itemName=sourcery.sourcery)
+- **Id:** sourcery.sourcery
+- **Description:** Refactor Python instantly with Sourcery
 
-Name: SonarLint
-Id: SonarSource.sonarlint-vscode
-Description: Linter to detect & fix coding issues locally in JS/TS, Python, PHP, Java, C, C++, C#, Go, IaC. Use with SonarQube & SonarCloud for optimal team performance.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode
+### [SonarLint](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode)
+- **Id:** SonarSource.sonarlint-vscode
+- **Description:** Linter to detect & fix coding issues locally in JS/TS, Python, PHP, Java, C, C++, C#, Go, IaC. Use with SonarQube & SonarCloud for optimal team performance.
 
-Name: IntelliCode API Usage Examples
-Id: VisualStudioExptTeam.intellicode-api-usage-examples
-Description: See relevant code examples from GitHub for over 100K different APIs right in your editor.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.intellicode-api-usage-examples
+### [IntelliCode API Usage Examples](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.intellicode-api-usage-examples)
+- **Id:** VisualStudioExptTeam.intellicode-api-usage-examples
+- **Description:** See relevant code examples from GitHub for over 100K different APIs right in your editor.
 
 # Top Git Extensions
 
-Name: Git Stash
-Id: arturock.gitstash
-Description: Give extra stash abilities to Code. Visually browse stashes, review and extract changes. Get all stash commands and more.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=arturock.gitstash
+### [Git Stash](https://marketplace.visualstudio.com/items?itemName=arturock.gitstash)
+- **Id:** arturock.gitstash
+- **Description:** Give extra stash abilities to Code. Visually browse stashes, review and extract changes. Get all stash commands and more.
 
-Name: GitHub Pull Requests
-Id: GitHub.vscode-pull-request-github
-Description: Pull Request and Issue Provider for GitHub
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github
+### [GitHub Pull Requests](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
+- **Id:** GitHub.vscode-pull-request-github
+- **Description:** Pull Request and Issue Provider for GitHub
 
-Name: GitLens — Git supercharged
-Id: eamodio.gitlens
-Description: Supercharge Git within VS Code — Visualize code authorship at a glance via Git blame annotations and CodeLens, seamlessly navigate and explore Git repositories, gain valuable insights via rich visualizations and powerful comparison commands, and so much more
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
+### [GitLens — Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- **Id:** eamodio.gitlens
+- **Description:** Supercharge Git within VS Code — Visualize code authorship at a glance via Git blame annotations and CodeLens, seamlessly navigate and explore Git repositories, gain valuable insights via rich visualizations and powerful comparison commands, and so much more
 
-Name: Git History
-Id: donjayamanne.githistory
-Description: View git log, file history, compare branches or commits
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory
+### [Git History](https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory)
+- **Id:** donjayamanne.githistory
+- **Description:** View git log, file history, compare branches or commits
 
 # Top Markdown Extensions
 
-Name: Markdown All in One
-Id: yzhang.markdown-all-in-one
-Description: All you need to write Markdown (keyboard shortcuts, table of contents, auto preview and more)
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one
+### [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+- **Id:** yzhang.markdown-all-in-one
+- **Description:** All you need to write Markdown (keyboard shortcuts, table of contents, auto preview and more)
 
-Name: GitHub Markdown Preview
-Id: bierner.github-markdown-preview
-Description: Changes VS Code's built-in markdown preview to match GitHub
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview
+### [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview)
+- **Id:** bierner.github-markdown-preview
+- **Description:** Changes VS Code's built-in markdown preview to match GitHub
 
 # Top JavaScript/TypeScript Extensions
 
-Name: Auto Import - ES6, TS, JSX, TSX
-Id: NuclleaR.vscode-extension-auto-import
-Description: Automatically finds, parses and provides code actions and code completion for all available imports. Works with JavaScript and TypeScript. [Forked]
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=NuclleaR.vscode-extension-auto-import
+### [Auto Import - ES6, TS, JSX, TSX](https://marketplace.visualstudio.com/items?itemName=NuclleaR.vscode-extension-auto-import)
+- **Id:** NuclleaR.vscode-extension-auto-import
+- **Description:** Automatically finds, parses and provides code actions and code completion for all available imports. Works with JavaScript and TypeScript. [Forked]
 
-Name: Console Ninja
-Id: WallabyJs.console-ninja
-Description: JavaScript console.log output and runtime errors right next to your code.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=WallabyJs.console-ninja
+### [Console Ninja](https://marketplace.visualstudio.com/items?itemName=WallabyJs.console-ninja)
+- **Id:** WallabyJs.console-ninja
+- **Description:** JavaScript console.log output and runtime errors right next to your code.
 
-Name: Wallaby.js
-Id: WallabyJs.wallaby-vscode
-Description: Accelerated Distraction-free JavaScript Testing.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode
+### [Wallaby.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode)
+- **Id:** WallabyJs.wallaby-vscode
+- **Description:** Accelerated Distraction-free JavaScript Testing.
 
-Name: Quokka.js
-Id: WallabyJs.quokka-vscode
-Description: JavaScript and TypeScript playground in your editor.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode
+### [Quokka.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode)
+- **Id:** WallabyJs.quokka-vscode
+- **Description:** JavaScript and TypeScript playground in your editor.
 
-Name: glean
-Id: wix.glean
-Description: The extension provides refactoring tools for your React codebase
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=wix.glean
+### [glean](https://marketplace.visualstudio.com/items?itemName=wix.glean)
+- **Id:** wix.glean
+- **Description:** The extension provides refactoring tools for your React codebase
 
-Name: Node.js Modules Intellisense
-Id: leizongmin.node-module-intellisense
-Description: Autocompletes Node.js modules in import statements
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=leizongmin.node-module-intellisense
+### [Node.js Modules Intellisense](https://marketplace.visualstudio.com/items?itemName=leizongmin.node-module-intellisense)
+- **Id:** leizongmin.node-module-intellisense
+- **Description:** Autocompletes Node.js modules in import statements
 
-Name: npm Intellisense
-Id: christian-kohler.npm-intellisense
-Description: Visual Studio Code plugin that autocompletes npm modules in import statements
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense
+### [npm Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
+- **Id:** christian-kohler.npm-intellisense
+- **Description:** Visual Studio Code plugin that autocompletes npm modules in import statements
 
 # Top HTML/CSS Extensions
 
-Name: Auto Close Tag
-Id: formulahendry.auto-close-tag
-Description: Automatically add HTML/XML close tag, same as Visual Studio IDE or Sublime Text
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag
+### [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)
+- **Id:** formulahendry.auto-close-tag
+- **Description:** Automatically add HTML/XML close tag, same as Visual Studio IDE or Sublime Text
 
-Name: Tailwind CSS IntelliSense
-Id: bradlc.vscode-tailwindcss
-Description: Intelligent Tailwind CSS tooling for VS Code
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+### [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- **Id:** bradlc.vscode-tailwindcss
+- **Description:** Intelligent Tailwind CSS tooling for VS Code
 
-Name: Tailwind Config Viewer
-Id: KalimahApps.tailwind-config-viewer
-Description: View Tailwind config for the current workspace
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=KalimahApps.tailwind-config-viewer
+### [Tailwind Config Viewer](https://marketplace.visualstudio.com/items?itemName=KalimahApps.tailwind-config-viewer)
+- **Id:** KalimahApps.tailwind-config-viewer
+- **Description:** View Tailwind config for the current workspace
 
-Name: HTML CSS Support
-Id: ecmel.vscode-html-css
-Description: CSS Intellisense for HTML
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css
+### [HTML CSS Support](https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css)
+- **Id:** ecmel.vscode-html-css
+- **Description:** CSS Intellisense for HTML
 
-Name: IntelliSense for CSS class names in HTML
-Id: Zignd.html-css-class-completion
-Description: CSS class name completion for the HTML class attribute based on the definitions found in your workspace.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion
+### [IntelliSense for CSS class names in HTML](https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion)
+- **Id:** Zignd.html-css-class-completion
+- **Description:** CSS class name completion for the HTML class attribute based on the definitions found in your workspace.
 
 # Top Python Extensions
 
-Name: Python
-Id: ms-python.python
-Description: Python language support with extension access points for IntelliSense (Pylance), Debugging (Python Debugger), linting, formatting, refactoring, unit tests, and more.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+### [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+- **Id:** ms-python.python
+- **Description:** Python language support with extension access points for IntelliSense (Pylance), Debugging (Python Debugger), linting, formatting, refactoring, unit tests, and more.
 
-Name: autoDocstring - Python Docstring Generator
-Id: njpwerner.autodocstring
-Description: Generates python docstrings automatically
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring
+### [autoDocstring - Python Docstring Generator](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring)
+- **Id:** njpwerner.autodocstring
+- **Description:** Generates python docstrings automatically
 
-Name: Python Poetry
-Id: zeshuaro.vscode-python-poetry
-Description: Python Poetry support for VS Code to manage Poetry commands
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=zeshuaro.vscode-python-poetry
+### [Python Poetry](https://marketplace.visualstudio.com/items?itemName=zeshuaro.vscode-python-poetry)
+- **Id:** zeshuaro.vscode-python-poetry
+- **Description:** Python Poetry support for VS Code to manage Poetry commands
 
-Name: Ruff
-Id: charliermarsh.ruff
-Description: A Visual Studio Code extension with support for the Ruff linter.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff
+### [Ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)
+- **Id:** charliermarsh.ruff
+- **Description:** A Visual Studio Code extension with support for the Ruff linter.
 
-Name: MagicPython
-Id: magicstack.MagicPython
-Description: Syntax highlighter for cutting edge Python.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=magicstack.MagicPython
+### [MagicPython](https://marketplace.visualstudio.com/items?itemName=magicstack.MagicPython)
+- **Id:** magicstack.MagicPython
+- **Description:** Syntax highlighter for cutting edge Python.
 
-Name: Pylance
-Id: ms-python.vscode-pylance
-Description: A performant, feature-rich language server for Python in VS Code
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance
+### [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
+- **Id:** ms-python.vscode-pylance
+- **Description:** A performant, feature-rich language server for Python in VS Code
 
-Name: Python Dependencies
-Id: patrick91.python-dependencies-vscode
-Description: Utilities for managing Python dependencies
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=patrick91.python-dependencies-vscode
+### [Python Dependencies](https://marketplace.visualstudio.com/items?itemName=patrick91.python-dependencies-vscode)
+- **Id:** patrick91.python-dependencies-vscode
+- **Description:** Utilities for managing Python dependencies
 
-Name: Python Environment Manager
-Id: donjayamanne.python-environment-manager
-Description: View and manage Python environments & packages.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager
+### [Python Environment Manager](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager)
+- **Id:** donjayamanne.python-environment-manager
+- **Description:** View and manage Python environments & packages.
 
-Name: Python Indent
-Id: KevinRose.vsc-python-indent
-Description: Correct Python indentation
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=KevinRose.vsc-python-indent
+### [Python Indent](https://marketplace.visualstudio.com/items?itemName=KevinRose.vsc-python-indent)
+- **Id:** KevinRose.vsc-python-indent
+- **Description:** Correct Python indentation
 
-Name: Python Type Hint
-Id: njqdev.vscode-python-typehint
-Description: Type hint completion for Python.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=njqdev.vscode-python-typehint
+### [Python Type Hint](https://marketplace.visualstudio.com/items?itemName=njqdev.vscode-python-typehint)
+- **Id:** njqdev.vscode-python-typehint
+- **Description:** Type hint completion for Python.
 
 # Top Formatting/Syntax/Auto-Completion Extensions
 
-Name: shell-format
-Id: foxundermoon.shell-format
-Description: A formatter for shell scripts, Dockerfile, gitignore, dotenv, /etc/hosts, jvmoptions, and other file types
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format
+### [shell-format](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format)
+- **Id:** foxundermoon.shell-format
+- **Description:** A formatter for shell scripts, Dockerfile, gitignore, dotenv, /etc/hosts, jvmoptions, and other file types
 
-Name: ShellCheck
-Id: timonwong.shellcheck
-Description: Integrates ShellCheck into VS Code, a linter for Shell scripts.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck
+### [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
+- **Id:** timonwong.shellcheck
+- **Description:** Integrates ShellCheck into VS Code, a linter for Shell scripts.
 
-Name: Assorted Languages
-Id: EdwinKofler.vscode-assorted-languages
-Description: Syntax Highlighting for an assortment of languages
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=EdwinKofler.vscode-assorted-languages
+### [Assorted Languages](https://marketplace.visualstudio.com/items?itemName=EdwinKofler.vscode-assorted-languages)
+- **Id:** EdwinKofler.vscode-assorted-languages
+- **Description:** Syntax Highlighting for an assortment of languages
 
-Name: EditorConfig for VS Code
-Id: EditorConfig.EditorConfig
-Description: EditorConfig Support for Visual Studio Code
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
+### [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- **Id:** EditorConfig.EditorConfig
+- **Description:** EditorConfig Support for Visual Studio Code
 
-Name: Prisma
-Id: Prisma.prisma
-Description: Adds syntax highlighting, formatting, auto-completion, jump-to-definition and linting for .prisma files.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=Prisma.prisma
+### [Prisma](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma)
+- **Id:** Prisma.prisma
+- **Description:** Adds syntax highlighting, formatting, auto-completion, jump-to-definition and linting for .prisma files.
 
-Name: Prettier - Code formatter
-Id: esbenp.prettier-vscode
-Description: Code formatter using prettier
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+### [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- **Id:** esbenp.prettier-vscode
+- **Description:** Code formatter using prettier
 
-Name: Prettier ESLint
-Id: rvest.vs-code-prettier-eslint
-Description: A Visual Studio Extension to format JavaScript and Typescript code using prettier-eslint package
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=rvest.vs-code-prettier-eslint
+### [Prettier ESLint](https://marketplace.visualstudio.com/items?itemName=rvest.vs-code-prettier-eslint)
+- **Id:** rvest.vs-code-prettier-eslint
+- **Description:** A Visual Studio Extension to format JavaScript and Typescript code using prettier-eslint package
 
-Name: Prettier ESLint TypeScript Formatter
-Id: hb432.prettier-eslint-typescript
-Description: Formats TypeScript code through Prettier, then through ESLint.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=hb432.prettier-eslint-typescript
+### [Prettier ESLint TypeScript Formatter](https://marketplace.visualstudio.com/items?itemName=hb432.prettier-eslint-typescript)
+- **Id:** hb432.prettier-eslint-typescript
+- **Description:** Formats TypeScript code through Prettier, then through ESLint.
 
-Name: Babel JavaScript
-Id: mgmcdermott.vscode-language-babel
-Description: VSCode syntax highlighting for today's JavaScript
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=mgmcdermott.vscode-language-babel
+### [Babel JavaScript](https://marketplace.visualstudio.com/items?itemName=mgmcdermott.vscode-language-babel)
+- **Id:** mgmcdermott.vscode-language-babel
+- **Description:** VSCode syntax highlighting for today's JavaScript
 
-Name: ESLint
-Id: dbaeumer.vscode-eslint
-Description: Integrates ESLint JavaScript into VS Code.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+### [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- **Id:** dbaeumer.vscode-eslint
+- **Description:** Integrates ESLint JavaScript into VS Code.
 
-Name: MDX
-Id: unifiedjs.vscode-mdx
-Description: Language support for MDX
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx
+### [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx)
+- **Id:** unifiedjs.vscode-mdx
+- **Description:** Language support for MDX
 
 # Top Miscellaneous Extensions
 
-Name: Formatting Toggle
-Id: tombonnike.vscode-status-bar-format-toggle
-Description: A VS Code extension that allows you to toggle formatting settings ON and OFF with a simple click.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=tombonnike.vscode-status-bar-format-toggle
+### [Formatting Toggle](https://marketplace.visualstudio.com/items?itemName=tombonnike.vscode-status-bar-format-toggle)
+- **Id:** tombonnike.vscode-status-bar-format-toggle
+- **Description:** A VS Code extension that allows you to toggle formatting settings ON and OFF with a simple click.
 
-Name: Path Autocomplete
-Id: ionutvmi.path-autocomplete
-Description: Provides path completion for visual studio code and VS Code for Web.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ionutvmi.path-autocomplete
+### [Path Autocomplete](https://marketplace.visualstudio.com/items?itemName=ionutvmi.path-autocomplete)
+- **Id:** ionutvmi.path-autocomplete
+- **Description:** Provides path completion for Visual Studio Code and VS Code for Web.
 
-Name: Path Intellisense
-Id: christian-kohler.path-intellisense
-Description: Visual Studio Code plugin that autocompletes filenames
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense
+### [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
+- **Id:** christian-kohler.path-intellisense
+- **Description:** Visual Studio Code plugin that autocompletes filenames
 
-Name: SQLite
-Id: alexcvzz.vscode-sqlite
-Description: Explore and query SQLite databases.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite
+### [SQLite](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite)
+- **Id:** alexcvzz.vscode-sqlite
+- **Description:** Explore and query SQLite databases.
 
-Name: SQLite Viewer
-Id: qwtel.sqlite-viewer
-Description: SQLite Viewer for VSCode
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer
+### [SQLite Viewer](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer)
+- **Id:** qwtel.sqlite-viewer
+- **Description:** SQLite Viewer for VSCode
 
-Name: TOML Language Support
-Id: be5invis.toml
-Description: TOML language support
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=be5invis.toml
+### [TOML Language Support](https://marketplace.visualstudio.com/items?itemName=be5invis.toml)
+- **Id:** be5invis.toml
+- **Description:** TOML language support
 
-Name: YAML
-Id: redhat.vscode-yaml
-Description: YAML Language Support by Red Hat, with built-in Kubernetes syntax support
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
+### [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+- **Id:** redhat.vscode-yaml
+- **Description:** YAML Language Support by Red Hat, with built-in Kubernetes syntax support
 
-Name: Shift That
-Id: JimmyArroyo.shiftthat
-Description: Sort your user or workspace settings
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=JimmyArroyo.shiftthat
+### [Shift That](https://marketplace.visualstudio.com/items?itemName=JimmyArroyo.shiftthat)
+- **Id:** JimmyArroyo.shiftthat
+- **Description:** Sort your user or workspace settings
 
-Name: Remote - SSH
-Id: ms-vscode-remote.remote-ssh
-Description: Open any folder on a remote machine using SSH and take advantage of VS Code's full feature set.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
+### [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
+- **Id:** ms-vscode-remote.remote-ssh
+- **Description:** Open any folder on a remote machine using SSH and take advantage of VS Code's full feature set.
 
-Name: Remote - SSH: Editing Configuration Files
-Id: ms-vscode-remote.remote-ssh-edit
-Description: Edit SSH configuration files
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit
+### [Remote - SSH: Editing Configuration Files](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
+- **Id:** ms-vscode-remote.remote-ssh-edit
+- **Description:** Edit SSH configuration files
 
-Name: Remote Explorer
-Id: ms-vscode.remote-explorer
-Description: View remote machines for SSH and Tunnels.
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer
+### [Remote Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
+- **Id:** ms-vscode.remote-explorer
+- **Description:** View remote machines for SSH and Tunnels.
 
-Name: Remote Repositories
-Id: ms-vscode.remote-repositories
-Description: Remotely browse and edit git repositories
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-repositories
+### [Remote Repositories](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-repositories)
+- **Id:** ms-vscode.remote-repositories
+- **Description:** Remotely browse and edit git repositories
 
-Name: Image preview
-Id: kisstkondoros.vscode-gutter-preview
-Description: Shows image preview in the gutter and on hover
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-gutter-preview
+### [Image Preview](https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-gutter-preview)
+- **Id:** kisstkondoros.vscode-gutter-preview
+- **Description:** Shows image preview in the gutter and on hover
