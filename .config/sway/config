@@ -141,3 +141,8 @@ output * bg ~/dotfiles/.config/sway/bg.jpg fit
 
 # Monitor
 output DP-1 mode 1920x1080@165.003Hz
+
+input * {
+    repeat_delay 300
+    repeat_rate 40
+}
