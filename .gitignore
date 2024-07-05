@@ -71,3 +71,8 @@
 .config/bash/.bash_history
 .config/mpd/database
 .config/ncspot/userstate.cbor
+.config/Mailspring/*
+.config/Emby Theater/*
+.config/Kvantum/*
+.config/nextjs-nodejs/*
+.config/jgit/*

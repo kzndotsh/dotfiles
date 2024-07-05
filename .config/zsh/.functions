@@ -49,13 +49,11 @@ mvwithsuffix() {
             local filename=$(basename "$file")
             local dest_file="$dest_dir/$filename"
 
-            # Check if a file with the same name already exists in the destination directory
             if [ -e "$dest_file" ]; then
                 local counter=1
                 local new_filename="${filename%.*}_${counter}.${filename##*.}"
                 local new_dest_file="$dest_dir/$new_filename"
 
-                # Increment counter until a unique filename is found
                 while [ -e "$new_dest_file" ]; do
                     counter=$((counter + 1))
                     new_filename="${filename%.*}_${counter}.${filename##*.}"

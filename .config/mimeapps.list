@@ -1,8 +1,11 @@
 [Default Applications]
 application/octet-stream=micro.desktop
+x-scheme-handler/mailspring=Mailspring.desktop
+image/png=imv.desktop
 
 [Added Associations]
 application/octet-stream=micro.desktop;
 image/jpeg=imv.desktop;org.gnome.Shotwell-Viewer.desktop;
 inode/directory=org.gnome.Shotwell.desktop;
 video/vnd.avi=io.github.celluloid_player.Celluloid.desktop;
+image/png=imv.desktop;
