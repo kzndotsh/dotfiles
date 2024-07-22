@@ -76,3 +76,11 @@
 .config/Kvantum/*
 .config/nextjs-nodejs/*
 .config/jgit/*
+.config/REAPER/*
+.config/Session/*
+.config/GitKraken/*
+.config/Cursor/*
+.config/create-next-app-nodejs/*
+.config/wayvnc/*
+.config/ytdlp-gui/*
+.config/gtk-3.0/bookmarks

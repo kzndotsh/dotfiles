@@ -2,6 +2,8 @@
 application/octet-stream=micro.desktop
 x-scheme-handler/mailspring=Mailspring.desktop
 image/png=imv.desktop
+x-scheme-handler/discord-409416265891971072=discord-409416265891971072.desktop
+x-scheme-handler/gitkraken=GitKraken.desktop
 
 [Added Associations]
 application/octet-stream=micro.desktop;

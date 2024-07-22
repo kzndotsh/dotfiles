@@ -33,11 +33,11 @@ export XDG_SESSION_TYPE="wayland"
 export MOZ_ENABLE_WAYLAND=1
 export SDL_VIDEODRIVER="wayland"
 export CLUTTER_BACKEND="wayland"
-export QT_QPA_PLATFORM="wayland,xcb"
+export QT_QPA_PLATFORM="wayland"
 export QT_QPA_PLATFORMTHEME="kvantum"
 # export QT_QPA_PLATFORMTHEME=gtk3
-export QT_STYLE_OVERRIDE="kvantum"
-export GDK_BACKEND="wayland,x11"
+export QT_STYLE_OVERRIDE="qt5ct-style"
+export GDK_BACKEND="wayland"
 export GTK_CSD=0
 
 export BROWSER=firefox
