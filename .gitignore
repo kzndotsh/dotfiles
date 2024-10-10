@@ -84,3 +84,27 @@
 .config/wayvnc/*
 .config/ytdlp-gui/*
 .config/gtk-3.0/bookmarks
+.config/GIMP/*
+.config/com.lencx.chatgpt/*
+.config/libreoffice/*
+.config/setzer/*
+.config/docker/*
+.config/16x Prompt/*
+.config/AudioVitamins/*
+.config/Google/*
+.config/Vaporizer2/*
+.config/amsynth/*
+.config/ardour8/*
+.config/audacity/*
+.config/deadbeef/*
+.config/evolution/*
+.config/galculator/*
+.config/gcolor3/*
+.config/glow/*
+.config/go/*
+.config/gpick/*
+.config/gummi/*
+.config/lazydocker/*
+.config/pypoetry/*
+.config/qtws_Google Drive/*
+.config/nvim/lazy-lock.json

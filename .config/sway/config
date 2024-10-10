@@ -38,12 +38,16 @@ client.background       #1a1b26
 
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
-bindsym $mod+c exec wl-color-picker clipboard
-bindsym $mod+Period exec rofimoji 
+# bindsym $mod+c exec wl-color-picker clipboard
+bindsym $mod+c exec --no-startup-id /home/kaizen/dev/wl-colorblind-picker/wl-colorblind-picker.sh
+
+bindsym $mod+Period exec emote 
 bindsym $mod+Shift+n exec swaync-client -t -sw
 bindsym Print exec grim -t png -l 0 - | wl-copy -t image/png
 bindsym --release Control+Print exec --no-startup-id swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp | grim -g - - | swappy -f -
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
+
+
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -152,3 +156,66 @@ mode passthrough {
 }
 
 bindsym $mod+Pause mode passthrough; floating_modifier none
+
+
+# Tag xwayland windows as such
+for_window [shell="xwayland"] title_format "<span>[X] %title</span>"
+
+
+for_window [app_id="system-config-printer"] floating enable
+for_window [app_id="gnome-calculator"] floating enable
+for_window [app_id="keepassxc"] floating enable
+for_window [class="(?i)Lxappearance$"] floating enable
+for_window [app_id="(?i)mpv"] floating enable
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="(?i)thunar"] floating enable
+for_window [app_id="vlc"] floating enable
+for_window [app_id="tlp-ui"] floating enable
+for_window [app_id="pamac-manager"] floating enable
+for_window [app_id="nm-connection-editor$"] floating enable
+for_window [app_id="simple-scan"] floating enable
+for_window [app_id="firetools"] floating enable
+for_window [app_id="firewall-config"] floating enable
+for_window [app_id="gnome-(calendar|calculator|power-statistics|control-center)"] floating enable
+# for_window [app_id="org.gnome.(Nautilus|Weather)"] floating enable
+for_window [app_id="soffice"] floating enable
+for_window [title="^Open File$"] floating enable
+for_window [title="Weather report: 44240 - qutebrowser"] floating enable
+for_window [title="Update Check|Cryptomator"] floating enable, resize set 800 600
+for_window [window_role="GtkFileChooserDialog"] resize set 800 600
+for_window [window_role="GtkFiileChooserDialog"] move position center
+for_window [class="^Steam$" title="^Friends"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title=".* - Chat"] floating enable
+for_window [class="^Steam$" title="^Settings"] floating enable
+for_window [class="^Steam$" title=".* - event started"] floating enable
+for_window [class="^Steam$" title=".* CD key"] floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater"] floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader"] floating enable
+for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required"] floating enable
+for_window [title="^Steam Keyboard"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [instance="update_installer"] floating enable
+for_window [title="About Mozilla Firefox"] floating enable
+for_window [title="Firefox Preferences"] floating enable
+for_window [instance="Places"] floating enable
+for_window [window_role="About"] floating enable
+for_window [window_role="Organizer"] floating enable
+for_window [window_role="page-info"] floating enable
+for_window [window_role="toolbox"] floating enable
+for_window [window_role="webconsole"] floating enable
+for_window [class="File-roller"] floating enable
+for_window [class="Speedcrunch"] floating enable
+for_window [class="Gloobus-preview"] floating enable
+for_window [class="(?i)recordmydesktop"] floating enable
+for_window [instance="arandr"] floating enable
+for_window [class="(?i)1password"] floating enable
+for_window [class="(?i)bottles"] floating enable
+for_window [title="Process Explorer"] floating enable
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
+for_window [class="^Anki$" title="Add"] floating enable
