@@ -29,13 +29,14 @@ export XDG_CURRENT_DESKTOP=sway
 export DE=sway
 export WM=sway
 
+export ELECTRON_OZONE_PLATFORM_HINT="auto"
 export XDG_SESSION_TYPE="wayland"
 export MOZ_ENABLE_WAYLAND=1
 export SDL_VIDEODRIVER="wayland"
 export CLUTTER_BACKEND="wayland"
 export QT_QPA_PLATFORM="wayland"
-export QT_QPA_PLATFORMTHEME="kvantum"
-# export QT_QPA_PLATFORMTHEME=gtk3
+# export QT_QPA_PLATFORMTHEME="kvantum"
+export QT_QPA_PLATFORMTHEME=gtk3
 export QT_STYLE_OVERRIDE="qt5ct-style"
 export GDK_BACKEND="wayland"
 export GTK_CSD=0
@@ -54,7 +55,6 @@ export MAKEFLAGS="-j$(nproc)"
 
 export GTK_THEME="Tokyonight-Darker"
 export BAT_THEME="tokyonight_night"
-export GTK_CSD=0
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export _JAVA_AWT_WM_NONREPARENTING=1
 

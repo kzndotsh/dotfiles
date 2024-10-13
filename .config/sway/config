@@ -14,7 +14,11 @@ set $ws8 number 8
 set $ws9 number 9
 set $ws10 number 10
 
-font pango:JetBrainsMono Nerd Font Mono 11
+# font pango:JetBrainsMono Nerd Font Mono 11
+font pango: monospace 0.001
+
+titlebar_border_thickness 0                                                     
+titlebar_padding 0
 
 gaps inner 4
 gaps outer 0
