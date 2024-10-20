@@ -1,6 +1,6 @@
 df() {
     if [[ "$1" == "-h" ]]; then
-        duf
+        duf --only local
     else
         command df "$@"
     fi

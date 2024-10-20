@@ -108,3 +108,9 @@
 .config/pypoetry/*
 .config/qtws_Google Drive/*
 .config/nvim/lazy-lock.json
+.config/cmus/*
+.config/lsp-plugins/*
+.config/nwg-look/config
+.config/superfile/*
+.config/user-dirs*
+.config/vifm/*

@@ -35,10 +35,9 @@ export MOZ_ENABLE_WAYLAND=1
 export SDL_VIDEODRIVER="wayland"
 export CLUTTER_BACKEND="wayland"
 export QT_QPA_PLATFORM="wayland"
-# export QT_QPA_PLATFORMTHEME="kvantum"
 export QT_QPA_PLATFORMTHEME=gtk3
-export QT_STYLE_OVERRIDE="qt5ct-style"
 export GDK_BACKEND="wayland"
+export GTK_OVERLAY_SCROLLING=0
 export GTK_CSD=0
 
 export BROWSER=firefox
@@ -53,7 +52,7 @@ export COLORTERM=truecolor
 export GPG_TTY="$(tty)"
 export MAKEFLAGS="-j$(nproc)"
 
-export GTK_THEME="Tokyonight-Darker"
+export GTK_THEME="Tokyonight-Dark-BL-LB"
 export BAT_THEME="tokyonight_night"
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -117,8 +116,8 @@ export CABAL_DIR="$XDG_DATA_HOME"/cabal
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc 
-export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
+# export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc 
+# export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 

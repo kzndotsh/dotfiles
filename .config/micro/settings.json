@@ -1,4 +1,5 @@
 {
     "clipboard": "terminal",
-    "colorscheme": "simple"
+    "colorscheme": "simple",
+    "wordwrap": true
 }

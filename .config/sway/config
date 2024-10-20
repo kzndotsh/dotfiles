@@ -155,15 +155,34 @@ input * {
     repeat_rate 40
 }
 
-mode passthrough {
-    bindsym $mod+Pause mode default; floating_modifier $mod normal
-}
+# mode passthrough {
+#     bindsym $mod+Pause mode default; floating_modifier $mod normal
+# }
 
-bindsym $mod+Pause mode passthrough; floating_modifier none
+# mode "present" {
+#     # command starts mirroring
+#     bindsym m mode "default"; exec wl-present mirror
+#     # these commands modify an already running mirroring window
+#     bindsym o mode "default"; exec wl-present set-output
+#     bindsym r mode "default"; exec wl-present set-region
+#     bindsym Shift+r mode "default"; exec wl-present unset-region
+#     bindsym s mode "default"; exec wl-present set-scaling
+#     bindsym f mode "default"; exec wl-present toggle-freeze
+#     bindsym c mode "default"; exec wl-present custom
+# 
+#     # return to default mode
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
+# bindsym $mod+p mode "present"
+
+
+
+# bindsym $mod+Pause mode passthrough; floating_modifier none
 
 
 # Tag xwayland windows as such
-for_window [shell="xwayland"] title_format "<span>[X] %title</span>"
+# for_window [shell="xwayland"] title_format "<span>[X] %title</span>"
 
 
 for_window [app_id="system-config-printer"] floating enable
@@ -172,7 +191,7 @@ for_window [app_id="keepassxc"] floating enable
 for_window [class="(?i)Lxappearance$"] floating enable
 for_window [app_id="(?i)mpv"] floating enable
 for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="(?i)thunar"] floating enable
+# for_window [app_id="(?i)thunar"] floating enable
 for_window [app_id="vlc"] floating enable
 for_window [app_id="tlp-ui"] floating enable
 for_window [app_id="pamac-manager"] floating enable
@@ -186,8 +205,8 @@ for_window [app_id="soffice"] floating enable
 for_window [title="^Open File$"] floating enable
 for_window [title="Weather report: 44240 - qutebrowser"] floating enable
 for_window [title="Update Check|Cryptomator"] floating enable, resize set 800 600
-for_window [window_role="GtkFileChooserDialog"] resize set 800 600
-for_window [window_role="GtkFiileChooserDialog"] move position center
+# for_window [window_role="GtkFileChooserDialog"] resize set 800 600
+# for_window [window_role="GtkFiileChooserDialog"] move position center
 for_window [class="^Steam$" title="^Friends"] floating enable
 for_window [class="^Steam$" title="Steam - News"] floating enable
 for_window [class="^Steam$" title=".* - Chat"] floating enable
