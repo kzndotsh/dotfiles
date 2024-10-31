@@ -10,27 +10,32 @@ I use <a href="https://www.gnu.org/software/stow/">GNU Stow</a> to manage my dot
 </p>
 
 <h2>:camera: Showcase</h2>
-<table style="width: 100%;">
+<table>
   <tr>
     <th>neofetch</th>
     <th>ncspot/cava</th>
   </tr>
   <tr>
-    <td><img src=".assets/fetch.png" alt="neofetch" style="width:100%; height:300px; object-fit: cover;"></td>
-    <td><img src=".assets/ncspot.png" alt="ncspot-cava" style="width:100%; height:300px; object-fit: cover;"></td>
+    <td align="center">
+      <img src=".assets/fetch.png" alt="neofetch" width="400">
+    </td>
+    <td align="center">
+      <img src=".assets/ncspot.png" alt="ncspot-cava" width="400">
+    </td>
   </tr>
   <tr>
     <th>pcmanfm</th>
     <th>fuzzel</th>
   </tr>
   <tr>
-    <td><img src=".assets/pcmanfm.png" alt="pcmanfm" style="width:100%; height:300px; object-fit: cover;"></td>
-    <td><img src=".assets/fuzzel.png" alt="fuzzel" style="width:100%; height:300px; object-fit: cover;"></td>
+    <td align="center">
+      <img src=".assets/pcmanfm.png" alt="pcmanfm" width="400">
+    </td>
+    <td align="center">
+      <img src=".assets/fuzzel.png" alt="fuzzel" width="400">
+    </td>
   </tr>
 </table>
-<details>
-  <summary><h3>More screenshots</h3></summary>
-</details>
 
 <h2>:star: Features</h2>
 <p><strong>Dotfiles:</strong> Explore a range of dotfiles meticulously configured for different applications, enhancing functionality and aesthetics.</p>
