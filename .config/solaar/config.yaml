@@ -1,0 +1,15 @@
+- 1.1.13
+- _NAME: G502 Lightspeed Gaming Mouse
+  _absent: [hi-res-scroll, lowres-scroll-mode, hires-smooth-invert, hires-smooth-resolution, hires-scroll-mode, scroll-ratchet, smart-shift, thumb-scroll-invert,
+    thumb-scroll-mode, report_rate_extended, pointer_speed, dpi_extended, speed-change, backlight, backlight_level, backlight_duration_hands_out, backlight_duration_hands_in,
+    backlight_duration_powered, backlight-timed, rgb_control, rgb_zone_, brightness_control, per-key-lighting, fn-swap, reprogrammable-keys, persistent-remappable-keys,
+    divert-keys, disable-keyboard-keys, crown-smooth, divert-crown, divert-gkeys, m-key-leds, mr-key-led, multiplatform, change-host, gesture2-gestures,
+    gesture2-divert, gesture2-params, sidetone, equalizer, adc_power_management]
+  _battery: 4097
+  _modelId: 407FC08D0000
+  _sensitive: {led_control: false, report_rate: false}
+  _unitId: 0A6935E3
+  dpi: 450
+  led_control: 0
+  onboard_profiles: 1
+  report_rate: 1

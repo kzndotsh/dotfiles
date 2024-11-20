@@ -24,21 +24,26 @@ export XDG_DATA_HOME="$HOME"/.local/share
 export XDG_STATE_HOME="$HOME"/.local/state
 export XDG_CACHE_HOME="$HOME"/.cache
 
-export XDG_SESSION_DESKTOP=sway
-export XDG_CURRENT_DESKTOP=sway
 export DE=sway
 export WM=sway
 
-export ELECTRON_OZONE_PLATFORM_HINT="auto"
+export XDG_SESSION_DESKTOP=sway
+export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE="wayland"
+
+export ELECTRON_OZONE_PLATFORM_HINT="auto"
 export MOZ_ENABLE_WAYLAND=1
 export SDL_VIDEODRIVER="wayland"
 export CLUTTER_BACKEND="wayland"
-export QT_QPA_PLATFORM="wayland"
-export QT_QPA_PLATFORMTHEME=gtk3
+
 export GDK_BACKEND="wayland"
 export GTK_OVERLAY_SCROLLING=0
 export GTK_CSD=0
+export GTK_THEME="Tokyonight-Dark-BL-LB"
+
+export QT_QPA_PLATFORM="wayland"
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
 export BROWSER=firefox
 export TERMINAL=alacritty
@@ -51,10 +56,9 @@ export MICRO_TRUECOLOR=1
 export COLORTERM=truecolor
 export GPG_TTY="$(tty)"
 export MAKEFLAGS="-j$(nproc)"
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
-export GTK_THEME="Tokyonight-Dark-BL-LB"
 export BAT_THEME="tokyonight_night"
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Ensure path arrays do not contain duplicates.

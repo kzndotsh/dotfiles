@@ -9,7 +9,7 @@ df() {
 group_videos() {
     local video_dir="videos"
     mkdir -p "$video_dir"
-    local video_extensions=("mp4" "avi" "mkv" "mov" "flv" "wmv" "mpg" "mpeg" "webm")
+    local video_extensions=("mp4" "avi" "mkv" "3gp" "mov" "flv" "wmv" "mpg" "mpeg" "webm" "m4v")
     for ext in "${video_extensions[@]}"; do
         find . -maxdepth 1 -type f -iname "*.${ext}" -exec mv -nv {} "$video_dir/" \;
     done
@@ -69,3 +69,22 @@ mvwithsuffix() {
         fi
     done
 }
+
+
+   flattendir() {
+     find . -mindepth 2 -type f | while IFS= read -r file; do
+       base=$(basename "$file")
+
+       if [[ -e "./$base" ]]; then
+         # If a file with the same name exists, add a numbered prefix
+         number=1
+         while [[ -e "./${number}_$base" ]]; do
+           number=$((number + 1))
+         done
+         mv -nv "$file" "./${number}_$base"
+       else
+         # If it doesn't exist, move it without changes
+         mv -nv "$file" .
+       fi
+     done
+   }

@@ -1,70 +1,53 @@
 [user]
-	email = admin@kaizen.wtf
-	name = kzndotsh
+    email = admin@kaizen.wtf
+    name = kzndotsh
 
 [core]
-editor = nvim
-# pager = diff-so-fancy | less --tabs=4 -RF
+    editor = nvim
 
 [merge]
-tool = meld
+    tool = meld
 
 [color]
-ui = true
+    ui = true
 
 [delta]
-true-color = always
-line-numbers = true
-# side-by-side = true
+    true-color = always
+    line-numbers = true
 
 [init]
-defaultBranch = main
+    defaultBranch = main
 
 [fetch]
-prune = true
+    prune = true
 
 [commit]
-verbose = true
+    verbose = true
 
 [status]
-showUntrackedFiles = all
+    showUntrackedFiles = all
 
 [help]
-autocorrect = 1
+    autocorrect = 1
 
 [safe]
-directory = /etc
-
-# [interactive]
-# 	diffFilter = diff-so-fancy --patch
-# [color "diff-highlight"]
-# 	oldNormal = red bold
-# 	oldHighlight = red bold 52
-# 	newNormal = green bold
-# 	newHighlight = green bold 22
-# [color "diff"]
-# 	meta = 11
-# 	frag = magenta bold
-# 	func = 146 bold
-# 	commit = yellow bold
-# 	old = red bold
-# 	new = green bold
-# 	whitespace = red reverse
+    directory = /etc
 
 [credential]
-helper = /usr/lib/git-core/git-credential-libsecret
+    helper = 1password
 
-# Enforce SSH
 [url "ssh://git@github.com/"]
-  insteadOf = https://github.com/
-# [url "ssh://git@gitlab.com/"]
-#   insteadOf = https://gitlab.com/
-# [url "ssh://git@bitbucket.org/"]
-#   insteadOf = https://bitbucket.org/
+    insteadOf = https://github.com/
+
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
 [push]
-	autoSetupRemote = true
+    autoSetupRemote = true
+    default = current
+
+[log]
+    decorate = auto

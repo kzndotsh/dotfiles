@@ -29,6 +29,10 @@ gaps bottom 0
 smart_gaps on
 
 default_border pixel 2
+default_floating_border pixel 2
+
+for_window [app_id=".*"] border pixel 2
+
 hide_edge_borders --i3 smart_no_gaps
 
 floating_modifier $mod normal
@@ -42,8 +46,8 @@ client.background       #1a1b26
 
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
-# bindsym $mod+c exec wl-color-picker clipboard
-bindsym $mod+c exec --no-startup-id /home/kaizen/dev/wl-colorblind-picker/wl-colorblind-picker.sh
+bindsym $mod+c exec wl-color-picker clipboard
+# bindsym $mod+c exec --no-startup-id /home/kaizen/dev/wl-colorblind-picker/wl-colorblind-picker.sh
 
 bindsym $mod+Period exec emote 
 bindsym $mod+Shift+n exec swaync-client -t -sw
@@ -57,6 +61,10 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
+
+# Cycle through active workspaces
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -226,13 +234,17 @@ for_window [window_type="menu"] floating enable
 for_window [instance="update_installer"] floating enable
 for_window [title="About Mozilla Firefox"] floating enable
 for_window [title="Firefox Preferences"] floating enable
+for_window [title="Extract"] floating enable
 for_window [instance="Places"] floating enable
 for_window [window_role="About"] floating enable
 for_window [window_role="Organizer"] floating enable
 for_window [window_role="page-info"] floating enable
 for_window [window_role="toolbox"] floating enable
 for_window [window_role="webconsole"] floating enable
-for_window [class="File-roller"] floating enable
+for_window [class="file-roller"] floating enable
+for_window [app_id="org.gnome.FileRoller"] floating enable
+for_window [app_id="io.github.celluloid_player.Celluloid"] floating enable
+for_window [app_id="imv"] floating enable
 for_window [class="Speedcrunch"] floating enable
 for_window [class="Gloobus-preview"] floating enable
 for_window [class="(?i)recordmydesktop"] floating enable
@@ -242,3 +254,13 @@ for_window [class="(?i)bottles"] floating enable
 for_window [title="Process Explorer"] floating enable
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
 for_window [class="^Anki$" title="Add"] floating enable
+for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
+
+
+
+# Waybar Tooltips don't steel focus
+no_focus [app_id="waybar"]
+for_window [app_id="waybar" floating] {
+    move position cursor
+    move down 60px # adjust if some menus still don't fit
+}

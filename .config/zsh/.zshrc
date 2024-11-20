@@ -46,3 +46,4 @@ bindkey '\C-r' hstr_no_tiocsti
 export HSTR_TIOCSTI=n
 
 source ${ZDOTDIR:-~}/.functions
+source <(tdl completion zsh)

@@ -21,7 +21,7 @@ alias lsr='ls -tr' # recent modified, reversed
 alias quit='exit'
 
 alias emptydirs='find . -type d -empty -delete'
-alias flattendir='find . -mindepth 2 -type f -print -exec mv -nv {} . \;'
+# alias flattendir='find . -mindepth 2 -type f -print -exec mv -nv {} . \;'
 alias count='ls | wc -l'
 alias path='print -l "$PATH"'
 alias pii="comm -23 <(pacman -Qqett | sort) <(pacman -Qqg base -g base-devel | sort | uniq)"
@@ -64,3 +64,5 @@ alias fp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}
 alias du='dust'
 
 alias csv='csvlens'
+
+alias nano='nano --modernbindings'
