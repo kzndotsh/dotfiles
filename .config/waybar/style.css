@@ -1,15 +1,16 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "Inter", "Font Awesome 6 Free Solid";
+    font-family: "Inter";
     font-size: 14px;
     font-weight: bold;
-    min-height: 0;
+    min-height: 0px;
 }
 
 window#waybar {
     background-color: #15161e;
     color: #c0caf5;
+    padding-top: 6px;
 }
 
 window#waybar.hidden {
@@ -22,20 +23,18 @@ window#waybar.empty {
 
 
 .topbar {
-    border-bottom: 3px solid #292e42;
+    border-bottom: 2px solid #292e42;
 }
 
 .bottombar {
-    border-top: 3px solid #292e42;
+    border-top: 2px solid #292e42;
 }
 
 
 #workspaces button {
-    /* padding: 0 5px; */
-    /* background-color: transparent; */
     color: #c0caf5;
     margin: 0;
-    min-width: 30px;
+    min-width: 15px;
 }
 
 #workspaces button.focused {
@@ -64,12 +63,8 @@ window#waybar.empty {
 }
 
 
-#backlight,
-#battery.bat1,
-#battery.bat2,
 #clock,
 #cpu,
-#custom-mail,
 #custom-poweroff,
 #custom-weather,
 #disk,
@@ -82,32 +77,9 @@ window#waybar.empty {
 #network.disconnected,
 #pulseaudio,
 #taskbar,
-#temperature,
 #tray {
-    padding: 0 6px;
-    margin: 0 0px;
+    padding-left: 6px;
     color: #c0caf5;
-}
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
-}
-
-#battery.bat2.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #c0caf5;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-#temperature.critical {
-    background-color: #eb4d4b;
 }
 
 #taskbar button:hover {

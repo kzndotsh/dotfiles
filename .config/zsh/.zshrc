@@ -23,7 +23,7 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
 antidote load
 
-export LS_COLORS="$(vivid generate /home/kaizen/dotfiles/.config/vivid/themes/tokyonight-night.yml)"
+export LS_COLORS="$(vivid generate tokyonight-night)"
 
 eval "$(/home/kaizen/.local/bin/mise activate zsh)"
 

@@ -88,3 +88,7 @@ mvwithsuffix() {
        fi
      done
    }
+
+list_file_extensions() {
+  find . -type f | sed -n 's/.*\.\([^.]*\)$/\1/p' | sort -u
+}

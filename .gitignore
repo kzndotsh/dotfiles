@@ -125,3 +125,20 @@
 .config/BlueMail/*
 .config/ngrok/*
 .config/drumstick.sourceforge.net/*
+.config/Ferdium/*
+.config/persepolis_download_manager/*
+.config/zoom.conf
+.config/zoomus.conf
+.config/sqlitebrowser/sqlitebrowser.conf
+.config/stripe/config.toml
+.config/turborepo/telemetry.json
+.config/vmpk.sourceforge.net/VMPK.conf
+.config/ariang-native/*
+.config/discord/*
+.config/goa-1.0/accounts.conf
+.config/.wrangler/*
+.config/Insync/*
+.config/Unknown Organization/*
+.config/aria2/*
+.config/electron-builder.json
+.config/lazygit/state.yml

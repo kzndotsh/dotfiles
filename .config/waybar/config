@@ -1,34 +1,27 @@
 [
   {
     "name": "topbar",
-    "layer": "top",
+    "layer": "bottom",
     "position": "top",
     "height": 30,
+    "ipc": true,
     "modules-left": [
-      "battery#bat1",
-      "battery#bat2",
       "disk",
       "memory",
       "cpu",
-      "temperature",
+      "network#linked",
       "pulseaudio",
-      "backlight",
-      "idle_inhibitor"
     ],
     "modules-center": [
       "sway/window"
     ],
     "modules-right": [
-      "network#vpn",
-      "network#wifi",
-      "network#ethernet",
-      "network#disconnected",
       "custom/weather",
       "clock",
       "custom/poweroff"
     ],
     "sway/window": {
-      "format": "{} ",
+      "format": "{}",
     },
     "idle_inhibitor": {
       "format": "{icon}",
@@ -44,136 +37,21 @@
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "cpu": {
-      "format": " {usage}%",
+      "format": "CPU {usage}%",
       "tooltip": false
     },
     "disk": {
-      "format": " {}%",
+      "format": "DISK {}%",
       "tooltip-format": "{used} / {total} used"
     },
     "memory": {
-      "format": " {}%",
+      "format": "RAM {}%",
       "tooltip-format": "{used:0.1f}G / {total:0.1f}G used"
-    },
-    "temperature": {
-      "critical-threshold": 80,
-      "format": "{icon} {temperatureC}°C",
-      "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ]
-    },
-    "backlight": {
-      "device": "intel_backlight",
-      "interval": 1,
-      "on-scroll-down": "brightlight -pd 1",
-      "on-scroll-up": "brightlight -pi 1",
-      "format": "{icon} {percent}%",
-      "format-icons": [
-        "",
-        ""
-      ],
-      "on-click": "wdisplays"
-    },
-    "battery#bat1": {
-      "bat": "BAT0",
-      "adapter": "AC",
-      "interval": 10,
-      "full-at": 99,
-      "states": {
-        "full": 100,
-        "good": 99,
-        "empty": 5
-      },
-      "format": "{icon} {capacity}%",
-      "format-charging": " {capacity}%",
-      "format-plugged": " {capacity}%",
-      "format-empty": "",
-      "format-full": "",
-      "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ]
-    },
-    "battery#bat2": {
-      "bat": "BAT1",
-      "adapter": "AC",
-      "interval": 10,
-      "states": {
-        "full": 100,
-        "good": 99,
-        "critical": 15
-      },
-      "format": "{icon} {capacity}%",
-      "format-charging": " {capacity}%",
-      "format-plugged": " {capacity}%",
-      "format-full": "",
-      "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ]
-    },
-    "network#disconnected": {
-      "tooltip-format": "No connection!",
-      "format-ethernet": "",
-      "format-wifi": "",
-      "format-linked": "",
-      "format-disconnected": "",
-      "on-click": "nm-connection-editor"
-    },
-    "network#ethernet": {
-      "interface": "enp*",
-      "format-ethernet": "",
-      "format-wifi": "",
-      "format-linked": "",
-      "format-disconnected": "",
-      "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-      "on-click": "nm-connection-editor"
-    },
-    "network#wifi": {
-      "interface": "wlp*",
-      "format-ethernet": "",
-      "format-wifi": " {essid} ({signalStrength}%)",
-      "format-linked": "",
-      "format-disconnected": "",
-      "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-      "on-click": "nm-connection-editor"
-    },
-    "network#vpn": {
-      "interface": "tun0",
-      "format": "",
-      "format-disconnected": "",
-      "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-      "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
       "scroll-step": 1,
-      "format": "{icon} {volume}%{format_source}",
-      "format-bluetooth": "{icon} {volume}%{format_source}",
-      "format-bluetooth-muted": " {icon}{format_source}",
-      "format-muted": " {format_source}",
-      "format-source": "  {volume}%",
-      "format-source-muted": " ",
-      "format-icons": {
-        "headphone": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-        "default": [
-          "",
-          "",
-          ""
-        ]
-      },
+      "format": "SOUND {volume}%{format_source}",
+      "format-source": " MIC {volume}%",
       "on-click": "pavucontrol"
     },
     "custom/weather": {
@@ -186,19 +64,14 @@
       "tooltip": false,
       "format": "",
       "on-click": "bash $HOME/.config/waybar/scripts/poweroff.sh"
-    },
-    "custom/mail": {
-      "tooltip": false,
-      "exec": "sh $HOME/.config/waybar/scripts/mail.sh",
-      "interval": 120,
-      "on-click": "thunderbird && swaymsg '[app_id=thunderbird] focus'"
     }
   },
   {
     "name": "bottombar",
-    "layer": "top",
+    "layer": "bottom",
     "position": "bottom",
-    "height": 30,
+    "height": 25,
+    "ipc": true,
     "modules-left": [
       "sway/workspaces",
       "sway/mode"
@@ -208,12 +81,12 @@
       "tray"
     ],
     "tray": {
-      "icon-size": 13,
+      "icon-size": 15,
       "spacing": 10
     },
     "wlr/taskbar": {
       "format": "{icon} {name}",
-      "icon-size": 13,
+      "icon-size": 15,
       "tooltip": false,
       "on-click": "activate",
       "on-click-right": "close"

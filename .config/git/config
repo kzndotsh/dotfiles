@@ -1,6 +1,7 @@
 [user]
     email = admin@kaizen.wtf
     name = kzndotsh
+	username = kzndotsh
 
 [core]
     editor = nvim

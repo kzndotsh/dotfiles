@@ -1,5 +1,5 @@
 set $mod Mod1
-set $term alacritty
+set $term ghostty
 set $menu fuzzel
 set $BIN_DIR $HOME/.local/bin/sway
 
@@ -56,7 +56,6 @@ bindsym --release Control+Print exec --no-startup-id swaymsg -t get_tree | jq -r
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 
 
-
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -110,10 +109,15 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r exec swaymsg reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-bindsym --locked XF86AudioRaiseVolume exec volumectl raise
-bindsym --locked XF86AudioLowerVolume exec volumectl lower
-bindsym --locked XF86AudioMute exec volumectl toggle-mute
-bindsym --locked XF86AudioMicMute exec volumectl -m toggle-mute
+# bindsym --locked XF86AudioRaiseVolume exec volumectl raise
+# bindsym --locked XF86AudioLowerVolume exec volumectl lower
+# bindsym --locked XF86AudioMute exec volumectl toggle-mute
+# bindsym --locked XF86AudioMicMute exec volumectl -m toggle-mute
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked $mod+Shift+c exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
@@ -243,7 +247,7 @@ for_window [window_role="toolbox"] floating enable
 for_window [window_role="webconsole"] floating enable
 for_window [class="file-roller"] floating enable
 for_window [app_id="org.gnome.FileRoller"] floating enable
-for_window [app_id="io.github.celluloid_player.Celluloid"] floating enable
+for_window [app_id="io.github.celluloid_player.Celluloid"] floating enable, resize set 600 600
 for_window [app_id="imv"] floating enable
 for_window [class="Speedcrunch"] floating enable
 for_window [class="Gloobus-preview"] floating enable
@@ -264,3 +268,6 @@ for_window [app_id="waybar" floating] {
     move position cursor
     move down 60px # adjust if some menus still don't fit
 }
+
+
+for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, resize set width 600 px height 300 px, move position 1300 px 350 px, sticky on

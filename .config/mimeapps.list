@@ -1,5 +1,5 @@
 [Default Applications]
-application/octet-stream=micro.desktop
+application/octet-stream=io.github.celluloid_player.Celluloid.desktop
 x-scheme-handler/mailspring=Mailspring.desktop
 image/png=imv.desktop
 x-scheme-handler/discord-409416265891971072=discord-409416265891971072.desktop
@@ -77,9 +77,11 @@ audio/m3u=mpv.desktop
 audio/vnd.wave=mpv.desktop
 x-scheme-handler/mailto=bluemail.desktop
 application/zip=xarchiver.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
 
 [Added Associations]
-application/octet-stream=org.gnome.FileRoller.desktop;micro.desktop;
+application/octet-stream=org.gnome.FileRoller.desktop;micro.desktop;io.github.celluloid_player.Celluloid.desktop;
 image/jpeg=imv.desktop;org.gnome.Shotwell-Viewer.desktop;
 inode/directory=org.gnome.Shotwell.desktop;org.gnome.Nautilus.desktop;
 video/vnd.avi=io.github.celluloid_player.Celluloid.desktop;
@@ -154,3 +156,7 @@ audio/vnd.wave=mpv.desktop;
 x-scheme-handler/mailto=bluemail.desktop;
 application/zip=xarchiver.desktop;
 text/x-log=emacs.desktop;
+text/csv=micro.desktop;
+text/html=micro.desktop;
+application/java-archive=micro.desktop;
+application/x-zerosize=imv.desktop;

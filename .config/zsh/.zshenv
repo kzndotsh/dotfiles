@@ -24,9 +24,6 @@ export XDG_DATA_HOME="$HOME"/.local/share
 export XDG_STATE_HOME="$HOME"/.local/state
 export XDG_CACHE_HOME="$HOME"/.cache
 
-export DE=sway
-export WM=sway
-
 export XDG_SESSION_DESKTOP=sway
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE="wayland"
@@ -46,7 +43,7 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
 export BROWSER=firefox
-export TERMINAL=alacritty
+export TERMINAL=ghostty
 export EDITOR=micro
 export VISUAL=micro
 
@@ -76,6 +73,7 @@ path+=(
 	$HOME/.local/share/flatpak/exports/bin
 	$HOME/.local/share/JetBrains/Toolbox/scripts
 	$HOME/.config/emacs/bin
+	/home/kaizen/.local/share/gem/ruby/3.3.0/bin
 	$path
 )
 
@@ -111,7 +109,6 @@ export GRAB_HOME="$HOME"/repos
 export MYPY_CACHE_DIR="$XDG_CACHE_HOME"/mypy
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME"/android
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
-export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 export LEDGER_FILE="$XDG_DATA_HOME"/hledger.journal
 export WAKATIME_HOME="$XDG_CONFIG_HOME"/wakatime
 export _Z_DATA="$XDG_DATA_HOME"/z

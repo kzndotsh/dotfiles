@@ -1,3 +1,4 @@
 [tools]
-python = "system"
 node = "latest"
+stripe-cli = "latest"
+usage = "latest"
