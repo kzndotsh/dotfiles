@@ -1,0 +1,5 @@
+#!/bin/bash
+efibootmgr --disk /dev/nvme1n1 --part 1 --create --label "-Fallback" --loader /vmlinuz-linux-zen --unicode 'root=UUID=7b65dd4c-c7a2-42f2-9efe-f492ae0dfce8 resume=UUID= rw initrd=\amd-ucode.img initrd=\initramfs-linux-zen-fallback.img'
+efibootmgr --disk /dev/nvme1n1 --part 1 --create --label "" --loader /vmlinuz-linux-zen --unicode 'root=UUID=7b65dd4c-c7a2-42f2-9efe-f492ae0dfce8 resume=UUID= rw initrd=\amd-ucode.img initrd=\initramfs-linux-zen.img'
+exit 0
+# See man efibootmgr
