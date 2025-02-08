@@ -29,6 +29,7 @@
 !.config/ranger/**
 !.config/readline/**
 !.config/tmux/**
+!.config/vivid/**
 
 # WM/DE
 !.config/X11/**
@@ -65,6 +66,7 @@
 !.config/nvim.bak/**
 !.config/nvim.bak.bak/**
 !.config/git/**
+!.config/zed/**
 
 # Misc
 !.config/zathura/**
