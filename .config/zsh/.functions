@@ -71,23 +71,23 @@ mvwithsuffix() {
 }
 
 
-   flattendir() {
-     find . -mindepth 2 -type f | while IFS= read -r file; do
-       base=$(basename "$file")
+flattendir() {
+  find . -mindepth 2 -type f | while IFS= read -r file; do
+    base=$(basename "$file")
 
-       if [[ -e "./$base" ]]; then
-         # If a file with the same name exists, add a numbered prefix
-         number=1
-         while [[ -e "./${number}_$base" ]]; do
-           number=$((number + 1))
-         done
-         mv -nv "$file" "./${number}_$base"
-       else
-         # If it doesn't exist, move it without changes
-         mv -nv "$file" .
-       fi
-     done
-   }
+    if [[ -e "./$base" ]]; then
+      # If a file with the same name exists, add a numbered prefix
+      number=1
+      while [[ -e "./${number}_$base" ]]; do
+        number=$((number + 1))
+      done
+      mv -nv "$file" "./${number}_$base"
+    else
+      # If it doesn't exist, move it without changes
+      mv -nv "$file" .
+    fi
+  done
+}
 
 list_file_extensions() {
   find . -type f | sed -n 's/.*\.\([^.]*\)$/\1/p' | sort -u

@@ -1,8 +1,12 @@
+# Sway Configuration File
+
+# Global settings and variables
 set $mod Mod1
 set $term ghostty
 set $menu fuzzel
 set $BIN_DIR $HOME/.local/bin/sway
 
+# Workspace variables
 set $ws1 number 1
 set $ws2 number 2
 set $ws3 number 3
@@ -14,29 +18,27 @@ set $ws8 number 8
 set $ws9 number 9
 set $ws10 number 10
 
-# font pango:JetBrainsMono Nerd Font Mono 11
+# Font settings
 font pango: monospace 0.001
 
+# Titlebar and gaps configurations
 titlebar_border_thickness 0                                                     
 titlebar_padding 0
 
 gaps inner 4
 gaps outer 0
-gaps left 0
-gaps right 0
-gaps top 0
-gaps bottom 0
 smart_gaps on
 
+# Default border settings
 default_border pixel 2
 default_floating_border pixel 2
 
+# Specific window border and behavior settings
 for_window [app_id=".*"] border pixel 2
-
 hide_edge_borders --i3 smart_no_gaps
-
 floating_modifier $mod normal
 
+# Client colors (focused, inactive, unfocused, urgent, etc.)
 client.focused          #7aa2f7   #1a1b26   #c0caf5   #73daca     #7aa2f7
 client.focused_inactive #292e42   #1a1b26   #545c7e   #292e42     #292e42
 client.unfocused        #15161e   #1a1b26   #a9b1d6   #414868     #15161e
@@ -44,27 +46,28 @@ client.urgent           #db4b4b   #1a1b26   #f7768e   #ff9e64     #db4b4b
 client.placeholder      #15161e   #1a1b26   #c0caf5   #15161e     #15161e
 client.background       #1a1b26
 
+# Keybindings for launching applications
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym $mod+c exec wl-color-picker clipboard
-# bindsym $mod+c exec --no-startup-id /home/kaizen/dev/wl-colorblind-picker/wl-colorblind-picker.sh
 
-bindsym $mod+Period exec emote 
+# Keybindings for managing notifications and screenshots
 bindsym $mod+Shift+n exec swaync-client -t -sw
 bindsym Print exec grim -t png -l 0 - | wl-copy -t image/png
 bindsym --release Control+Print exec --no-startup-id swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp | grim -g - - | swappy -f -
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 
-
+# Keybindings for focusing windows
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# Cycle through active workspaces
+# Keybindings for cycling through workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
+# Keybindings for switching to specific workspaces
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -76,14 +79,17 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
+# Keybindings for moving containers
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# Keybindings for window splitting
 bindsym $mod+h splith
 bindsym $mod+v splitv
 
+# Keybindings for moving containers to specific workspaces
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -95,6 +101,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# Keybindings for layout management
 bindsym $mod+s move left; move right; layout stacking
 bindsym $mod+w move left; move right; layout tabbed
 bindsym $mod+e move left; move right; layout toggle split
@@ -104,20 +111,17 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
+# Keybindings for closing windows and reloading configuration
 bindsym $mod+Shift+q kill
-
 bindsym $mod+Shift+r exec swaymsg reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-# bindsym --locked XF86AudioRaiseVolume exec volumectl raise
-# bindsym --locked XF86AudioLowerVolume exec volumectl lower
-# bindsym --locked XF86AudioMute exec volumectl toggle-mute
-# bindsym --locked XF86AudioMicMute exec volumectl -m toggle-mute
+# Keybindings for volume control
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-
+# Media control keybindings
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked $mod+Shift+c exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
@@ -125,85 +129,52 @@ bindsym --locked $mod+Shift+Next exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked $mod+Shift+Prior exec playerctl previous
 
+# Bar settings
 bar { 
      swaybar_command waybar
 }
 
-# GTK theming
-# https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland#setting-values-in-gsettings
+# Execute startup applications
 exec_always $BIN_DIR/import-gsettings
-
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
 exec swaync
-
 exec_always autotiling-rs
-
 exec_always nm-applet --indicator
-
 exec eval $(gnome-keyring-daemon --start)
 
+# Export system environment variables
 exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
-
 exec systemctl --user import-environment DISPLAY \
                                          SWAYSOCK \
                                          WAYLAND_DISPLAY \
                                          XDG_CURRENT_DESKTOP
 
+# Update dbus environment
 exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY \
                                                   SWAYSOCK \
                                                   XDG_CURRENT_DESKTOP=sway \
                                                   WAYLAND_DISPLAY
 
-
+# Background configuration
 output * bg ~/dotfiles/.config/sway/bg.jpg fit
 
-# Monitor
+# Monitor setup
 output DP-1 mode 1920x1080@165.003Hz
 
+# Input configuration
 input * {
     repeat_delay 300
     repeat_rate 40
 }
 
-# mode passthrough {
-#     bindsym $mod+Pause mode default; floating_modifier $mod normal
-# }
-
-# mode "present" {
-#     # command starts mirroring
-#     bindsym m mode "default"; exec wl-present mirror
-#     # these commands modify an already running mirroring window
-#     bindsym o mode "default"; exec wl-present set-output
-#     bindsym r mode "default"; exec wl-present set-region
-#     bindsym Shift+r mode "default"; exec wl-present unset-region
-#     bindsym s mode "default"; exec wl-present set-scaling
-#     bindsym f mode "default"; exec wl-present toggle-freeze
-#     bindsym c mode "default"; exec wl-present custom
-# 
-#     # return to default mode
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-# }
-# bindsym $mod+p mode "present"
-
-
-
-# bindsym $mod+Pause mode passthrough; floating_modifier none
-
-
-# Tag xwayland windows as such
-# for_window [shell="xwayland"] title_format "<span>[X] %title</span>"
-
-
+# Floating window rules for specific applications
 for_window [app_id="system-config-printer"] floating enable
 for_window [app_id="gnome-calculator"] floating enable
 for_window [app_id="keepassxc"] floating enable
 for_window [class="(?i)Lxappearance$"] floating enable
 for_window [app_id="(?i)mpv"] floating enable
 for_window [app_id="pavucontrol"] floating enable
-# for_window [app_id="(?i)thunar"] floating enable
 for_window [app_id="vlc"] floating enable
 for_window [app_id="tlp-ui"] floating enable
 for_window [app_id="pamac-manager"] floating enable
@@ -212,13 +183,10 @@ for_window [app_id="simple-scan"] floating enable
 for_window [app_id="firetools"] floating enable
 for_window [app_id="firewall-config"] floating enable
 for_window [app_id="gnome-(calendar|calculator|power-statistics|control-center)"] floating enable
-# for_window [app_id="org.gnome.(Nautilus|Weather)"] floating enable
 for_window [app_id="soffice"] floating enable
 for_window [title="^Open File$"] floating enable
 for_window [title="Weather report: 44240 - qutebrowser"] floating enable
 for_window [title="Update Check|Cryptomator"] floating enable, resize set 800 600
-# for_window [window_role="GtkFileChooserDialog"] resize set 800 600
-# for_window [window_role="GtkFiileChooserDialog"] move position center
 for_window [class="^Steam$" title="^Friends"] floating enable
 for_window [class="^Steam$" title="Steam - News"] floating enable
 for_window [class="^Steam$" title=".* - Chat"] floating enable
@@ -260,14 +228,12 @@ for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucon
 for_window [class="^Anki$" title="Add"] floating enable
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
 
-
-
-# Waybar Tooltips don't steel focus
+# Waybar tooltip configuration to prevent focus stealing
 no_focus [app_id="waybar"]
 for_window [app_id="waybar" floating] {
     move position cursor
     move down 60px # adjust if some menus still don't fit
 }
 
-
+# Configure Firefox Picture-in-Picture to float and set position
 for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, resize set width 600 px height 300 px, move position 1300 px 350 px, sticky on

@@ -79,6 +79,7 @@ x-scheme-handler/mailto=bluemail.desktop
 application/zip=xarchiver.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
+x-scheme-handler/discord=vesktop.desktop
 
 [Added Associations]
 application/octet-stream=org.gnome.FileRoller.desktop;micro.desktop;io.github.celluloid_player.Celluloid.desktop;

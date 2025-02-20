@@ -1,4 +1,5 @@
 [tools]
 node = "latest"
+python = "system"
 stripe-cli = "latest"
 usage = "latest"
