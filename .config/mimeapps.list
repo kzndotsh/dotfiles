@@ -80,6 +80,7 @@ application/zip=xarchiver.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
 x-scheme-handler/discord=vesktop.desktop
+x-scheme-handler/figma=figma-linux.desktop
 
 [Added Associations]
 application/octet-stream=org.gnome.FileRoller.desktop;micro.desktop;io.github.celluloid_player.Celluloid.desktop;

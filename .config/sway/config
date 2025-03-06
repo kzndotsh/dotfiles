@@ -50,6 +50,7 @@ client.background       #1a1b26
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym $mod+c exec wl-color-picker clipboard
+bindsym $mod+Period exec emote
 
 # Keybindings for managing notifications and screenshots
 bindsym $mod+Shift+n exec swaync-client -t -sw
