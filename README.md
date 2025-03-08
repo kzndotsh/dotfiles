@@ -55,7 +55,7 @@ I use <a href="https://www.gnu.org/software/stow/">GNU Stow</a> to manage my dot
     <td><a href="https://github.com/swaywm/sway">sway</a></td>
   </tr>
   <tr>
-    <td>Ghostty</td>
+    <td>Terminal</td>
     <td><a href="https://github.com/ghostty-org/ghostty">ghostty</a></td>
   </tr>
   <tr>
