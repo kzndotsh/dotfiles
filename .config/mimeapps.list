@@ -81,6 +81,7 @@ x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
 x-scheme-handler/discord=vesktop.desktop
 x-scheme-handler/figma=figma-linux.desktop
+video/mp4=mpv.desktop
 
 [Added Associations]
 application/octet-stream=org.gnome.FileRoller.desktop;micro.desktop;io.github.celluloid_player.Celluloid.desktop;
@@ -162,3 +163,4 @@ text/csv=micro.desktop;
 text/html=micro.desktop;
 application/java-archive=micro.desktop;
 application/x-zerosize=imv.desktop;
+video/mp4=mpv.desktop;

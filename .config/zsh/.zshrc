@@ -47,3 +47,8 @@ export HSTR_TIOCSTI=n
 
 source ${ZDOTDIR:-~}/.functions
 source <(tdl completion zsh)
+
+bindkey '^[[1;5C' emacs-forward-word
+bindkey '^[[1;5D' emacs-backward-word
+bindkey '^[[1;5A' up-line-or-history    # Ctrl + UP
+bindkey '^[[1;5B' down-line-or-history  # Ctrl + DOWN

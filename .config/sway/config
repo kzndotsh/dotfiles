@@ -52,10 +52,17 @@ bindsym $mod+d exec $menu
 bindsym $mod+c exec wl-color-picker clipboard
 bindsym $mod+Period exec emote
 
-# Keybindings for managing notifications and screenshots
+# Keybindings for managing notifications
 bindsym $mod+Shift+n exec swaync-client -t -sw
-bindsym Print exec grim -t png -l 0 - | wl-copy -t image/png
-bindsym --release Control+Print exec --no-startup-id swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp | grim -g - - | swappy -f -
+
+# Fullscreen screenshot to clipboard in PNG format
+bindsym Print exec grim - | wl-copy
+
+# Drag to select an area, then capture to Swappy
+bindsym --release Control+Print exec --no-startup-id \
+    grim -g "$(slurp)" - | swappy -f -
+
+# Area selection screenshot to clipboard
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 
 # Keybindings for focusing windows
@@ -174,7 +181,7 @@ for_window [app_id="system-config-printer"] floating enable
 for_window [app_id="gnome-calculator"] floating enable
 for_window [app_id="keepassxc"] floating enable
 for_window [class="(?i)Lxappearance$"] floating enable
-for_window [app_id="(?i)mpv"] floating enable
+# for_window [app_id="(?i)mpv"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="vlc"] floating enable
 for_window [app_id="tlp-ui"] floating enable
