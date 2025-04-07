@@ -25,8 +25,8 @@ font pango: monospace 0.001
 titlebar_border_thickness 0                                                     
 titlebar_padding 0
 
-gaps inner 4
-gaps outer 0
+gaps inner 2
+gaps outer 2
 smart_gaps on
 
 # Default border settings
