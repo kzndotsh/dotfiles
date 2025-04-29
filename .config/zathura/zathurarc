@@ -36,3 +36,6 @@ set render-loading-bg "#c0caf5"
 #
 set recolor-lightcolor "#1a1b26"
 set recolor-darkcolor "#c0caf5"
+
+set recolor             true
+set recolor-keephue     true

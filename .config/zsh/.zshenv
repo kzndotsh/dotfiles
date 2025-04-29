@@ -36,6 +36,7 @@ export CLUTTER_BACKEND="wayland"
 export GDK_BACKEND="wayland"
 export GTK_OVERLAY_SCROLLING=0
 export GTK_CSD=0
+export GDK_SCALE=1
 export GTK_THEME="Tokyonight-Dark-BL-LB"
 
 export QT_QPA_PLATFORM="wayland"

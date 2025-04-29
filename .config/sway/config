@@ -22,20 +22,22 @@ set $ws10 number 10
 font pango: monospace 0.001
 
 # Titlebar and gaps configurations
-titlebar_border_thickness 0                                                     
-titlebar_padding 0
+titlebar_border_thickness 1                                               
+titlebar_padding 1
 
-gaps inner 2
-gaps outer 2
+gaps inner 1
+gaps outer 1
 smart_gaps on
 
 # Default border settings
-default_border pixel 2
-default_floating_border pixel 2
+default_border pixel 1
+default_floating_border pixel 1 
 
 # Specific window border and behavior settings
-for_window [app_id=".*"] border pixel 2
+for_window [app_id=".*"] border pixel 1
+
 hide_edge_borders --i3 smart_no_gaps
+
 floating_modifier $mod normal
 
 # Client colors (focused, inactive, unfocused, urgent, etc.)
@@ -138,8 +140,9 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked $mod+Shift+Prior exec playerctl previous
 
 # Bar settings
-bar { 
-     swaybar_command waybar
+
+bar {
+    swaybar_command waybar
 }
 
 # Execute startup applications
@@ -164,17 +167,23 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
                                                   XDG_CURRENT_DESKTOP=sway \
                                                   WAYLAND_DISPLAY
 
-# Background configuration
-output * bg ~/dotfiles/.config/sway/bg.jpg fit
-
-# Monitor setup
-output DP-1 mode 1920x1080@165.003Hz
+output DP-1 {
+    mode 1920x1080@165Hz
+    pos 0 0
+    scale 1
+    scale_filter nearest
+    transform normal
+    # adaptive_sync on
+    background ~/dotfiles/.config/sway/bg.jpg fit
+    allow_tearing no
+}
 
 # Input configuration
 input * {
     repeat_delay 300
     repeat_rate 40
 }
+
 
 # Floating window rules for specific applications
 for_window [app_id="system-config-printer"] floating enable
@@ -244,4 +253,4 @@ for_window [app_id="waybar" floating] {
 }
 
 # Configure Firefox Picture-in-Picture to float and set position
-for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, resize set width 600 px height 300 px, move position 1300 px 350 px, sticky on
+# for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, resize set width 600 px height 300 px, move position 1300 px 350 px, sticky on

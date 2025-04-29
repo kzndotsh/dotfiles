@@ -149,7 +149,6 @@ ohmyzsh/ohmyzsh path:plugins/extract
 # ohmyzsh/ohmyzsh path:plugins/magic-enter
 # ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 
-
 ### Framework: Prezto
 #
 # Prezto is another popular Zsh framework. You might choose to use parts of it in your
