@@ -83,6 +83,7 @@ x-scheme-handler/discord=vesktop.desktop
 x-scheme-handler/figma=figma-linux.desktop
 video/mp4=mpv.desktop
 video/quicktime=mpv.desktop
+video/x-matroska=mpv.desktop
 
 [Added Associations]
 application/octet-stream=org.gnome.FileRoller.desktop;micro.desktop;io.github.celluloid_player.Celluloid.desktop;
@@ -166,3 +167,4 @@ application/java-archive=micro.desktop;
 application/x-zerosize=imv.desktop;
 video/mp4=mpv.desktop;
 video/quicktime=mpv.desktop;
+video/x-matroska=mpv.desktop;

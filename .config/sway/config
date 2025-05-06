@@ -167,7 +167,7 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
                                                   XDG_CURRENT_DESKTOP=sway \
                                                   WAYLAND_DISPLAY
 
-output DP-1 {
+output DP-3 {
     mode 1920x1080@165Hz
     pos 0 0
     scale 1
