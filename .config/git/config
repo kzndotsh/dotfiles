@@ -1,7 +1,7 @@
 # User Configuration
 [user]
-	email = admin@kaizen.wtf
-	name = kzndotsh
+    email = admin@kaizen.wtf
+    name = kzndotsh
     username = kzndotsh
 
 # Core Git Settings
