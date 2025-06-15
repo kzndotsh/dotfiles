@@ -126,7 +126,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r exec swaymsg reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-# Keybindings for volume control
+# # Keybindings for volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
@@ -145,13 +145,6 @@ bar {
     swaybar_command waybar
 }
 
-# Execute startup applications
-exec_always $BIN_DIR/import-gsettings
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec swaync
-exec_always autotiling-rs
-exec_always nm-applet --indicator
-exec eval $(gnome-keyring-daemon --start)
 
 # Export system environment variables
 exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
@@ -166,6 +159,17 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
                                                   SWAYSOCK \
                                                   XDG_CURRENT_DESKTOP=sway \
                                                   WAYLAND_DISPLAY
+
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+exec eval $(gnome-keyring-daemon --start)
+
+exec_always $BIN_DIR/import-gsettings
+
+exec_always autotiling-rs
+exec_always nm-applet --indicator
+exec swaync
+exec swayosd-server
 
 output DP-3 {
     mode 1920x1080@165Hz

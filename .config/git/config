@@ -1,56 +1,110 @@
+# User Configuration
 [user]
-    email = admin@kaizen.wtf
-    name = kzndotsh
-	username = kzndotsh
+	email = admin@kaizen.wtf
+	name = kzndotsh
+    username = kzndotsh
 
+# Core Git Settings
 [core]
-    editor = nvim
+    editor = micro                    # Lightweight editor for commit messages
 
+# Branch and Repository Defaults
+[init]
+    defaultBranch = main              # Use 'main' instead of 'master'
+
+[branch]
+    autoSetupMerge = always           # Automatically track upstream branches
+    autoSetupRebase = always          # Default to rebase for new branches
+
+# Fetch and Push Configuration
+[fetch]
+    prune = true                      # Remove remote-tracking branches that no longer exist
+
+[push]
+    autoSetupRemote = true            # Automatically create upstream branch on first push
+    default = current                 # Push current branch to branch of same name
+
+[pull]
+    rebase = true                     # Use rebase instead of merge for pulls (cleaner history)
+
+# Merge and Rebase Tools
 [merge]
-    tool = meld
+    tool = cursor                       # Visual merge tool
+[mergetool "cursor"]
+    cmd = cursor --wait $MERGED
 
+[rebase]
+    autoStash = true                  # Automatically stash/unstash during rebase
+
+[rerere]
+    enabled = true                    # Remember resolved merge conflicts for reuse
+
+# Diff and Color Configuration
 [color]
-    ui = true
+    ui = true                         # Enable colored output
 
+[diff]
+    algorithm = histogram             # Better diff algorithm
+    colorMoved = default              # Highlight moved code blocks
+
+# Delta Configuration (Enhanced Diff Viewer)
 [delta]
     true-color = always
     line-numbers = true
+    side-by-side = true
+    
+    # Tokyo Night - https://github.com/folke/tokyonight.nvim/blob/main/extras/delta/tokyonight_night.gitconfig
+    minus-style                   = syntax "#37222c"
+    minus-non-emph-style          = syntax "#37222c"
+    minus-emph-style              = syntax "#713137"
+    minus-empty-line-marker-style = syntax "#37222c"
+    line-numbers-minus-style      = "#914c54"
+    plus-style                    = syntax "#20303b"
+    plus-non-emph-style           = syntax "#20303b"
+    plus-emph-style               = syntax "#2c5a66"
+    plus-empty-line-marker-style  = syntax "#20303b"
+    line-numbers-plus-style       = "#449dab"
+    line-numbers-zero-style       = "#3b4261"
 
-[init]
-    defaultBranch = main
-
-[fetch]
-    prune = true
-
+# Commit and Status Settings
 [commit]
-    verbose = true
+    verbose = true                    # Show diff in commit message template
 
 [status]
-    showUntrackedFiles = all
+    showUntrackedFiles = all          # Show all untracked files
 
+# Logging and Display
+[log]
+    decorate = auto                   # Show branch/tag names in log
+
+# Help Configuration
 [help]
-    autocorrect = 1
+    autocorrect = 1                   # Auto-correct typos after 1 second
 
-[safe]
-    directory = /etc
-
+# Security and Authentication
 [credential]
-    helper = 1password
+    helper = 1password                # Use 1Password for credential management
 
 [url "ssh://git@github.com/"]
-    insteadOf = https://github.com/
+    insteadOf = https://github.com/   # Use SSH instead of HTTPS for GitHub
 
+# Git LFS (Large File Storage)
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
 
-[push]
-    autoSetupRemote = true
-    default = current
+[lfs]
+    concurrenttransfers = 8           # Faster LFS transfers
 
-[log]
-    decorate = auto
+# Repository Maintenance
 [maintenance]
-	repo = /home/kaizen/dev/allthingslinux/tux
+    repo = /home/kaizen/dev/allthingslinux/tux
+
+# Useful Aliases
+[alias]
+    st = status -s                    # Short status
+    co = checkout                     # Checkout shorthand
+    br = branch                       # Branch shorthand
+    lg = log --oneline --graph --all  # Pretty log with graph

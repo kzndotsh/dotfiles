@@ -4,11 +4,13 @@
 #
 
 # Zsh options.
-setopt extended_glob
+# setopt extended_glob
 
 # Autoload functions you might want to use with antidote.
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+
 fpath=($ZFUNCDIR $fpath)
+
 autoload -Uz $fpath[1]/*(.:t)
 
 # Source zstyles you might use with antidote.

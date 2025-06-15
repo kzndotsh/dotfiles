@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Define directories for different file types
-IMAGES_DIR="$HOME/downloads/images"
-VIDEOS_DIR="$HOME/downloads/videos"
-ARCHIVES_DIR="$HOME/downloads/archives"
-TORRENTS_DIR="$HOME/downloads/torrents"
-DOCUMENTS_DIR="$HOME/downloads/documents"
-MISC_DIR="$HOME/downloads/misc"
+IMAGES_DIR="$HOME/Downloads/images"
+VIDEOS_DIR="$HOME/Downloads/videos"
+ARCHIVES_DIR="$HOME/Downloads/archives"
+TORRENTS_DIR="$HOME/Downloads/torrents"
+DOCUMENTS_DIR="$HOME/Downloads/documents"
+MISC_DIR="$HOME/Downloads/misc"
 
 # Create directories if they don't exist
 mkdir -p "$IMAGES_DIR" "$VIDEOS_DIR" "$ARCHIVES_DIR" "$TORRENTS_DIR" "$DOCUMENTS_DIR" "$MISC_DIR"
@@ -19,7 +19,7 @@ TORRENT_EXTENSIONS=("torrent")
 DOCUMENT_EXTENSIONS=("txt" "pdf" "doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odp")
 
 # Move files to appropriate directories based on their extensions
-for file in "$HOME"/downloads/*; do
+for file in "$HOME"/Downloads/*; do
     if [ -f "$file" ]; then
         filename=$(basename "$file")
         extension="${filename##*.}"
