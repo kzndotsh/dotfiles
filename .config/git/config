@@ -13,7 +13,6 @@
     defaultBranch = main              # Use 'main' instead of 'master'
 
 [branch]
-    autoSetupMerge = always           # Automatically track upstream branches
     autoSetupRebase = always          # Default to rebase for new branches
 
 # Fetch and Push Configuration
@@ -22,7 +21,7 @@
 
 [push]
     autoSetupRemote = true            # Automatically create upstream branch on first push
-    default = current                 # Push current branch to branch of same name
+    # default = current                 # Push current branch to branch of same name
 
 [pull]
     rebase = true                     # Use rebase instead of merge for pulls (cleaner history)

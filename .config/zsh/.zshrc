@@ -6,12 +6,19 @@
 # Zsh options.
 # setopt extended_glob
 
+
 # Autoload functions you might want to use with antidote.
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
 
 fpath=($ZFUNCDIR $fpath)
 
-autoload -Uz $fpath[1]/*(.:t)
+# setopt NULL_GLOB
+
+if (( ${#fpath[1]/*(.:t)} )); then
+  autoload -Uz $fpath[1]/*(.:t)
+fi
+
+# autoload -Uz $fpath[1]/*(.:t)
 
 # Source zstyles you might use with antidote.
 [[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
@@ -20,14 +27,15 @@ autoload -Uz $fpath[1]/*(.:t)
 [[ -d ${ZDOTDIR:-~}/.antidote ]] ||
   git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-~}/.antidote
 
+# Fallbacks for Antidote
+# export MANPATH="${MANPATH:-/usr/local/share/man:/usr/share/man}"
+
 # Create an amazing Zsh config using antidote plugins.
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
 antidote load
 
 export LS_COLORS="$(vivid generate tokyonight-night)"
-
-eval "$(/home/kaizen/.local/bin/mise activate zsh)"
 
 alias hh=hstr                    # hh to be alias for hstr
 setopt histignorespace           # skip cmds w/ leading space from history

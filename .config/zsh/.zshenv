@@ -30,7 +30,7 @@ export XDG_SESSION_TYPE="wayland"
 
 export ELECTRON_OZONE_PLATFORM_HINT="auto"
 export MOZ_ENABLE_WAYLAND=1
-export SDL_VIDEODRIVER="wayland"
+export SDL_VIDEODRIVER="wayland,x11"
 export CLUTTER_BACKEND="wayland"
 
 export GDK_BACKEND="wayland"
@@ -40,8 +40,7 @@ export GDK_SCALE=1
 export GTK_THEME="Tokyonight-Dark-BL-LB"
 
 export QT_QPA_PLATFORM="wayland;xcb"
-# export QT_QPA_PLATFORM="wayland;xcb"
-export QT_QPA_PLATFORMTHEME=qt6ct
+export QT_QPA_PLATFORMTHEME="qt6ct"
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=0
 
 export BROWSER=firefox
@@ -76,6 +75,8 @@ path+=(
 	$HOME/.local/share/JetBrains/Toolbox/scripts
 	$HOME/.config/emacs/bin
 	/home/kaizen/.local/share/gem/ruby/3.3.0/bin
+	/var/lib/snapd/snap/bin
+	/snap
 	$path
 )
 
@@ -98,6 +99,8 @@ manpath+=(
   /usr/share/man
   $manpath
 )
+
+export MANPATH="${(j/:/)manpath}"
 
 export PATH
 
