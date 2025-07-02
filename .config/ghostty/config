@@ -36,3 +36,4 @@ font-family = JetBrainsMono Nerd Font Mono
 gtk-titlebar = false
 gtk-adwaita = false
 gtk-single-instance = false
+keybind = shift+enter=text:\n
