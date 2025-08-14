@@ -1,10 +1,10 @@
-df() {
-    if [[ "$1" == "-h" ]]; then
-        duf --only local
-    else
-        command df "$@"
-    fi
-}
+# df() {
+#     if [[ "$1" == "-h" ]]; then
+#         duf --only local
+#     else
+#         command df "$@"
+#     fi
+# }
 
 group_videos() {
     local video_dir="videos"

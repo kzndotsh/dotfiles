@@ -61,7 +61,7 @@ alias rg='batgrep'
 alias ncdu='gdu'
 # alias find='fd'
 alias fp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
-alias du='dust'
+# alias du='dust'
 
 alias csv='csvlens'
 

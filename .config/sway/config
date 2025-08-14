@@ -147,22 +147,25 @@ bar {
 
 
 # Export system environment variables
-exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
-exec systemctl --user import-environment DISPLAY \
-                                         SWAYSOCK \
-                                         WAYLAND_DISPLAY \
-                                         XDG_CURRENT_DESKTOP
-
-# Update dbus environment
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY \
-                                                  SWAYSOCK \
-                                                  XDG_CURRENT_DESKTOP=sway \
-                                                  WAYLAND_DISPLAY
+exec_always systemctl --user set-environment \
+  SSH_AUTH_SOCK="$HOME/.1password/agent.sock" \
+  XDG_CURRENT_DESKTOP=sway  
+exec_always systemctl --user import-environment \
+  SSH_AUTH_SOCK \
+  DISPLAY \
+  SWAYSOCK \
+  WAYLAND_DISPLAY \
+  XDG_CURRENT_DESKTOP  
+exec_always dbus-update-activation-environment --systemd \
+  SSH_AUTH_SOCK \
+  DISPLAY \
+  SWAYSOCK \
+  XDG_CURRENT_DESKTOP=sway \
+  WAYLAND_DISPLAY  
 
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-exec eval $(gnome-keyring-daemon --start)
+# exec eval $(gnome-keyring-daemon --start)
 
 exec_always $BIN_DIR/import-gsettings
 

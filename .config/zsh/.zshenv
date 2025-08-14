@@ -41,7 +41,7 @@ export GTK_THEME="Tokyonight-Dark-BL-LB"
 
 export QT_QPA_PLATFORM="wayland;xcb"
 export QT_QPA_PLATFORMTHEME="qt6ct"
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=0
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
 export BROWSER=firefox
 export TERMINAL=ghostty
@@ -64,12 +64,12 @@ typeset -Ug path PATH cdpath CDPATH fpath FPATH manpath MANPATH mailpath MAILPAT
 
 # Set the list of directories that zsh searches for commands.
 path+=(
+	$HOME/.local/bin
 	/bin
 	/usr/bin
 	/usr/local/bin
 	/usr/sbin
 	/usr/local/sbin
-	$HOME/.local/bin
 	/var/lib/flatpak/exports/bin
 	$HOME/.local/share/flatpak/exports/bin
 	$HOME/.local/share/JetBrains/Toolbox/scripts
@@ -132,3 +132,7 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
 source ~/.env
+
+export PATH="$HOME/.local/bin:$PATH"
+
+export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"

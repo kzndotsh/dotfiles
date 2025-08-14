@@ -1,0 +1,10 @@
+#!/bin/bash
+# xdg-open wrapper that uses gio for better URL scheme handling
+
+# Use gio for all URL schemes - it handles desktop file associations correctly
+if [[ "$1" == *"://"* ]]; then
+    exec gio open "$@"
+else
+    # Use original xdg-open for files and other operations  
+    exec /usr/bin/xdg-open "$@"
+fi

@@ -1,9 +1,7 @@
 [tools]
 jq = "latest"
 node = "latest"
-python = "system"
 usage = "latest"
 
 [settings]
-experimental = true
-idiomatic_version_file_enable_tools = ["node"]
+idiomatic_version_file_enable_tools = ["python"]

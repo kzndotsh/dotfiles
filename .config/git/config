@@ -1,8 +1,9 @@
 # User Configuration
 [user]
-    email = admin@kaizen.wtf
-    name = kzndotsh
+	email = admin@kzn.sh
+	name = Logan Honeycutt
     username = kzndotsh
+	signingKey = /home/kaizen/.ssh/id_ed25519.pub
 
 # Core Git Settings
 [core]
@@ -26,11 +27,11 @@
 [pull]
     rebase = true                     # Use rebase instead of merge for pulls (cleaner history)
 
-# Merge and Rebase Tools
-[merge]
-    tool = cursor                       # Visual merge tool
-[mergetool "cursor"]
-    cmd = cursor --wait $MERGED
+# # Merge and Rebase Tools
+# [merge]
+#     tool = cursor                       # Visual merge tool
+# [mergetool "cursor"]
+#     cmd = cursor --wait $MERGED
 
 [rebase]
     autoStash = true                  # Automatically stash/unstash during rebase
@@ -68,6 +69,7 @@
 # Commit and Status Settings
 [commit]
     verbose = true                    # Show diff in commit message template
+	gpgSign = true
 
 [status]
     showUntrackedFiles = all          # Show all untracked files
@@ -107,3 +109,14 @@
     co = checkout                     # Checkout shorthand
     br = branch                       # Branch shorthand
     lg = log --oneline --graph --all  # Pretty log with graph
+[gpg]
+	program = /usr/bin/gpg
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

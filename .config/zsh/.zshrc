@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh"
 #
 # .zshrc - Zsh file loaded on interactive shell sessions.
 #
@@ -18,17 +20,12 @@ if (( ${#fpath[1]/*(.:t)} )); then
   autoload -Uz $fpath[1]/*(.:t)
 fi
 
-# autoload -Uz $fpath[1]/*(.:t)
-
 # Source zstyles you might use with antidote.
 [[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
 
 # Clone antidote if necessary.
 [[ -d ${ZDOTDIR:-~}/.antidote ]] ||
   git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-~}/.antidote
-
-# Fallbacks for Antidote
-# export MANPATH="${MANPATH:-/usr/local/share/man:/usr/share/man}"
 
 # Create an amazing Zsh config using antidote plugins.
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
@@ -62,3 +59,8 @@ bindkey '^[[1;5C' emacs-forward-word
 bindkey '^[[1;5D' emacs-backward-word
 bindkey '^[[1;5A' up-line-or-history    # Ctrl + UP
 bindkey '^[[1;5B' down-line-or-history  # Ctrl + DOWN
+
+eval "$(mise activate zsh)"
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh"
