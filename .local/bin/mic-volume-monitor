@@ -1,0 +1,28 @@
+#!/bin/bash
+# Monitor and lock microphone volume
+
+TARGET_VOLUME="0.65"
+TARGET_HW_GAIN="9"
+TARGET_OUTPUT_VOLUME="0.75"
+
+while true; do
+    # Check software volume for microphone (source)
+    CURRENT_VOL=$(wpctl get-volume 52 2>/dev/null | awk '{print $2}')
+    if [[ "$CURRENT_VOL" != "$TARGET_VOLUME" ]] && [[ -n "$CURRENT_VOL" ]]; then
+        wpctl set-volume 52 $TARGET_VOLUME
+    fi
+    
+    # Check hardware gain for microphone
+    CURRENT_HW=$(amixer -c 2 sget Mic 2>/dev/null | grep -o 'Capture [0-9]*' | awk '{print $2}')
+    if [[ "$CURRENT_HW" != "$TARGET_HW_GAIN" ]] && [[ -n "$CURRENT_HW" ]]; then
+        amixer -c 2 sset Mic $TARGET_HW_GAIN >/dev/null 2>&1
+    fi
+    
+    # Set output volume to 75%
+    CURRENT_OUTPUT_VOL=$(wpctl get-volume 63 2>/dev/null | awk '{print $2}')
+    if [[ "$CURRENT_OUTPUT_VOL" != "$TARGET_OUTPUT_VOLUME" ]] && [[ -n "$CURRENT_OUTPUT_VOL" ]]; then
+        wpctl set-volume 63 $TARGET_OUTPUT_VOLUME
+    fi
+    
+    sleep 2
+done

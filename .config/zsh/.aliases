@@ -57,7 +57,7 @@ alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
 # Replacements
 alias cat='bat --paging=never'
 alias man='batman'
-alias rg='batgrep'
+# alias rg='batgrep'
 alias ncdu='gdu'
 # alias find='fd'
 alias fp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'

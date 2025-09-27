@@ -1,39 +1,63 @@
-shell-integration = zsh
-custom-shader-animation = false
-clipboard-read = allow
-clipboard-write = allow
-window-theme = dark
+# Theme
+theme = TokyoNight Night
+
+# Font configuration
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 14
+font-synthetic-style = true
+font-feature = -calt
+font-shaping-break = cursor
+adjust-cell-height = 2
+adjust-icon-height = 0%
+
+# Window appearance
+window-padding-x = 8
+window-padding-y = 8
 window-padding-balance = true
-window-decoration = false
 background-opacity = 0.95
-theme = tokyonight
-bold-is-bright = true
-background = #1a1b26
-foreground = #c0caf5
-selection-background = #33467c
-selection-foreground = #c0caf5
-cursor-color = #c0caf5
+background-blur = 20
+unfocused-split-opacity = 0.8
+window-decoration = auto
+window-theme = dark
+
+# Cursor
 cursor-style = block_hollow
 cursor-style-blink = true
-palette = 0=#15161e
-palette = 1=#f7768e
-palette = 2=#9ece6a
-palette = 3=#e0af68
-palette = 4=#7aa2f7
-palette = 5=#bb9af7
-palette = 6=#7dcfff
-palette = 7=#a9b1d6
-palette = 8=#414868
-palette = 9=#f7768e
-palette = 10=#9ece6a
-palette = 11=#e0af68
-palette = 12=#7aa2f7
-palette = 13=#bb9af7
-palette = 14=#7dcfff
-palette = 15=#c0caf5
-font-size = 15
-font-family = JetBrainsMono Nerd Font Mono
-gtk-titlebar = false
-gtk-adwaita = false
-gtk-single-instance = false
+cursor-click-to-move = true
+
+# Mouse & selection
+mouse-hide-while-typing = true
+copy-on-select = true
+selection-clear-on-typing = true
+focus-follows-mouse = true
+
+# Shell integration
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
+
+# Scrollback
+scrollback-limit = 100000
+
+# Performance
+window-vsync = false
+
+# GTK specific
+gtk-single-instance = true
+gtk-tabs-location = bottom
+gtk-wide-tabs = false
+gtk-titlebar = true
+gtk-titlebar-style = tabs
+window-show-tab-bar = always
+
+# Clipboard
+clipboard-read = ask
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+
+# Notifications
+desktop-notifications = true
+
+# Keybinds
+keybind = ctrl+shift+t=new_tab
+keybind = ctrl+shift+w=close_tab
 keybind = shift+enter=text:\n

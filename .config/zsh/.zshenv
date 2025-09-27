@@ -129,10 +129,10 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
 . "/home/kaizen/.local/share/cargo/env"
 
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
-
 source ~/.env
 
 export PATH="$HOME/.local/bin:$PATH"
 
 export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+
+export PHONE_MAC_ADDRESS="10:DA:63:6A:9A:F6"

@@ -58,7 +58,7 @@ bindsym $mod+Period exec emote
 bindsym $mod+Shift+n exec swaync-client -t -sw
 
 # Fullscreen screenshot to clipboard in PNG format
-bindsym Print exec grim - | wl-copy
+# bindsym Print exec grim - | wl-copy
 
 # Drag to select an area, then capture to Swappy
 bindsym --release Control+Print exec --no-startup-id \
@@ -66,6 +66,10 @@ bindsym --release Control+Print exec --no-startup-id \
 
 # Area selection screenshot to clipboard
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
+
+bindsym Print exec sway-interactive-screenshot
+
+bindsym Shift+Print exec sway-interactive-screenshot --video
 
 # Keybindings for focusing windows
 bindsym $mod+Left focus left
@@ -133,11 +137,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
 # Media control keybindings
 bindsym --locked XF86AudioPlay exec playerctl play-pause
-bindsym --locked $mod+Shift+c exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
-bindsym --locked $mod+Shift+Next exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
-bindsym --locked $mod+Shift+Prior exec playerctl previous
 
 # Bar settings
 
@@ -172,7 +173,7 @@ exec_always $BIN_DIR/import-gsettings
 exec_always autotiling-rs
 exec_always nm-applet --indicator
 exec swaync
-exec swayosd-server
+# exec swayosd-server
 
 output DP-3 {
     mode 1920x1080@165Hz

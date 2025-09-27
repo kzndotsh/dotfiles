@@ -1,0 +1,3 @@
+#!/bin/bash
+# Single instance mode should create new tab automatically
+ghostty

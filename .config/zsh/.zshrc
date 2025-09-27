@@ -1,6 +1,7 @@
 #!/bin/zsh
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.pre.zsh"
+
 #
 # .zshrc - Zsh file loaded on interactive shell sessions.
 #
@@ -61,6 +62,8 @@ bindkey '^[[1;5A' up-line-or-history    # Ctrl + UP
 bindkey '^[[1;5B' down-line-or-history  # Ctrl + DOWN
 
 eval "$(mise activate zsh)"
+
+export PATH=$PATH:/home/kaizen/.spicetify
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/zshrc.post.zsh"
