@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+# agent alias just calls cursor-agent
+exec "$HOME/.local/bin/cursor-agent" "$@"

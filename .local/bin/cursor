@@ -1,0 +1,32 @@
+#!/bin/sh
+set -eu
+
+# Find cursor executable in PATH, excluding the current shim
+find_cursor() {
+  old_IFS="$IFS"
+  IFS=:
+  for dir in $PATH; do
+    [ -n "$dir" ] || continue
+    cursor_path="$dir/cursor"
+    if [ "$cursor_path" != "$HOME/.local/bin/cursor" ] && [ -x "$cursor_path" ]; then
+      IFS="$old_IFS"
+      echo "$cursor_path"
+      return 0
+    fi
+  done
+  IFS="$old_IFS"
+  return 1
+}
+
+OTHER_CURSOR=$(find_cursor || true)
+
+if [ -n "${OTHER_CURSOR:-}" ]; then
+  exec "$OTHER_CURSOR" "$@"
+else
+  if [ "$1" != "agent" ]; then
+    echo "Error: No Cursor IDE installation found. Use 'cursor agent' or 'agent' to run the agent." 1>&2
+    echo "Or, install Cursor at https://cursor.com/download" 1>&2
+    exit 1
+  fi
+  exec "$HOME/.local/bin/cursor-agent" "$@"
+fi

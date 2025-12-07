@@ -14,6 +14,7 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
+setopt histignoredups
 export HISTFILE="$HOME/.cache/zsh_history"
 export HISTSIZE=1000000000
 export SAVEHIST=1000000000
@@ -33,15 +34,23 @@ export MOZ_ENABLE_WAYLAND=1
 export SDL_VIDEODRIVER="wayland,x11"
 export CLUTTER_BACKEND="wayland"
 
-export GDK_BACKEND="wayland"
+# export GDK_BACKEND="wayland"
+export GTK_SCALE=0
 export GTK_OVERLAY_SCROLLING=0
 export GTK_CSD=0
-export GDK_SCALE=1
 export GTK_THEME="Tokyonight-Dark-BL-LB"
 
 export QT_QPA_PLATFORM="wayland;xcb"
 export QT_QPA_PLATFORMTHEME="qt6ct"
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+export QT_WAYLAND_FORCE_DPI=physical
+# export QT_AUTO_SCREEN_SCALE_FACTOR=1
+# export QT_ENABLE_HIGHDPI_SCALING=1
+# export GDK_SCALE=2
+# export GDK_DPI_SCALE=0.5
+XCURSOR_SIZE=34
+export WLR_RENDERER=vulkan
 
 export BROWSER=firefox
 export TERMINAL=ghostty
@@ -56,7 +65,7 @@ export GPG_TTY="$(tty)"
 export MAKEFLAGS="-j$(nproc)"
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
-export BAT_THEME="tokyonight_night"
+# export BAT_THEME="tokyonight_night"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Ensure path arrays do not contain duplicates.
@@ -74,10 +83,9 @@ path+=(
 	$HOME/.local/share/flatpak/exports/bin
 	$HOME/.local/share/JetBrains/Toolbox/scripts
 	$HOME/.config/emacs/bin
-	/home/kaizen/.local/share/gem/ruby/3.3.0/bin
 	/var/lib/snapd/snap/bin
 	/snap
-	$path
+	$path-
 )
 
 fpath+=(

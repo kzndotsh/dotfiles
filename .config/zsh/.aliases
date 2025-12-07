@@ -1,4 +1,4 @@
-if command -v exa >/dev/null; then
+if command -v eza >/dev/null; then
     alias ls="exa-wrapper.sh"
 else
     alias ls="command ls $LS_OPTIONS"
@@ -26,10 +26,10 @@ alias count='ls | wc -l'
 alias path='print -l "$PATH"'
 alias pii="comm -23 <(pacman -Qqett | sort) <(pacman -Qqg base -g base-devel | sort | uniq)"
 
-alias cp="cp -iv"
-alias mv="mv -iv"
-alias rm="rm -v"
-alias mkdir="mkdir -pv"
+# alias cp="cp -iv"
+# alias mv="mv -iv"
+# alias rm="rm -v"
+# alias mkdir="mkdir -pv"
 
 alias tl='tmux list-sessions'
 alias tk="tmux kill-session -t tmux list-sessions | fzf | cut -d ':' -f1"
@@ -39,7 +39,8 @@ alias gsudo='sudo git -c "include.path='"${XDG_CONFIG_DIR:-$HOME/.config}/git/co
 alias jp="git add . && git commit -m \"$(date)\" && git push"
 alias ga="git add"
 alias gc="git commit"
-alias gp="git push"
+alias gpu="git push"
+alias gpl="git pull"
 alias gs="git status"
 alias gd="git diff"
 

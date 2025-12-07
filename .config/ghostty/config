@@ -33,7 +33,7 @@ focus-follows-mouse = true
 
 # Shell integration
 shell-integration = zsh
-shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
+shell-integration-features = cursor,sudo,title
 
 # Scrollback
 scrollback-limit = 100000
@@ -43,11 +43,11 @@ window-vsync = false
 
 # GTK specific
 gtk-single-instance = true
-gtk-tabs-location = bottom
-gtk-wide-tabs = false
-gtk-titlebar = true
-gtk-titlebar-style = tabs
-window-show-tab-bar = always
+# gtk-tabs-location = bottom
+# gtk-wide-tabs = false
+# gtk-titlebar = false
+# gtk-titlebar-style = tabs
+# window-show-tab-bar = always
 
 # Clipboard
 clipboard-read = ask

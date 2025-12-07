@@ -1,0 +1,2 @@
+#!/bin/sh
+"/home/kaizen/.local/bin/kiro-cli" --show-legacy-warning "$@"

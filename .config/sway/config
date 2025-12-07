@@ -51,14 +51,14 @@ client.background       #1a1b26
 # Keybindings for launching applications
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
-bindsym $mod+c exec wl-color-picker clipboard
+bindsym $mod+Shift+c exec wl-color-picker clipboard
 bindsym $mod+Period exec emote
 
 # Keybindings for managing notifications
 bindsym $mod+Shift+n exec swaync-client -t -sw
 
 # Fullscreen screenshot to clipboard in PNG format
-# bindsym Print exec grim - | wl-copy
+bindsym Print exec grim - | wl-copy
 
 # Drag to select an area, then capture to Swappy
 bindsym --release Control+Print exec --no-startup-id \
@@ -67,9 +67,9 @@ bindsym --release Control+Print exec --no-startup-id \
 # Area selection screenshot to clipboard
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 
-bindsym Print exec sway-interactive-screenshot
+# bindsym Print exec sway-interactive-screenshot
 
-bindsym Shift+Print exec sway-interactive-screenshot --video
+# bindsym Shift+Print exec sway-interactive-screenshot --video
 
 # Keybindings for focusing windows
 bindsym $mod+Left focus left
@@ -173,18 +173,32 @@ exec_always $BIN_DIR/import-gsettings
 exec_always autotiling-rs
 exec_always nm-applet --indicator
 exec swaync
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+
+bindsym $mod+c exec nwg-clipman -n
+
+exec swayidle -w \
+	timeout 1800 'swaylock -f' \
+	timeout 1805 'swaymsg "output * power off"' \
+		resume 'swaymsg "output * power on"'
+
+
 # exec swayosd-server
 
-output DP-3 {
-    mode 1920x1080@165Hz
+output "DP-3" {
+    mode  3840x2160@144.001Hz
     pos 0 0
-    scale 1
-    scale_filter nearest
     transform normal
-    # adaptive_sync on
+    scale 2.0
+    scale_filter nearest
+    adaptive_sync off
+    dpms on
+    render_bit_depth 10
+    hdr off
     background ~/dotfiles/.config/sway/bg.jpg fit
-    allow_tearing no
 }
+
 
 # Input configuration
 input * {
@@ -262,3 +276,5 @@ for_window [app_id="waybar" floating] {
 
 # Configure Firefox Picture-in-Picture to float and set position
 # for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, resize set width 600 px height 300 px, move position 1300 px 350 px, sticky on
+
+
