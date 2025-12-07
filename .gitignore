@@ -85,7 +85,10 @@
 
 !.local/**
 
-# ignore
+# ignore binaries
+.local/bin/kiro-cli
+.local/bin/kiro-cli-chat
+.local/bin/kiro-cli-term
 .local/bin/mise
 
 !notes/**
