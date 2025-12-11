@@ -37,13 +37,6 @@ I use <a href="https://www.gnu.org/software/stow/">GNU Stow</a> to manage my dot
   </tr>
 </table>
 
-<h2>:star: Features</h2>
-<p><strong>Dotfiles:</strong> Explore a range of dotfiles meticulously configured for different applications, enhancing functionality and aesthetics.</p>
-<p><strong>Themes:</strong> Discover a selection of beautifully crafted themes that harmonize with each other, giving a consistent and polished look and feel.</p>
-<p><strong>Tweaks:</strong> Uncover a collection of system tweaks and optimizations to boost performance, streamline workflows, and optimize power usage.</p>
-<p><strong>Scripts:</strong> Access a set of handy scripts that automate repetitive tasks, making your Linux journey even more enjoyable.</p>
-<p><strong>Notes:</strong> Various notes, references and bookmarks I've come across when building this repo and navigating through the world of Linux.</p>
-
 <h2>:mag: Overview</h2>
 <table>
   <tr>
