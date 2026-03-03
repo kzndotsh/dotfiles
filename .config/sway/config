@@ -51,11 +51,11 @@ client.background       #1a1b26
 # Keybindings for launching applications
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
-bindsym $mod+Shift+c exec wl-color-picker clipboard
+bindsym $mod+c exec wl-color-picker clipboard
 bindsym $mod+Period exec emote
 
 # Keybindings for managing notifications
-bindsym $mod+Shift+n exec swaync-client -t -sw
+# bindsym $mod+Shift+n exec swaync-client -t -sw
 
 # Fullscreen screenshot to clipboard in PNG format
 bindsym Print exec grim - | wl-copy
@@ -172,17 +172,16 @@ exec_always $BIN_DIR/import-gsettings
 
 exec_always autotiling-rs
 exec_always nm-applet --indicator
-exec swaync
-exec wl-paste --type text --watch cliphist store
-exec wl-paste --type image --watch cliphist store
+# exec swaync
+# exec wl-paste --type text --watch cliphist store
+# exec wl-paste --type image --watch cliphist store
 
-bindsym $mod+c exec nwg-clipman -n
+# bindsym $mod+c exec nwg-clipman -n
 
-exec swayidle -w \
-	timeout 1800 'swaylock -f' \
-	timeout 1805 'swaymsg "output * power off"' \
-		resume 'swaymsg "output * power on"'
-
+# exec swayidle -w \
+# 	timeout 1800 'swaylock -f' \
+# 	timeout 1805 'swaymsg "output * power off"' \
+# 		resume 'swaymsg "output * power on"'
 
 # exec swayosd-server
 
@@ -208,6 +207,13 @@ input * {
 
 
 # Floating window rules for specific applications
+# Vivaldi & Chromium-based browser settings/dialogs
+for_window [app_id="vivaldi-stable" title=".*Vivaldi Settings.*"] floating enable
+for_window [app_id="chromium" title=".*Settings.*"] floating enable
+for_window [app_id="google-chrome" title=".*Settings.*"] floating enable
+for_window [app_id="brave-browser" title=".*Settings.*"] floating enable
+for_window [app_id="microsoft-edge" title=".*Settings.*"] floating enable
+
 for_window [app_id="system-config-printer"] floating enable
 for_window [app_id="gnome-calculator"] floating enable
 for_window [app_id="keepassxc"] floating enable
@@ -266,6 +272,36 @@ for_window [title="Process Explorer"] floating enable
 for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
 for_window [class="^Anki$" title="Add"] floating enable
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
+
+# QoL: pinentry (GPG/SSH), Bluetooth, script dialogs, auth prompts
+for_window [app_id="pinentry"] floating enable
+for_window [class="(?i)pinentry"] floating enable
+for_window [app_id="blueman"] floating enable
+for_window [class="^(Yad|Zenity|zenity)$"] floating enable
+for_window [app_id="(?i)polkit"] floating enable
+for_window [app_id="gnome-keyring-prompt"] floating enable
+
+# Zoom (XWayland): main window tiled, popups/dialogs floating — prevents screen-share chooser glitches.
+# For Wayland screen share, set enableWaylandShare=True in ~/.config/zoomus.conf (line 24).
+# Main window: tile, normal border, inhibit idle when fullscreen
+for_window [app_id="zoom"] floating disable
+for_window [app_id="zoom"] border normal
+for_window [app_id="zoom"] inhibit_idle fullscreen
+# XWayland child popups (chat, participants, settings, screen picker): float, resize, center
+for_window [class="zoom"] floating enable
+for_window [class="zoom"] resize set 1200 800
+for_window [class="zoom"] move position center
+# Screen-share chooser: float and center (PipeWire + xdg-desktop-portal stability)
+for_window [title="Select a window or an application"] floating enable
+for_window [title="Select a window or an application"] move position center
+
+# Zoom Workplace (newer client): toolbar and launch screens float; main meeting tiled
+for_window [app_id="Zoom Workplace" title="^as_toolbar$"] floating enable
+for_window [app_id="Zoom Workplace" title="^Zoom Workplace$"] floating enable
+for_window [app_id="Zoom Workplace" title="^Zoom Workplace - Licensed account$"] floating disable
+# Optional: assign Zoom to workspace 3 — uncomment if desired
+# assign [app_id="zoom"] workspace 3
+# assign [app_id="Zoom Workplace"] workspace 3
 
 # Waybar tooltip configuration to prevent focus stealing
 no_focus [app_id="waybar"]
