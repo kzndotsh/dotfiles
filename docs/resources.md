@@ -225,7 +225,7 @@ Theme, fonts, XDG, keyring, and session defaults.
   - [gitlab.com — inter nerdfont](https://gitlab.com/mid_os/inter-nerdfont)
   - [nerdfonts.com](https://www.nerdfonts.com/)
   - [NixOS Wiki — Fonts](https://wiki.nixos.org/wiki/Fonts) — with fontconfig
-  - [NixOS Wiki — Fonts](https://wiki.nixos.org/wiki/Fonts#Noto_Color_Emoji_doesn) — 't_render_on_Firefox
+  - [NixOS Wiki — Fonts (Noto Color Emoji on Firefox)](https://wiki.nixos.org/wiki/Fonts#Noto_Color_Emoji_doesn%27t_render_on_Firefox) — color emoji needs fontconfig bitmap override
   - [rsms.me — inter](https://rsms.me/inter/)
 - `modules/desktop/keyring.nix`
   - [NixOS Wiki — GNOME](https://wiki.nixos.org/wiki/GNOME)
