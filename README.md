@@ -141,7 +141,8 @@ The `vps-*` apps need `.env.kzn` (Hetzner + Cloudflare tokens, from [`.env.examp
 
 ## Docs
 
-Browse here for the overview; edit via [AGENTS.md](AGENTS.md) (per-directory map, sops, boundaries).
+- [AGENTS.md](AGENTS.md) — module map, sops, boundaries
+- [docs/resources.md](docs/resources.md) — external docs tied to config in this flake
 
 ## Credits
 
