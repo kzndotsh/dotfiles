@@ -68,20 +68,20 @@
 
     i2pd = {
       enable = true;
-      enableIPv4 = true;
-      enableIPv6 = false;
-      bandwidth = 512;
-      floodfill = false;
-      proto = {
-        http.enable = true;
-        httpProxy.enable = true;
-        socksProxy.enable = true;
+      settings = {
+        ipv4 = true;
+        ipv6 = false;
+        bandwidth = 512; # KBps transit cap — well above the 32 KBps default
+        floodfill = false;
+        http.enabled = true;
+        httpproxy.enabled = true;
+        socksproxy.enabled = true;
+        exploratory = {
+          inbound = { length = 3; quantity = 4; };
+          outbound = { length = 3; quantity = 4; };
+        };
+        ntcp2.published = true;
       };
-      exploratory = {
-        inbound = { length = 3; quantity = 4; };
-        outbound = { length = 3; quantity = 4; };
-      };
-      ntcp2.published = true;
     };
 
     tor = {
