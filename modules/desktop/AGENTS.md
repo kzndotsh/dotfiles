@@ -9,7 +9,7 @@ WM-agnostic desktop: greeter, theme, fonts, audio, XDG/session, keyring, gnupg b
 | File | Role |
 |------|------|
 | `default.nix` | Barrel: audio, greetd, theme, fonts, xdg, keyring, gnupg, security |
-| `greetd.nix` | regreet in cage, wallpaper from `assets/wallpaper.jpg`, `GDK_SCALE=2` |
+| `greetd.nix` | regreet in cage, wallpaper from `assets/wallpaper.png`, `GDK_SCALE=2` |
 | `theme.nix` | GTK3/4 (Tokyonight-Dark derivation), Kvantum, Qt, cursor |
 | `fonts.nix` | `fonts.packages` + fontconfig rasterizer + `defaultFonts` |
 | `xdg.nix` | mime defaults, zathura + `/etc/zathurarc`, session env (1Password agent, ghostty, mise) |
@@ -21,7 +21,7 @@ WM-agnostic desktop: greeter, theme, fonts, audio, XDG/session, keyring, gnupg b
 
 | File | Role |
 |------|------|
-| `assets/wallpaper.jpg` | Regreet + Sway/swaylock (`greetd.nix`; Sway copies to `/etc/sway/wallpaper.jpg`) |
+| `assets/wallpaper.png` | Regreet + Sway/swaylock (`greetd.nix`; Sway copies to `/etc/sway/wallpaper.png`) |
 
 Replace wallpaper → rebuild desktop. No EXIF GPS in commits.
 

@@ -32,7 +32,7 @@ in
     };
     settings = {
       background = {
-        path = "${self + /assets/wallpaper.jpg}";
+        path = "${self + /assets/wallpaper.png}";
         fit = "Cover";
       };
       GTK.application_prefer_dark_theme = true;

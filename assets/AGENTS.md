@@ -6,6 +6,6 @@ Static assets in the flake repo. Details: [`modules/desktop/AGENTS.md`](../modul
 
 | File | Used by |
 |------|---------|
-| `wallpaper.jpg` | greetd, Sway, swaylock |
+| `wallpaper.png` | greetd, Sway, swaylock |
 
 Keep images reasonably sized; no secrets or EXIF GPS in commits.

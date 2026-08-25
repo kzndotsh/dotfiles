@@ -5,8 +5,8 @@
 # first because it sets up sway-session.target.
 { pkgs, self, ... }:
 let
-  wallpaper = self + /assets/wallpaper.jpg;
-  wallpaperPath = "/etc/sway/wallpaper.jpg";
+  wallpaper = self + /assets/wallpaper.png;
+  wallpaperPath = "/etc/sway/wallpaper.png";
 in
 {
   imports = [
@@ -16,7 +16,7 @@ in
   ];
 
   environment = {
-    etc."sway/wallpaper.jpg".source = wallpaper;
+    etc."sway/wallpaper.png".source = wallpaper;
     systemPackages = with pkgs; [
       autotiling-rs
       bemoji

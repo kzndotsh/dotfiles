@@ -40,7 +40,7 @@ dotfiles/
 ├── packages/                  # one subdir per package (see packages/AGENTS.md)
 ├── secrets/vps.yaml           # encrypted VPS (kzn.sh)
 ├── secrets/cloudflared.yaml
-├── assets/wallpaper.jpg
+├── assets/wallpaper.png
 └── references/                # vendored, read-only
 ```
 
