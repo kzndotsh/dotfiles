@@ -236,19 +236,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1765803225,
-        "narHash": "sha256-O7l5tjYGuAMxqucSKBNAYBJcFO0A0ffr+hEgv48ZNgE=",
-        "rev": "ac9a217389ee622d4e1e727c4efcc9c4bc9089ba",
-        "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre912141.ac9a217389ee/nixexprs.tar.xz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
-      }
-    },
     "root": {
       "inputs": {
         "NixVirt": "NixVirt",
@@ -375,19 +362,21 @@
     },
     "wrappers": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1785376049,
         "narHash": "sha256-nyVjfXyOap4zi4v3VjR+blEYZ+cJCBtDcqdMftd/I/c=",
-        "owner": "midischwarz12",
+        "owner": "hermetic-foundation",
         "repo": "nix-wrappers",
         "rev": "e7ad67faa94e0536a168f334029574721062c787",
         "type": "github"
       },
       "original": {
-        "owner": "midischwarz12",
+        "owner": "hermetic-foundation",
         "repo": "nix-wrappers",
         "type": "github"
       }
