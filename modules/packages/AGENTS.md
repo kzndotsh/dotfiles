@@ -9,7 +9,7 @@ Flat `environment.systemPackages`. User systemd units are in `modules/services/`
 - systemPackages list
 
 ## Notable packages
-Comms (**vesktop**, Element, Gajim, Signal, Telegram), media, nix tools, **pandoc** + **typst**, **chromium** (Web Bluetooth), nixpkgs **`simplex-chat-desktop`**, **`tsukimi`** (GTK4 + mpv for Emby / Jellyfin). **Spotify** is via Spicetify (`modules/programs/spicetify.nix`). **Profanity**, **btop-rocm**, and **micro** are `modules/wrappers/` (desktop). **Zathura** is `modules/desktop/xdg.nix` (PDF mime + `/etc/zathurarc`). **RuneLite** + **crankshaft** are `modules/gaming/`. **solaar** is `hardware.logitech.wireless`. Shell CLI (**eza**, **vivid**, **zoxide**, **mise**) is `modules/shell`. Not installed: Cinny, Dino, Equibop, qTox, uTox. `session-desktop` flake wrap is commented (broken pnpm lock).
+Comms (**vesktop**, Element, Gajim, Signal, Telegram), media, nix tools, **pandoc** + **typst**, **chromium** (Web Bluetooth), nixpkgs **`simplex-chat-desktop`**, **`tsukimi`** (GTK4 + mpv for Emby / Jellyfin). **Spotify** is via Spicetify (`modules/programs/spicetify.nix`). **Profanity**, **btop-rocm**, and **micro** are `modules/wrappers/` (desktop). **Zathura** is `modules/desktop/xdg.nix` (PDF mime + `/etc/zathurarc`). **RuneLite** + **crankshaft** are `modules/gaming/`. **solaar** is `programs.solaar` + `hardware.logitech.wireless` (udev). Shell CLI (**eza**, **vivid**, **zoxide**, **mise**) is `modules/shell`. Not installed: Cinny, Dino, Equibop, qTox, uTox. `session-desktop` flake wrap is commented (broken pnpm lock).
 
 ## Tsukimi (Emby / Jellyfin)
 - `pkgs.tsukimi` — desktop client; playback via **mpv** (`hwdec=auto-safe` in app settings)

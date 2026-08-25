@@ -38,7 +38,7 @@
     telegram-desktop
     zoom-us
     cheese
-    libreoffice-fresh
+    libreoffice-stable
     obsidian
     pandoc
     typst

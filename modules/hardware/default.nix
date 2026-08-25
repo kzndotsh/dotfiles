@@ -30,12 +30,11 @@
       };
     };
 
-    # Logitech Unifying and Lightspeed receivers via solaar.
-    logitech.wireless = {
-      enable = true;
-      enableGraphical = true;
-    };
+    # Logitech Unifying and Lightspeed receivers — udev rules plus Solaar GUI.
+    logitech.wireless.enable = true;
   };
+
+  programs.solaar.enable = true;
 
   # Chromium's Web Bluetooth needs bluetoothd started with --experimental.
   systemd.services.bluetooth.serviceConfig.ExecStart = [

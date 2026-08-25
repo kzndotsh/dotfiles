@@ -17,7 +17,7 @@ NixOS modules for desktop (+ cherry-picked for hardened-vm). Identity lives in [
 | `gaming/` | Steam, emulators, RuneLite, crankshaft (Wine stack is `wine/`) |
 | `music/` | DAWs, plugins, yabridge, audio production tools |
 | `hardening` | VPS whole dir. Desktop imports `ssh.nix` + `baseline.nix` (not `sysctl.nix`). |
-| `hardware/` | AMDGPU, ROCm, LACT, Bluetooth (Blueman), solaar |
+| `hardware/` | AMDGPU, ROCm, LACT, Bluetooth (Blueman), Solaar |
 | `network/` | NetworkManager, IPv4-only, DoT |
 | `nix/` | substituters, registry, GC off |
 | `packages/` | Desktop-only systemPackages (flat list) |

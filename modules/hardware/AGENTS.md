@@ -15,7 +15,7 @@ AMD desktop GPU/CPU — ROCm, VA-API, Bluetooth. `zramSwap` lives in [`boot/powe
 - `services.blueman.enable` — tray applet + manager GUI
 - `services.lact.enable` — GPU fans only
 - `boot.kernelModules = [ "nct6775" ]` — ASRock B550AM NCT6798D (CPU/case headers). Not `nct6683`.
-- `hardware.logitech.wireless` — Unifying/Lightspeed udev + solaar GUI
+- `hardware.logitech.wireless` — Unifying/Lightspeed udev; GUI via `programs.solaar`
 - Packages: `lm_sensors`, `bluez`, `bluez-tools`, `overskride`, `bluejay`, `bluetui`, `bluetuith`
 - Session: `LIBVA_DRIVER_NAME`, `AMD_VULKAN_ICD=RADV`
 
