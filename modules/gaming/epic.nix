@@ -1,11 +1,8 @@
-# Epic via nix-gaming's Legendary wrapper (optional Rocket League).
-# Prefer native Heroic (`gaming.heroic.enable`) for day-to-day Epic/GOG.
+# Epic Games via nix-gaming's Legendary wrapper (optional Rocket League).
+# Prefer native Heroic (gaming.heroic.enable) for day-to-day Epic/GOG management.
 #
-# legendaryBuilder injects wine-discord-ipc-bridge, DXVK_HUD=compiler,
-# WINEESYNC/WINEFSYNC. Rocket League needs PROTON_EAC_RUNTIME.
-# Legendary catalog ID is "Sugar":
-#   https://github.com/derrod/legendary
-#   https://github.com/fufexan/nix-gaming
+# legendaryBuilder injects wine-discord-ipc-bridge, DXVK_HUD=compiler, and WINEESYNC/WINEFSYNC.
+# Rocket League needs PROTON_EAC_RUNTIME. Legendary catalog ID is "Sugar".
 { config, lib, pkgs, inputs, ... }:
 let
   cfg = config.gaming;

@@ -1,9 +1,7 @@
-# Mime + session env — desktop only (via desktop/). Do not import on the VM.
-# xdg.mime.enable NixOS default is already true.
-# XDG_BIN_HOME is not in the Base Directory spec; Sway imports it anyway.
-# https://specifications.freedesktop.org/basedir-spec/latest/
-# https://wiki.nixos.org/wiki/XDG_Base_Directory
-# PDF: pkgs.zathura (with-plugins, mupdf) + /etc/zathurarc. No programs.zathura.
+# MIME defaults and session environment — desktop only (via desktop/). Do not import on the VM.
+# xdg.mime.enable is already true by default on NixOS.
+# XDG_BIN_HOME is not in the Base Directory spec, but Sway imports it anyway for ~/.local/bin.
+# PDFs use pkgs.zathura (with-plugins, mupdf) plus /etc/zathurarc — there is no programs.zathura option.
 { lib, pkgs, ... }:
 let
   archiveHandler = "org.gnome.FileRoller.desktop";
@@ -195,12 +193,11 @@ in
 
       SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
 
-      # mise defaults all_compile=true on NixOS (deprecated; gone 2027.8.0).
-      # https://mise.jdx.dev/configuration/settings.html#all_compile
+      # mise defaults all_compile=true on NixOS (deprecated, removed in 2027.8.0). We compile from cache instead.
       MISE_ALL_COMPILE = "false";
       MISE_NODE_COMPILE = "false";
 
-      # $HOME/… not $XDG_DATA_HOME/… so paths never degrade if XDG_* is unset yet.
+      # Use $HOME/… not $XDG_DATA_HOME/… so paths stay stable if XDG_* isn't set yet at login.
       CARGO_HOME = "$HOME/.local/share/cargo";
       RUSTUP_HOME = "$HOME/.local/share/rustup";
 
@@ -228,8 +225,8 @@ in
   };
 
   xdg = {
-    # micro.desktop is Terminal=true — GLib/Nautilus need this to spawn Ghostty.
-    # Without it, "Open with Micro" is a no-op (no gnome-terminal on this host).
+    # micro.desktop is Terminal=true — GLib/Nautilus needs xdg.terminal-exec to spawn Ghostty.
+    # Without it, "Open with Micro" is a no-op (there is no gnome-terminal on this host).
     terminal-exec = {
       enable = true;
       settings = {

@@ -1,19 +1,10 @@
-# Passwordless udisks2 unlock/mount for wheel — desktop only (via services/).
-# security.polkit.enable default is false; extraConfig default is "".
-# Rules land in /etc/polkit-1/rules.d/10-nixos.rules (Duktape JS).
-# https://wiki.nixos.org/wiki/Polkit
-# https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html#polkit-rules
-# Action IDs: https://storaged.org/doc/udisks2-api/latest/udisks-polkit-actions.html
+# Let wheel unlock and mount disks through udisks2 without a password — desktop only.
 #
-# Official udisks2 defaults (active session):
-#   encrypted-unlock / filesystem-mount        → yes (removable)
-#   *-system                                   → auth_admin_keep (internal / HintSystem)
-# This rule upgrades *-system to YES for wheel (no password). Pairs with
-# security.sudo.wheelNeedsPassword = false in modules/desktop/security.nix.
-# Not covered: *-other-seat, *-crypttab, filesystem-fstab.
-#
-# udisks2.enable is in daemons.nix. Agent is polkit_gnome in sway/config.nix.
-# Root LUKS unlock is initrd, not these actions.
+# Stock udisks2 (active session): removable encrypted-unlock and filesystem-mount get yes;
+# *-system actions normally ask auth_admin_keep (internal / HintSystem disks).
+# This rule upgrades *-system to YES for wheel, pairing with passwordless sudo in desktop/security.nix.
+# Not covered: *-other-seat, *-crypttab, filesystem-fstab. Root LUKS is initrd, not these actions.
+# udisks2.enable is in daemons.nix; the polkit agent is polkit_gnome in sway autostart.
 {
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {

@@ -1,5 +1,5 @@
-# NixVirt domain/pool/network — imported by the **desktop** (hypervisor), not this guest.
-# Guest config is configuration.nix. Install: nix run .#vm-install
+# Libvirt domain, pool, and network for the desktop hypervisor — not the guest itself.
+# Guest config is configuration.nix. Install with: nix run .#vm-install
 { inputs, ... }:
 let
   nixvirtlib = inputs.NixVirt.lib;
@@ -46,19 +46,18 @@ in
             pool = "hardened-vm";
             volume = "hardened-vm.qcow2";
             bus = "virtio";
-            cache = "writeback";    # Host page cache for writes (big perf boost)
-            io = "threads";         # Better than native on ext4 host filesystem
-            discard = "unmap";      # TRIM passthrough
+            cache = "writeback";    # Use the host page cache for writes — much faster on ext4.
+            io = "threads";         # Threaded I/O beats native on an ext4 host filesystem.
+            discard = "unmap";      # Pass TRIM through to the backing volume.
           };
         };
       in [
         {
           definition = nixvirtlib.domain.writeXML (base // {
-            # CPU: passthrough host CPU for near-native performance
+            # Pass through the host CPU for near-native performance.
             cpu = { mode = "host-passthrough"; };
-            # vCPUs
             vcpu = { count = 8; };
-            # Dedicated I/O thread for disk (doesn't compete with vCPUs)
+            # Dedicated I/O thread so disk work does not compete with vCPUs.
             iothreads = { count = 1; };
             devices = base.devices // {
               interface = {
@@ -74,7 +73,7 @@ in
     };
   };
 
-  # Ensure image directory exists
+  # Create the libvirt image directory on first boot.
   systemd.tmpfiles.rules = [
     "d /var/lib/libvirt/images/hardened-vm 0755 root root -"
   ];

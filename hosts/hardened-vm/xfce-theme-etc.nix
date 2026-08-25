@@ -1,4 +1,4 @@
-# XFCE Tokyo Night theme files (declarative etc.)
+# Declarative XFCE and LightDM theme files for Tokyo Night.
 _:
 {
   environment.etc = {

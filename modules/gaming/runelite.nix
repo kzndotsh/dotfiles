@@ -1,8 +1,8 @@
-# RuneLite (OSRS). https://github.com/runelite/runelite
+# RuneLite (OSRS) with extra AWT env for Sway.
 #
-# Belt-and-suspenders AWT env for Sway. Do not force --scale=2 — output scale
-# 2.0 already scales XWayland. Run `runelite-configure` once if the sidebar is
-# too small (writes ~/.runelite). Window rules live in desktop/sway/.
+# Do not force --scale=2 — output scale 2.0 already scales XWayland.
+# Run `runelite-configure` once if the sidebar is too small (writes ~/.runelite).
+# Window rules live in desktop/sway/windows.nix.
 { config, lib, pkgs, ... }:
 let
   cfg = config.gaming;

@@ -12,7 +12,7 @@ in
       description = "Copyparty file server";
       wantedBy = [ "default.target" ];
       serviceConfig = {
-        # COPYPARTY_ACCOUNT=user:pass — not in git (Cloudflare tunnel exposes :3923).
+        # Credentials live in ~/.secrets/copyparty.env (not in git) because the Cloudflare tunnel exposes this port.
         EnvironmentFile = "${config.my.secretsDir}/copyparty.env";
         ExecStart = "${pkgs.copyparty}/bin/copyparty -a $COPYPARTY_ACCOUNT -v ${config.my.home}/Public::rw,${config.my.username} -e2dsa --qr -z";
         Restart = "on-failure";

@@ -1,5 +1,4 @@
-# swaylock-effects (binary name is still `swaylock`).
-# https://github.com/jirutka/swaylock-effects
+# swaylock-effects (the binary is still named swaylock).
 {
   environment.etc."xdg/swaylock/config".text = ''
     # Tokyo Night — matches sway client.* colors in config.nix
@@ -31,7 +30,7 @@
     fade-in=0.2
   '';
 
-  # swaylock reads ~/.config/swaylock/config first. Pin to /etc.
+  # swaylock reads ~/.config/swaylock/config first. Pin to /etc so local files can't override.
   system.userActivationScripts.swaylock-link.text = ''
     mkdir -p $HOME/.config/swaylock
     ln -sfn /etc/xdg/swaylock/config $HOME/.config/swaylock/config

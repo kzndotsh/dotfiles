@@ -1,5 +1,4 @@
-# Terranix source. OpenTofu cwd: infra/state/kzn/
-# Tokens: .env.kzn (see .env.example). Named tunnels need TF_VAR_cloudflare_account_id.
+# Terranix source for the kzn.sh VPS. OpenTofu runs from infra/state/kzn/ with tokens in .env.kzn.
 { identity, lib, ... }:
 {
   imports = [

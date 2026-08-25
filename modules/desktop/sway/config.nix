@@ -1,13 +1,8 @@
-# /etc/sway/config — vars, look, outputs. Fragments imported below.
+# Main /etc/sway/config — variables, appearance, and outputs. Keybinds and rules live in config.d/.
 #
-# Replaces NixOS mkOptionDefault (stock sway package /etc/sway/config).
-# man 5 include: the same file is loaded only once. Do not glob config.d/*
-# (nixos.conf would run twice). Include nixos.conf first (sway-session.target).
-#
-# Sample: https://github.com/swaywm/sway/blob/master/config.in
-# https://man.archlinux.org/man/sway.5
-# https://man.archlinux.org/man/sway-output.5
-# https://wiki.archlinux.org/title/Sway
+# Replaces NixOS mkOptionDefault (the stock sway package config). Per man 5 include, each file
+# loads only once — do not glob config.d/* or nixos.conf would run twice. Include nixos.conf
+# first because it sets up sway-session.target.
 { pkgs, self, ... }:
 let
   wallpaper = self + /assets/wallpaper.jpg;
@@ -54,8 +49,8 @@ in
 
       include /etc/sway/config.d/nixos.conf
 
-      # Hide title *text* (pango markup + tiny font). Titlebar still appears in
-      # stacking/tabbed (man 5: title bar always shows in those layouts).
+      # Shrink title text to nearly invisible (pango markup + tiny font). Titlebars still show
+      # in stacking/tabbed layouts where man 5 says they always appear.
       font pango: monospace 0.001
       titlebar_border_thickness 1
       titlebar_padding 1
@@ -63,24 +58,19 @@ in
       gaps inner 1
       gaps outer 1
       smart_gaps on
-      # default_border only affects *new* tiled windows. for_window [app_id] is
-      # Wayland-only — XWayland uses class, not app_id (man 5 CRITERIA).
+      # default_border only affects new tiled windows. for_window [app_id] is Wayland-only —
+      # XWayland apps match on class, not app_id (man 5 CRITERIA).
       default_border pixel 1
       default_floating_border pixel 1
       for_window [app_id=".*"] border pixel 1
-      # --i3: hide titlebar on tabbed/stacked with one child; smart_no_gaps =
-      # smart_borders no_gaps + hide_edge_borders none (man 5).
+      # --i3 hides the titlebar on tabbed/stacked with one child; smart_no_gaps combines
+      # smart_borders no_gaps with hide_edge_borders none.
       hide_edge_borders --i3 smart_no_gaps
-      # $mod+left drag, $mod+right resize. Also works on tiled (config.in).
+      # Mod+left drag, Mod+right resize — also works on tiled windows (config.in default).
       floating_modifier $mod normal
       workspace_auto_back_and_forth no
 
-      # Output (RX 6700 XT, 4K@144 scaled 2×)
-      # Integer scale (man 5 / Arch HiDPI): XWayland is scaled and blurs.
-      # scale_filter nearest = sharp upscale of lo-DPI buffers.
-      # adaptive_sync off: VRR can flicker (sway-output(5)).
-      # Tearing: output allow_tearing + window allow_tearing + max_render_time off
-      # (Arch wiki Tearing; man 5 sway-output). Only while fullscreen.
+      # 4K panel at 2× scale keeps XWayland apps readable with integer scaling.
       output "DP-3" {
           mode 3840x2160@144.001Hz
           pos 0 0
@@ -104,10 +94,10 @@ in
       client.focused          #7aa2f7 #1a1b26 #c0caf5 #73daca #7aa2f7
       client.focused_inactive #292e42 #1a1b26 #545c7e #292e42 #292e42
       client.unfocused        #15161e #1a1b26 #a9b1d6 #414868 #15161e
-      # urgent: XWayland only. Native Wayland has no urgency hint (man 5).
+      # urgent styling only applies to XWayland — native Wayland has no urgency hint (man 5).
       client.urgent           #db4b4b #1a1b26 #f7768e #ff9e64 #db4b4b
       client.placeholder      #15161e #1a1b26 #c0caf5 #15161e #15161e
-      # client.background is ignored (i3 compat). Kept for the palette dump.
+      # client.background is ignored (i3 compat) but kept for the palette reference.
       client.background       #1a1b26
 
       bar {

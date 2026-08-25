@@ -1,6 +1,6 @@
-# micro — settings live in the store; ConfigDir is ~/.config/micro.
-# -config-dir cannot be the store: 2.0.15 always mkdir ConfigDir/backups on save
-# (atomic overwrite), even when backup is false.
+# micro — settings live in the Nix store; the writable config dir is ~/.config/micro.
+# You can't point -config-dir at the store: micro 2.0.15 always mkdirs ConfigDir/backups on save
+# (atomic overwrite), even when backup is false, which hits EROFS on a read-only tree.
 { pkgs, ... }:
 let
   settings = pkgs.writeText "settings.json" ''
@@ -105,7 +105,7 @@ let
     color-link ignore "#565f89"
   '';
 
-  # preRun values must be a single argv token (nix-wrappers does not quote --run).
+  # preRun values must be a single argv token — nix-wrappers does not quote --run arguments.
   linkConfig = pkgs.writeShellScript "micro-link-config" ''
     cfg="''${XDG_CONFIG_HOME:-$HOME/.config}/micro"
     mkdir -p "$cfg/colorschemes"

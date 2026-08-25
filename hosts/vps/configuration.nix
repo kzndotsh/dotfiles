@@ -1,4 +1,4 @@
-# Public `#vps` (kzn.sh). Identity supplies IPs and hostname.
+# Public VPS host (kzn.sh). IPs and hostname come from lib/identity.nix.
 { identity, ... }:
 {
   imports = [

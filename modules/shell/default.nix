@@ -1,4 +1,4 @@
-# Barrel: prompt + fuzzy finder. Zsh-specific config is zsh.nix.
+# Shell barrel: starship prompt, fzf, and CLI tools. Zsh-specific config is in zsh.nix.
 { pkgs, ... }:
 {
   imports = [ ./zsh.nix ];

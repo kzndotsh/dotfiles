@@ -1,13 +1,10 @@
-# Retro / standalone emulators.
-# RetroArch cores with hyphens need quoted attr access (`c."parallel-n64"`).
+# Retro and standalone emulators.
+# RetroArch cores with hyphens need quoted attr access (c."parallel-n64").
 #
-# Runtime (not in git):
+# Runtime state (not in git):
 #   RetroArch assets → Online Updater
 #   PS2 BIOS → ~/.config/PCSX2/bios/
 #   PS3 firmware → RPCS3 GUI (once)
-#
-# https://www.retroarch.com/
-# https://dolphin-emu.org/  https://pcsx2.net/  https://rpcs3.net/
 { config, lib, pkgs, ... }:
 let
   cfg = config.gaming;

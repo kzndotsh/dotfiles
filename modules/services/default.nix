@@ -1,6 +1,5 @@
-# Desktop services barrel. sshd is NOT here — host imports hardening/ssh.nix
-# (ciphers shared; forwarding is per-host). Do not import this dir on the VM
-# (VM takes docker.nix only).
+# Desktop service imports. OpenSSH lives in hardening/ssh.nix per host — not here.
+# The hardened VM only pulls docker.nix from this tree; do not import the full barrel there.
 {
   imports = [
     ./docker.nix

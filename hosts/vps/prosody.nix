@@ -132,7 +132,7 @@ in
     '';
   };
 
-  # Coturn (STUN/TURN for voice/video)
+  # Coturn provides STUN/TURN for XMPP voice and video calls.
   services.coturn = {
     enable = true;
     listening-port = 3478;

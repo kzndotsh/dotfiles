@@ -18,7 +18,7 @@
   services = {
     qemuGuest.enable = true;
 
-    # XFCE Desktop
+    # Lightweight XFCE session for throwaway use.
     xserver = {
     enable = true;
     desktopManager.xfce.enable = true;
@@ -129,14 +129,13 @@
     };
   };
 
-  # Thunar extras
+  # Let Thunar open archives and handle removable drives.
   programs.thunar.plugins = with pkgs; [
     thunar-archive-plugin
     thunar-volman
   ];
 
-  # Boot
-
+  # Hardened kernel cmdline and a trimmed module blacklist — no Bluetooth or webcam drivers.
   boot = {
     loader.grub.enable = true;
     kernelPackages = pkgs.linuxPackages_latest;
@@ -159,7 +158,7 @@
       "vivid" "bluetooth" "btusb" "uvcvideo"
     ];
     kernel.sysctl = {
-      # Network hardening
+      # Reject spoofed routes and ICMP redirects.
       "net.ipv4.tcp_syncookies" = 1;
       "net.ipv4.tcp_rfc1337" = 1;
       "net.ipv4.conf.all.rp_filter" = 1;
@@ -177,7 +176,7 @@
       "net.ipv6.conf.all.accept_ra" = 0;
       "net.ipv6.conf.default.accept_ra" = 0;
 
-      # Kernel hardening
+      # Hide kernel pointers and restrict debugging interfaces.
       "kernel.kptr_restrict" = 2;
       "kernel.dmesg_restrict" = 1;
       "kernel.unprivileged_bpf_disabled" = 1;
@@ -187,20 +186,20 @@
       "kernel.yama.ptrace_scope" = 2;
       "kernel.unprivileged_userns_clone" = 0;
 
-      # Filesystem hardening
+      # Block setuid core dumps and harden sticky-directory symlink handling.
       "fs.suid_dumpable" = 0;
       "fs.protected_symlinks" = 1;
       "fs.protected_hardlinks" = 1;
       "fs.protected_fifos" = 2;
       "fs.protected_regular" = 2;
 
-      # Memory hardening
+      # Tighten ASLR and block unprivileged userfaultfd.
       "vm.unprivileged_userfaultfd" = 0;
       "vm.mmap_rnd_bits" = 32;
       "vm.mmap_rnd_compat_bits" = 16;
       "kernel.randomize_va_space" = 2;
 
-      # Lynis recommendations
+      # Additional hardening knobs suggested by Lynis.
       "net.core.bpf_jit_harden" = 2;
       "kernel.core_uses_pid" = 1;
       "kernel.ctrl-alt-del" = 0;
@@ -214,10 +213,10 @@
     };
   };
 
-  # Firewall (enabled, unlike host)
+  # Enable the firewall with SSH as the only open port — unlike the desktop, which leaves it off.
   networking = {
     hostName = lib.mkForce "hardened-vm";
-    # Override random MAC from shared config (breaks libvirt NSS resolution)
+    # Use a stable MAC; the shared random-MAC default breaks libvirt name resolution.
     networkmanager.ethernet.macAddress = lib.mkForce "permanent";
     firewall = {
       enable = lib.mkForce true;
@@ -228,10 +227,9 @@
     enableIPv6 = false;
   };
 
-  # Security hardening
   security = {
     protectKernelImage = true;
-    # Note: lockKernelModules breaks disk image building, enforce at runtime instead
+    # lockKernelModules breaks disk image builds — enforce that at runtime instead.
     auditd.enable = false;
     audit.enable = false;
     apparmor = {
@@ -245,13 +243,13 @@
     ];
   };
 
-  # Optional: force ALL VM traffic through Tor (uncomment to enable)
+  # Uncomment below to route all VM traffic through Tor.
   # networking.firewall.extraCommands = ''
   #   iptables -t nat -A OUTPUT -p tcp -m owner ! --uid-owner tor -j REDIRECT --to-ports 9040
   #   iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 5353
   # '';
 
-  # Anti-forensics
+  # Anti-forensics: tmpfs for volatile paths, zram swap, no shell history on disk.
   swapDevices = [];
   zramSwap = { enable = true; memoryPercent = 75; };
 
@@ -262,7 +260,7 @@
     "/var/lib/i2pd" = { device = "tmpfs"; fsType = "tmpfs"; options = [ "nosuid" "nodev" "size=128M" ]; };
   };
 
-  # zshrc assigns programs.zsh.histFile after env — session HISTFILE alone does not win.
+  # programs.zsh.histFile wins over environment HISTFILE because zshrc runs later.
   programs.zsh.histFile = lib.mkForce "/dev/null";
 
   environment = {
@@ -319,7 +317,7 @@
     ];
   };
 
-  # Users
+  # One normal user for the guest session.
   users = {
     mutableUsers = false;
     users.${config.my.username} = {

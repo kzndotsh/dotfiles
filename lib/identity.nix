@@ -1,4 +1,4 @@
-# Person + laptop (`#ikigai`) + public VPS (`#vps` / kzn.sh).
+# Shared identity for the desktop (ikigai), this repo, and the public VPS (kzn.sh).
 rec {
   username = "kaizen";
   home = "/home/${username}";
@@ -30,8 +30,8 @@ rec {
     "matrix"
     "auth"
     "muc"
-    # Apex kzn.sh is a Cloudflare Worker — tofu cannot create the A record
-    # (API 81062). Do not add "root" until that Worker is gone.
+    # The zone apex (kzn.sh) is a Cloudflare Worker, so OpenTofu cannot create an A record
+    # there (API error 81062). Leave "root" out until that Worker is removed.
     "zipline"
   ];
   namedTunnels = {

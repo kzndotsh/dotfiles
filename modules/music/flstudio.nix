@@ -1,27 +1,19 @@
-# FL Studio (Windows) under Wine — dedicated prefix `~/.wine-flstudio`.
+# FL Studio (Windows) under Wine — dedicated prefix at ~/.wine-flstudio.
 #
-# Image-Line does not ship Linux and does not support Wine:
-#   https://support.image-line.com/action/knowledgebase?ans=140
-#   https://forum.image-line.com/viewtopic.php?t=198535
-# Community: https://forum.image-line.com/viewtopic.php?t=259129
-# WineHQ AppDB: https://appdb.winehq.org/objectManager.php?sClass=application&iId=2317
+# Image-Line does not ship Linux and does not support Wine.
+# Community reports and WineHQ AppDB are the best references for what works.
 #
-# Audio: WineASIO → JACK → PipeWire JACK compat (`modules/audio` + `music` jack.enable).
-#   https://github.com/wineasio/wineasio
-#   Register per prefix with `wine regsvr32 wineasio.dll` (nixpkgs has no wineasio-register).
-#   Skip ASIO4ALL in the installer — it does not work under Wine (Image-Line KB above).
-#   In FL: Options → Audio → Device → WineASIO. Turn off "Mix in buffer switch"
-#   if you get xruns (ASIO callback must return within one period):
-#   https://github.com/M0n7y5/pipeasio
-#   PIPEWIRE_LATENCY hints this client; PIPEWIRE_QUANTUM would force the whole graph:
-#   https://gitlab.freedesktop.org/pipewire/pipewire/-/commit/0bc3d1444a98d7e868563a03bf555f28f14e7f2d
+# Audio path: WineASIO → JACK → PipeWire JACK compat (modules/audio + music jack.enable).
+# Register per prefix with `wine regsvr32 wineasio.dll` (nixpkgs has no wineasio-register helper).
+# Skip ASIO4ALL in the installer — it does not work under Wine.
+# In FL: Options → Audio → Device → WineASIO. Turn off "Mix in buffer switch" if you get xruns
+# (the ASIO callback must return within one period).
+# PIPEWIRE_LATENCY hints this client only; PIPEWIRE_QUANTUM would force the whole graph.
 #
-# Sync: kernel ntsync (≥6.14) is on via `modules/wine` + `gaming/kernel.nix`.
-#   Do not enable esync together with fsync/ntsync.
-#   https://github.com/begin-theadventure/fl-studio-integrator-linux
+# Kernel ntsync (≥6.14) is on via modules/wine + gaming/kernel.nix.
+# Do not enable esync together with fsync/ntsync.
 #
-# Windows VSTs load inside this prefix (no yabridge). Unlock via Image-Line account
-# in FL, not a .reg file.
+# Windows VSTs load inside this prefix (no yabridge). Unlock via Image-Line account in FL, not a .reg file.
 { config, lib, pkgs, ... }:
 let
   cfg = config.music;
@@ -45,7 +37,6 @@ let
     name = "fl-studio";
     desktopName = "FL Studio";
     exec = "fl-studio %F";
-    # https://specifications.freedesktop.org/menu-spec/latest/category-registry.html
     categories = [
       "AudioVideo"
       "Audio"
@@ -79,7 +70,7 @@ let
         ln -sf "$f" "$FONTDIR/"
       done < <(fc-list -f "%{file}\n" | grep -E '\.(ttf|otf)$' || true)
 
-      # FL looks up arial.ttf by filename for hint-bar / piano-roll labels.
+      # FL looks up arial.ttf by filename for hint-bar and piano-roll labels.
       ARIAL="$(fc-list -f '%{file}\n' | grep -i 'LiberationSans-Regular' | grep '\.ttf$' | head -1 || true)"
       if [ -n "$ARIAL" ]; then
         cp "$ARIAL" "$FONTDIR/arial.ttf"
@@ -93,7 +84,7 @@ let
       echo "Registering WineASIO in this prefix ..."
       wine regsvr32 wineasio.dll || echo "WineASIO registration failed — check pkgs.wineasio is on PATH"
 
-      # Xft DPI is 96 in modules/wine; Sway scale 2.0 does HiDPI. Don't set 192 here.
+      # Xft DPI is 96 in modules/wine; Sway scale 2.0 handles HiDPI. Don't set 192 here.
       echo "LogPixels=96, ClearType, Sway-friendly X11 driver ..."
       wine reg add "HKCU\\Control Panel\\Desktop" /v LogPixels /t REG_DWORD /d 96 /f
       wine reg add "HKCU\\Control Panel\\Desktop" /v FontSmoothing /t REG_SZ /d 2 /f
@@ -148,10 +139,9 @@ in
     lib.mkEnableOption "FL Studio via Wine (wineasio, dedicated prefix, manual installer)";
 
   config = lib.mkIf (cfg.enable && cfg.daw.flstudio.enable) {
-    # Wine stack (wine-tkg, winetricks, Xft)
+    # wine-tkg, winetricks, and Xft for gaming and music prefixes.
     wine.enable = lib.mkDefault true;
 
-    # Launchers + ASIO
     environment.systemPackages = [
       pkgs.wineasio
       flStudioSetup
@@ -160,9 +150,7 @@ in
       flMime
     ];
 
-    # .flp → fl-studio
-    # https://specifications.freedesktop.org/shared-mime-info-spec/latest/
-    # https://specifications.freedesktop.org/mime-apps-spec/latest/
+    # Open .flp project files with FL Studio.
     xdg.mime.defaultApplications."application/x-fl-studio-project" = "fl-studio.desktop";
   };
 }

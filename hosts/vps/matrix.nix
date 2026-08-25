@@ -59,7 +59,7 @@
         turn_user_lifetime = "86400000";
         turn_allow_guests = false;
 
-        # Privacy
+        # Limit what strangers can see or scrape.
         presence.enabled = false;
         require_auth_for_profile_requests = true;
         allow_public_rooms_without_auth = false;
@@ -70,7 +70,7 @@
         suppress_key_server_warning = true;
         trusted_key_servers = [{ server_name = "matrix.org"; }];
 
-        # SSRF protection
+        # Block Synapse from fetching private or internal URLs.
         ip_range_blacklist = [
           "127.0.0.0/8" "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16"
           "100.64.0.0/10" "169.254.0.0/16" "192.88.99.0/24"
@@ -83,13 +83,13 @@
           "::1/128" "fe80::/10" "fc00::/7"
         ];
 
-        # Resource management
+        # Cap how long media, IPs, and redacted events stay around.
         media_retention = { remote_media_lifetime = "14d"; };
         user_ips_max_age = "28d";
         redaction_retention_period = "7d";
         forgotten_room_retention_period = "28d";
 
-        # Performance
+        # Tune caches and federation retry behavior for this box.
         enable_search = true;
         event_cache_size = "30K";
         caches = {
@@ -112,7 +112,7 @@
         };
         federation_rr_transactions_per_room_per_second = 50;
 
-        # Retention
+        # Let rooms opt into message expiry within bounded lifetimes.
         retention = {
           enabled = true;
           default_policy = { min_lifetime = "1d"; max_lifetime = "365d"; };

@@ -1,14 +1,9 @@
 _:
 {
-  # SPA-JSON drop-ins under /etc/wireplumber/wireplumber.conf.d/ (single-instance).
-  # Quote dotted keys. Filenames sort alphanumerically.
-  # https://pipewire.pages.freedesktop.org/wireplumber/daemon/configuration/alsa.html
-  # https://wiki.archlinux.org/title/WirePlumber
+  # WirePlumber drop-ins live in /etc/wireplumber/wireplumber.conf.d/ — filenames sort alphanumerically.
   services.pipewire.wireplumber.extraConfig = {
-    # Default sink/source: higher priority.session wins.
-    # Sources default ~1600–2000, sinks ~600–1000. WP: do not put a *sink*
-    # above 1500 or its monitor can steal default-source — FiiO is 2000, but
-    # Yeti input is 2500 so the mic still wins.
+    # Higher priority.session wins default sink/source. Keep sinks below ~1500 or their
+    # monitor steals default-source; FiiO at 2000 is fine because Yeti input is 2500.
     "50-device-priority" = {
       "monitor.alsa.rules" = [
         {
@@ -35,7 +30,7 @@ _:
       ];
     };
 
-    # Yeti X: skip WP "best profile" (often a multichannel/IEC958 mix).
+    # Yeti X: skip WirePlumber's "best profile" — it often picks a multichannel/IEC958 mix we don't want.
     "52-yeti-profile" = {
       "monitor.alsa.rules" = [
         {
@@ -47,7 +42,7 @@ _:
       ];
     };
 
-    # Onboard + HDMI (alsa_card.pci-*). Also kills GPU HDMI audio.
+    # Mute onboard and HDMI audio (alsa_card.pci-*). This also silences GPU HDMI output.
     "51-disable-devices" = {
       "monitor.alsa.rules" = [
         {
@@ -59,9 +54,8 @@ _:
       ];
     };
 
-    # Default suspend is 5s (pops when the USB DAC wakes). 0 = leave ALSA open.
-    # Complements boot udev `power/control=on` on FiiO 1852:7022 / Yeti 046d:0aaf.
-    # https://wiki.archlinux.org/title/PipeWire#Noticeable_audio_delay_or_audible_pop/crack_when_starting_playback
+    # WirePlumber suspends idle USB nodes after 5s by default — that causes pops on wake.
+    # Complements boot/udev.nix setting power/control=on for the FiiO and Yeti.
     "99-disable-suspend" = {
       "monitor.alsa.rules" = [
         {
@@ -76,8 +70,7 @@ _:
       ];
     };
 
-    # Default capture volume when no saved route volume exists (WP 0.5.14+).
-    # 0.8 = 80% (linear). https://pipewire.pages.freedesktop.org/wireplumber/daemon/configuration/settings.html
+    # Default capture volume when WirePlumber has no saved route (0.8 = 80% linear).
     "53-yeti-volume" = {
       "monitor.alsa.rules" = [
         {

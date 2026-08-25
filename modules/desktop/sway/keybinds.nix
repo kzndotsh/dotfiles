@@ -1,10 +1,10 @@
 # /etc/sway/config.d/10-keybinds.conf
-# $mod is Mod1 (Alt). Stock config.in uses Mod4 + foot/wmenu.
-# --locked: run even on the lock screen (man 5 bindsym). Without it, volume
-# keys die while locked. --no-repeat: hold Return must not spawn a terminal storm.
+# $mod is Mod1 (Alt). Upstream config.in uses Mod4 with foot/wmenu.
+# --locked lets binds run on the lock screen (man 5 bindsym). Without it, volume keys die while locked.
+# --no-repeat stops holding Return from spawning a terminal storm.
 {
   environment.etc."sway/config.d/10-keybinds.conf".text = ''
-    # Launchers / clipboard
+    # Launchers, clipboard, and notification toggles.
     bindsym --no-repeat $mod+Return exec $term
     bindsym $mod+d exec $menu
     bindsym $mod+grave exec swayr switch-window
@@ -16,13 +16,13 @@
     bindsym $mod+period exec bemoji -t -c
     bindsym $mod+Shift+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
 
-    # Screenshots
+    # Screenshots — full screen, region with satty, or upload to Zipline.
     bindsym Print exec grim - | wl-copy
     bindsym --release Control+Print exec grim -g "$(slurp)" -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
     bindsym $mod+Shift+s exec ~/.local/bin/zipline-upload
     bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | wl-copy
 
-    # Focus / workspaces
+    # Focus movement and workspace switching.
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
@@ -60,8 +60,7 @@
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
 
-    # Layout
-    # move left; move right: apply layout to this container, not the parent (i3 idiom).
+    # Layout modes, fullscreen, floating, kill, reload, exit.
     bindsym $mod+h splith
     bindsym $mod+v splitv
     bindsym $mod+s move left; move right; layout stacking
@@ -78,7 +77,7 @@
     bindsym $mod+Shift+r reload
     bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'
 
-    # pactl → PipeWire pulse shim. --locked from config.in / Arch wiki.
+    # pactl talks to PipeWire's pulse shim. --locked matches config.in / Arch wiki practice.
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle

@@ -1,6 +1,5 @@
-# btop-rocm — store config + theme. No NixOS programs.btop.
-# --config / --themes-dir: https://github.com/aristocratos/btop
-# UI setting changes cannot persist through a store --config.
+# btop-rocm with store-backed config and theme. There is no NixOS programs.btop option.
+# --config and --themes-dir point at the store, so UI setting changes cannot persist.
 { pkgs, ... }:
 let
   conf = pkgs.writeText "btop.conf" ''

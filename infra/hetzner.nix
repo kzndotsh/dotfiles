@@ -1,4 +1,4 @@
-# Hetzner Cloud VPS. Resource names are state keys — do not rename.
+# Hetzner Cloud VPS. Terraform resource names are state keys — renaming recreates the server.
 { identity, lib, ... }:
 let
   any = [
@@ -22,7 +22,7 @@ in
 
     hcloud_firewall.vps = {
       name = "vps-firewall";
-      # 2222 is initrd LUKS unlock at boot only (slim kzn stack has no git SSH).
+      # Port 2222 is only for initrd LUKS unlock at boot — the slim kzn stack has no git-over-SSH.
       rule = [
         (tcp "22" "SSH")
         (tcp "2222" "SSH initrd LUKS unlock")
@@ -44,9 +44,9 @@ in
 
     hcloud_server.vps = {
       name = "vps";
-      server_type = "cx33"; # Gen3: 3 vCPU, 8GB RAM, 80GB NVMe
+      server_type = "cx33"; # Gen3: 3 vCPU, 8 GB RAM, 80 GB NVMe
       location = "nbg1"; # Nuremberg
-      image = "debian-12"; # replaced by nixos-anywhere
+      image = "debian-12"; # Replaced by nixos-anywhere on first install
       ssh_keys = [ (lib.tf.ref "hcloud_ssh_key.main.id") ];
       firewall_ids = [ (lib.tf.ref "hcloud_firewall.vps.id") ];
       backups = true;

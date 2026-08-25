@@ -1,8 +1,6 @@
-# MangoHud overlay — Tokyo Night colours.
-# https://github.com/flightlessmango/MangoHud
+# MangoHud overlay with Tokyo Night colours.
 #
-# GPU stats need kernel.perf_event_paranoid <= 1 (boot/sysctl.nix sets 3).
-# https://docs.kernel.org/admin-guide/sysctl/kernel.html#perf-event-paranoid
+# GPU stats need kernel.perf_event_paranoid ≤ 1 (boot/sysctl.nix sets 3 by default).
 #
 # Steam: mangohud %command%  or  gamemoderun mangohud %command%
 # Gamescope: --mangoapp, not mangohud

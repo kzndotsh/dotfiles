@@ -1,23 +1,20 @@
-# Gaming Wine extras — Lutris / Heroic / Bottles / umu-launcher.
+# Gaming Wine extras — Lutris, Heroic, Bottles, and umu-launcher.
 #
-# Base wine (wine-tkg, winetricks, wineprefix-preparer): modules/wine/
-# This file: launchers + FHS workarounds. `gaming.wine.enable` turns on `wine.enable`.
+# Base wine (wine-tkg, winetricks, wineprefix-preparer) lives in modules/wine/.
+# This file adds launchers plus FHS workarounds. gaming.wine.enable turns on wine.enable.
 #
-# umu-launcher = Proton-outside-Steam for Heroic/Lutris 0.5.20+:
-#   https://github.com/Open-Wine-Components/umu-launcher
-# Legendary CLI (package is `legendary-gl`, not `legendary`):
-#   https://github.com/derrod/legendary
+# umu-launcher runs Proton outside Steam for Heroic/Lutris 0.5.20+.
+# Legendary CLI package name is legendary-gl, not legendary.
 #
 # Prefix deps (manual/Lutris/Heroic): corefonts, vcrun2022, d3dx9/d3dx11, dotnet48
 #   WINEPREFIX=~/Games/mygame wineprefix-preparer   # DXVK + vkd3d (from modules/wine)
 #   WINEPREFIX=~/Games/mygame winetricks vcrun2022 corefonts
 #
-# openldap: flaky i686 test017 broke Lutris/Bottles FHS from source
-#   https://github.com/NixOS/nixpkgs/issues/513245  (closed; skip-test PRs exist)
-# Do not use a global overlay (rebuilds half the system). Override buildFHSEnv
-# inside the launcher only. Drop when `nixpkgs#lutris` is reliably cached.
+# openldap's flaky i686 test017 broke Lutris/Bottles FHS builds from source (nixpkgs#513245).
+# Override buildFHSEnv inside each launcher only — never use a global overlay (rebuilds half the system).
+# Drop the workaround when nixpkgs#lutris is reliably cached.
 #
-# patool tests break on Python 3.14 (bzip2/lzma detection) — skip in Bottles only.
+# patool tests break on Python 3.14 (bzip2/lzma detection) — skip checks in Bottles only.
 { config, lib, pkgs, ... }:
 let
   cfg = config.gaming;
@@ -44,7 +41,7 @@ let
 
   lutris = pkgs.lutris.override { buildFHSEnv = openldapFixedFHSEnv; };
   bottles = bottlesPatched;
-  # Heroic uses steam.buildRuntimeEnv — no openldap FHS hook.
+  # Heroic uses steam.buildRuntimeEnv and doesn't need the openldap FHS hook.
   heroic = pkgs.heroic.override {
     extraPkgs = pkgs': with pkgs'; [ gamescope gamemode mangohud ];
   };

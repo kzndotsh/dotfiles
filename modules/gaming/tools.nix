@@ -1,26 +1,19 @@
-# GameMode, Gamescope, optional capture wrapper.
-# https://github.com/FeralInteractive/gamemode
-# https://github.com/ValveSoftware/gamescope
+# GameMode, Gamescope, and optional capture wrapper.
 #
-# Gamescope (per-game Steam launch — not global):
+# Gamescope per-game Steam launch examples (not global):
 #   gamescope -W 2560 -H 1440 -r 144 -f -e -- %command%
 #   gamescope -W 2560 -H 1440 -r 144 -f -e --mangoapp -- %command%
-# Use --mangoapp inside Gamescope, not mangohud (mangohud.nix).
+# Use --mangoapp inside Gamescope, not mangohud (see mangohud.nix).
 #
-# game-wrapper (optional): gamemoderun + mangohud + obs-vkcapture.
-# No Zink — RADV is faster on this AMD GPU.
+# game-wrapper (optional): gamemoderun + mangohud + obs-vkcapture. No Zink — RADV is faster on this AMD GPU.
 #
 # Capture: OBS_VKCAPTURE=1 %command% or obs-vkcapture %command%
-#   https://github.com/nowrep/obs-vkcapture
-#   On Sway also set OBS_USE_EGL=1 inside OBS.
-#
-# SteamTinkerLaunch: https://github.com/sonic2kk/steamtinkerlaunch
+# On Sway also set OBS_USE_EGL=1 inside OBS.
 { config, lib, pkgs, ... }:
 let
   cfg = config.gaming;
   # Unload resident Ollama models so CS2 isn't sharing VRAM/KFD with ROCm.
   # Needs `gamemoderun %command%` on the Steam title.
-  # https://github.com/ollama/ollama/blob/main/docs/api.md  keep_alive=0
   unloadOllama = pkgs.writeShellScript "gamemode-unload-ollama" ''
     set -euo pipefail
     ps=$(${lib.getExe pkgs.curl} -sf --max-time 2 http://127.0.0.1:11434/api/ps) || exit 0
@@ -45,7 +38,7 @@ in
         };
         cpu = {
           park_cores = "no";
-          # 5800X: leave CPU 0 for the desktop; pin the rest.
+          # 5800X: leave CPU 0 for the desktop; pin the rest to the game.
           pin_cores = "1-15";
         };
         gpu = {
@@ -63,7 +56,7 @@ in
 
     programs.gamescope = {
       enable = true;
-      # capSysNice + non-root Gamescope often fails to start on NixOS.
+      # capSysNice plus non-root Gamescope often fails to start on NixOS.
       capSysNice = false;
     };
 

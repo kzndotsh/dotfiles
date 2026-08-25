@@ -1,5 +1,4 @@
-# Waybar — Tokyo Night, same palette as sway client.* / swaylock.
-# https://github.com/Alexays/Waybar/wiki
+# Waybar status bar — Tokyo Night palette, matching sway client.* and swaylock colors.
 { pkgs, ... }:
 {
   environment.etc."xdg/waybar/config.jsonc".text = builtins.toJSON {
@@ -112,8 +111,7 @@
     }
   '';
 
-  # Waybar reads ~/.config/waybar first (XDG). Pin it to /etc so a leftover
-  # local file cannot shadow NixOS.
+  # Waybar reads ~/.config/waybar first (XDG). Symlink to /etc so a leftover local file can't shadow NixOS.
   system.userActivationScripts.waybar-link.text = ''
     mkdir -p $HOME/.config/waybar
     ln -sfn /etc/xdg/waybar/config.jsonc $HOME/.config/waybar/config.jsonc

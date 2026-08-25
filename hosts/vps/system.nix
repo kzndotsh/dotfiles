@@ -1,4 +1,4 @@
-# Shared VPS system. Host configuration.nix sets IPs, defaultSopsFile, extra modules.
+# Core VPS system settings. configuration.nix adds static networking, the sops file, and service imports.
 { config, pkgs, identity, lib, ... }:
 let
   inherit (identity) sshKey username domain acmeEmail;
@@ -105,21 +105,15 @@ in
       allowedUDPPortRanges = [{ from = 49152; to = 65535; }];
       logReversePathDrops = true;
       extraInputRules = ''
-        # Censys
+        # Drop internet-wide scanner ranges (Censys, Shodan, BinaryEdge, Rapid7, ZoomEye, FOFA, ShadowServer).
         ip saddr { 66.132.159.0/24, 66.132.153.0/24, 162.142.125.0/24, 167.94.138.0/24, 167.94.145.0/24, 167.94.146.0/24, 167.94.148.0/24, 167.248.133.0/24, 199.45.154.0/24, 199.45.155.0/24, 206.168.32.0/24, 206.168.33.0/24, 206.168.34.0/24, 206.168.35.0/24 } drop
-        # Shodan
         ip saddr { 198.20.69.96/29, 198.20.70.112/29, 198.20.87.96/29, 198.20.99.128/29, 71.6.135.131, 71.6.165.200, 71.6.167.142, 66.240.236.119, 66.240.192.138, 82.221.105.6, 82.221.105.7, 185.142.236.36, 185.142.236.40, 185.142.236.41, 185.142.236.43, 207.90.244.0/24 } drop
-        # BinaryEdge
         ip saddr { 185.162.235.0/24, 185.162.236.0/24, 185.162.237.0/24 } drop
-        # Rapid7
         ip saddr { 71.6.233.0/24, 5.63.151.96/27, 88.202.190.128/27 } drop
-        # ZoomEye
         ip saddr { 103.224.80.0/20 } drop
-        # FOFA
         ip saddr { 103.224.212.0/22 } drop
-        # ShadowServer
         ip saddr { 64.62.197.254, 149.20.4.0/24, 149.20.5.0/24, 149.20.6.0/24 } drop
-        # Censys IPv6
+        # Censys IPv6 ranges
         ip6 saddr { 2602:80d:1000:b0cc:e::/80, 2620:96:e000:b0cc:e::/80, 2602:80d:1003::/112, 2602:80d:1004::/112 } drop
       '';
     };

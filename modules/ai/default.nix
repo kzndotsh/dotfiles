@@ -1,4 +1,4 @@
-# Desktop AI stack — all inference, agents, and AI tooling.
+# Local AI stack: LLM inference, image gen, chat UI, voice, and the Kiro proxy.
 {
   imports = [
     ./ollama.nix
@@ -6,10 +6,9 @@
     ./open-webui.nix
     ./voice.nix
     ./kiro-gateway.nix
-    # hermes-agent / sillytavern retired → archive/ (gitignored)
+    # hermes-agent and sillytavern retired — see archive/ (gitignored)
   ];
 
-  # Docker backend for voice containers + open-terminal.
-  # https://wiki.nixos.org/wiki/Docker
+  # Voice containers and open-terminal expect Docker, not podman.
   virtualisation.oci-containers.backend = "docker";
 }

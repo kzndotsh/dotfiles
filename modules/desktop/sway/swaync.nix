@@ -1,11 +1,10 @@
-# SwayNotificationCenter. https://github.com/ErikReider/SwayNotificationCenter
-# RuneLite: Request Focus → Force does not work on Sway (runelite#19076).
+# SwayNotificationCenter. RuneLite's "Request Focus → Force" does not work on Sway (runelite#19076).
 { lib, pkgs, ... }:
 let
   swaymsg = lib.getExe' pkgs.sway "swaymsg";
-  # RuneLite can't force-focus on Sway; approximate via notify-send → focus.
-  # Must be a path-only exec: swaync wraps as `/bin/sh -c "<exec>"`, so nested
-  # quotes in an inline swaymsg criteria string break the shell parse.
+  # RuneLite can't force-focus on Sway, so we focus it when a notification arrives instead.
+  # Must be a path-only exec: swaync wraps as `/bin/sh -c "<exec>"`, so nested quotes in an
+  # inline swaymsg criteria string break the shell parse.
   runeliteFocus = pkgs.writeShellScript "runelite-focus" ''
     exec ${swaymsg} '[class="net-runelite-client-RuneLite"] focus'
   '';
@@ -370,9 +369,8 @@ in
     ln -sfn /etc/xdg/swaync/style.css $HOME/.config/swaync/style.css
   '';
 
-  # Prevent systemd from auto-starting swaync with graphical-session.target —
-  # D-Bus activation (via waybar's swaync-client) handles startup instead,
-  # avoiding a race that causes "already running" failures.
+  # Don't auto-start swaync with graphical-session.target — D-Bus activation via waybar's
+  # swaync-client handles startup instead, avoiding "already running" race failures.
   systemd.user.services.swaync = {
     wantedBy = lib.mkForce [];
     serviceConfig = {

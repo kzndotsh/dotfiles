@@ -1,12 +1,10 @@
 # kiro-gateway — Anthropic/OpenAI-compatible proxy to Kiro (Amazon Q / CodeWhisperer).
-# Always-on. Binds 127.0.0.1:9000 (official default is 0.0.0.0:8000).
+# Always-on on 127.0.0.1:9000 (upstream listens on 0.0.0.0:8000 by default).
 # https://github.com/jwadow/kiro-gateway
-# Official env: https://github.com/jwadow/kiro-gateway/blob/main/.env.example
 #
-# Auth: PROXY_API_KEY in ~/.secrets/ai.env (official). KIRO_GATEWAY_API_KEY is a local alias.
-# Creds: ACCOUNT_SYSTEM=true → ~/.config/kiro-gateway/credentials.json
-#   (official default is cwd-relative credentials.json — pin the path so a wrong cwd
-#   does not drop secrets in the repo).
+# Auth: PROXY_API_KEY in ~/.secrets/ai.env (KIRO_GATEWAY_API_KEY is a local alias).
+# Credentials: ACCOUNT_SYSTEM=true stores ~/.config/kiro-gateway/credentials.json
+# instead of a cwd-relative file that could land in the repo.
 # kiro-cli DB path comes from ai.env (KIRO_CLI_DB_FILE).
 { pkgs, inputs, self, config, ... }:
 let
@@ -50,7 +48,7 @@ in
         ExecStart = kiroGatewayStart;
         Restart = "on-failure";
         RestartSec = 5;
-        # Missing key (1) / empty credentials.json (3). Do not fail `nh os switch`.
+        # Missing API key (1) or empty credentials (3) — don't fail `nh os switch`.
         SuccessExitStatus = "1 3";
       };
     };
@@ -60,7 +58,7 @@ in
       "d ${config.my.secretsDir}/cloudflared 0700 ${config.my.username} users -"
     ];
 
-    # Named tunnel `kiro` → kiro.kzn.sh. Creds: nix run .#vps-tunnels-sync
+    # Named tunnel `kiro` → kiro.kzn.sh. Sync creds with `nix run .#vps-tunnels-sync`.
     user.services.cloudflared-kiro = {
       description = "Cloudflare Tunnel - kiro-gateway";
       after = [ "network-online.target" "kiro-gateway.service" ];

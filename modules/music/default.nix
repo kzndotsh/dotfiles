@@ -1,17 +1,11 @@
-# Music production stack — plugin search paths, PipeWire JACK, RT/timing.
+# Music production stack — plugin search paths, PipeWire JACK bridge, RT/timing tuning.
 #
-# https://wiki.nixos.org/wiki/Audio_production
-# https://wiki.archlinux.org/title/Professional_audio
-# https://docs.pipewire.org/page_man_pipewire_conf_5.html
-# musnix udev/sysctl patterns: https://github.com/musnix/musnix
-#
-# Submodules (each gated on music.enable + its own flag):
+# Submodules (each gated on music.enable plus its own flag):
 #   daws.nix plugins.nix flstudio.nix yabridge.nix tools.nix
 { config, lib, pkgs, ... }:
 let
   cfg = config.music;
-  # DAWs look in lib/<format>. User copies go in ~/.<format>.
-  # https://lv2plug.in/pages/filesystem-hierarchy-standard.html
+  # DAWs look in lib/<format>. User-installed copies go in ~/.<format>.
   makePluginPath = format:
     (lib.makeSearchPath format [
       "$HOME/.nix-profile/lib"
@@ -34,7 +28,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Plugin discovery
+    # Where PipeWire and JACK find LV2/VST plugins.
     environment = {
       variables = {
         DSSI_PATH = makePluginPath "dssi";
@@ -44,26 +38,22 @@ in
         VST_PATH = makePluginPath "vst";
         VST3_PATH = makePluginPath "vst3";
         # CLAP uses ~/.clap the same way LV2 uses ~/.lv2.
-        # https://cleveraudio.org/
         CLAP_PATH = makePluginPath "clap";
       };
 
-      # Patchbay
-      # https://gitlab.freedesktop.org/rncbc/qpwgraph
+      # Patchbay for routing audio between JACK/PipeWire clients.
       systemPackages = [ pkgs.qpwgraph ];
     };
 
     services = {
-      # PipeWire JACK + RT budget
-      # JACK clients talk to PipeWire; no jackd.
-      # https://wiki.nixos.org/wiki/PipeWire#JACK
+      # PipeWire JACK bridge and realtime budget for the audio group.
+      # JACK clients talk to PipeWire — no separate jackd.
       pipewire = {
         jack.enable = true;
 
-        # Default rt.time is 200ms — DAW plugin scans get SIGKILL.
-        # 2s matches musnix-style studio boxes. Filename 97- loads before
-        # gaming's 98-gaming-rt (PipeWire drop-ins: first instance of
-        # libpipewire-module-rt wins).
+        # Default rt.time is 200ms, which SIGKILLs DAW plugin scans.
+        # 2s matches musnix-style studio boxes. Filename 97- loads before gaming's
+        # 98-gaming-rt — PipeWire uses the first libpipewire-module-rt instance only.
         extraConfig.pipewire."97-music-rt" = {
           "context.modules" = [
             {
@@ -80,8 +70,8 @@ in
         };
       };
 
-      # Timing devices for the audio group
-      # Same nodes musnix opens. User must be in `audio` (hosts/desktop/user.nix).
+      # Give the audio group access to HPET and RTC for low-latency timing (same nodes musnix opens).
+      # User must be in the audio group (hosts/desktop/user.nix).
       udev.extraRules = ''
         KERNEL=="rtc0", GROUP="audio"
         KERNEL=="hpet", GROUP="audio"
@@ -89,12 +79,11 @@ in
       '';
     };
 
-    # Sample-library inotify
-    # boot/sysctl.nix sets 524288; large Kontakt/SFZ trees need more.
+    # Watch sample libraries so new packs show up without a manual rescan.
+    # boot/sysctl.nix sets 524288; large Kontakt/SFZ trees need more headroom.
     boot.kernel.sysctl."fs.inotify.max_user_watches" = lib.mkForce 600000;
 
-    # RTC / HPET user freq
-    # https://wiki.archlinux.org/title/Professional_audio#System_configuration
+    # Let the audio group read HPET/RTC for tighter scheduling.
     systemd.tmpfiles.rules = [
       "w! /sys/class/rtc/rtc0/max_user_freq - - - - 2048"
       "w! /proc/sys/dev/hpet/max-user-freq - - - - 2048"

@@ -1,5 +1,4 @@
-# Disk layout for Hetzner Cloud VPS
-# LUKS-encrypted root with ext4, MBR/GRUB boot
+# Hetzner Cloud VPS disk layout: GPT with EFI, GRUB BIOS boot, and LUKS-encrypted ext4 root.
 {
   disko.devices.disk.main = {
     type = "disk";
@@ -9,7 +8,7 @@
       partitions = {
         boot = {
           size = "1M";
-          type = "EF02"; # BIOS boot partition for GRUB
+          type = "EF02"; # BIOS boot partition for GRUB.
           priority = 1;
         };
         ESP = {

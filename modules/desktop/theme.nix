@@ -68,14 +68,13 @@ let
   user = config.users.users.${config.my.username};
 in
 {
-  # Make theme packages available system-wide so GTK can find them
+  # Install theme packages system-wide so GTK and Qt apps can find them.
   environment.systemPackages = [
     tokyonight-gtk-theme
     tokyonight-icons
     pkgs.papirus-icon-theme
     pkgs.gnome-themes-extra
-    # Qt theming: qt5ct/qt6ct are the config tools; kvantum packages
-    # are pulled in automatically by qt.style = "kvantum" below
+    # Qt5/Qt6 config tools. Kvantum theme packages are pulled in by qt.style = "kvantum" below.
     pkgs.libsForQt5.qt5ct
     pkgs.qt6Packages.qt6ct
     pkgs.qt6.qtwayland
@@ -87,15 +86,13 @@ in
     XCURSOR_SIZE = "24";
     XCURSOR_THEME = "catppuccin-mocha-blue-cursors";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    # GTK_THEME is the fallback for GTK3 apps that ignore settings.ini;
-    # GTK4/libadwaita reads dconf instead (set below via programs.dconf).
+    # Fallback for GTK3 apps that ignore settings.ini. GTK4/libadwaita reads dconf instead (set below).
     GTK_THEME = "Tokyonight-Dark";
     SAL_USE_VCLPLUGIN = "gtk3";
   };
 
-  # dconf is the correct mechanism for GTK4/libadwaita theming.
-  # GTK4 apps ignore gtk-theme-name in settings.ini entirely.
-  # Note: programs.dconf.enable is already set in sway/default.nix
+  # GTK4/libadwaita ignores gtk-theme-name in settings.ini entirely, so dconf is the right mechanism.
+  # programs.dconf.enable is already set in sway/default.nix.
   programs.dconf.profiles.user.databases = [{
     settings = {
       "org/gnome/desktop/interface" = {
@@ -111,14 +108,12 @@ in
 
   qt = {
     enable = true;
-    # qt5ct handles Qt5, qt6ct handles Qt6. The NixOS qt module sets qt5ct;
-    # we override QT_QPA_PLATFORMTHEME below to cover both.
+    # qt5ct handles Qt5 and qt6ct handles Qt6. We override QT_QPA_PLATFORMTHEME below to cover both.
     platformTheme = "qt5ct";
     style = "kvantum";
   };
 
-  # Write correct per-user GTK3 config (GTK3 reads ~/.config/gtk-3.0/settings.ini,
-  # NOT /etc/xdg/gtk-3.0/settings.ini which the old environment.etc approach used).
+  # GTK3 reads ~/.config/gtk-3.0/settings.ini, not /etc/xdg (the old environment.etc approach).
   system.userActivationScripts = {
     gtk3-settings.text = ''
       mkdir -p ${user.home}/.config/gtk-3.0
@@ -131,7 +126,7 @@ in
       gtk-cursor-theme-size=24
       gtk-font-name=Inter Nerd Font 11
       EOF
-      # Suppress window drop shadows on popups (prevents double borders)
+      # Drop shadow on popup decorations so we don't get a double border around menus.
       echo '.popup decoration { margin: 0; }' > ${user.home}/.config/gtk-3.0/gtk.css
     '';
 

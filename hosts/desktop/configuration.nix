@@ -30,8 +30,8 @@
 
   system.stateVersion = "26.05";
 
-  # Never delete imperative users (useradd). Old generations may lack kaizen;
-  # a reboot into those must not wipe kaizen if we later set mutableUsers false.
+  # Keep users mutable: older generations may not define kaizen, and we do not
+  # want a reboot into one of those to delete the live account if we ever lock users down.
   users.mutableUsers = true;
 
   networking = {
@@ -39,8 +39,8 @@
     networkmanager.ethernet.macAddress = lib.mkForce "permanent";
   };
 
-  # sshd ciphers from hardening/ssh.nix. Forwarding stays OpenSSH default (yes).
-  # VPS pins AllowTcpForwarding/PermitTunnel off in hosts/vps/configuration.nix.
+  # Cipher and MAC settings live in hardening/ssh.nix. TCP forwarding stays at the
+  # OpenSSH default here; the VPS turns forwarding and tunnels off in system.nix.
   services.openssh.settings.PermitRootLogin = "no";
 
   gaming = {

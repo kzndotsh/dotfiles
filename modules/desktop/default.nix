@@ -1,5 +1,5 @@
-# WM-agnostic desktop barrel. Host also imports desktop/sway/.
-# hardened-vm imports theme.nix + fonts.nix only — not this file.
+# Shared desktop setup that works with any window manager. The host also imports desktop/sway/ on its own.
+# The hardened VM only pulls in theme.nix and fonts.nix from here, not this whole barrel.
 {
   imports = [
     ../audio

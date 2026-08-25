@@ -1,4 +1,4 @@
-# mise pipes release keys through gpg --import; homedir must be 0700 with a writable keybox.
+# mise imports release keys through gpg --import, so the homedir must be mode 0700 with a writable keybox.
 # Desktop only (via desktop/). GNUPGHOME is set in xdg.nix.
 { pkgs, lib, config, ... }:
 let

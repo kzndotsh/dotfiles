@@ -3,7 +3,7 @@ let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
-  # Do not also put pkgs.spotify in systemPackages — this module installs it.
+  # This module installs Spotify — do not also add pkgs.spotify to systemPackages.
   programs.spicetify = {
     enable = true;
     alwaysEnableDevTools = true;

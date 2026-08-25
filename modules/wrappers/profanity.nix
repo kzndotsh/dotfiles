@@ -1,8 +1,7 @@
-# Profanity — store-backed profrc via -c. Theme cannot: -t only searches
+# Profanity with store-backed profrc via -c. The -t flag only searches
 # $XDG_CONFIG_HOME/profanity/themes, then compile-time THEMES_PATH.
 # Do not set XDG_CONFIG_HOME on the wrapper — /url open would leak it to Firefox.
-# https://profanity-im.github.io/guide/latest/files.html
-# Accounts/logs stay in ~/.local/share/profanity (untouched).
+# Accounts and logs stay in ~/.local/share/profanity (untouched).
 { pkgs, ... }:
 let
   profrc = pkgs.writeText "profrc" ''
@@ -108,7 +107,7 @@ let
     omemo.char=🔒
   '';
 
-  # preRun values must be a single argv token (nix-wrappers does not quote --run).
+  # preRun values must be a single argv token — nix-wrappers does not quote --run arguments.
   linkTheme = pkgs.writeShellScript "profanity-link-theme" ''
     mkdir -p "$HOME/.config/profanity/themes"
     ln -sfn ${theme} "$HOME/.config/profanity/themes/tokyonight"

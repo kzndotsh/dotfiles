@@ -1,7 +1,4 @@
-# Steam + Proton on Sway/Wayland.
-# https://wiki.nixos.org/wiki/Steam
-# https://github.com/ValveSoftware/Proton
-# Compat: https://www.protondb.com/  Anti-cheat: https://areweanticheatyet.com/
+# Steam and Proton on Sway/Wayland.
 #
 # Per-game launch options (Steam → Properties → Launch Options):
 #   gamemoderun %command%                 # CS2: required (unloads Ollama, DPM=high)
@@ -18,7 +15,7 @@
 #   2. Logs: PROTON_LOG=1 → grep err: in ~/steam-*.log
 #   3. NTFS libraries: symlink compatdata to ext4/btrfs
 #
-# Northstar (TF2): northstar-proton has no steamcompattool — STEAM_EXTRA_COMPAT_TOOLS_PATHS.
+# Northstar (TF2): northstar-proton has no steamcompattool — use STEAM_EXTRA_COMPAT_TOOLS_PATHS.
 { config, lib, pkgs, ... }:
 let
   cfg = config.gaming;
@@ -38,8 +35,7 @@ in
       };
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
-      # X11 Steam Input → uinput on Wayland.
-      # https://github.com/Supreeeme/extest
+      # X11 Steam Input → uinput on Wayland (extest shim).
       extest.enable = true;
       protontricks.enable = true;
 
@@ -57,7 +53,7 @@ in
       ];
     };
 
-    # HTTP/2 on Linux Steam can stall downloads. Valve community steam_dev.cfg:
+    # HTTP/2 on Linux Steam can stall downloads. Valve community steam_dev.cfg workaround:
     #   @nClientDownloadEnableHTTP2PlatformLinux 0
     systemd.user.services.steam-download-fix = lib.mkIf cfg.steam.fixDownloadSpeed {
       description = "Steam download speed tweaks";

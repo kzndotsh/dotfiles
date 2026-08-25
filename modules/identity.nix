@@ -1,4 +1,4 @@
-# NixOS wrapper around lib/identity.nix. Defaults come from the attrset (not config.users).
+# Exposes lib/identity.nix as config.my.* options. Defaults come from that attrset, not from config.users.
 { lib, identity, ... }:
 {
   options.my = {

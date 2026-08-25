@@ -1,40 +1,33 @@
-# libvirtd + virt-manager — desktop hypervisor only (via services/).
-# Guest OS is hosts/hardened-vm/configuration.nix.
-# Domain/pool/network XML is hosts/hardened-vm/nixvirt.nix (NixVirt).
-# Default NAT network start + NM unmanaged bridges: vagrant.nix.
-# libvirtd group is on the host (user.nix), not here.
-# https://wiki.nixos.org/wiki/Libvirt
-# https://libvirt.org/nss.html
+# libvirtd and virt-manager for the desktop hypervisor. Guest OS config is hosts/hardened-vm/.
+# Domain, pool, and network XML live in hosts/hardened-vm/nixvirt.nix. Default NAT start and
+# NetworkManager bridge handling are in vagrant.nix. libvirtd group membership is on the host (user.nix).
 { pkgs, ... }:
 {
   virtualisation = {
     libvirtd = {
       enable = true;
-      # NixOS default "start" (resume guests that were running). ignore = only autostart=on.
-      # hardened-vm NixVirt domain has active = null (do not autostart).
+      # Stock is "start" (resume guests that were running). "ignore" only autostarts domains marked on.
+      # The hardened-vm NixVirt domain has active = null so it does not autostart.
       onBoot = "ignore";
-      # NixOS default "suspend" (save state). shutdown = ACPI halt.
+      # Stock is "suspend" (save VM state). "shutdown" sends ACPI halt instead.
       onShutdown = "shutdown";
-      # NixOS default 0 (one-by-one). Only applies when onShutdown = shutdown.
+      # Stock is 0 (one guest at a time). Only matters when onShutdown = shutdown.
       parallelShutdown = 2;
-      # NixOS default false. libvirt_guest NSS: ssh user@<domain-name> via dnsmasq leases.
-      # Needs a NATed libvirt network. Guest hostname/MAC must stay stable (VM pins MAC).
+      # libvirt_guest NSS resolves ssh user@<domain-name> from dnsmasq leases on NAT networks.
+      # The guest needs a stable hostname/MAC — the VM pins MAC; desktop network randomizes by default.
       nss.enableGuest = true;
       qemu = {
-        # NixOS default pkgs.qemu (all arches). qemu_kvm = host arch only.
+        # Stock package is full qemu (all arches). qemu_kvm is host arch only.
         package = pkgs.qemu_kvm;
-        # NixOS default true. false = qemu-libvirtd user (breaks existing /var/lib/libvirt/qemu perms).
+        # Stock runAsRoot = true. false switches to qemu-libvirtd and breaks existing /var/lib/libvirt/qemu perms.
         runAsRoot = true;
-        # NixOS default false. Wiki optional — emulated TPM for guests.
         swtpm.enable = true;
-        # NixOS default []. Example is virtiofsd (shared-memory virtiofs).
         vhostUserPackages = [ pkgs.virtiofsd ];
       };
     };
-    # NixOS default false. Wiki optional. setuid helper — any user can pass through USB.
+    # setuid helper — any local user can pass USB devices through to a VM.
     spiceUSBRedirection.enable = true;
   };
 
-  # NixOS default false.
   programs.virt-manager.enable = true;
 }

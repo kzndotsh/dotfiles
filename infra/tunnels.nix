@@ -1,6 +1,6 @@
-# Named Cloudflare tunnels (kiro, files). kzn.sh only — identity.namedTunnels.
-# Locally managed (config_src = local): ingress is cloudflared --url on the desktop.
-# Token needs Account Cloudflare Tunnel:Edit plus Zone DNS:Edit.
+# Named Cloudflare tunnels (kiro, files) for kzn.sh — see identity.namedTunnels.
+# These are locally managed (config_src = local): ingress comes from cloudflared --url on the desktop.
+# The API token needs Account Cloudflare Tunnel:Edit and Zone DNS:Edit.
 { identity, lib, ... }:
 let
   inherit (identity) namedTunnels;

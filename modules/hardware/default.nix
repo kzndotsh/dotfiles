@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
-  # ASRock B550AM Gaming: NCT6798D Super I/O (fans/voltages). Not nct6683.
-  # dmesg: nct6775: Found NCT6798D or compatible chip at 0x2e:0x290
+  # The B550AM's NCT6798D chip needs nct6775, not nct6683, for fan and voltage sensors.
   boot.kernelModules = [ "nct6775" ];
 
   hardware = {
@@ -18,34 +17,34 @@
     ckb-next.enable = true;
     ksm = {
       enable = true;
-      sleep = 60; # Seconds before merging identical pages (helps libvirt guests)
+      sleep = 60; # Wait a minute before merging identical pages — helps libvirt guests
     };
 
-    # Bluetooth
+    # Experimental BlueZ flags unlock battery reports and Web Bluetooth in Chromium.
     bluetooth = {
       enable = true;
       powerOnBoot = true;
       settings.General = {
-        Experimental = true; # battery reports, better device info
+        Experimental = true;
         FastConnectable = true;
       };
     };
 
-    # Logitech Unifying / Lightspeed (solaar + udev)
+    # Logitech Unifying and Lightspeed receivers via solaar.
     logitech.wireless = {
       enable = true;
       enableGraphical = true;
     };
   };
 
-  # Web Bluetooth (Chromium) needs BlueZ experimental D-Bus interfaces
+  # Chromium's Web Bluetooth needs bluetoothd started with --experimental.
   systemd.services.bluetooth.serviceConfig.ExecStart = [
     ""
     "${pkgs.bluez}/libexec/bluetooth/bluetoothd -f /etc/bluetooth/main.conf --experimental"
   ];
 
-  services.lact.enable = true; # AMD GPU monitoring, fan curves, power states
-  services.blueman.enable = true; # tray + blueman-manager GUI
+  services.lact.enable = true; # AMD GPU fan curves and power states
+  services.blueman.enable = true; # Tray icon and GUI for pairing
 
   environment.systemPackages = with pkgs; [
     lm_sensors
@@ -57,7 +56,7 @@
     bluetuith # TUI (connection-focused)
   ];
 
-  # AMD GPU driver selection
+  # Point VA-API, VDPAU, and Vulkan at Mesa RADV on amdgpu.
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "radeonsi";
     VDPAU_DRIVER = "radeonsi";

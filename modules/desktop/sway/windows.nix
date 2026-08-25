@@ -1,11 +1,8 @@
-# /etc/sway/config.d/20-windows.conf — for_window / no_focus / inhibit_idle.
-# app_id = Wayland, class/window_role/window_type = XWayland (man 5 CRITERIA).
-# Dump properties: swaymsg -t get_tree (Arch wiki Floating windows).
-# Comma between commands keeps criteria; semicolon resets (man 5).
-# inhibit_idle focus = no lock while that window is focused (RuneLite/DAWs).
+# Sway window rules — which apps float, go fullscreen, or keep the session awake.
+# Match Wayland apps by app_id; XWayland apps by class or window_role (man 5 criteria).
 {
   environment.etc."sway/config.d/20-windows.conf".text = ''
-    # Floating / dialogs
+    # Dialogs and utility windows — float instead of tiling.
     for_window [app_id="org.gajim.Gajim" title="^(?!Gajim$)"] floating enable
     for_window [app_id="vivaldi-stable" title=".*Settings.*"] floating enable
     for_window [app_id="chromium" title=".*Settings.*"] floating enable
@@ -23,8 +20,7 @@
     for_window [app_id="xdg-desktop-portal-gtk"] floating enable
     for_window [title="^Open File$"] floating enable
 
-    # Steam & gaming
-    # allow_tearing: window + output + max_render_time off. Fullscreen only.
+    # Steam popups, friends list, big picture, and gamescope tearing rules.
     for_window [app_id="steam"] floating enable border normal
     for_window [class="(?i)^steam$" title="^Steam$"] floating enable border normal
     for_window [class="(?i)^steam$" title="^Steam$"] resize set 1280 800
@@ -59,16 +55,12 @@
     for_window [app_id="vlc"] inhibit_idle fullscreen
     for_window [app_id="mpv"] inhibit_idle fullscreen
 
-    # RuneLite (XWayland / AWT)
-    # Swing tooltips spawn as win0/win1 and steal focus.
-    # https://github.com/runelite/runelite/issues/19076
-    # Request Focus → Force does not work on Sway. swaync runelite-focus + $mod+Ctrl+grave.
+    # RuneLite on XWayland — Swing tooltips steal focus unless we no_focus them.
     no_focus [class="net-runelite-client-RuneLite" title="win"]
     for_window [class="net-runelite-client-RuneLite" title="win"] floating enable, border none
     for_window [class="net-runelite-client-RuneLite"] inhibit_idle focus
 
-    # Music production DAWs
-    # class=Wine floats every Wine window; FL Studio rule after that tiles the DAW.
+    # DAWs — keep the session awake while focused; float plugin and dialog windows.
     for_window [class="bitwig-studio"] inhibit_idle focus
     for_window [class="bitwig-studio" title="^(?!Bitwig Studio$)"] floating enable
     for_window [class="REAPER"] inhibit_idle focus
@@ -82,7 +74,7 @@
     for_window [app_id="org.hydrogenmusic.Hydrogen"] floating enable
     for_window [app_id="Carla2"] floating enable
 
-    # Dialog roles / pinentry / bluetooth
+    # Generic dialogs, pinentry prompts, and Bluetooth manager windows.
     for_window [window_role="pop-up"] floating enable
     for_window [window_role="bubble"] floating enable
     for_window [window_role="task_dialog"] floating enable
@@ -107,9 +99,7 @@
     for_window [class="^(Yad|Zenity|zenity)$"] floating enable
     for_window [app_id="(?i)polkit"] floating enable
 
-    # Zoom
-    # Workplace: as_toolbar + title ^Zoom Workplace$ float; Licensed account tiled.
-    # app_id/class=zoom stay for the X11 client.
+    # Zoom — tile the main meeting window, float toolbars and pickers.
     for_window [app_id="zoom"] floating disable
     for_window [app_id="zoom"] border normal
     for_window [app_id="zoom"] inhibit_idle fullscreen

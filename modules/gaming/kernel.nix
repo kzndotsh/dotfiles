@@ -1,16 +1,12 @@
-# SteamOS-style sysctl + ntsync module load. Gated by gaming.enable — not hardware/.
-# GPU drivers / LACT / RADV stay in modules/hardware/.
+# SteamOS-style sysctl tuning and ntsync module load. Gated by gaming.enable — not hardware/.
+# GPU drivers, LACT, and RADV settings stay in modules/hardware/.
 #
-# Do not import nix-gaming `platformOptimizations` wholesale — it overrides
-# vm.max_map_count (boot/sysctl.nix already sets 1048576; Star Citizen mkForce
-# in games.nix).
-# https://github.com/fufexan/nix-gaming
-# https://wiki.archlinux.org/title/Gaming
+# Do not import nix-gaming platformOptimizations wholesale — it overrides vm.max_map_count
+# (boot/sysctl.nix already sets 1048576; Star Citizen mkForce lives in games.nix).
 #
 # ntsync is a kernel module (≥6.14). programs.wine.ntsync lives in modules/wine/.
-# https://docs.kernel.org/driver-api/ntsync.html
 #
-# Optional cmdline (add only if needed, in boot/kernel.nix):
+# Optional kernel cmdline tweaks (add in boot/kernel.nix only if needed):
 #   amdgpu.gpu_recovery=1 — auto-recover GPU hangs
 #   amdgpu.ppfeaturemask=0xffff7fff — disable GFXOFF if idle freezes
 { config, lib, ... }:

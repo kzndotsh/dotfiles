@@ -1,16 +1,12 @@
-# Gaming stack — Steam, Wine launchers, emulators, GameMode, sysctl.
+# Gaming stack — Steam, Wine launchers, emulators, GameMode, and sysctl tuning.
 #
-# https://wiki.nixos.org/wiki/Steam
-# https://wiki.archlinux.org/title/Gaming
-# nix-gaming (optional titles + wine-tkg): https://github.com/fufexan/nix-gaming
-#
-# Submodules (each gated on gaming.enable + its own flag where applicable):
+# Submodules (each gated on gaming.enable plus its own flag where applicable):
 #   steam tools mangohud wine epic games emulators kernel env
 #   prismlauncher runelite crankshaft
 #
-# PipeWire quantum stays in modules/audio (512 @ 48 kHz). This file only loads
-# libpipewire-module-rt. Music uses 97-music-rt (2s); this drop-in is 98- so
-# music wins when both are on (first module-rt instance is the one that sticks).
+# PipeWire quantum size stays in modules/audio (512 @ 48 kHz). This file only loads
+# libpipewire-module-rt. Music uses 97-music-rt (2s budget); this drop-in is 98- so
+# music wins when both are on — the first module-rt instance is the one that sticks.
 { config, lib, ... }:
 let
   cfg = config.gaming;
@@ -83,10 +79,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # PipeWire RT (no quantum change)
-    # Cherry-picked from nix-gaming. 200ms rt.time is enough for games;
-    # DAW plugin scans need the 2s music drop-in instead.
-    # https://docs.pipewire.org/page_man_libpipewire-module-rt_7.html
+    # Give games a realtime PipeWire budget without changing the global quantum size.
+    # Cherry-picked from nix-gaming: 200ms rt.time is enough for games; DAW plugin scans
+    # need the 2s music drop-in instead.
     services.pipewire.extraConfig = lib.mkIf cfg.audio.lowLatency.enable {
       pipewire."98-gaming-rt" = {
         "context.modules" = [

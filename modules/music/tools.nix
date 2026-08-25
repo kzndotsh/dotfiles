@@ -1,14 +1,12 @@
 # Studio utilities (not DAWs). Gated on music.tools.enable.
 #
-# Already on PATH from other modules — do not duplicate:
+# Already on PATH from other modules — do not duplicate here:
 #   pw-cli / pw-top / pw-record → pipewire
 #   ffmpeg → modules/packages
 #
-# Tenacity is the Audacity fork after the trademark split:
-#   https://tenacityaudio.org/
-# Carla (KXStudio) hosts LV2/VST/LADSPA standalone — no CLAP:
-#   https://kx.studio/Applications:Carla
-# jack_capture records JACK/PipeWire-JACK ports (pw-record is the native PW tool).
+# Tenacity is the Audacity fork after the trademark split.
+# Carla (KXStudio) hosts LV2/VST/LADSPA standalone — no CLAP support.
+# jack_capture records JACK/PipeWire-JACK ports (pw-record is the native PipeWire tool).
 { config, lib, pkgs, ... }:
 let
   cfg = config.music;
@@ -20,23 +18,23 @@ in
 
   config = lib.mkIf (cfg.enable && cfg.tools.enable) {
     environment.systemPackages = with pkgs; [
-      # Edit / analyse
+      # Editing and analysis tools.
       tenacity
       spek
       sox
 
-      # Host / route
+      # Hosts and routing utilities.
       carla
-      pavucontrol # per-app levels; qpwgraph (default.nix) is the graph
+      pavucontrol # per-app levels; qpwgraph (default.nix) is the graph view
 
-      # Capture
+      # Audio capture tools.
       jack_capture
 
-      # MIDI
+      # MIDI utilities.
       qmidiarp
       kmidimon
 
-      # ALSA debug
+      # ALSA debugging helpers.
       alsa-utils # aplay -l, speaker-test
     ];
   };

@@ -1,12 +1,12 @@
-# Cloudflare DNS. Named tunnels (kiro, files) are infra/tunnels.nix on kzn only.
-# Resource names are state keys — do not rename.
+# Cloudflare DNS for the VPS. Named tunnels (kiro, files) are defined in tunnels.nix.
+# Terraform resource names are state keys — renaming recreates records.
 { identity, lib, ... }:
 let
   inherit (identity) domain fqdn;
   zoneId = lib.tf.ref "local.zone_id";
   xmpp = fqdn "xmpp";
   namedTunnels = identity.namedTunnels or { };
-  # Missing vpsDns = every record. identity.vpsDns is the public slim set.
+  # When vpsDns is null, create every record below. identity.vpsDns is the public slim subset.
   want = name: (identity.vpsDns or null) == null || builtins.elem name identity.vpsDns;
 
   dnsA = name: {
@@ -65,7 +65,7 @@ in
       zipline = fqdn "i";
       wastebin = fqdn "paste";
       git = fqdn "git";
-      atuin = fqdn "atuin"; # DNS only — no Nix service
+      atuin = fqdn "atuin"; # DNS only — no matching NixOS service yet
       osint = fqdn "osint";
       spiderfoot = fqdn "sf";
     }))

@@ -1,11 +1,9 @@
 _:
 {
-  # qui ─ Modern qBittorrent webUI
-  # UI:    http://127.0.0.1:7476
-  # Setup: create account on first visit, then add the qBittorrent instance
-  #        at http://127.0.0.1:8080 (same user as config.my.username)
+  # Modern qBittorrent web UI at http://127.0.0.1:7476
+  # On first visit, create an account and point it at qBittorrent on port 8080.
   #
-  # Secret: generate once and persist at /var/lib/qui/session-secret
+  # Generate the session secret once:
   #   sudo mkdir -p /var/lib/qui
   #   openssl rand -hex 32 | sudo tee /var/lib/qui/session-secret
   #   sudo chmod 600 /var/lib/qui/session-secret

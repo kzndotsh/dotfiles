@@ -1,6 +1,4 @@
-# KraXen72 Steam overlay (flake package wrap of the AppImage).
-# https://github.com/KraXen72/crankshaft
-# Derivation: packages/crankshaft/
+# KraXen72's Steam overlay, wrapped from the upstream AppImage (packages/crankshaft/).
 { config, lib, pkgs, self, ... }:
 let
   cfg = config.gaming;

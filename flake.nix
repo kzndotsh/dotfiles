@@ -1,7 +1,6 @@
 {
   description = "dotfiles";
 
-  # Inputs
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     wrappers = {

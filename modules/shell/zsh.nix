@@ -1,38 +1,39 @@
-# NixOS: nixos/modules/programs/zsh/zsh.nix
-# enableCompletion default true (adds nix-zsh-completions + /share/zsh to fpath).
-# setOptions default: HIST_IGNORE_DUPS SHARE_HISTORY HIST_FCNTL_LOCK.
-# SHARE_HISTORY already appends incrementally — do not also set INC_APPEND_HISTORY.
-# Syntax highlighting is mkAfter on interactiveShellInit; promptInit runs after that.
-# Init order in our mkAfter: FZF_DEFAULT_OPTS → vivid/mise/zoxide/functions → fzf-tab (Tab last).
+# Zsh configuration. Reference: nixos/modules/programs/zsh/zsh.nix
+#
+# NixOS enables completion by default (nix-zsh-completions + /share/zsh on fpath).
+# Default setOptions include HIST_IGNORE_DUPS, SHARE_HISTORY, and HIST_FCNTL_LOCK.
+# SHARE_HISTORY already appends incrementally — do not also set INC_APPEND_HISTORY (they conflict).
+# Syntax highlighting runs mkAfter on interactiveShellInit; promptInit comes after that.
+# Init order in our mkAfter block: FZF_DEFAULT_OPTS → vivid/mise/zoxide/functions → fzf-tab (Tab last).
 { pkgs, lib, ... }:
 {
   programs.zsh = {
     enable = true;
-    # Skip first-run wizard if ~/.zshrc is missing.
+    # Skip the first-run wizard if ~/.zshrc is missing.
     shellInit = "zsh-newuser-install() { :; }";
 
-    # Custom cached compinit below. Official default follows enableCompletion (true).
+    # We run our own cached compinit below instead of NixOS's global one.
     enableGlobalCompInit = false;
-    # NixOS default true runs dircolors after interactiveShellInit and clobbers vivid.
+    # NixOS would run dircolors after interactiveShellInit and overwrite vivid's LS_COLORS.
     enableLsColors = false;
 
     autosuggestions = {
       enable = true;
-      # Official example: history first. Completion-first almost always wins and is slower.
+      # History-first is faster; completion-first almost always wins and feels sluggish.
       strategy = [ "history" "completion" ];
       highlightStyle = "fg=#565f89";
       extraConfig.ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE = "20";
     };
     syntaxHighlighting = {
       enable = true;
-      # NixOS / plugin default is main only.
+      # NixOS and the plugin default to main-only highlighting.
       highlighters = [ "main" "brackets" ];
     };
 
-    # Official defaults: histSize 2000, histFile $HOME/.zsh_history.
+    # NixOS defaults are histSize 2000 and histFile $HOME/.zsh_history.
     histSize = 1000000000;
     histFile = "$XDG_CACHE_HOME/zsh_history";
-    # Must re-list the NixOS defaults — this option replaces the list.
+    # This option replaces the whole list — re-include NixOS defaults plus our extras.
     setOptions = [
       "HIST_IGNORE_DUPS"
       "SHARE_HISTORY"
@@ -83,11 +84,11 @@
         zstyle ':completion:*' completer _extensions _complete _approximate
         zstyle ':completion:*' use-cache on
         zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
-        # fzf-tab: menu no so it can capture the unambiguous prefix (not menu select).
+        # fzf-tab needs menu no so it can capture the unambiguous prefix (not menu select).
         zstyle ':completion:*' menu no
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
         zstyle ':completion:*' group-name '''
-        # fzf-tab does not expand %F/%B prompt codes — they show as literal text.
+        # fzf-tab does not expand %F/%B prompt codes — they show up as literal text.
         zstyle ':completion:*:descriptions' format '[%d]'
         zstyle ':completion:*:warnings' format '[no matches]'
         zstyle ':completion:*:corrections' format '[%d (errors: %e)]'
@@ -109,7 +110,7 @@
         bindkey '^[[1;5D' emacs-backward-word
       ''
       # After programs.fzf.fuzzyCompletion binds ^I (no mkAfter in nixpkgs fzf.nix).
-      # fzf-tab last so it owns Tab. FZF_DEFAULT_OPTS is set first (plugin reads it at Tab).
+      # fzf-tab goes last so it owns Tab. FZF_DEFAULT_OPTS is set first (plugin reads it at Tab).
       (lib.mkAfter ''
         export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none --color=bg+:#283457 --color=bg:#16161e --color=border:#27a1b9 --color=fg:#c0caf5 --color=gutter:#16161e --color=header:#ff9e64 --color=hl+:#2ac3de --color=hl:#2ac3de --color=info:#545c7e --color=marker:#ff007c --color=pointer:#ff007c --color=prompt:#2ac3de --color=query:#c0caf5:regular --color=scrollbar:#27a1b9 --color=separator:#ff9e64 --color=spinner:#ff007c"
 
@@ -211,7 +212,7 @@
       '')
     ];
 
-    # After syntax-highlighting (NixOS mkAfter on interactiveShellInit).
+    # Runs after syntax-highlighting (NixOS mkAfter on interactiveShellInit).
     promptInit = ''
       source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
       bindkey '^[[A' history-substring-search-up

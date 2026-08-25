@@ -1,5 +1,4 @@
-# swayr + fuzzel. Papirus here is launcher icons only — GTK is TokyoNight-SE.
-# https://git.sr.ht/~tsdh/swayr
+# swayr window switcher backed by fuzzel. Papirus icons here are for the launcher only — GTK uses TokyoNight-SE.
 { pkgs, ... }:
 let
   papirus = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
@@ -19,7 +18,7 @@ in
     ]
 
     [format]
-    # {app_name} is Wayland app_id (com.foo.bar), not the .desktop Name — use title instead
+    # {app_name} is the Wayland app_id (com.foo.bar), not the .desktop Name — use title instead.
     window_format = "{urgency_start}{title:{:.58}}{urgency_end}\u0000icon\u001f{app_icon}"
     workspace_format = "󰧨 {name} [{layout}]"
     container_format = "󰆍 {marks}"

@@ -1,15 +1,11 @@
-# Session env that is safe globally. Proton / HDR / NTSync stay per-game
+# Session environment that is safe to set globally. Proton, HDR, and NTSync stay per-game
 # (documented in steam.nix) — do not export them here.
 #
-# Removed (no-ops on current Mesa / stock DXVK+Proton):
+# Removed because they are no-ops on current Mesa / stock DXVK+Proton:
 #   RADV_PERFTEST=gpl — default since Mesa 23.1
-#     https://www.phoronix.com/news/RADV-GPL-Mesa-23.1-Default
-#   DXVK_ASYNC=1 — stripped from DXVK 2.0 / GE-Proton 7-45+
-#     https://github.com/doitsujin/dxvk/wiki/Configuration
-#   gplasync is a third-party fork; do not set this globally.
+#   DXVK_ASYNC=1 — stripped from DXVK 2.0 / GE-Proton 7-45+ (gplasync is a third-party fork)
 #
-# OpenAL Soft HRTF for games that use OpenAL:
-#   https://github.com/kcat/openal-soft/blob/master/alsoftrc.sample
+# OpenAL Soft HRTF for games that use OpenAL.
 { config, lib, ... }:
 let
   cfg = config.gaming;

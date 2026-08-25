@@ -1,18 +1,16 @@
-# Prism Launcher — Java Minecraft on NixOS (Mojang launcher breaks 1.19+).
-# https://prismlauncher.org/
+# Prism Launcher for Java Minecraft — the official Mojang launcher breaks on 1.19+ under NixOS.
 #
-# Default play path is `minecraft-fo` (desktop: Minecraft): Fabric + Fabulously
-# Optimized 14.0.0-beta.6 / MC 26.2 (Ryxelia / vanilla 26.2 servers). First run
-# opens Prism to confirm the mrpack import + Microsoft login. Later runs patch
-# instance.cfg (GameMode, MangoHud, 2–6G heap) then `prismlauncher -l`.
+# Default play path is `minecraft-fo` (desktop entry: Minecraft): Fabric + Fabulously
+# Optimized 14.0.0-beta.6 / MC 26.2. First run opens Prism to confirm the mrpack import
+# and Microsoft login. Later runs patch instance.cfg (GameMode, MangoHud, 2–6G heap) then
+# launch with `prismlauncher -l`.
 #
-# Bump the pack: Modrinth project 1KVo5zza → .mrpack URL + hash. No stable FO
-# for 26.2 yet; prefer a later 14.x stable when it exists.
-# Skip OptiFine / Indium / Starlight — FO already has Sodium + Lithium.
-# Optional server extras (SVC, Emotecraft, PatPat, JourneyMap): add in Prism,
-# do not pin here.
+# To bump the pack: grab the new .mrpack URL and hash from Modrinth project 1KVo5zza.
+# No stable FO for 26.2 yet — prefer a later 14.x stable when one ships.
+# Skip OptiFine, Indium, and Starlight — FO already bundles Sodium and Lithium.
+# Optional server extras (SVC, Emotecraft, PatPat, JourneyMap) belong in Prism, not here.
 #
-# Needs `gamemode` group (hosts/desktop/user.nix).
+# User must be in the gamemode group (hosts/desktop/user.nix).
 { config, lib, pkgs, ... }:
 let
   cfg = config.gaming;

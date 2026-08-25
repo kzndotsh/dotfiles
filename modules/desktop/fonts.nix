@@ -1,61 +1,48 @@
-# System fonts + fontconfig. Desktop barrel + hardened-vm cherry-pick (not VPS).
-# Put fonts in fonts.packages — environment.systemPackages does not register them
-# with fontconfig. https://wiki.nixos.org/wiki/Fonts
-# https://fontconfig.pages.freedesktop.org/fontconfig/fontconfig-user.html
-# https://wiki.archlinux.org/title/Font_configuration
-# Family names must match greetd / GTK / Sway / Firefox / wrappers / XFCE.
+# System fonts. Family names here must match greetd, GTK, Sway, Firefox, and the CLI wrappers.
+# Put fonts in fonts.packages — adding them to environment.systemPackages alone won't register with fontconfig.
 { pkgs, ... }:
 {
   fonts = {
-    # enableDefaultPackages stays off (NixOS default). Coverage is Noto, not DejaVu/gyre.
+    # We leave enableDefaultPackages off (the NixOS default). That gives Noto coverage instead of DejaVu/Liberation.
     packages = with pkgs; [
-      # UI: unpatched "Inter" (rsms.me) + nerd-patched "Inter Nerd Font".
-      # https://rsms.me/inter/  https://gitlab.com/mid_os/inter-nerdfont
+      # UI sans: unpatched Inter plus nerd-patched "Inter Nerd Font" for icons in the UI.
       inter
       inter-nerdfont
-      # Ghostty / Firefox / XFCE mono. Nerd Fonts 3 family is this exact string.
-      # https://www.nerdfonts.com/
+      # Monospace for Ghostty, Firefox, and XFCE. Nerd Fonts 3 uses this exact family string.
       nerd-fonts.jetbrains-mono
-      # Icons for unpatched families. Inter Nerd Font already has the glyphs.
+      # Icon glyphs for unpatched families. Inter Nerd Font already includes them.
       nerd-fonts.symbols-only
       noto-fonts
       noto-fonts-cjk-sans
-      # CBDT color emoji. Do not add noto-fonts-color-emoji — fontconfig prefers
-      # any color emoji and may ignore defaultFonts.emoji order.
+      # Twitter Color Emoji uses CBDT bitmaps. Do not add noto-fonts-color-emoji — fontconfig
+      # prefers any color emoji and may ignore the order in defaultFonts.emoji.
       twitter-color-emoji
       font-awesome
-      # Metric-compatible Arial / Times / Courier. Wine + flstudio.nix LiberationSans lookup.
+      # Metric-compatible Arial/Times/Courier stand-ins. Wine and FL Studio look up LiberationSans by name.
       liberation_ttf
     ];
 
     fontconfig = {
-      # Rasterizer
-      # NixOS defaults: antialias=true, hinting.enable=true, hinting.style=slight,
-      # lcdfilter=default, rgba=none. We pin rgba=rgb (NixOS default is none).
-      # Wine Xft in wine/default.nix must stay in sync (hintslight / rgb / lcddefault).
-      # NixOS: antialias / hinting / lcdfilter have no visible effect above ~200 DPI.
-      # DP-3 is 4K @ scale 2; a 27" 4K panel is ~163 DPI, so these still apply.
+      # Subpixel rendering for the 4K panel at 2× scale (~163 DPI, still below NixOS's ~200 DPI cutoff).
       antialias = true;
       hinting = {
         enable = true;
-        # hintslight: vertical autohint, keep glyph shape. Arch default.
+        # hintslight keeps vertical autohint without squashing glyph shapes (Arch's default).
         style = "slight";
       };
       subpixel = {
-        # Landscape LCD stripe order. Matches sway `subpixel rgb` on DP-3.
+        # Landscape LCD stripe order, matching sway's subpixel rgb on DP-3.
         rgba = "rgb";
-        # FreeType FT_LCD_FILTER_DEFAULT. Pair with rgba≠none or you get color fringing.
+        # FreeType's default LCD filter. Pair with rgba≠none or you get color fringing.
         lcdfilter = "default";
       };
-      # NixOS default false. Color emoji (Twitter Color Emoji) is CBDT/CBLC bitmaps;
-      # Firefox will not draw them without this.
-      # https://wiki.nixos.org/wiki/Fonts#Noto_Color_Emoji_doesn't_render_on_Firefox
+      # NixOS leaves this off by default. Twitter Color Emoji is CBDT/CBLC bitmaps and Firefox
+      # won't draw them unless embedded bitmaps are enabled.
       useEmbeddedBitmaps = true;
 
-      # Generic families
-      # First name wins; later entries are fallbacks (CJK / missing glyphs).
+      # Default font families — first name wins, later entries are fallbacks.
       defaultFonts = {
-        # Inter is sans. Same choice as firefox.nix serif lock — UI consistency, not a serif face.
+        # Inter stands in for serif on purpose to match Firefox; Noto Serif is the real serif fallback.
         serif = [ "Inter Nerd Font" "Noto Serif" ];
         sansSerif = [ "Inter Nerd Font" "Noto Sans" ];
         monospace = [ "JetBrainsMono Nerd Font Mono" ];

@@ -1,10 +1,11 @@
-# Desktop daemons (not modules/desktop/ — that is XDG/keyring/session).
-# sshd PermitRootLogin lives on the host (desktop = no, VPS = prohibit-password).
+# Background daemons for the desktop. (Not modules/desktop/, which handles XDG, keyring, and session setup.)
+# sshd PermitRootLogin is set per host — desktop denies root login; the VPS allows key-only root.
 { pkgs, ... }:
 {
   services = {
     udisks2.enable = true;
-    fstrim.enable = true; # weekly TRIM; LUKS root still needs allowDiscards to pass discards through
+    # Runs weekly. LUKS root still needs allowDiscards or TRIM never reaches the encrypted volume.
+    fstrim.enable = true;
     vnstat.enable = true;
     gvfs.enable = true;
     ananicy = {

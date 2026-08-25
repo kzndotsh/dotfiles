@@ -73,7 +73,7 @@
     magic-wormhole
     copyparty
     cloudflared
-    # self.packages.${pkgs.stdenv.hostPlatform.system}.session-desktop  # FIXME: broken upstream pnpm lockfile (2026-07-08)
+    # session-desktop is commented out — upstream pnpm lockfile was broken (2026-07-08).
     simplex-chat-desktop
     vesktop
     mumble
@@ -98,7 +98,7 @@
     xclip
     docker-compose
     (chromium.override {
-      # Web Bluetooth on Linux (FFE0 UART modules, etc.)
+      # Web Bluetooth on Linux (FFE0 UART modules, etc.).
       commandLineArgs = [
         "--enable-features=WebBluetooth,WebBluetoothNewPermissionsBackend"
       ];
@@ -108,7 +108,7 @@
     xdg-ninja
     antigravity-ide
     antigravity-cli
-    # Archives
+    # Archive and compression tools for file-roller and CLI use.
     gnutar
     gzip
     bzip2

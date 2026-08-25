@@ -1,9 +1,8 @@
-# Optional per-title packages from nix-gaming — enable only what you play.
-# https://github.com/fufexan/nix-gaming
+# Optional per-title packages from nix-gaming — enable only what you actually play.
 #
-# osu: proton-osu-bin (Steam compat) + osu-lazer-bin
+# osu: proton-osu-bin (Steam compat) plus osu-lazer-bin
 # MO2: Mod Organizer 2 installer for Bethesda titles
-# Star Citizen: launcher + map/file sysctl (above boot/sysctl.nix defaults)
+# Star Citizen: launcher plus map/file sysctl bump above boot/sysctl.nix defaults
 { config, lib, pkgs, inputs, ... }:
 let
   cfg = config.gaming;

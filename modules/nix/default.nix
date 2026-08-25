@@ -38,15 +38,15 @@
       ];
     };
 
-    # GC handled by programs.nh.clean
+    # Cleanup is handled by programs.nh.clean, not the nix-daemon GC timer.
     gc.automatic = false;
 
-    # Pin flake inputs to registry for instant `nix run nixpkgs#foo`
+    # Register flake inputs so `nix run nixpkgs#foo` resolves instantly.
     registry = lib.mapAttrs (_: v: { flake = v; }) (
       lib.filterAttrs (_: v: lib.isType "flake" v) inputs
     );
 
-    # Channel compat for legacy nix commands
+    # Legacy `nix-env -i` and friends still read nixPath; point them at the same registry.
     nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
   };
 }

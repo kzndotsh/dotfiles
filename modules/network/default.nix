@@ -18,7 +18,7 @@
     nameservers = [ "1.1.1.1#cloudflare-dns.com" "1.0.0.1#cloudflare-dns.com" ];
   };
 
-  # Ignore DHCP-provided DNS, always use Cloudflare
+  # DHCP sometimes pushes ISP DNS; override on every NM link-up so we always hit Cloudflare.
   networking.networkmanager.dispatcherScripts = [{
     type = "basic";
     source = builtins.toFile "force-dns" ''
@@ -29,7 +29,7 @@
   services.resolved = {
     enable = true;
     settings.Resolve = {
-      # Don't cache NXDOMAIN — new DNS records become visible immediately
+      # Skip negative caching so newly published DNS records show up right away.
       Cache = "no-negative";
       DNSOverTLS = "yes";
       Domains = [ "~." ];
