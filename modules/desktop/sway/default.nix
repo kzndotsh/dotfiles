@@ -46,7 +46,8 @@ in
       swaylock-effects
     ];
     extraSessionCommands = ''
-      export SDL_VIDEODRIVER=wayland
+      # wayland-only breaks steamwebhelper (CEF); comma fallback keeps SDL games on native Wayland.
+      export SDL_VIDEODRIVER=wayland,x11
       export QT_QPA_PLATFORM=wayland
       export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
       # Without this, Java AWT windows (RuneLite, etc.) render blank under XWayland.

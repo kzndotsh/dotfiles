@@ -35,8 +35,10 @@ in
       };
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
-      # X11 Steam Input → uinput on Wayland (extest shim).
-      extest.enable = true;
+      # extest translates X11 Steam Input → uinput on Wayland, but nixpkgs preloads the
+      # i686 .so globally — 64-bit Steam binaries spam "wrong ELF class" on every launch.
+      # Re-enable if controller remapping stops working on Sway.
+      extest.enable = false;
       protontricks.enable = true;
 
       extraCompatPackages = with pkgs; [

@@ -83,10 +83,24 @@ Skip-test PRs exist; [#516445](https://github.com/NixOS/nixpkgs/pull/516445) was
 ```
 ~/Games/                              # Lutris/Heroic prefixes
 ~/.local/share/Steam/                 # Steam client + libraries
+~/.local/share/vulkan/implicit_layer.d/  # Steam overlay/fossilize layers (regenerated on launch)
 ~/.config/MangoHud/MangoHud.conf      # symlink → /etc/xdg/MangoHud/
 ~/.config/retroarch/                  # saves, assets (Online Updater)
 ~/.config/PCSX2/bios/                 # user-provided PS2 BIOS
 ```
+
+### Username / `$HOME` migration gotcha
+
+If Steam was used under a previous Linux username, stale paths under the old `/home/<user>/` break **pressure-vessel** (`realpath("/home/olduser/.local"): Permission denied`) and crash **steamwebhelper** before the UI loads.
+
+After copying `~/.local/share/Steam` to a new account, fix at minimum:
+
+1. `config/libraryfolders.vdf` and `steamapps/libraryfolders.vdf` — `"path"` must match `$HOME/.local/share/Steam`
+2. `~/.local/share/vulkan/implicit_layer.d/steam*.json` — `library_path` must point at the new Steam tree (or delete the dir and relaunch Steam to regenerate)
+3. Optional: `rm -rf ~/.local/share/Steam/config/htmlcache ~/.cache/Steam` if CEF still crash-loops
+4. Empty/corrupt Proton prefix: delete `steamapps/compatdata/<APPID>/` (CS2 = `730`) and let Steam recreate on first launch
+
+Steam **account** display name in `localconfig.vdf` can stay the old handle; only filesystem paths must match `$HOME`.
 
 RPCS3 PS3 firmware installed once via GUI. Star Citizen needs `gaming.games.starCitizen.enable` for sysctl bump.
 
