@@ -1,0 +1,35 @@
+# AGENTS.md — shell
+
+> Scope: `modules/shell` — inherits [`AGENTS.md`](../../AGENTS.md) unless noted.
+
+Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../wrappers/AGENTS.md).
+
+## Quick facts
+
+- zsh, starship, fzf (Ctrl-R history), zoxide, vivid, mise
+- `enableGlobalCompInit = false` — custom cached `compinit` in `zsh.nix` (NixOS default follows `enableCompletion`)
+- `enableLsColors = false` — NixOS default `dircolors` runs after `interactiveShellInit` and would clobber vivid
+
+## Highlights
+- Zsh (`zsh.nix`): mise, zoxide, vivid LS_COLORS; file helpers (`group_videos`, `group_images`, `mvwithsuffix`, `flattendir`, `list_file_extensions`, alias `emptydirs`)
+- Extra `setOptions`: `HIST_IGNORE_SPACE`, `HIST_REDUCE_BLANKS`, `HIST_FIND_NO_DUPS`, `INTERACTIVE_COMMENTS`, `NO_FLOW_CONTROL`. Do **not** add `INC_APPEND_HISTORY` — official docs: `SHARE_HISTORY` already appends and the two are mutually exclusive
+- Autosuggest: `history` then `completion`; `ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20`
+- Syntax highlighting: `main` + `brackets` (NixOS default is `main` only)
+- fzf-tab is `mkAfter` (must bind Tab last; NixOS `programs.fzf.fuzzyCompletion` also binds `^I`). Completion `menu no` + `use-fzf-default-opts yes` (plugin ignores `FZF_DEFAULT_OPTS` otherwise). Description/warning/correction `format` must be plain (`[%d]`), not `%F{…}` — fzf-tab prints prompt codes literally. `list-colors` is set **after** vivid so it uses Tokyo Night `LS_COLORS`
+- Completions from `enableCompletion` (NixOS default). `zsh-nix-shell` is sourced; do not also source `nix-zsh-completions.plugin.zsh`
+- No Atuin — no Nix `programs.atuin` (DNS-only leftovers are not a service)
+
+## Files
+- `default.nix` — barrel: starship, fzf, nix-index + **eza / vivid / zoxide / mise** (zsh aliases and init). Do not put `programs.zsh` here.
+- `zsh.nix` — all zsh: options, aliases, completion, functions, fzf-tab / mise / zoxide / vivid init
+- Do **not** split aliases/functions/starship into extra files — none are reused across hosts (repo rule: inline unless reused)
+
+## Hardened-VM
+Host forces `programs.zsh.histFile` **and** `environment.variables.HISTFILE` to `/dev/null`. Env alone is not enough — `/etc/zshrc` assigns `histFile` after.
+
+## Related
+
+- [`modules/desktop/AGENTS.md`](../desktop/AGENTS.md) — session `HISTFILE` (desktop only)
+- [`modules/wrappers/AGENTS.md`](../wrappers/AGENTS.md) — micro, btop
+- [`Root AGENTS.md`](../../AGENTS.md)
+

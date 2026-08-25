@@ -1,0 +1,28 @@
+--- a/kiro/config.py
++++ b/kiro/config.py
+@@ -247,7 +247,25 @@
+ #   }
+ #
+ # Default: {"auto-kiro": "auto"} to avoid Cursor IDE conflict
+ MODEL_ALIASES: Dict[str, str] = {
+-    "auto-kiro": "auto",  # Default alias to avoid Cursor's "auto" model conflict
++    "auto-kiro": "claude-opus-4.6",
++    "auto": "claude-opus-4.6",
++    "gpt-4": "claude-opus-4.6",
++    "gpt-4o": "claude-opus-4.6",
++    "gpt-4o-mini": "claude-sonnet-4.5",
++    "gpt-4-turbo": "claude-opus-4.6",
++    "gpt-3.5-turbo": "claude-haiku-4.5",
++    "o1": "claude-opus-4.6",
++    "o1-mini": "claude-sonnet-4.5",
++    "o1-preview": "claude-opus-4.6",
++    "o3": "claude-opus-4.6",
++    "o3-mini": "claude-sonnet-4.5",
++    "cursor-small": "claude-haiku-4.5",
++    "cursor-fast": "claude-sonnet-4.5",
++    "claude-3-opus": "claude-opus-4.6",
++    "claude-3.5-sonnet": "claude-sonnet-4.5",
++    "claude-3-haiku": "claude-haiku-4.5",
++    "claude-3-5-sonnet-20241022": "claude-sonnet-4.5",
++    "claude-3-5-haiku-20241022": "claude-haiku-4.5",
+ }

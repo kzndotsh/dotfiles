@@ -1,0 +1,42 @@
+/references
+.terraform/
+
+# Secrets
+.env
+.env.*
+!.env.example
+hosts/vps/initrd_host_key
+hosts/vps/initrd_host_key.pub
+hosts/hardened-vm/luks-password.txt
+secrets/vps-*.yaml
+
+# OpenTofu workspaces (generated). Nix sources stay in infra/*.nix
+infra/state/
+infra/**/.terraform/
+infra/**/config.tf.json
+infra/**/terraform.tfstate
+infra/**/terraform.tfstate.backup
+infra/**/.terraform.lock.hcl
+result
+.direnv/
+
+# kiro-gateway runtime (created if gateway runs with wrong cwd)
+state.json
+credentials.json
+
+# kiro-gateway state if the process is started with cwd = repo root
+.config/kiro-gateway/
+
+# Retired trees (local only — not part of the build)
+archive/
+
+# Hermes runtime leftovers (service retired; state may still exist on disk)
+.hermes/
+.hermes-state/
+.hermes.md
+
+.references/
+
+.cursor/
+
+result*

@@ -1,0 +1,2 @@
+disabled = []
+ignore = [".direnv", "references/**", "archive/**"]

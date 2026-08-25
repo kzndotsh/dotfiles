@@ -1,0 +1,18 @@
+keys:
+  - &admin age153u0m3xduqxm2zqh68cunpcjkpyx7v50xft63wyxnq6g75uxvsfsqyq6wz
+  - &vps age14qqxv85c0jhuetleslm4kzeyjzyevp27fjtvhy4jvf9xl628sdgszv7wmm
+
+creation_rules:
+  - path_regex: secrets/vps\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *vps
+  - path_regex: secrets/cloudflared\.yaml$
+    key_groups:
+      - age:
+          - *admin
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *admin
