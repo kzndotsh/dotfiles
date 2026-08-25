@@ -34,7 +34,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # ─── Plugin discovery ─────────────────────────────────────────────────
+    # Plugin discovery
     environment = {
       variables = {
         DSSI_PATH = makePluginPath "dssi";
@@ -48,13 +48,13 @@ in
         CLAP_PATH = makePluginPath "clap";
       };
 
-      # ─── Patchbay ───────────────────────────────────────────────────────
+      # Patchbay
       # https://gitlab.freedesktop.org/rncbc/qpwgraph
       systemPackages = [ pkgs.qpwgraph ];
     };
 
     services = {
-      # ─── PipeWire JACK + RT budget ────────────────────────────────────
+      # PipeWire JACK + RT budget
       # JACK clients talk to PipeWire; no jackd.
       # https://wiki.nixos.org/wiki/PipeWire#JACK
       pipewire = {
@@ -80,7 +80,7 @@ in
         };
       };
 
-      # ─── Timing devices for the audio group ───────────────────────────
+      # Timing devices for the audio group
       # Same nodes musnix opens. User must be in `audio` (hosts/desktop/user.nix).
       udev.extraRules = ''
         KERNEL=="rtc0", GROUP="audio"
@@ -89,11 +89,11 @@ in
       '';
     };
 
-    # ─── Sample-library inotify ─────────────────────────────────────────
+    # Sample-library inotify
     # boot/sysctl.nix sets 524288; large Kontakt/SFZ trees need more.
     boot.kernel.sysctl."fs.inotify.max_user_watches" = lib.mkForce 600000;
 
-    # ─── RTC / HPET user freq ───────────────────────────────────────────
+    # RTC / HPET user freq
     # https://wiki.archlinux.org/title/Professional_audio#System_configuration
     systemd.tmpfiles.rules = [
       "w! /sys/class/rtc/rtc0/max_user_freq - - - - 2048"

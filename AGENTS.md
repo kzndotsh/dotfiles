@@ -131,7 +131,7 @@ Before marking a dotfiles task complete:
 
 - Per-directory `AGENTS.md` — scope line, verify command, gotchas; don't duplicate Nix comment blocks
 - No Home Manager — system-level NixOS modules only
-- Nix: 2-space indent; `# ─── Section ───` headers; minimal module args
+- Nix: 2-space indent; simple `# section` comments; minimal module args
 - Tokyo Night theme; security/privacy-first; sops-nix for VPS secrets; 1Password SSH on desktop only
 
 ## Commands

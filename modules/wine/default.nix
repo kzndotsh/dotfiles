@@ -47,7 +47,7 @@ in
       pkgs.xrdb
     ];
 
-    # ─── Xft (Wine X11 driver) ────────────────────────────────────────────
+    # Xft (Wine X11 driver)
     # Sway loads this: `xrdb -load /etc/X11/Xresources` in desktop/sway/config.nix.
     # Keep in lockstep with desktop/fonts.nix (hintslight / rgb / lcddefault).
     # DPI 96: Sway output scale 2.0 does HiDPI. Do not set 192 here

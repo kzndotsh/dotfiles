@@ -5,7 +5,7 @@
 # inhibit_idle focus = no lock while that window is focused (RuneLite/DAWs).
 {
   environment.etc."sway/config.d/20-windows.conf".text = ''
-    # ─── Floating / dialogs ───
+    # Floating / dialogs
     for_window [app_id="org.gajim.Gajim" title="^(?!Gajim$)"] floating enable
     for_window [app_id="vivaldi-stable" title=".*Settings.*"] floating enable
     for_window [app_id="chromium" title=".*Settings.*"] floating enable
@@ -23,7 +23,7 @@
     for_window [app_id="xdg-desktop-portal-gtk"] floating enable
     for_window [title="^Open File$"] floating enable
 
-    # ─── Steam & gaming ───
+    # Steam & gaming
     # allow_tearing: window + output + max_render_time off. Fullscreen only.
     for_window [app_id="steam"] floating enable border normal
     for_window [class="(?i)^steam$" title="^Steam$"] floating enable border normal
@@ -59,7 +59,7 @@
     for_window [app_id="vlc"] inhibit_idle fullscreen
     for_window [app_id="mpv"] inhibit_idle fullscreen
 
-    # ─── RuneLite (XWayland / AWT) ───
+    # RuneLite (XWayland / AWT)
     # Swing tooltips spawn as win0/win1 and steal focus.
     # https://github.com/runelite/runelite/issues/19076
     # Request Focus → Force does not work on Sway. swaync runelite-focus + $mod+Ctrl+grave.
@@ -67,7 +67,7 @@
     for_window [class="net-runelite-client-RuneLite" title="win"] floating enable, border none
     for_window [class="net-runelite-client-RuneLite"] inhibit_idle focus
 
-    # ─── Music production DAWs ───
+    # Music production DAWs
     # class=Wine floats every Wine window; FL Studio rule after that tiles the DAW.
     for_window [class="bitwig-studio"] inhibit_idle focus
     for_window [class="bitwig-studio" title="^(?!Bitwig Studio$)"] floating enable
@@ -82,7 +82,7 @@
     for_window [app_id="org.hydrogenmusic.Hydrogen"] floating enable
     for_window [app_id="Carla2"] floating enable
 
-    # ─── Dialog roles / pinentry / bluetooth ───
+    # Dialog roles / pinentry / bluetooth
     for_window [window_role="pop-up"] floating enable
     for_window [window_role="bubble"] floating enable
     for_window [window_role="task_dialog"] floating enable
@@ -107,7 +107,7 @@
     for_window [class="^(Yad|Zenity|zenity)$"] floating enable
     for_window [app_id="(?i)polkit"] floating enable
 
-    # ─── Zoom ───
+    # Zoom
     # Workplace: as_toolbar + title ^Zoom Workplace$ float; Licensed account tiled.
     # app_id/class=zoom stay for the X11 client.
     for_window [app_id="zoom"] floating disable

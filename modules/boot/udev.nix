@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  # ─── I/O schedulers ───
+  # I/O schedulers
   # NixOS writes 98-block-io-scheduler.rules (TEST=="queue/scheduler").
   # Pattern cannot express ENV{DEVTYPE}=="disk"; missing queue/scheduler is skipped.
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/hardware/iosched.nix
@@ -13,13 +13,13 @@
     scheduler."nvme[0-9]*n[0-9]*" = "none";
   };
 
-  # ─── SATA ALPM ───
+  # SATA ALPM
   # Kernel default is already max_performance. Pin against TLP-style flips to
   # med_power_with_dipm (latency spikes). NixOS emits scsi_host udev into extraRules.
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/tasks/scsi-link-power-management.nix
   powerManagement.scsiLinkPolicy = "max_performance";
 
-  # ─── NIC ───
+  # NIC
   # .link files are applied by udevd net_setup_link, not networkd (NM is fine).
   # First matching file wins — must sort before 99-default.link and copy NamePolicy
   # or predictable names break.

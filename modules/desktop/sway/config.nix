@@ -75,7 +75,7 @@ in
       floating_modifier $mod normal
       workspace_auto_back_and_forth no
 
-      # ─── Output (RX 6700 XT, 4K@144 scaled 2×) ───
+      # Output (RX 6700 XT, 4K@144 scaled 2×)
       # Integer scale (man 5 / Arch HiDPI): XWayland is scaled and blurs.
       # scale_filter nearest = sharp upscale of lo-DPI buffers.
       # adaptive_sync off: VRR can flicker (sway-output(5)).

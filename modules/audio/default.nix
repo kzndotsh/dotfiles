@@ -5,7 +5,7 @@
     ./wireplumber.nix
   ];
 
-  # ─── Realtime ───
+  # Realtime
   # PipeWire asks rtkit (or the realtime portal) for SCHED_FIFO on data threads
   # when RLIMIT_RTPRIO is not already high enough.
   # https://docs.pipewire.org/page_module_rt.html

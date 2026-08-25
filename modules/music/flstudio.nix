@@ -148,10 +148,10 @@ in
     lib.mkEnableOption "FL Studio via Wine (wineasio, dedicated prefix, manual installer)";
 
   config = lib.mkIf (cfg.enable && cfg.daw.flstudio.enable) {
-    # ─── Wine stack (wine-tkg, winetricks, Xft) ────────────────────────────
+    # Wine stack (wine-tkg, winetricks, Xft)
     wine.enable = lib.mkDefault true;
 
-    # ─── Launchers + ASIO ─────────────────────────────────────────────────
+    # Launchers + ASIO
     environment.systemPackages = [
       pkgs.wineasio
       flStudioSetup
@@ -160,7 +160,7 @@ in
       flMime
     ];
 
-    # ─── .flp → fl-studio ─────────────────────────────────────────────────
+    # .flp → fl-studio
     # https://specifications.freedesktop.org/shared-mime-info-spec/latest/
     # https://specifications.freedesktop.org/mime-apps-spec/latest/
     xdg.mime.defaultApplications."application/x-fl-studio-project" = "fl-studio.desktop";

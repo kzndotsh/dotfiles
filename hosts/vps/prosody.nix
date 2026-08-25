@@ -132,7 +132,7 @@ in
     '';
   };
 
-  # ─── Coturn (STUN/TURN for voice/video) ────────────────────────────────────
+  # Coturn (STUN/TURN for voice/video)
   services.coturn = {
     enable = true;
     listening-port = 3478;

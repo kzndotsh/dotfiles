@@ -29,7 +29,7 @@
     ];
 
     fontconfig = {
-      # ─── Rasterizer ───
+      # Rasterizer
       # NixOS defaults: antialias=true, hinting.enable=true, hinting.style=slight,
       # lcdfilter=default, rgba=none. We pin rgba=rgb (NixOS default is none).
       # Wine Xft in wine/default.nix must stay in sync (hintslight / rgb / lcddefault).
@@ -52,7 +52,7 @@
       # https://wiki.nixos.org/wiki/Fonts#Noto_Color_Emoji_doesn't_render_on_Firefox
       useEmbeddedBitmaps = true;
 
-      # ─── Generic families ───
+      # Generic families
       # First name wins; later entries are fallbacks (CJK / missing glyphs).
       defaultFonts = {
         # Inter is sans. Same choice as firefox.nix serif lock — UI consistency, not a serif face.

@@ -1,6 +1,6 @@
 _:
 {
-  # ─── qui ─ Modern qBittorrent webUI ──────────────────────────────────────
+  # qui ─ Modern qBittorrent webUI
   # UI:    http://127.0.0.1:7476
   # Setup: create account on first visit, then add the qBittorrent instance
   #        at http://127.0.0.1:8080 (same user as config.my.username)

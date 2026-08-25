@@ -14,7 +14,7 @@
     # Cmdline index (unless a param cites another doc):
     # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
     kernelParams = [
-      # ─── CPU / power ───
+      # CPU / power
       # Active = amd_pstate_epp: firmware picks freq from EPP (0x0 perf … 0xff efficiency).
       # Kernel 6.5+ default on official kernels (CONFIG_X86_AMD_PSTATE_DEFAULT_MODE=3).
       # https://docs.kernel.org/admin-guide/pm/amd-pstate.html
@@ -43,7 +43,7 @@
       # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
       "iommu=pt"
 
-      # ─── GPU ───
+      # GPU
       # https://docs.kernel.org/gpu/amdgpu/module-parameters.html
       # reset_method: -1 auto, 0 legacy, 1 mode0, 2 mode1, 3 mode2, 4 baco.
       "amdgpu.reset_method=1"
@@ -52,7 +52,7 @@
       # Default -1 = auto (off except SR-IOV). 1 = enable recovery instead of wedging.
       "amdgpu.gpu_recovery=1"
 
-      # ─── Hardening (KSPP cmdline set) ───
+      # Hardening (KSPP cmdline set)
       # https://kspp.github.io/Recommended_Settings.html
       "page_alloc.shuffle=1"
       "randomize_kstack_offset=on"
@@ -66,7 +66,7 @@
       # debugfs not registered; clients get -EPERM.
       "debugfs=off"
 
-      # ─── Quiet boot ───
+      # Quiet boot
       "quiet"
       # systemd-udevd, not the kernel. 3 = err.
       # https://www.freedesktop.org/software/systemd/man/latest/systemd-udevd.service.html

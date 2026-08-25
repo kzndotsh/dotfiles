@@ -18,7 +18,7 @@
   services = {
     qemuGuest.enable = true;
 
-    # ─── XFCE Desktop ─────────────────────────────────────────────────────────
+    # XFCE Desktop
     xserver = {
     enable = true;
     desktopManager.xfce.enable = true;
@@ -135,7 +135,7 @@
     thunar-volman
   ];
 
-  # ─── Boot ──────────────────────────────────────────────────────────────────
+  # Boot
 
   boot = {
     loader.grub.enable = true;
@@ -214,7 +214,7 @@
     };
   };
 
-  # ─── Firewall (enabled, unlike host) ───────────────────────────────────────
+  # Firewall (enabled, unlike host)
   networking = {
     hostName = lib.mkForce "hardened-vm";
     # Override random MAC from shared config (breaks libvirt NSS resolution)
@@ -228,7 +228,7 @@
     enableIPv6 = false;
   };
 
-  # ─── Security hardening ────────────────────────────────────────────────────
+  # Security hardening
   security = {
     protectKernelImage = true;
     # Note: lockKernelModules breaks disk image building, enforce at runtime instead
@@ -251,7 +251,7 @@
   #   iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 5353
   # '';
 
-  # ─── Anti-forensics ────────────────────────────────────────────────────────
+  # Anti-forensics
   swapDevices = [];
   zramSwap = { enable = true; memoryPercent = 75; };
 
@@ -319,7 +319,7 @@
     ];
   };
 
-  # ─── Users ─────────────────────────────────────────────────────────────────
+  # Users
   users = {
     mutableUsers = false;
     users.${config.my.username} = {

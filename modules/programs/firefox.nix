@@ -18,7 +18,7 @@
     # https://search.nixos.org/options?query=programs.firefox.preferencesStatus
     preferencesStatus = "user";
 
-    # ─── User preferences (overridable in about:config) ─────────────────────
+    # User preferences (overridable in about:config)
     preferences = {
       # Official default false.
       "browser.tabs.insertAfterCurrent" = true;
@@ -41,7 +41,7 @@
       "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
 
-    # ─── Policies (enterprise; UI cannot change) ────────────────────────────
+    # Policies (enterprise; UI cannot change)
     policies = {
       # Official defaults: telemetry/studies/Pocket on, default-browser check on.
       # DisablePocket is deprecated but still maps to extensions.pocket.enabled.
@@ -122,7 +122,7 @@
         Locked = true;
       };
 
-      # ─── Locked preferences (no policy equivalent, or pin a default) ─────
+      # Locked preferences (no policy equivalent, or pin a default)
       Preferences = {
         # media.ffmpeg.vaapi.enabled was removed (2025-02, bug 1949344). This is
         # the live Linux override. Official default false — does not disable HW

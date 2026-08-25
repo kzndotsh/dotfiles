@@ -108,7 +108,7 @@
     xdg-ninja
     antigravity-ide
     antigravity-cli
-    # ─── Archives ───
+    # Archives
     gnutar
     gzip
     bzip2

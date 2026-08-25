@@ -1,7 +1,7 @@
 _:
 {
   boot.kernel.sysctl = {
-    # ─── Network performance ───
+    # Network performance
     # IPv4/TCP: https://docs.kernel.org/networking/ip-sysctl.html
     # net.core: https://docs.kernel.org/admin-guide/sysctl/net.html
     # Arch (same keepalive/fin/tw_reuse/fastopen/slow_start/mtu/somaxconn/syn_backlog):
@@ -52,7 +52,7 @@ _:
     "net.ipv4.tcp_tw_reuse" = 1;
     "net.ipv4.tcp_max_syn_backlog" = 8192;
 
-    # ─── Memory / VM ───
+    # Memory / VM
     # https://docs.kernel.org/admin-guide/sysctl/vm.html
     # Arch zram (Pop!_OS): swappiness=180, page-cluster=0, watermark_scale_factor=125
     #   https://wiki.archlinux.org/title/Zram#Optimizing_swap_on_zram
@@ -76,12 +76,12 @@ _:
     # kswapd aggressiveness in 1/10000 of RAM. Default 10 = 0.1%; 125 = 1.25%. Max 3000.
     "vm.watermark_scale_factor" = 125;
 
-    # ─── Scheduler ───
+    # Scheduler
     # Same intent as cmdline noautogroup (kernel.nix).
     # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
     "kernel.sched_autogroup_enabled" = 0;
 
-    # ─── File / watch limits ───
+    # File / watch limits
     # inotify: https://man7.org/linux/man-pages/man7/inotify.7.html
     # file-max / aio: https://docs.kernel.org/admin-guide/sysctl/fs.html
     "fs.inotify.max_user_watches" = 524288;
@@ -90,7 +90,7 @@ _:
     "fs.file-max" = 2097152;
     "fs.aio-max-nr" = 1048576;
 
-    # ─── Kernel hardening ───
+    # Kernel hardening
     # KSPP: https://kspp.github.io/Recommended_Settings.html
     # kernel: https://docs.kernel.org/admin-guide/sysctl/kernel.html
     # fs/dev.tty: https://docs.kernel.org/admin-guide/sysctl/fs.html
@@ -126,7 +126,7 @@ _:
     "fs.protected_fifos" = 2;
     "fs.protected_regular" = 2;
 
-    # ─── Network hardening ───
+    # Network hardening
     # https://docs.kernel.org/networking/ip-sysctl.html
     # Arch TCP/IP stack hardening: https://wiki.archlinux.org/title/Sysctl#TCP/IP_stack_hardening
     "net.ipv4.tcp_syncookies" = 1; # default; SYN-flood fallback

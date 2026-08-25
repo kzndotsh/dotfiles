@@ -20,53 +20,53 @@ let
   # CivitAI: GET /api/download/models/{versionId}. Token required for file downloads.
   # https://education.civitai.com/civitais-guide-to-downloading-via-api/
   models = [
-    # ─── SDXL checkpoints (Lightning = fast, 4–6 steps / CFG 1–2) ───
+    # SDXL checkpoints (Lightning = fast, 4–6 steps / CFG 1–2)
     { url = "https://civitai.com/api/download/models/782002"; dest = "checkpoints/juggernautXL_v9Rdphoto2Lightning.safetensors"; }
     { url = "https://civitai.com/api/download/models/789646"; dest = "checkpoints/realvisxlV50_v50Lightning.safetensors"; }
     { url = "https://huggingface.co/bluepen5805/blue_pencil-XL/resolve/main/blue_pencil-XL-v7.0.0.safetensors"; dest = "checkpoints/bluePencilXL_v700.safetensors"; }
 
-    # ─── SDXL Pony (Realism By Stable Yogi v6.5 DMD2, 4-step, Q8 GGUF) ───
+    # SDXL Pony (Realism By Stable Yogi v6.5 DMD2, 4-step, Q8 GGUF)
     { url = "https://civitai.com/api/download/models/2985497?type=Model&format=GGUF&size=pruned&quantType=Q8_0"; dest = "checkpoints/realismByStableYogi_ponyV65_Q8.gguf"; }
 
-    # ─── SDXL Pony (Realism By Stable Yogi v6.5 FP16, for Open WebUI) ───
+    # SDXL Pony (Realism By Stable Yogi v6.5 FP16, for Open WebUI)
     { url = "https://civitai.com/api/download/models/2985392"; dest = "checkpoints/realismByStableYogi_ponyV65.safetensors"; }
 
-    # ─── CyberRealistic XL v9 (photorealistic, natural language) ───
+    # CyberRealistic XL v9 (photorealistic, natural language)
     { url = "https://civitai.com/api/download/models/2611295"; dest = "checkpoints/cyberrealisticXL_v90.safetensors"; }
 
-    # ─── Pony Realism v2.3 ULTRA (best photorealistic Pony finetune) ───
+    # Pony Realism v2.3 ULTRA (best photorealistic Pony finetune)
     { url = "https://civitai.com/api/download/models/1920896"; dest = "checkpoints/ponyRealism_v23ULTRA.safetensors"; }
 
-    # ─── Flux.1 Schnell (full FP16, ~23 GB — will not sit in 12 GB; needs offload) ───
+    # Flux.1 Schnell (full FP16, ~23 GB — will not sit in 12 GB; needs offload)
     { url = "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors"; dest = "diffusion_models/flux1-schnell.safetensors"; }
 
-    # ─── Flux.1 Dev Q5 GGUF (near-FP16 quality, fits 12GB) ───
+    # Flux.1 Dev Q5 GGUF (near-FP16 quality, fits 12GB)
     { url = "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_K_S.gguf"; dest = "diffusion_models/flux1-dev-Q5_K_S.gguf"; }
 
-    # ─── Flux.2 Klein 4B fp8 (fastest Flux, 4-step, Apache 2.0, ~9GB VRAM) ───
+    # Flux.2 Klein 4B fp8 (fastest Flux, 4-step, Apache 2.0, ~9GB VRAM)
     { url = "https://huggingface.co/black-forest-labs/FLUX.2-klein-4b-fp8/resolve/main/flux-2-klein-4b-fp8.safetensors"; dest = "diffusion_models/flux2-klein-4b-fp8.safetensors"; }
 
-    # ─── Text encoders (shared by Flux.1) ───
+    # Text encoders (shared by Flux.1)
     { url = "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors"; dest = "text_encoders/clip_l.safetensors"; }
     { url = "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors"; dest = "text_encoders/t5xxl_fp8_e4m3fn.safetensors"; }
 
-    # ─── Flux.2 Klein text encoder (Qwen 3 4B — NOT T5) ───
+    # Flux.2 Klein text encoder (Qwen 3 4B — NOT T5)
     { url = "https://huggingface.co/Comfy-Org/flux2-klein/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors"; dest = "text_encoders/qwen_3_4b.safetensors"; }
 
-    # ─── VAE ───
+    # VAE
     { url = "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors"; dest = "vae/ae.safetensors"; }
     { url = "https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/vae/flux2-vae.safetensors"; dest = "vae/flux2-vae.safetensors"; }
 
-    # ─── Upscalers ───
+    # Upscalers
     { url = "https://huggingface.co/Kim2091/AnimeSharp/resolve/main/4x-AnimeSharp.pth"; dest = "upscale_models/4x-AnimeSharp.pth"; }
     { url = "https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth"; dest = "upscale_models/4x-UltraSharp.pth"; }
     { url = "https://huggingface.co/gemasai/4x_NMKD-Superscale-SP_178000_G/resolve/main/4x_NMKD-Superscale-SP_178000_G.pth"; dest = "upscale_models/4xNMKDSuperscale.pth"; }
     { url = "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/1x-ITF-SkinDiffDetail-Lite-v1.pth"; dest = "upscale_models/1x-ITF-SkinDiffDetail-Lite-v1.pth"; }
 
-    # ─── LoRAs ───
+    # LoRAs
     { url = "https://huggingface.co/tianweiy/DMD2/resolve/main/dmd2_sdxl_4step_lora.safetensors"; dest = "loras/dmd2_sdxl_4step_lora.safetensors"; }
 
-    # ─── Detection models (Impact-Pack / FaceDetailer) ───
+    # Detection models (Impact-Pack / FaceDetailer)
     { url = "https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt"; dest = "ultralytics/bbox/face_yolov8m.pt"; }
     { url = "https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8s.pt"; dest = "ultralytics/bbox/hand_yolov8s.pt"; }
     { url = "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"; dest = "sams/sam_vit_b_01ec64.pth"; }

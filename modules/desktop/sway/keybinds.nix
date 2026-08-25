@@ -4,7 +4,7 @@
 # keys die while locked. --no-repeat: hold Return must not spawn a terminal storm.
 {
   environment.etc."sway/config.d/10-keybinds.conf".text = ''
-    # ─── Launchers / clipboard ───
+    # Launchers / clipboard
     bindsym --no-repeat $mod+Return exec $term
     bindsym $mod+d exec $menu
     bindsym $mod+grave exec swayr switch-window
@@ -16,13 +16,13 @@
     bindsym $mod+period exec bemoji -t -c
     bindsym $mod+Shift+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
 
-    # ─── Screenshots ───
+    # Screenshots
     bindsym Print exec grim - | wl-copy
     bindsym --release Control+Print exec grim -g "$(slurp)" -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
     bindsym $mod+Shift+s exec ~/.local/bin/zipline-upload
     bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | wl-copy
 
-    # ─── Focus / workspaces ───
+    # Focus / workspaces
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
@@ -60,7 +60,7 @@
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
 
-    # ─── Layout ───
+    # Layout
     # move left; move right: apply layout to this container, not the parent (i3 idiom).
     bindsym $mod+h splith
     bindsym $mod+v splitv

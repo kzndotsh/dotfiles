@@ -104,7 +104,7 @@ in
     ];
 
     virtualisation.oci-containers.containers = lib.mkMerge [
-      # ─── Speaches STT ───
+      # Speaches STT
       # OpenAI-compatible STT (faster-whisper). CPU image — do not pass /dev/dri.
       # https://speaches.ai/  https://speaches.ai/installation/  https://speaches.ai/configuration/
       # Env is Pydantic Settings: nested fields use `__` (WHISPER__COMPUTE_TYPE → whisper.compute_type).
@@ -147,7 +147,7 @@ in
         };
       })
 
-      # ─── Kokoro-FastAPI TTS ───
+      # Kokoro-FastAPI TTS
       # OpenAI /v1/audio/speech. Model id is the literal string "kokoro".
       # https://github.com/remsky/Kokoro-FastAPI
       # https://docs.openwebui.com/features/chat-conversations/audio/text-to-speech/Kokoro-FastAPI-integration/
@@ -160,7 +160,7 @@ in
         };
       })
 
-      # ─── Fish Audio TTS (local OpenAI proxy) ───
+      # Fish Audio TTS (local OpenAI proxy)
       # Fish's native API is POST https://api.fish.audio/v1/tts (model in header), not /v1/audio/speech.
       # https://docs.fish.audio/llms.txt
       # https://docs.fish.audio/api-reference/endpoint/openapi-v1/text-to-speech
@@ -175,7 +175,7 @@ in
         };
       })
 
-      # ─── MOSS-TTS-Nano ───
+      # MOSS-TTS-Nano
       # 0.1B, 48 kHz stereo, CPU. Official demo: python app.py → http://127.0.0.1:18083 (Gradio).
       # https://github.com/OpenMOSS/MOSS-TTS-Nano
       # Image moss-tts-nano-fixed is local (OpenAI /v1 wrapper). Upstream OpenAI serving is vLLM-Omni.
@@ -192,7 +192,7 @@ in
         };
       })
 
-      # ─── Chatterbox TTS (ROCm) ───
+      # Chatterbox TTS (ROCm)
       # Resemble Chatterbox behind OpenAI /v1/audio/speech. Server default port 8004.
       # https://github.com/devnen/Chatterbox-TTS-Server
       # https://github.com/resemble-ai/chatterbox

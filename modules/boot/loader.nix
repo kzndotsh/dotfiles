@@ -2,7 +2,7 @@
 {
   boot = {
     loader = {
-      # ─── systemd-boot ───
+      # systemd-boot
       # EFI Boot Loader Spec. ESP is /boot (vfat). kernel.nix pins kernelFile=bzImage.
       # https://uapi-group.org/specifications/specs/boot_loader_specification
       # https://www.freedesktop.org/software/systemd/man/latest/systemd-boot.html
@@ -30,14 +30,14 @@
     # systemd.network.links early (udev.nix 10-enp). NixOS default false.
     initrd.systemd.enable = true;
 
-    # ─── /tmp ───
+    # /tmp
     # tmpfs, default size 50% of RAM (64 GiB here). Does not consume RAM until
     # used. Large nix builds can fail if this is too small — raise tmpfsSize.
     # Arch systemd already tmpfs-mounts /tmp; NixOS default is off (disk /tmp).
     # https://wiki.archlinux.org/title/Tmpfs
     tmp.useTmpfs = true;
 
-    # ─── Splash ───
+    # Splash
     # NixOS adds `splash` to cmdline when enabled. Default theme is bgrt (UEFI logo).
     plymouth = {
       enable = true;
@@ -49,7 +49,7 @@
       ];
     };
 
-    # ─── Quiet boot ───
+    # Quiet boot
     # NixOS silent-boot set (split across this file + kernel.nix):
     #   consoleLogLevel=0; initrd.verbose=false; kernelParams quiet udev.log_level=3
     # loglevel=0: print printk < 0 → nothing. Default consoleLogLevel is 4.

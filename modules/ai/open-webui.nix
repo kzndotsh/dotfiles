@@ -89,13 +89,13 @@ in
       # Official default True (DB/UI wins). False = env wins; UI edits die on restart.
       ENABLE_PERSISTENT_CONFIG = "False";
 
-      # ─── RAG ───
+      # RAG
       # Official engines: "" (SentenceTransformers) | ollama | openai | azure_openai
       RAG_EMBEDDING_ENGINE = "ollama";
       # Official default sentence-transformers/all-MiniLM-L6-v2. Must be in ollama loadModels.
       RAG_EMBEDDING_MODEL = "qwen3-embedding:0.6b";
 
-      # ─── Image Generation (ComfyUI) ───
+      # Image Generation (ComfyUI)
       # Official default False / openai / True (prompt enhance).
       ENABLE_IMAGE_GENERATION = "True";
       # Thinking models wrap JSON in <think> and break the prompt parser.
@@ -111,7 +111,7 @@ in
       # Official default 50. Lightning_4S card is 4–6. Must match KSampler steps (node map writes this).
       IMAGE_STEPS = "6";
 
-      # ─── Misc ───
+      # Misc
       # Official default True. Extra Ollama calls on every keystroke — off on 12 GB.
       ENABLE_AUTOCOMPLETE_GENERATION = "False";
       # Official default INFO. DEBUG logs prompts/tokens. Always-on.
@@ -119,7 +119,7 @@ in
       # WEBUI_AUTH default True (first user = admin). WEBUI_SECRET_KEY unset —
       # NixOS stateDir persists the generated key. Do not rotate casually.
 
-      # ─── TTS / STT (ai.voice.openWebui) ───
+      # TTS / STT (ai.voice.openWebui)
       # Native service → catalog 127.0.0.1 URLs work. ENABLE_PERSISTENT_CONFIG=False → env wins.
       # https://docs.openwebui.com/features/chat-conversations/audio/speech-to-text/env-variables
       # https://docs.openwebui.com/troubleshooting/audio/

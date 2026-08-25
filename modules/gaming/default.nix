@@ -83,7 +83,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # ─── PipeWire RT (no quantum change) ────────────────────────────────
+    # PipeWire RT (no quantum change)
     # Cherry-picked from nix-gaming. 200ms rt.time is enough for games;
     # DAW plugin scans need the 2s music drop-in instead.
     # https://docs.pipewire.org/page_man_libpipewire-module-rt_7.html

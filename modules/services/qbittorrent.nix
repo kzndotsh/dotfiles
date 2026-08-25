@@ -60,7 +60,7 @@
       # Required for qbittorrent-nox or it exits on the legal dialog.
       LegalNotice.Accepted = true;
       BitTorrent = {
-        # ─── Disk I/O ────────────────────────────────────────────────────────
+        # Disk I/O
         # libtorrent aio_threads default 10. lt2 hashing is HashingThreads, not n/4.
         "Session\\AsyncIOThreads" = 64;
         # libtorrent hashing_threads default 1. Full recheck only (download hashes
@@ -86,7 +86,7 @@
         # libtorrent piece_extent_affinity default false. 4 MiB adjacent extents.
         "Session\\PieceExtentAffinity" = true;
 
-        # ─── Connections ─────────────────────────────────────────────────────
+        # Connections
         # libtorrent connection_speed default 30 (attempts/s). <0 → 200. 0 = none.
         "Session\\ConnectionSpeed" = 100;
         # qBittorrent: 500 / 100 / 20 / 4. libtorrent: connections_limit 200,
@@ -99,7 +99,7 @@
         # Official: "not recommended" (abuse + edge-case identity). felikcat: ON.
         "Session\\MultiConnectionsPerIp" = true;
 
-        # ─── Send buffer (qBittorrent KiB; ×1024 → libtorrent bytes) ─────────
+        # Send buffer (qBittorrent KiB; ×1024 → libtorrent bytes)
         # libtorrent: 500 KiB / 10 KiB / 50%. Factor >100 for high-speed upload.
         # Too high wastes RAM and biases disk toward reads over writes.
         "Session\\SendBufferWatermark" = 20480;
@@ -110,14 +110,14 @@
         # Takes effect only after listen_interfaces changes (port restart).
         "Session\\SocketBacklogSize" = 30;
 
-        # ─── Choking ─────────────────────────────────────────────────────────
+        # Choking
         # 0=FixedSlots (libtorrent + qBittorrent default), 1=RateBased.
         "Session\\ChokingAlgorithm" = 0;
         # 0=RoundRobin (libtorrent default), 1=FastestUpload (qBittorrent default),
         # 2=AntiLeech.
         "Session\\SeedChokingAlgorithm" = 1;
 
-        # ─── Peer / protocol ─────────────────────────────────────────────────
+        # Peer / protocol
         # libtorrent suggest_mode default no_piece_suggestions. true → suggest_read_cache.
         "Session\\SuggestMode" = true;
         # qBittorrent default Both. libtorrent enable_{in,out}_{tcp,utp} all true.

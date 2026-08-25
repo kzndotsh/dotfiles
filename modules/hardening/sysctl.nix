@@ -8,7 +8,7 @@
 _:
 {
   boot.kernel.sysctl = {
-    # ─── Network ───
+    # Network
     "net.ipv4.tcp_syncookies" = 1; # default; SYN-flood fallback
     # 1 = RFC1337 compliant. 0 (default) is what *prevents* TIME_WAIT assassination.
     # https://www.rfc-editor.org/rfc/rfc1337
@@ -29,7 +29,7 @@ _:
     # Kernel default is already 1. Smurf-amplification guard.
     "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
 
-    # ─── Kernel ───
+    # Kernel
     "kernel.kptr_restrict" = 2; # %pK always 0s, even for root
     "kernel.dmesg_restrict" = 1;
     # 1 = unprivileged bpf() off, irreversible until reboot.
@@ -43,7 +43,7 @@ _:
     # https://docs.kernel.org/admin-guide/LSM/Yama.html
     "kernel.yama.ptrace_scope" = 2;
 
-    # ─── Filesystem ───
+    # Filesystem
     # https://docs.kernel.org/admin-guide/sysctl/fs.html
     "fs.suid_dumpable" = 0;
     "fs.protected_symlinks" = 1;

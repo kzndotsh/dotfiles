@@ -21,7 +21,7 @@
       sleep = 60; # Seconds before merging identical pages (helps libvirt guests)
     };
 
-    # ─── Bluetooth ───
+    # Bluetooth
     bluetooth = {
       enable = true;
       powerOnBoot = true;

@@ -20,23 +20,23 @@ in
 
   config = lib.mkIf (cfg.enable && cfg.tools.enable) {
     environment.systemPackages = with pkgs; [
-      # ─── Edit / analyse ────────────────────────────────────────────────
+      # Edit / analyse
       tenacity
       spek
       sox
 
-      # ─── Host / route ──────────────────────────────────────────────────
+      # Host / route
       carla
       pavucontrol # per-app levels; qpwgraph (default.nix) is the graph
 
-      # ─── Capture ───────────────────────────────────────────────────────
+      # Capture
       jack_capture
 
-      # ─── MIDI ──────────────────────────────────────────────────────────
+      # MIDI
       qmidiarp
       kmidimon
 
-      # ─── ALSA debug ────────────────────────────────────────────────────
+      # ALSA debug
       alsa-utils # aplay -l, speaker-test
     ];
   };

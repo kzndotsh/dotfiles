@@ -20,7 +20,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = lib.flatten [
-      # ─── Synths ────────────────────────────────────────────────────────
+      # Synths
       (lib.optionals cfg.plugins.synths.enable (with pkgs; [
         surge-xt # hybrid; LV2/VST3/CLAP — https://surge-synthesizer.github.io/
         vital # wavetable (unfree) — https://vital.audio/
@@ -36,7 +36,7 @@ in
         sfizz # SFZ sampler — https://sfz.tools/sfizz/
       ]))
 
-      # ─── Effects ───────────────────────────────────────────────────────
+      # Effects
       (lib.optionals cfg.plugins.effects.enable (with pkgs; [
         lsp-plugins # EQ/comp/limiter — https://lsp-plug.in/
         zam-plugins # dynamics / tube — https://www.zamaudio.com/
@@ -54,7 +54,7 @@ in
         bshapr # beat / envelope shaper
       ]))
 
-      # ─── Drums & samplers ──────────────────────────────────────────────
+      # Drums & samplers
       (lib.optionals cfg.plugins.drums.enable (with pkgs; [
         hydrogen # pattern drum machine — http://hydrogen-music.org/
         geonkick # percussion synth — https://geonkick.org/
