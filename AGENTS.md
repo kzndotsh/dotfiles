@@ -20,7 +20,6 @@ dotfiles/
 ├── flake.lock
 ├── .sops.yaml
 ├── .env.example               # tofu token template (copy to `.env.kzn`)
-├── .envrc                     # `use flake`
 ├── AGENTS.md
 ├── hosts/
 │   ├── desktop/               # Sway/Wayland workstation (flake attr: ikigai)
