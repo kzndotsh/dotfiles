@@ -4,7 +4,10 @@
   # ─── Inputs ─────────────────────────────────────────────────────────────
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    wrappers.url = "github:midischwarz12/nix-wrappers";
+    wrappers = {
+      url = "github:hermetic-foundation/nix-wrappers";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     NixVirt = {
       url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
@@ -294,17 +297,5 @@
       };
 
       formatter.${system} = pkgs.nixfmt;
-
-      devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          statix
-          deadnix
-          nixfmt
-          sops
-          nh
-          opentofu
-          git
-        ];
-      };
     };
 }
