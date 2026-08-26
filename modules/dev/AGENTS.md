@@ -8,7 +8,8 @@ Developer tooling — git, direnv, Cursor argv. Desktop only (hardened-vm does n
 
 | File | Role |
 |------|------|
-| `default.nix` | direnv + nix-direnv + git (1Password SSH sign, delta, LFS) |
+| `default.nix` | direnv + nix-direnv; imports `cursor.nix`, `git.nix` |
+| `git.nix` | git + LFS, delta pager (zdiff3, histogram), 1Password SSH sign, gh credential |
 | `cursor.nix` | userActivation: `~/.config/Cursor/argv.json` → `gnome-libsecret` |
 
 ## Gotchas

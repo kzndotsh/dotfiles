@@ -5,5 +5,6 @@
     ./profanity.nix
     ./btop.nix
     ./micro.nix
+    ./lazygit.nix
   ];
 }

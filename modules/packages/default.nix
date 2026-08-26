@@ -86,7 +86,6 @@
     dog
     gping
     hyperfine
-    lazygit
     alsa-utils
     wget
     curl

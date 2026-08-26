@@ -6,7 +6,7 @@ nix-wrappers flake input — declarative CLI wrappers.
 
 ## Quick facts
 
-- fuzzel, ghostty, profanity, btop-rocm, micro
+- fuzzel, ghostty, profanity, btop-rocm, micro, lazygit
 - Desktop only (`system-wrappers` in `flake.nix`). Do **not** also list these in `modules/packages`.
 
 ## Files
@@ -18,6 +18,7 @@ nix-wrappers flake input — declarative CLI wrappers.
 | `profanity.nix` | XMPP OMEMO + Tokyo Night (`-c` profrc; theme symlink at launch) |
 | `btop.nix` | `btop-rocm` (`--config` + `--themes-dir`) |
 | `micro.nix` | micro (preRun symlink settings into `~/.config/micro`) |
+| `lazygit.nix` | lazygit (`--use-config-file=`; Tokyo Night + delta pager) |
 
 ## Import
 `hosts/desktop/configuration.nix` — first in module list
@@ -37,6 +38,13 @@ nix-wrappers flake input — declarative CLI wrappers.
 - `preRun` symlinks store `settings.json` / `bindings.json` / `tokyonight.micro` into `~/.config/micro`. Plugins, backups, and buffers stay in that writable dir.
 - `> set` cannot persist (settings.json is a store symlink), same as btop/ghostty.
 - VM has an unthemed `micro` in the host package list. VPS still ships raw `micro`.
+
+## lazygit
+- `--use-config-file` points at a store `config.yml` (Tokyo Night night + delta via `diffRenderers`). In-app config edits do not persist.
+- `~/.config/lazygit/config.yml` is ignored unless you bypass the wrapper or set `LG_CONFIG_FILE` yourself.
+- Partial config merges with lazygit defaults (`os.open`, keybindings, auto-fetch, etc.) — only overrides live in the store file.
+- `os.editPreset: micro` matches `programs.git` (`core.editor = micro`). Do not set `showIcons` alongside `nerdFontsVersion: "3"` (deprecated; forces v2 icons).
+- Default diff renderer is **unified** delta (`DELTA_FEATURES=-side-by-side`; git config has side-by-side on for CLI). Press `|` to cycle to **side-by-side**. Line-number hyperlinks open files in micro (`lazygit-edit://`).
 
 ## Rules
 - Wrapper-only config; wrap nixpkgs binaries, do not duplicate them in `packages/`

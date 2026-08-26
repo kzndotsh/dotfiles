@@ -59,7 +59,7 @@ What `ikigai` actually runs on.
 | Mono font | [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) |
 | Emoji | Twitter Color Emoji |
 
-Tokyo Night (Night). Same palette across sway, waybar, swaync, swaylock, ghostty, micro, btop, fzf, starship, and delta.
+Tokyo Night (Night). Same palette across sway, waybar, swaync, swaylock, ghostty, micro, btop, fzf, starship, lazygit, and delta.
 
 | | | |
 |--|--|--|
