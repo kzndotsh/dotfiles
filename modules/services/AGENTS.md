@@ -48,7 +48,8 @@ nix build .#nixosConfigurations.ikigai.config.system.build.toplevel
 - `DiskIO*` is qBittorrent `0=Disable / 1=Enable`. libtorrent `io_buffer_mode_t` is `0=enable / 2=disable`. We store `1`.
 - Intentional vs cargo-cult: `FilePoolSize = 400` (`high_performance_seed()`), `SocketBacklogSize = 30` (qBittorrent default). Send buffers are still felikcat 10G (`20480` / `2048` / `250`) — do not "fix" those unless asked.
 - `AnnounceToAllTiers = true` is qBittorrent (libtorrent default is false).
-- `serverConfig` overwrites the profile conf every start. WebUI password must be `Password_PBKDF2` here or it will not stick.
+- `serverConfig` overwrites `qBittorrent.conf` every start. WebUI password must be `Password_PBKDF2` here or it will not stick.
+- `categories.json` and `watched_folders.json` are overwritten on start (paths use `config.my.home`).
 - Localhost (`127.0.0.0/8`) skips WebUI auth — that is how qui talks to `:8080`.
 - Encryption is Allow (`0`). Queueing is pinned off (`QueueingSystemEnabled = false` → libtorrent `active_* = -1`).
 - `Preferences.Connection.PortRangeMin` is obsolete. Listen port is `torrentingPort` (63000). Do not turn it into `outgoing_port`.
