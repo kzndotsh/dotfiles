@@ -184,7 +184,14 @@ in
       XDG_STATE_HOME = "$HOME/.local/state";
       XDG_CACHE_HOME = "$HOME/.cache";
       XDG_BIN_HOME = "$HOME/.local/bin";
-      PATH = [ "$HOME/.local/bin" ];
+      PATH = [
+        "$HOME/.local/share/mise/shims"
+        "$HOME/.local/bin"
+        "$HOME/.local/share/npm/bin"
+        "$HOME/.local/share/pnpm/bin"
+        "$HOME/.local/share/bun/bin"
+        "$HOME/.local/share/python/bin"
+      ];
 
       TERMINAL = "ghostty";
       EDITOR = "micro";
@@ -196,6 +203,7 @@ in
       # mise defaults all_compile=true on NixOS (deprecated, removed in 2027.8.0). We compile from cache instead.
       MISE_ALL_COMPILE = "false";
       MISE_NODE_COMPILE = "false";
+      MISE_PYTHON_COMPILE = "false";
 
       # Use $HOME/… not $XDG_DATA_HOME/… so paths stay stable if XDG_* isn't set yet at login.
       CARGO_HOME = "$HOME/.local/share/cargo";
@@ -205,6 +213,9 @@ in
       NPM_CONFIG_PREFIX = "$HOME/.local/share/npm";
       NODE_REPL_HISTORY = "$HOME/.local/share/node_repl_history";
 
+      PNPM_HOME = "$HOME/.local/share/pnpm";
+      BUN_INSTALL = "$HOME/.local/share/bun";
+
       GOPATH = "$HOME/.local/share/go";
       GOMODCACHE = "$HOME/.cache/go/mod";
 
@@ -213,6 +224,10 @@ in
       PYTHON_HISTORY = "$HOME/.local/state/python_history";
       PYTHONPYCACHEPREFIX = "$HOME/.cache/python";
       PYTHONUSERBASE = "$HOME/.local/share/python";
+      PIP_CONFIG_FILE = "$HOME/.config/pip/pip.conf";
+      # mise owns global python (conf.d/python.toml); uv must not fetch a second interpreter tree.
+      UV_PYTHON_DOWNLOADS = "never";
+      # uv reads XDG_* — cache ~/.cache/uv, data ~/.local/share/uv, config ~/.config/uv; tool bins → XDG_BIN_HOME.
 
       GNUPGHOME = "$HOME/.local/share/gnupg";
       WGETRC = "$HOME/.config/wgetrc";
