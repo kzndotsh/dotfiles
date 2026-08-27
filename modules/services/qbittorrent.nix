@@ -2,8 +2,59 @@
 # Package is qbittorrent-nox 5.1.4 (libtorrent 2.0.12). serverConfig overwrites the profile on every start,
 # so WebUI password changes in the UI only stick if Password_PBKDF2 is set here. qBittorrent remaps libtorrent
 # units and enums — cite both when tuning. Seedbox preset high_performance_seed() uses file pool 400 and large send buffers.
-{ lib, config, ... }:
-{
+{ lib, config, pkgs, ... }:
+let
+  home = config.my.home;
+  user = config.my.username;
+  profileConfig = "/var/lib/qBittorrent/qBittorrent/config";
+  osintTorrents = "/run/media/${user}/d1ab1cad-9224-401d-aee7-f635ffb90b15/torrents";
+
+  categoryDefaults = {
+    download_path = null;
+    inactive_seeding_time_limit = -2;
+    ratio_limit = -2;
+    seeding_time_limit = -2;
+    share_limit_action = "Default";
+  };
+
+  categoriesJson = pkgs.writeText "qbittorrent-categories.json" (
+    builtins.toJSON {
+      OSINT = categoryDefaults // { save_path = osintTorrents; };
+      Public = categoryDefaults // { save_path = "${home}/Public"; };
+      Torrents = categoryDefaults // { save_path = "${home}/Downloads/torrents"; };
+      X = categoryDefaults // { save_path = "${home}/Downloads/X"; };
+      whisparr = categoryDefaults // {
+        download_path = false;
+        save_path = "${home}/Arr/downloads/adult";
+      };
+    }
+  );
+
+  watchedFoldersJson = pkgs.writeText "qbittorrent-watched-folders.json" (
+    builtins.toJSON {
+      "${home}/Downloads" = {
+        add_torrent_params = {
+          category = "";
+          download_limit = -1;
+          download_path = "";
+          inactive_seeding_time_limit = -2;
+          operating_mode = "AutoManaged";
+          ratio_limit = -2;
+          save_path = "";
+          seeding_time_limit = -2;
+          share_limit_action = "Default";
+          skip_checking = false;
+          ssl_certificate = "";
+          ssl_dh_params = "";
+          ssl_private_key = "";
+          tags = [ ];
+          upload_limit = -1;
+        };
+        recursive = false;
+      };
+    }
+  );
+in {
   services.qbittorrent = {
     enable = true;
     # Run as the desktop user so SavePath can be ~/Downloads (needs ProtectHome override below).
@@ -23,8 +74,8 @@
           AuthSubnetWhitelistEnabled = true;
         };
         Downloads = {
-          SavePath = "${config.my.home}/Downloads";
-          TempPath = "${config.my.home}/Downloads/.incomplete";
+          SavePath = "${home}/Downloads";
+          TempPath = "${home}/Downloads/.incomplete";
           TempPathEnabled = true;
         };
         # Obsolete since qBittorrent 4 — listen port is Session/Port / --torrenting-port. Kept in generated conf
@@ -104,10 +155,16 @@
 
   # Kernel TCP/BBR and 16 MiB buffers live in modules/boot/sysctl.nix.
 
-  systemd.services.qbittorrent.serviceConfig = {
-    # Matches PAM nofile in hardening/baseline.nix. File pool is 400 open torrents.
-    LimitNOFILE = 65536;
-    # NixOS hides /home by default; SavePath is ~/Downloads.
-    ProtectHome = lib.mkForce "no";
+  systemd.services.qbittorrent = {
+    preStart = lib.mkAfter ''
+      install -Dm644 ${categoriesJson} ${profileConfig}/categories.json
+      install -Dm644 ${watchedFoldersJson} ${profileConfig}/watched_folders.json
+    '';
+    serviceConfig = {
+      # Matches PAM nofile in hardening/baseline.nix. File pool is 400 open torrents.
+      LimitNOFILE = 65536;
+      # NixOS hides /home by default; SavePath is ~/Downloads.
+      ProtectHome = lib.mkForce "no";
+    };
   };
 }
