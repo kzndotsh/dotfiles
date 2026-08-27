@@ -79,6 +79,7 @@ let
   miseGlobalToolsScript = pkgs.writeShellScript "mise-global-tools" ''
     set -euo pipefail
     export HOME="${home}"
+    export PATH="/run/current-system/sw/bin:/run/current-system/sw/sbin:$PATH"
     export MISE_ALL_COMPILE=false
     export MISE_NODE_COMPILE=false
     export MISE_PYTHON_COMPILE=false
@@ -114,6 +115,7 @@ in
       RemainAfterExit = true;
       Environment = [
         "HOME=${home}"
+        "PATH=/run/current-system/sw/bin:/run/current-system/sw/sbin"
         "MISE_ALL_COMPILE=false"
         "MISE_NODE_COMPILE=false"
         "MISE_PYTHON_COMPILE=false"
