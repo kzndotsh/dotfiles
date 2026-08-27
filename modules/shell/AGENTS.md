@@ -9,6 +9,7 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 - zsh, starship, fzf (Ctrl-R history), zoxide, vivid, mise
 - **`command_timeout = 1000`** in Starship — global `core.fsmonitor` cold-starts can push first `git status` near the default 500ms limit on `cd` into a repo.
 - **Git prompt** (`default.nix`): `⎇ branch` → `rebasing 2/5` (when active) → `N staged · N changed · N new` → `↑N ahead · ↓N behind` → `detached @ hash`. No symbol salad (`!+?~`).
+- **Nix dev shell** (`nix_shell`): ` · nix flake` when direnv loads `use flake` — means the project dev shell is on PATH, not a generic “dev mode”.
 - **`CURSOR_AGENT`**: `shellInit` sets minimal store `starship.toml` — simpler prompt for Cursor agent terminal output ([docs](https://cursor.com/docs/agent/tools/terminal)). Ghostty/interactive shells keep full Starship from `default.nix`.
 - **direnv**: hook in `shellInit` (zshenv), not `interactiveShellInit` — Cursor agent runs `zsh -c` without loading `.zshrc`. Desktop sets `programs.direnv.enableZshIntegration = false` in `modules/dev/default.nix` to avoid double hooks.
 - `enableGlobalCompInit = false` — custom cached `compinit` in `zsh.nix` (NixOS default follows `enableCompletion`)

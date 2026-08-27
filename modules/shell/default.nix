@@ -60,7 +60,13 @@
           format = " · [detached @ $hash$tag]($style)";
         };
 
-        nix_shell = { symbol = " "; style = "#bb9af7"; format = " · [$symbol$state( \\($name\\))]($style)"; };
+        # Shown when direnv loads a flake dev shell (IN_NIX_SHELL).
+        nix_shell = {
+          style = "#bb9af7";
+          impure_msg = "nix flake";
+          pure_msg = "nix pure";
+          format = " · [$state]($style)";
+        };
         cmd_duration = { style = "#565f89"; min_time = 2000; format = "[$duration]($style) "; };
         character = { success_symbol = "[❯](bold #7aa2f7)"; error_symbol = "[❯](bold #db4b4b)"; };
       };
