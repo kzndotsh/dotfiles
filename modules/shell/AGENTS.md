@@ -12,11 +12,12 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 - **Nix dev shell** (`nix_shell`): ` · nix flake` when direnv loads `use flake` — means the project dev shell is on PATH, not a generic “dev mode”.
 - **`CURSOR_AGENT`**: `shellInit` sets minimal store `starship.toml` — simpler prompt for Cursor agent terminal output ([docs](https://cursor.com/docs/agent/tools/terminal)). Ghostty/interactive shells keep full Starship from `default.nix`.
 - **direnv**: hook in `shellInit` (zshenv), not `interactiveShellInit` — Cursor agent runs `zsh -c` without loading `.zshrc`. Desktop sets `programs.direnv.enableZshIntegration = false` in `modules/dev/default.nix` to avoid double hooks.
+- **mise**: shims on session PATH + `mise activate zsh --shims` in `shellInit`; full `mise activate zsh` in `interactiveShellInit`. Global pins in `modules/dev/mise.nix` — no repo-root `mise.toml`.
 - `enableGlobalCompInit = false` — custom cached `compinit` in `zsh.nix` (NixOS default follows `enableCompletion`)
 - `enableLsColors = false` — NixOS default `dircolors` runs after `interactiveShellInit` and would clobber vivid
 
 ## Highlights
-- Zsh (`zsh.nix`): mise, zoxide, vivid LS_COLORS; file helpers (`group_videos`, `group_images`, `mvwithsuffix`, `flattendir`, `list_file_extensions`, alias `emptydirs`)
+- Zsh (`zsh.nix`): mise shims (shellInit) + PATH activation (interactiveShellInit), zoxide, vivid LS_COLORS; file helpers. JS global bin PATH is in `modules/desktop/xdg.nix` session env — not duplicated in zsh.
 - Extra `setOptions`: `HIST_IGNORE_SPACE`, `HIST_REDUCE_BLANKS`, `HIST_FIND_NO_DUPS`, `INTERACTIVE_COMMENTS`, `NO_FLOW_CONTROL`. Do **not** add `INC_APPEND_HISTORY` — official docs: `SHARE_HISTORY` already appends and the two are mutually exclusive
 - Autosuggest: `history` then `completion`; `ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20`
 - Syntax highlighting: `main` + `brackets` (NixOS default is `main` only)
