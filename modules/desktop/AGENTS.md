@@ -12,7 +12,7 @@ WM-agnostic desktop: greeter, theme, fonts, audio, XDG/session, keyring, gnupg b
 | `greetd.nix` | regreet in cage, wallpaper from `assets/wallpaper.png`, `GDK_SCALE=2` |
 | `theme.nix` | GTK3/4 (Tokyonight-Dark derivation), Kvantum, Qt, cursor |
 | `fonts.nix` | `fonts.packages` + fontconfig rasterizer + `defaultFonts` |
-| `xdg.nix` | mime defaults, zathura + `/etc/zathurarc`, session env (1Password agent, ghostty, mise) |
+| `xdg.nix` | mime defaults, zathura + `/etc/zathurarc`, session env (1Password agent, ghostty, mise, npm/pnpm/bun/python PATH + prefixes) |
 | `keyring.nix` | gnome-keyring + greetd PAM (`enableGnomeKeyring`) |
 | `gnupg.nix` | `gnupg-xdg-bootstrap` (`config.my.home` / `username`) |
 | `security.nix` | `wheelNeedsPassword = mkDefault false`, `@users` memlock infinity |
