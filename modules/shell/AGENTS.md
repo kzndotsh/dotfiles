@@ -26,7 +26,7 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 - No Atuin — no Nix `programs.atuin` (DNS-only leftovers are not a service)
 
 ## Files
-- `default.nix` — barrel: starship, fzf, nix-index + **eza / vivid / zoxide / mise** (binary only; pins in `modules/dev/mise.nix`). Do not put `programs.zsh` here.
+- `default.nix` — barrel: starship, fzf, nix-index + **eza / httpie / ipython / vivid / zoxide / mise** (binary only; python/uv pins in `modules/dev/mise.nix`). Do not put `programs.zsh` here.
 - `zsh.nix` — all zsh: options, aliases, completion, functions, fzf-tab / mise / zoxide / vivid init
 - Do **not** split aliases/functions/starship into extra files — none are reused across hosts (repo rule: inline unless reused)
 

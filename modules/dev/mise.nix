@@ -30,15 +30,13 @@ let
     [tools]
     python = "3.12.14"
     uv = "0.12.6"
-    "pipx:ipython" = "9.16.1"
-    "pipx:httpie" = "3.2.4"
 
     [env]
     # Keep uv on mise-managed python, not nixpkgs/system interpreters.
     UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
   '';
 
-  # Importable libs for one-shot scripts / agents — not CLIs (those use pipx: above).
+  # Importable libs for one-shot scripts / agents — CLIs (ipython, httpie) are nixpkgs in shell/.
   scriptingRequirements = pkgs.writeText "mise-python-scripting.txt" ''
     requests==2.34.2
     httpx[http2,socks]==0.28.1

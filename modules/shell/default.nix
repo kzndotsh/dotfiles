@@ -5,6 +5,8 @@
 
   environment.systemPackages = with pkgs; [
     eza
+    httpie
+    python3Packages.ipython
     vivid
     zoxide
     mise
