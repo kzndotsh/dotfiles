@@ -40,13 +40,14 @@ Sources and skipped arkenfox items live in `firefox.nix` comments. Policies: htt
 - ETP Strict via `EnableTrackingProtection.Category`. FPP comes with Strict. Do **not** add RFP (fights fonts / Dark Reader / Tokyo Night).
 - `HttpsOnlyMode = "force_enabled"`. `DNSOverHTTPS` locked off (desktop uses systemd-resolved DoT; would also bypass the VM resolver).
 - 1Password lane: `OfferToSaveLogins` / `PasswordManagerEnabled` / autofill / form history off.
-- Disk cache 2 GiB on `/tmp/firefox-cache` (`smart_size` off). VM `/tmp` is 2G tmpfs — this can fill it. Do not add `StartDownloadsInTempDirectory`.
+- Disk cache on `/tmp/firefox-cache` with `smart_size` on (VM `/tmp` is 2G tmpfs). Do not add `StartDownloadsInTempDirectory`.
+- `browser.tabs.insertAfterCurrent = false` — `true` causes tab-strip reflow jank on rapid Ctrl+click.
 - HW decode: `media.hardware-video-decoding.force-enabled` locked false (VCN hang). `media.ffmpeg.vaapi.enabled` is gone upstream.
 - Fonts must match [`../desktop/fonts.nix`](../desktop/fonts.nix). `gfx.webrender.software` locked false.
 
 Force-installed (also on the VM — no 1Password app there):
 
-uBlock Origin, Dark Reader, Tokyo Night, 1Password, LLMFeeder, SponsorBlock, Violentmonkey, Raindrop.io
+uBlock Origin, Dark Reader, Tokyo Night, 1Password, LLMFeeder, SponsorBlock, Violentmonkey, Raindrop.io, Load Tab On Select
 
 ## Spicetify (desktop)
 
