@@ -3,6 +3,7 @@
   imports = [
     ./cursor.nix
     ./git.nix
+    ./mise.nix
   ];
 
   programs.direnv = {
