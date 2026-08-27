@@ -1,5 +1,22 @@
-# Git — delta pager, 1Password SSH signing, gh credential helper, LFS.
+# Git — delta pager, Cursor commit editor, 1Password SSH signing, gh credential helper, LFS.
 { pkgs, config, ... }:
+let
+  globalExcludes = pkgs.writeText "git-global-excludes" ''
+    # OS
+    .DS_Store
+    Thumbs.db
+    desktop.ini
+
+    # Editors
+    *~
+    *.swp
+    *.swo
+
+    # Nix / direnv
+    .direnv/
+    result
+  '';
+in
 {
   programs.git = {
     enable = true;
@@ -14,19 +31,26 @@
           signingkey = "~/.ssh/id_ed25519.pub";
         };
         core = {
-          editor = "micro";
+          editor = "cursor --reuse-window --wait";
           autocrlf = "input";
           pager = "delta";
+          excludesfile = globalExcludes;
+          fsmonitor = true;
+          untrackedCache = true;
         };
+        column.ui = "auto";
         init.defaultBranch = "main";
         branch = {
           autoSetupRebase = "always";
           sort = "-committerdate";
         };
+        tag.sort = "version:refname";
         pull.rebase = true;
         rebase = {
           autoStash = true;
           autoSquash = true;
+          updateRefs = true;
+          missingCommitsCheck = "error";
         };
         push = {
           autoSetupRemote = true;
@@ -36,10 +60,12 @@
         fetch = {
           prune = true;
           pruneTags = true;
+          all = true;
         };
         merge = {
           conflictstyle = "zdiff3";
-          ff = false;
+          ff = "only";
+          log = true;
         };
         interactive.diffFilter = "delta --color-only";
         rerere = {
@@ -50,7 +76,8 @@
         diff = {
           algorithm = "histogram";
           colorMoved = "default";
-          tool = "delta";
+          mnemonicPrefix = true;
+          renames = true;
         };
         delta = {
           true-color = "always";
@@ -85,8 +112,9 @@
           abbrevCommit = true;
           date = "relative";
         };
+        grep.patternType = "perl";
         protocol.version = 2;
-        help.autocorrect = 1;
+        help.autocorrect = "prompt";
         credential.helper = "!/run/current-system/sw/bin/gh auth git-credential";
         "url \"ssh://git@github.com/\"".insteadOf = "https://github.com/";
         alias = {
@@ -95,6 +123,7 @@
           p = "push";
           s = "status -s";
           d = "diff";
+          dw = "-c delta.side-by-side=false diff";
           l = "log --oneline --graph --decorate --all";
           co = "checkout";
           sw = "switch";
@@ -104,11 +133,15 @@
           can = "commit --amend --no-edit";
           aa = "add -A";
           dc = "diff --cached";
-          lg = "log --oneline --graph --decorate --all";
           pf = "push --force-with-lease";
           pl = "pull";
           up = "pull --rebase";
           undo = "reset HEAD~1";
+          fixup = "commit --fixup";
+          squash = "commit --squash";
+          wip = "commit -am WIP";
+          unstage = "restore --staged";
+          discard = "restore";
         };
       }
     ];

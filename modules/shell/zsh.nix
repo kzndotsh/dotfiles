@@ -6,11 +6,31 @@
 # Syntax highlighting runs mkAfter on interactiveShellInit; promptInit comes after that.
 # Init order in our mkAfter block: FZF_DEFAULT_OPTS → vivid/mise/zoxide/functions → fzf-tab (Tab last).
 { pkgs, lib, ... }:
+let
+  # Minimal prompt when Cursor Agent runs shell commands (cursor.com/docs/agent/tools/terminal).
+  cursorAgentStarship = pkgs.writeText "starship-cursor-agent.toml" ''
+    add_newline = false
+    format = "$directory$character"
+    directory.truncation_length = 1
+    directory.style = "bold #7aa2f7"
+    character.success_symbol = "[❯](bold #7aa2f7)"
+    character.error_symbol = "[❯](bold #db4b4b)"
+  '';
+in
 {
   programs.zsh = {
     enable = true;
     # Skip the first-run wizard if ~/.zshrc is missing.
-    shellInit = "zsh-newuser-install() { :; }";
+    shellInit = ''
+      zsh-newuser-install() { :; }
+      if [[ -n "$CURSOR_AGENT" ]]; then
+        export STARSHIP_CONFIG=${cursorAgentStarship}
+      fi
+      # Non-interactive shells (Cursor agent `zsh -c`) skip interactiveShellInit — hook direnv here.
+      if command -v direnv >/dev/null 2>&1; then
+        eval "$(direnv hook zsh)"
+      fi
+    '';
 
     # We run our own cached compinit below instead of NixOS's global one.
     enableGlobalCompInit = false;

@@ -43,7 +43,8 @@ nix-wrappers flake input — declarative CLI wrappers.
 - `--use-config-file` points at a store `config.yml` (Tokyo Night night + delta via `diffRenderers`). In-app config edits do not persist.
 - `~/.config/lazygit/config.yml` is ignored unless you bypass the wrapper or set `LG_CONFIG_FILE` yourself.
 - Partial config merges with lazygit defaults (`os.open`, keybindings, auto-fetch, etc.) — only overrides live in the store file.
-- `os.editPreset: micro` matches `programs.git` (`core.editor = micro`). Do not set `showIcons` alongside `nerdFontsVersion: "3"` (deprecated; forces v2 icons).
+- `os.editPreset: micro` for lazygit **file** edits (`e`, line hyperlinks) — stays in the TUI/terminal. **`core.editor`** (Cursor `--wait`) is separate: commit messages, `rebase -i`, merges without `-m`.
+- Do not set `showIcons` alongside `nerdFontsVersion: "3"` (deprecated; forces v2 icons).
 - Default diff renderer is **unified** delta (`DELTA_FEATURES=-side-by-side`; git config has side-by-side on for CLI). Press `|` to cycle to **side-by-side**. Line-number hyperlinks open files in micro (`lazygit-edit://`).
 
 ## Rules
