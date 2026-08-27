@@ -11,14 +11,14 @@
     preferencesStatus = "user";
 
     preferences = {
-      "browser.tabs.insertAfterCurrent" = true;
+      # false = append tabs at strip end; true causes O(n) reflow jank on rapid Ctrl+click.
+      "browser.tabs.insertAfterCurrent" = false;
       "browser.aboutConfig.showWarning" = false;
       "browser.download.useDownloadDir" = true;
       "browser.sessionstore.interval" = 60000;
-      # capacity is KiB; smart_size ignores it until disabled.
       "browser.cache.disk.enable" = true;
-      "browser.cache.disk.smart_size.enabled" = false;
-      "browser.cache.disk.capacity" = 2097152; # 2 GiB
+      "browser.cache.disk.smart_size.enabled" = true;
+      "browser.cache.disk.capacity" = 2097152; # 2 GiB cap when smart_size is off
       # VM guest /tmp is 2G tmpfs — this cache can fill it.
       "browser.cache.disk.parent_directory" = "/tmp/firefox-cache";
       # 1 = always use the native portal file picker on Linux.
@@ -187,6 +187,11 @@
         "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack" = {
           installation_mode = "force_installed";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/raindropio/latest.xpi";
+        };
+        # Discard background tabs until selected — avoids parent-process jank on Ctrl+click bursts.
+        "Load_Tab_On_Select@chodur.com" = {
+          installation_mode = "force_installed";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/load-tab-on-select/latest.xpi";
         };
       };
     };
