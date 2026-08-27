@@ -4,7 +4,7 @@
 # Default setOptions include HIST_IGNORE_DUPS, SHARE_HISTORY, and HIST_FCNTL_LOCK.
 # SHARE_HISTORY already appends incrementally — do not also set INC_APPEND_HISTORY (they conflict).
 # Syntax highlighting runs mkAfter on interactiveShellInit; promptInit comes after that.
-# Init order in our mkAfter block: FZF_DEFAULT_OPTS → vivid/mise/zoxide/functions → fzf-tab (Tab last).
+# Init order in our mkAfter block: FZF_DEFAULT_OPTS → vivid/mise (PATH activation)/zoxide/functions → fzf-tab (Tab last).
 { pkgs, lib, ... }:
 let
   # Minimal prompt when Cursor Agent runs shell commands (cursor.com/docs/agent/tools/terminal).
@@ -26,9 +26,12 @@ in
       if [[ -n "$CURSOR_AGENT" ]]; then
         export STARSHIP_CONFIG=${cursorAgentStarship}
       fi
-      # Non-interactive shells (Cursor agent `zsh -c`) skip interactiveShellInit — hook direnv here.
+      # Non-interactive shells (Cursor agent `zsh -c`) skip interactiveShellInit — hook direnv + mise shims here.
       if command -v direnv >/dev/null 2>&1; then
         eval "$(direnv hook zsh)"
+      fi
+      if command -v mise >/dev/null 2>&1; then
+        eval "$(mise activate zsh --shims)"
       fi
     '';
 
@@ -133,8 +136,6 @@ in
       # fzf-tab goes last so it owns Tab. FZF_DEFAULT_OPTS is set first (plugin reads it at Tab).
       (lib.mkAfter ''
         export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none --color=bg+:#283457 --color=bg:#16161e --color=border:#27a1b9 --color=fg:#c0caf5 --color=gutter:#16161e --color=header:#ff9e64 --color=hl+:#2ac3de --color=hl:#2ac3de --color=info:#545c7e --color=marker:#ff007c --color=pointer:#ff007c --color=prompt:#2ac3de --color=query:#c0caf5:regular --color=scrollbar:#27a1b9 --color=separator:#ff9e64 --color=spinner:#ff007c"
-
-        export PATH="$XDG_DATA_HOME/npm/bin:$PATH"
 
         if command -v vivid >/dev/null; then
           export LS_COLORS="$(vivid generate tokyonight-night)"
