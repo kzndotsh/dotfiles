@@ -80,6 +80,7 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 | Local LLM / image gen      | `modules/ai/`                                                        | Ollama `:11434`, ComfyUI `:8188`             |
 | Voice (STT + TTS)          | `modules/ai/voice.nix` + `ai.voice` in desktop host                  | Open WebUI follows `openWebui.stt` / `tts`   |
 | Themed CLI wrappers        | `modules/wrappers/`                                                  | fuzzel, ghostty, profanity, btop-rocm, micro |
+| Global JS/Python (mise)    | `modules/dev/mise.nix`, `modules/desktop/xdg.nix`                      | Pins in Nix; `systemctl --user restart mise-global-tools` after changes |
 | VPS service / DNS          | `hosts/vps/configuration.nix`, `infra/cloudflare.nix`              | sops secrets                                 |
 | Provision / destroy VPS    | `infra/state/kzn/`                                                   | `nix run .#vps-plan` (`.env.kzn`)            |
 | Hardened VM image          | `hosts/hardened-vm/`, `nix run .#vm-install`                         | LUKS passphrase → `/tmp/luks-password`       |
@@ -157,6 +158,7 @@ Before marking a dotfiles task complete:
 - VPS `#vps` is the kzn.sh slim stack (`identity.vpsDns`)
 - `specialArgs.identity` is `lib/identity.nix`; VPS flake overlays `hostName = vpsHostName` + `sopsFile`
 - Desktop AI stack: `modules/services/default.nix` → `modules/ai/`
+- Global dev runtimes: `modules/dev/mise.nix` (pinned node/pnpm/bun/python/uv + agent scripting libs); session PATH/prefixes in `modules/desktop/xdg.nix`; compiled Python wheels need `modules/programs/nix-ld.nix`
 
 ## Host constraints
 

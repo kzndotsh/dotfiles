@@ -80,6 +80,7 @@ Zathura: `pkgs.zathura` here (not `modules/packages`). Tokyo Night + recolor in 
 - greetd does not substack `login` PAM — keyring unlock is `pam.services.greetd`, not `login`.
 - Sway also execs `gnome-keyring-daemon --components=secrets`.
 - `SSH_AUTH_SOCK` / `TERMINAL=ghostty` / bash `HISTFILE` live here so they do not leak onto the VM. Zsh history is `programs.zsh.histFile` in `modules/shell`.
+- **Global JS/Python (mise)**: `sessionVariables` here set mise shims, npm/pnpm/bun/python bin PATH, `UV_PYTHON_DOWNLOADS=never`, and related prefixes. Tool pins and scripting libs live in [`../dev/mise.nix`](../dev/mise.nix). After pin changes: `systemctl --user restart mise-global-tools`.
 
 ## Related
 

@@ -12,7 +12,7 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 - **Nix dev shell** (`nix_shell`): ` · nix flake` when direnv loads `use flake` — means the project dev shell is on PATH, not a generic “dev mode”.
 - **`CURSOR_AGENT`**: `shellInit` sets minimal store `starship.toml` — simpler prompt for Cursor agent terminal output ([docs](https://cursor.com/docs/agent/tools/terminal)). Ghostty/interactive shells keep full Starship from `default.nix`.
 - **direnv**: hook in `shellInit` (zshenv), not `interactiveShellInit` — Cursor agent runs `zsh -c` without loading `.zshrc`. Desktop sets `programs.direnv.enableZshIntegration = false` in `modules/dev/default.nix` to avoid double hooks.
-- **mise**: shims on session PATH + `mise activate zsh --shims` in `shellInit`; full `mise activate zsh` in `interactiveShellInit`. Global pins in `modules/dev/mise.nix` — no repo-root `mise.toml`.
+- **mise**: `pkgs.mise` in `default.nix`; global **pins/config** in [`../dev/mise.nix`](../dev/mise.nix). Shims on session PATH + `mise activate zsh --shims` in `shellInit`; full `mise activate zsh` in `interactiveShellInit`. No repo-root `mise.toml`.
 - `enableGlobalCompInit = false` — custom cached `compinit` in `zsh.nix` (NixOS default follows `enableCompletion`)
 - `enableLsColors = false` — NixOS default `dircolors` runs after `interactiveShellInit` and would clobber vivid
 
@@ -26,7 +26,7 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 - No Atuin — no Nix `programs.atuin` (DNS-only leftovers are not a service)
 
 ## Files
-- `default.nix` — barrel: starship, fzf, nix-index + **eza / vivid / zoxide / mise** (zsh aliases and init). Do not put `programs.zsh` here.
+- `default.nix` — barrel: starship, fzf, nix-index + **eza / vivid / zoxide / mise** (binary only; pins in `modules/dev/mise.nix`). Do not put `programs.zsh` here.
 - `zsh.nix` — all zsh: options, aliases, completion, functions, fzf-tab / mise / zoxide / vivid init
 - Do **not** split aliases/functions/starship into extra files — none are reused across hosts (repo rule: inline unless reused)
 

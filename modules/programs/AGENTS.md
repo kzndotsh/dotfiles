@@ -24,6 +24,12 @@ Not here: Profanity is [`../wrappers/`](../wrappers/AGENTS.md). Cursor argv is [
 - VM: `modules/programs/firefox.nix` only — do not import this directory
 - VPS: none
 
+## nix-ld
+
+- Required for mise/uv **prebuilt** Python and compiled wheels (numpy, selectolax, …) on NixOS — not for nixpkgs `python3` in services.
+- Library set follows [NixOS Wiki — Python](https://wiki.nixos.org/wiki/Python) plus desktop GUI libs (`dbus`, `libxcb`, `libxkbcommon`).
+- Global Python pins: [`../dev/mise.nix`](../dev/mise.nix).
+
 ## SSH client (`ssh.nix`)
 
 - `Host *` → `IdentityAgent ~/.1password/agent.sock`

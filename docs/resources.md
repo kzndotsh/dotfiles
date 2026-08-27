@@ -234,6 +234,7 @@ Theme, fonts, XDG, keyring, and session defaults.
 - `modules/desktop/xdg.nix`
   - [freedesktop — latest](https://specifications.freedesktop.org/basedir-spec/latest/)
   - [mise.jdx.dev — settings#all compile](https://mise.jdx.dev/configuration/settings.html#all_compile)
+  - [mise.jdx.dev — settings#python.uv_venv_auto](https://mise.jdx.dev/configuration/settings.html#python.uv_venv_auto)
   - [NixOS Wiki — XDG Base Directory](https://wiki.nixos.org/wiki/XDG_Base_Directory)
 
 
@@ -275,6 +276,12 @@ Sway, Waybar, portals, clipboard, and window rules.
 
 Editor and dev tooling.
 
+- `modules/dev/mise.nix`
+  - [mise.jdx.dev — lang/python](https://mise.jdx.dev/lang/python.html)
+  - [mise.jdx.dev — mise-cookbook/python](https://mise.jdx.dev/mise-cookbook/python.html)
+  - [docs.astral.sh — uv](https://docs.astral.sh/uv/)
+  - [NixOS Wiki — Python](https://wiki.nixos.org/wiki/Python)
+  - [NixOS Wiki — Python quickstart using uv](https://wiki.nixos.org/wiki/Python_quickstart_using_uv)
 - `modules/dev/cursor.nix`
   - [cursor.com — docs](https://www.cursor.com/docs)
 
@@ -399,6 +406,9 @@ DAWs, plugins, yabridge, and FL Studio on Linux.
 
 Firefox policies, extensions, and desktop apps.
 
+- `modules/programs/nix-ld.nix`
+  - [github.com — nix-community/nix-ld](https://github.com/nix-community/nix-ld)
+  - [NixOS Wiki — Python](https://wiki.nixos.org/wiki/Python) — nix-ld for mise/uv prebuilt interpreters and compiled wheels
 - `modules/programs/firefox.nix`
   - [addons.mozilla.org — llmfeeder](https://addons.mozilla.org/firefox/addon/llmfeeder/) — guid from AMO API
   - [arkenfox/user.js](https://github.com/arkenfox/user.js) — Not an arkenfox port. (v144)

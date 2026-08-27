@@ -40,11 +40,12 @@ What `ikigai` actually runs on.
 | Launcher | [fuzzel](https://codeberg.org/dnkl/fuzzel) |
 | File manager | [Nautilus](https://apps.gnome.org/Nautilus/) |
 | Browser | Firefox |
-| Shell | zsh + starship |
+| Shell | zsh + starship + [mise](https://mise.jdx.dev/) (node/pnpm/bun/python/uv) |
 | Audio | PipeWire + WirePlumber |
 | Kernel / GPU stack | Zen kernel, Mesa RADV, ROCm (`gfx1030` override), VA-API radeonsi |
 | Theme | Tokyo Night (GTK, Qt, Ghostty, Firefox, Spotify) |
 | Gaming | Steam, Wine, emulators via [nix-gaming](https://github.com/fufexan/nix-gaming) |
+| Dev runtimes | [mise](https://mise.jdx.dev/) — pinned node/pnpm/bun/python/uv (`modules/dev/mise.nix`); projects use direnv + `uv sync` |
 | AI | Ollama, ComfyUI, Open WebUI, kiro-gateway |
 
 ## Theme

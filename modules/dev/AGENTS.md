@@ -11,7 +11,7 @@ Developer tooling — git, direnv, global mise (JS + Python), Cursor argv. Deskt
 | `default.nix` | direnv + nix-direnv; imports `cursor.nix`, `git.nix`, `mise.nix` |
 | `git.nix` | git + LFS, delta pager, global excludes (store), fsmonitor; `core.editor` = Cursor `--wait`; lazygit file edits stay on micro |
 | `cursor.nix` | tmpfiles → store symlinks for `argv.json`, `.cursor/worktrees.json`, `.cursor/rules/worktree.mdc` under `config.my.dotfilesDir`; `DOTFILES_DIR` env |
-| `mise.nix` | Global mise: `~/.config/mise/config.toml` (settings), `conf.d/{nodejs,python}.toml` (pinned tools), npmrc, home-prefix dirs; user oneshot `mise-global-tools` (`mise install` + `uv pip install` scripting libs into global python) |
+| `mise.nix` | Global mise: `config.toml` + `conf.d/{nodejs,python}.toml`; `scriptingRequirements` for agent one-shot libs; oneshot `mise-global-tools` |
 
 ## Gotchas
 

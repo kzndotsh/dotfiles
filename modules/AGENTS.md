@@ -13,7 +13,7 @@ NixOS modules for desktop (+ cherry-picked for hardened-vm). Identity lives in [
 | `boot/` | systemd-boot, Zen kernel, sysctl, udev, zram/THP |
 | `desktop/` | greetd/regreet, theme, fonts, XDG/session, keyring, gnupg, workstation sudo |
 | `desktop/sway/` | Full Sway session |
-| `dev/` | git (1Password sign), direnv, Cursor argv |
+| `dev/` | git (1Password sign), direnv, global mise (JS/Python/uv), Cursor argv |
 | `gaming/` | Steam, emulators, RuneLite, crankshaft (Wine stack is `wine/`) |
 | `music/` | DAWs, plugins, yabridge, audio production tools |
 | `hardening` | VPS whole dir. Desktop imports `ssh.nix` + `baseline.nix` (not `sysctl.nix`). |
