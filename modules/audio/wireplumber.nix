@@ -30,6 +30,18 @@ _:
       ];
     };
 
+    # FiiO E10: pro-audio locks 44.1 kHz — VC/Yeti run 48 kHz and resampling causes pops.
+    "51-fiio-profile" = {
+      "monitor.alsa.rules" = [
+        {
+          matches = [{ "device.name" = "~alsa_card.usb-FIIO*"; }];
+          actions.update-props = {
+            "device.profile" = "output:analog-stereo";
+          };
+        }
+      ];
+    };
+
     # Yeti X: skip WirePlumber's "best profile" — it often picks a multichannel/IEC958 mix we don't want.
     "52-yeti-profile" = {
       "monitor.alsa.rules" = [
@@ -43,7 +55,7 @@ _:
     };
 
     # Mute onboard and HDMI audio (alsa_card.pci-*). This also silences GPU HDMI output.
-    "51-disable-devices" = {
+    "53-disable-devices" = {
       "monitor.alsa.rules" = [
         {
           matches = [{ "device.name" = "~alsa_card.pci-*"; }];
@@ -71,7 +83,7 @@ _:
     };
 
     # Default capture volume when WirePlumber has no saved route (0.8 = 80% linear).
-    "53-yeti-volume" = {
+    "54-yeti-volume" = {
       "monitor.alsa.rules" = [
         {
           matches = [{ "device.name" = "~alsa_card.usb-Blue_Microphones*"; }];
