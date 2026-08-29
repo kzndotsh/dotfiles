@@ -35,18 +35,19 @@ What `ikigai` actually runs on.
 | | |
 |--|--|
 | Window manager | [Sway](https://swaywm.org/) + [regreet](https://github.com/rharish101/ReGreet) |
-| Bar / lock / notifications | Waybar, swaylock, swaync |
+| Bar / lock / notifications | [Waybar](https://github.com/Alexays/Waybar), [swaylock-effects](https://github.com/jirutka/swaylock-effects), [swaync](https://github.com/ErikReider/SwayNotificationCenter) |
+| Window switcher | [swayr](https://git.sr.ht/~tsdh/swayr) (fuzzel backend) |
 | Terminal / editor | [Ghostty](https://ghostty.org/), [micro](https://github.com/zyedidia/micro) |
 | Launcher | [fuzzel](https://codeberg.org/dnkl/fuzzel) |
 | File manager | [Nautilus](https://apps.gnome.org/Nautilus/) |
-| Browser | Firefox |
-| Shell | zsh + starship + [mise](https://mise.jdx.dev/) (node/pnpm/bun/python/uv) |
-| Audio | PipeWire + WirePlumber |
-| Kernel / GPU stack | Zen kernel, Mesa RADV, ROCm (`gfx1030` override), VA-API radeonsi |
+| Browser | [Firefox](https://www.mozilla.org/firefox/) |
+| Shell | [zsh](https://www.zsh.org/) + [starship](https://starship.rs/) + [mise](https://mise.jdx.dev/) (node/pnpm/bun/python/uv) |
+| Audio | [PipeWire](https://pipewire.org/) + [WirePlumber](https://pipewire.pages.freedesktop.org/wireplumber/) |
+| Kernel / GPU stack | [Zen](https://github.com/zen-kernel/zen-kernel) kernel, Mesa RADV, [ROCm](https://rocm.docs.amd.com/) (`gfx1030` override), VA-API radeonsi |
 | Theme | Tokyo Night (GTK, Qt, Ghostty, Firefox, Spotify) |
-| Gaming | Steam, Wine, emulators via [nix-gaming](https://github.com/fufexan/nix-gaming) |
-| Dev runtimes | [mise](https://mise.jdx.dev/) — pinned node/pnpm/bun/python/uv (`modules/dev/mise.nix`); projects use direnv + `uv sync` |
-| AI | Ollama, ComfyUI, Open WebUI, kiro-gateway |
+| Gaming | [Steam](https://store.steampowered.com/), Wine, emulators via [nix-gaming](https://github.com/fufexan/nix-gaming) |
+| Dev runtimes | [mise](https://mise.jdx.dev/) — pinned node/pnpm/bun/python/uv (`modules/dev/mise.nix`); projects use direnv + [uv](https://docs.astral.sh/uv/) sync |
+| AI | [Ollama](https://ollama.com/), [ComfyUI](https://github.com/comfyanonymous/ComfyUI), [Open WebUI](https://openwebui.com/), [kiro-gateway](https://github.com/jwadow/kiro-gateway), [w-okada](https://github.com/w-okada/voice-changer) (RVC) |
 
 ## Theme
 
@@ -60,7 +61,7 @@ What `ikigai` actually runs on.
 | Mono font | [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) |
 | Emoji | Twitter Color Emoji |
 
-Tokyo Night (Night). Same palette across sway, waybar, swaync, swaylock, ghostty, micro, btop, fzf, starship, lazygit, and delta.
+Tokyo Night (Night). Same palette across [Sway](https://swaywm.org/), [Waybar](https://github.com/Alexays/Waybar), [swaync](https://github.com/ErikReider/SwayNotificationCenter), [swaylock-effects](https://github.com/jirutka/swaylock-effects), [Ghostty](https://ghostty.org/), [micro](https://github.com/zyedidia/micro), [btop](https://github.com/aristocratos/btop), [fzf](https://github.com/junegunn/fzf), [starship](https://starship.rs/), [lazygit](https://github.com/jesseduffield/lazygit), and [delta](https://github.com/dandavison/delta).
 
 | | | |
 |--|--|--|
@@ -79,13 +80,13 @@ Tokyo Night (Night). Same palette across sway, waybar, swaync, swaylock, ghostty
 
 | Key | Action |
 |--|--|
-| `Alt + Return` | Terminal (ghostty) |
-| `Alt + d` | Launcher (fuzzel) |
-| `Alt + grave` | Window switcher (swayr) |
-| `Alt + c` | Color picker to clipboard |
-| `Alt + period` | Emoji picker (bemoji) |
-| `Alt + Shift + v` | Clipboard history (cliphist) |
-| `Alt + Shift + n` | Toggle notifications (swaync) |
+| `Alt + Return` | Terminal ([ghostty](https://ghostty.org/)) |
+| `Alt + d` | Launcher ([fuzzel](https://codeberg.org/dnkl/fuzzel)) |
+| `Alt + grave` | Window switcher ([swayr](https://git.sr.ht/~tsdh/swayr)) |
+| `Alt + c` | Color picker to clipboard ([wl-color-picker](https://github.com/jgmdev/wl-color-picker)) |
+| `Alt + period` | Emoji picker ([bemoji](https://github.com/marty-oehme/bemoji/)) |
+| `Alt + Shift + v` | Clipboard history ([cliphist](https://github.com/sentriz/cliphist)) |
+| `Alt + Shift + n` | Toggle notifications ([swaync](https://github.com/ErikReider/SwayNotificationCenter)) |
 | `Print` | Whole screen to clipboard |
 | `Ctrl + Print` | Region to [satty](https://github.com/gabm/Satty) |
 | `Alt + Shift + s` | Region upload to Zipline |
@@ -93,9 +94,9 @@ Tokyo Night (Night). Same palette across sway, waybar, swaync, swaylock, ghostty
 | `Alt + f` | Fullscreen |
 | `Alt + Shift + space` | Toggle floating |
 | `Alt + Shift + q` | Kill window |
-| `Alt + Shift + l` | Lock (swaylock) |
-| `Alt + Shift + r` | Reload sway |
-| `Alt + Shift + e` | Exit sway (confirm) |
+| `Alt + Shift + l` | Lock ([swaylock-effects](https://github.com/jirutka/swaylock-effects)) |
+| `Alt + Shift + r` | Reload [Sway](https://swaywm.org/) |
+| `Alt + Shift + e` | Exit Sway (confirm) |
 
 ## Architecture
 
