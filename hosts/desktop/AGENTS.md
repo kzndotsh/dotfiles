@@ -26,6 +26,7 @@ wrappers, nix, desktop+sway (XDG/keyring/gnupg/sudo/fonts in desktop barrel), bo
 - sshd `PermitRootLogin = no`; TCP forwarding stays OpenSSH default (yes). VPS pins forwarding off.
 - Gaming: Lutris, Heroic, Bottles, Prism Launcher, RuneLite, `audio.lowLatency`
 - Voice: `ai.voice` — speaches + kokoro + fish on; moss / chatterbox off; Open WebUI STT=speaches TTS=fish
+- w-okada: `ai.wOkada` on; `w-okada` starts the user unit (one instance); `--stop` to kill; login autostart is `server.enable` (off); S. Threshold **0.0001** (not `0.00001`); do not change UI CHUNK (Nix 128)
 
 ## Flake
 `nixosConfigurations.ikigai` (alias `nixos`) + `NixVirt` + read-only pkgs. Identity: `lib/identity.nix`.

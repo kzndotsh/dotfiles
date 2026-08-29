@@ -79,4 +79,20 @@
     openWebui.stt = "speaches";
     openWebui.tts = "fish";
   };
+
+  # w-okada RVC — w-okada-setup once, then `w-okada` + virtual mic.
+  ai.wOkada = {
+    enable = true;
+    virtualMic.enable = true;
+    server.enable = false;
+    defaults = {
+      pitchSemitones = 12;
+      readChunkSize = 128;
+      extraConvertSize = 32768;
+      f0Detector = "rmvpe";
+      silenceFront = false;
+      silentThreshold = 0.0001;
+      force = true;
+    };
+  };
 }

@@ -16,6 +16,7 @@ packages/
 ├── kiro-gateway/       # flake output — Anthropic proxy :9000
 ├── crankshaft/         # flake output — Steam overlay AppImage
 ├── session-desktop/    # flake output — wrapped Session (not in systemPackages)
+├── w-okada/            # w-okada setup/start/mic scripts (module ai.wOkada)
 └── fish-tts-proxy/     # Docker image only (not a flake output)
 ```
 
@@ -26,12 +27,14 @@ packages/
 | `kiro-gateway/` | `kiro-gateway` | Local model proxy :9000 |
 | `crankshaft/` | `crankshaft` | KraXen72 overlay AppImage (**2.0.1**, `crankshaft-x64.AppImage`) |
 | `session-desktop/` | `session-desktop` | Session wrap; **not** in `systemPackages` (broken pnpm lock) |
+| `w-okada/` | *(module callPackage)* | w-okada RVC helpers for `ai/w-okada.nix` |
 | `fish-tts-proxy/` | *(none)* | Docker image `fish-tts-proxy:latest` for `ai/voice.nix` |
 
 ## Consumers
 
 - `modules/gaming/crankshaft.nix` — crankshaft
 - `modules/ai/kiro-gateway.nix` — kiro-gateway
+- `modules/ai/w-okada.nix` — w-okada scripts
 - `modules/ai/voice.nix` (`ai.voice.fish`) — fish-tts-proxy Docker image
 
 ## Verify
@@ -49,6 +52,7 @@ nix build .#nixosConfigurations.ikigai.config.system.build.toplevel
 - [`packages/crankshaft/AGENTS.md`](crankshaft/AGENTS.md)
 - [`packages/session-desktop/AGENTS.md`](session-desktop/AGENTS.md)
 - [`packages/fish-tts-proxy/AGENTS.md`](fish-tts-proxy/AGENTS.md)
+- [`packages/w-okada/AGENTS.md`](w-okada/AGENTS.md)
 - [`flake.nix`](../flake.nix)
 - [`modules/packages/AGENTS.md`](../modules/packages/AGENTS.md)
 - [`Root AGENTS.md`](../AGENTS.md)

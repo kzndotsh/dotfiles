@@ -5,6 +5,7 @@
     ./comfyui.nix
     ./open-webui.nix
     ./voice.nix
+    ./w-okada.nix
     ./kiro-gateway.nix
     # hermes-agent and sillytavern retired — see archive/ (gitignored)
   ];
