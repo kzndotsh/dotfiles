@@ -79,7 +79,7 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 | kiro-gateway / models      | `modules/ai/kiro-gateway.nix`, `packages/kiro-gateway/`              | `:9000`, keys in `~/.secrets/ai.env`         |
 | Local LLM / image gen      | `modules/ai/`                                                        | Ollama `:11434`, ComfyUI `:8188`             |
 | Voice (STT + TTS)          | `modules/ai/voice.nix` + `ai.voice` in desktop host                  | Open WebUI follows `openWebui.stt` / `tts`   |
-| Themed CLI wrappers        | `modules/wrappers/`                                                  | fuzzel, ghostty, profanity, btop-rocm, micro |
+| Themed CLI wrappers        | `modules/wrappers/`                                                  | fuzzel, ghostty, profanity, btop-rocm, micro, lazygit |
 | Global JS/Python (mise)    | `modules/dev/mise.nix`, `modules/desktop/xdg.nix`                      | Pins in Nix; `systemctl --user restart mise-global-tools` after changes |
 | VPS service / DNS          | `hosts/vps/configuration.nix`, `infra/cloudflare.nix`              | sops secrets                                 |
 | Provision / destroy VPS    | `infra/state/kzn/`                                                   | `nix run .#vps-plan` (`.env.kzn`)            |

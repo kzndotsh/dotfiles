@@ -24,7 +24,7 @@ NixOS modules for desktop (+ cherry-picked for hardened-vm). Identity lives in [
 | `programs/` | Desktop barrel (1Password, Firefox, nh, SSH, Spicetify). VM imports `firefox.nix` only. |
 | `services/` | Desktop barrel: Docker, libvirt, Vagrant, copyparty, daemons, AI/torrent (not sshd) |
 | `shell/` | zsh, starship, fzf |
-| `wrappers/` | nix-wrappers (fuzzel, ghostty, profanity, btop, micro) |
+| `wrappers/` | nix-wrappers (fuzzel, ghostty, profanity, btop, micro, lazygit) |
 | `wine/` | Shared Wine stack (wine-tkg, winetricks, Xft rendering) |
 
 ## Adding a module
