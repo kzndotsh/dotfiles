@@ -6,7 +6,7 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 
 ## Quick facts
 
-- zsh, starship, fzf (Ctrl-R history), zoxide, vivid, mise
+- zsh, starship, fzf (Ctrl-R history, Ctrl-T files), zoxide, vivid, mise
 - **`command_timeout = 1000`** in Starship — global `core.fsmonitor` cold-starts can push first `git status` near the default 500ms limit on `cd` into a repo.
 - **Git prompt** (`default.nix`): `⎇ branch` → `rebasing 2/5` (when active) → `N staged · N changed · N new` → `↑N ahead · ↓N behind` → `detached @ hash`. No symbol salad (`!+?~`).
 - **Nix dev shell** (`nix_shell`): ` · nix flake` when direnv loads `use flake` — means the project dev shell is on PATH, not a generic “dev mode”.
