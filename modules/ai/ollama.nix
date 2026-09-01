@@ -68,6 +68,46 @@ let
         PARAMETER num_ctx 4096
       '';
     }
+    # NSFW/dark slot. UGI ~37.7, NSFW 9.4, dark 6.7. Q4 ~5.8 GB.
+    {
+      name = "gemmasutra-9b";
+      modelfile = pkgs.writeText "gemmasutra-9b.modelfile" ''
+        FROM hf.co/TheDrummer/Gemmasutra-9B-v1-GGUF:Q4_K_M
+        PARAMETER num_ctx 8192
+      '';
+    }
+    # NSFW/dark slot. UGI ~39.9, W/10 8.2, NSFW 7.4, dark 6.4. Q4 ~7.6 GB.
+    {
+      name = "hypernovasynth-12b";
+      modelfile = pkgs.writeText "hypernovasynth-12b.modelfile" ''
+        FROM hf.co/mradermacher/HyperNovaSynth-12B-GGUF:Q4_K_M
+        PARAMETER num_ctx 8192
+      '';
+    }
+    # NSFW/dark slot. UnslopNemo 12B v4.1, writing ~39, NSFW 8.9, dark 7.3. Q4 ~7.6 GB.
+    {
+      name = "unslopnemo-12b";
+      modelfile = pkgs.writeText "unslopnemo-12b.modelfile" ''
+        FROM hf.co/mradermacher/UnslopNemo-12B-v4.1-GGUF:Q4_K_M
+        PARAMETER num_ctx 8192
+      '';
+    }
+    # NSFW/dark ceiling. Impish Bloodmoon 12B Abliterated, NSFW ~9.4, dark ~7.8. Q4 ~7.6 GB.
+    {
+      name = "impish-bloodmoon-12b";
+      modelfile = pkgs.writeText "impish-bloodmoon-12b.modelfile" ''
+        FROM hf.co/mradermacher/Impish_Bloodmoon_12B_Abliterated-GGUF:Q4_K_M
+        PARAMETER num_ctx 8192
+      '';
+    }
+    # NSFW/dark ceiling. KansenSakura Eclipse RP 12B, NSFW 9.4, dark 8.7. Q4 ~7.6 GB.
+    {
+      name = "kansensakura-eclipse-12b";
+      modelfile = pkgs.writeText "kansensakura-eclipse-12b.modelfile" ''
+        FROM hf.co/mradermacher/KansenSakura-Eclipse-RP-12b-GGUF:Q4_K_M
+        PARAMETER num_ctx 8192
+      '';
+    }
   ];
 
   ollamaMoEDownloadModels = [
@@ -116,7 +156,7 @@ in
     # Don't pin DPM=high / COMPUTE here — forced clocks under CS2 caused MES hangs.
     # GameMode unloads models; the SMU ramps on inference.
     ollama-custom-models = {
-      description = "Create Ollama custom models (DeepSeek 14B @ 4k, RP, Unsloth, HauhauCS)";
+      description = "Create Ollama custom models (DeepSeek 14B @ 4k, RP, Unsloth, HauhauCS, NSFW/dark)";
       after = [ "ollama.service" "ollama-model-loader.service" "network-online.target" ];
       wants = [ "network-online.target" "ollama-model-loader.service" ];
       wantedBy = [ "multi-user.target" ];

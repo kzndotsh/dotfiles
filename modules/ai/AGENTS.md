@@ -61,6 +61,7 @@ SDXL alone works with Ollama unloaded. SDXL + large LLM or FLUX schnell alone wi
 ## Ollama gotchas
 
 - **Do not** set `services.ollama.syncModels = true` — deletes custom aliases
+- Custom creates: `*-4k`, dusk-rainbow, satyr, hauhau, gemmasutra-9b, hypernovasynth-12b, unslopnemo-12b, impish-bloodmoon-12b, kansensakura-eclipse-12b. Do not also pull the `hf.co/...` FROM names
 - Context pinned 8k; `NUM_PARALLEL=2` doubles KV — check `ollama ps` for spill to CPU
 - `HSA_NO_SCRATCH_RECLAIM=1` holds scratch until service exit (VRAM tax)
 - GameMode `keep_alive=0` unloads resident models
