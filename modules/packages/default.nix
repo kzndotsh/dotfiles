@@ -1,4 +1,16 @@
 { pkgs, ... }:
+let
+  # nixpkgs 0.6.10 hangs on Python 3.14 (cameraptzmidi ctypes layout). Fixed upstream post-tag.
+  cameractrlsFixed = pkgs.cameractrls.overrideAttrs (_old: {
+    version = "0.6.10-unstable-2026-07-16";
+    src = pkgs.fetchFromGitHub {
+      owner = "soyersoyer";
+      repo = "cameractrls";
+      rev = "6f388257ac21a0e91b143ad11cb2457036fa2c27";
+      hash = "sha256-tAfLiGPiumh9RD9k5BfD3Lu1G5NKuCK4PMS2gmGZUcw=";
+    };
+  });
+in
 {
   environment.systemPackages = with pkgs; [
     sops
@@ -38,6 +50,11 @@
     telegram-desktop
     zoom-us
     cheese
+    # Webcam UVC controls / preview (EMEET Nova 4K, etc.).
+    v4l-utils
+    cameractrlsFixed
+    (cameractrlsFixed.override { withGtk = 4; })
+    guvcview
     libreoffice-stable
     obsidian
     pandoc
@@ -48,6 +65,7 @@
     tree
     libva-utils
     ffmpeg
+    czkawka-full
     yt-dlp
     man-pages
     man-pages-posix
@@ -66,6 +84,7 @@
     jq
     bat
     comma
+    glow
     (python3.withPackages (ps: [ ps.python-gnupg ]))
     gnupg
     openssl
@@ -91,6 +110,7 @@
     curl
     rsync
     file
+    nvtopPackages.amd
     pciutils
     usbutils
     killall
