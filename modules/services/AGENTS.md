@@ -12,6 +12,7 @@ Desktop services barrel (`default.nix` also imports [`../ai`](../ai/)). sshd is 
 | `libvirt.nix` | libvirtd + virt-manager (desktop hypervisor). Domains: `hosts/hardened-vm/nixvirt.nix`. |
 | `copyparty.nix` | User units: copyparty `:3923` + cloudflared tunnel `files` (`files.kzn.sh`). Account is `~/.secrets/copyparty.env` (`COPYPARTY_ACCOUNT=`), not Nix. Tunnel creds: `~/.secrets/cloudflared/files.json`. |
 | `daemons.nix` | udisks, fstrim (weekly), vnstat, gvfs, ananicy-cpp, journald, oomd |
+| `tor.nix` | System Tor client (`tor.service`), SOCKS `127.0.0.1:9050`, torsocks. Desktop only. |
 | `polkit.nix` | Passwordless udisks2 unlock/mount for wheel (incl. HintSystem) |
 | `docker.nix` | Docker daemon (desktop + hardened-vm). VPS does not import this module. |
 | `vagrant.nix` | Vagrant + start libvirt `default` + NM unmanaged virbr* |
@@ -73,6 +74,12 @@ nix build .#nixosConfigurations.ikigai.config.system.build.toplevel
 
 - `fstrim.enable` uses the NixOS default interval (`weekly`). LUKS root still needs `allowDiscards` to pass TRIM through.
 - `ananicy` is `ananicy-cpp` + `ananicy-rules-cachyos`.
+
+## Tor gotchas
+
+- Desktop client only — SOCKS on `127.0.0.1:9050`. No TransPort/DNSPort (those live in `hosts/hardened-vm`).
+- `tor-browser` in `modules/packages` ships its own Tor; system daemon is for `torsocks`, curl `--socks5-hostname`, etc.
+- After switch: `systemctl status tor` / `curl --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip`
 
 ## Docker gotchas
 

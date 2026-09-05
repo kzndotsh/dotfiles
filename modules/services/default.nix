@@ -11,5 +11,6 @@
     ./copyparty.nix
     ./daemons.nix
     ./polkit.nix
+    ./tor.nix
   ];
 }
