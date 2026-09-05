@@ -4,14 +4,14 @@
 
 Desktop AI inference, voice, and kiro-gateway. RX 6700 XT (12 GB VRAM, gfx1030) + 128 GB RAM.
 
-**Rule:** Only one heavy GPU consumer at a time — Ollama MoE or ComfyUI.
+**Rule:** Only one heavy GPU consumer at a time — Ollama or ComfyUI.
 
 ## Files
 
 | File | Port(s) | Always on? | Role |
 |------|---------|-----------|------|
 | `default.nix` | — | — | Dispatcher; Docker backend |
-| `ollama.nix` | `:11434` | yes | Ollama ROCm + custom models + MoE downloads |
+| `ollama.nix` | `:11434` | yes | Ollama ROCm + custom models (no 30B/35B disk cache) |
 | `comfyui.nix` | `:8188` | no | Image gen (Docker) — on-demand |
 | `open-webui.nix` | `:4000` | yes | Chat UI + ComfyUI image gen + open-terminal |
 | `voice.nix` | catalog | no | STT/TTS; flags in `hosts/desktop/configuration.nix` |
@@ -26,7 +26,7 @@ systemctl start comfyui-models        # idempotent model downloads
 systemctl start docker-speaches       # STT :8300
 systemctl start docker-kokoro-tts     # TTS :8880
 systemctl start docker-fish-tts-proxy # TTS :8849 (FISH_API_KEY)
-ollama run qwen3-coder-unsloth
+ollama run qwen2.5-coder:7b
 ollama ps
 ```
 
@@ -61,9 +61,10 @@ SDXL alone works with Ollama unloaded. SDXL + large LLM or FLUX schnell alone wi
 ## Ollama gotchas
 
 - **Do not** set `services.ollama.syncModels = true` — deletes custom aliases
-- Context pinned 8k; `NUM_PARALLEL=2` doubles KV — check `ollama ps` for spill to CPU
+- Context pinned 8k; `NUM_PARALLEL=1`, `MAX_LOADED_MODELS=1`, `KEEP_ALIVE=10m` — check `ollama ps` for spill to CPU
 - `HSA_NO_SCRATCH_RECLAIM=1` holds scratch until service exit (VRAM tax)
 - GameMode `keep_alive=0` unloads resident models
+- One tag per recipe in `ollama ls`. GPU-fit only: 7–14B + Gemma 12B. No 30B/35B. Custom creates: `*-4k`, `dusk-rainbow`, `satyr-v0.1-4b`, `hauhau-*`, `gemma4-12b-heretic`, `gemmasutra-9b`, `hypernovasynth-12b`, `unslopnemo-12b`, `impish-bloodmoon-12b`, `kansensakura-eclipse-12b`. Do not also pull the `hf.co/...` FROM names.
 
 ## w-okada gotchas
 
