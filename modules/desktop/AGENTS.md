@@ -65,6 +65,7 @@ Expect: Inter Nerd Font / Inter Nerd Font / JetBrainsMono Nerd Font Mono / Twitt
 | `sgnl:` / `signalcaptcha:` | Signal |
 | `tonsite:` | Telegram |
 | `cursor:` | `cursor-url-handler.desktop` |
+| `sand:` / `grokbot:` | Grok Bot (`grok-bot.desktop`; flake `inputs.grok-bot`) |
 | http(s) / HTML | Firefox |
 | `xmpp:` | Gajim |
 | archives | File Roller |

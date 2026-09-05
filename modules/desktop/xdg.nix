@@ -276,6 +276,8 @@ in
       "x-scheme-handler/signalcaptcha" = "signal.desktop";
       "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
       "x-scheme-handler/cursor" = "cursor-url-handler.desktop";
+      "x-scheme-handler/sand" = "grok-bot.desktop";
+      "x-scheme-handler/grokbot" = "grok-bot.desktop";
     }
     // lib.genAttrs archiveTypes (_: archiveHandler)
     // lib.genAttrs audioTypes (_: mpvHandler)

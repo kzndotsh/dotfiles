@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 let
   # nixpkgs 0.6.10 hangs on Python 3.14 (cameraptzmidi ctypes layout). Fixed upstream post-tag.
   cameractrlsFixed = pkgs.cameractrls.overrideAttrs (_old: {
@@ -98,6 +98,7 @@ in
     mumble
     gcc
     code-cursor
+    inputs.grok-bot.packages.${pkgs.stdenv.hostPlatform.system}.default
     duf
     ncdu
     tokei

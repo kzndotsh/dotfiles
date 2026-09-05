@@ -52,6 +52,11 @@
       url = "github:kzndotsh/spicetify-cratedigger";
       flake = false;
     };
+
+    grok-bot = {
+      url = "github:jordangarrison/grok-bot-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
