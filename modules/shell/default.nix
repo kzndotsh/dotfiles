@@ -3,7 +3,13 @@
 {
   imports = [ ./zsh.nix ];
 
+  # NixOS only links /bin/sh. Upstream scripts use #!/bin/bash — tmpfiles provides it.
+  systemd.tmpfiles.rules = [
+    "L /bin/bash - - - - ${pkgs.bashInteractive}/bin/bash"
+  ];
+
   environment.systemPackages = with pkgs; [
+    bashInteractive
     eza
     httpie
     python3Packages.ipython
@@ -69,7 +75,7 @@
           pure_msg = "nix pure";
           format = " · [$state]($style)";
         };
-        cmd_duration = { style = "#565f89"; min_time = 2000; format = "[$duration]($style) "; };
+        cmd_duration = { style = "#565f89"; min_time = 2000; format = " [$duration]($style) "; };
         character = { success_symbol = "[❯](bold #7aa2f7)"; error_symbol = "[❯](bold #db4b4b)"; };
       };
     };

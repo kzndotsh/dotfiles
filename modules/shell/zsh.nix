@@ -66,6 +66,8 @@ in
       "HIST_FIND_NO_DUPS"
       "INTERACTIVE_COMMENTS"
       "NO_FLOW_CONTROL"
+      # Caps-lock / typo commands: "zsh: correct 'LS' to 'ls' [nyae]?"
+      "CORRECT"
     ];
 
     shellAliases = {

@@ -7,6 +7,7 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 ## Quick facts
 
 - zsh, starship, fzf (Ctrl-R history, Ctrl-T files), zoxide, vivid, mise
+- **`/bin/bash`**: tmpfiles symlink → `bashInteractive` so `#!/bin/bash` shebangs work (NixOS only creates `/bin/sh` by default). Interactive login shell stays zsh — do **not** set `programs.bash.enable` (it fights for `defaultUserShell`).
 - **`command_timeout = 1000`** in Starship — global `core.fsmonitor` cold-starts can push first `git status` near the default 500ms limit on `cd` into a repo.
 - **Git prompt** (`default.nix`): `⎇ branch` → `rebasing 2/5` (when active) → `N staged · N changed · N new` → `↑N ahead · ↓N behind` → `detached @ hash`. No symbol salad (`!+?~`).
 - **Nix dev shell** (`nix_shell`): ` · nix flake` when direnv loads `use flake` — means the project dev shell is on PATH, not a generic “dev mode”.
@@ -18,7 +19,7 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 
 ## Highlights
 - Zsh (`zsh.nix`): mise shims (shellInit) + PATH activation (interactiveShellInit), zoxide, vivid LS_COLORS; file helpers. JS global bin PATH is in `modules/desktop/xdg.nix` session env — not duplicated in zsh.
-- Extra `setOptions`: `HIST_IGNORE_SPACE`, `HIST_REDUCE_BLANKS`, `HIST_FIND_NO_DUPS`, `INTERACTIVE_COMMENTS`, `NO_FLOW_CONTROL`. Do **not** add `INC_APPEND_HISTORY` — official docs: `SHARE_HISTORY` already appends and the two are mutually exclusive
+- Extra `setOptions`: `HIST_IGNORE_SPACE`, `HIST_REDUCE_BLANKS`, `HIST_FIND_NO_DUPS`, `INTERACTIVE_COMMENTS`, `NO_FLOW_CONTROL`, `CORRECT` (prompt to fix mistyped commands like `LS`→`ls`). Do **not** add `INC_APPEND_HISTORY` — official docs: `SHARE_HISTORY` already appends and the two are mutually exclusive. Do **not** add `CORRECT_ALL` — it also “corrects” arguments and is noisy
 - Autosuggest: `history` then `completion`; `ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20`
 - Syntax highlighting: `main` + `brackets` (NixOS default is `main` only)
 - fzf-tab is `mkAfter` (must bind Tab last; NixOS `programs.fzf.fuzzyCompletion` also binds `^I`). Completion `menu no` + `use-fzf-default-opts yes` (plugin ignores `FZF_DEFAULT_OPTS` otherwise). Description/warning/correction `format` must be plain (`[%d]`), not `%F{…}` — fzf-tab prints prompt codes literally. `list-colors` is set **after** vivid so it uses Tokyo Night `LS_COLORS`
@@ -26,7 +27,7 @@ Interactive shell — zsh, starship, fzf. micro / btop are [`../wrappers/`](../w
 - No Atuin — no Nix `programs.atuin` (DNS-only leftovers are not a service)
 
 ## Files
-- `default.nix` — barrel: starship, fzf, nix-index + **eza / httpie / ipython / vivid / zoxide / mise** (binary only; python/uv pins in `modules/dev/mise.nix`). Do not put `programs.zsh` here.
+- `default.nix` — barrel: starship, fzf, nix-index + **bashInteractive + /bin/bash tmpfiles** + **eza / httpie / ipython / vivid / zoxide / mise** (binary only; python/uv pins in `modules/dev/mise.nix`). Do not put `programs.zsh` here.
 - `zsh.nix` — all zsh: options, aliases, completion, functions, fzf-tab / mise / zoxide / vivid init
 - Do **not** split aliases/functions/starship into extra files — none are reused across hosts (repo rule: inline unless reused)
 
