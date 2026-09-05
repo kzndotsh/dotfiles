@@ -159,6 +159,7 @@
         };
         crankshaft = pkgs.callPackage ./packages/crankshaft { };
         session-desktop = pkgs.callPackage ./packages/session-desktop { };
+        wl-video-idle-inhibit = pkgs.callPackage ./packages/wl-video-idle-inhibit { };
       };
 
       nixosConfigurations = {

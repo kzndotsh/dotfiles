@@ -1,6 +1,9 @@
 # /etc/sway/config.d/30-autostart.conf
 # exec runs once per session; exec_always runs on every reload (gsettings, env, xrdb).
-{ pkgs, ... }:
+{ pkgs, self, ... }:
+let
+  wlVideoIdleInhibit = self.packages.${pkgs.stdenv.hostPlatform.system}.wl-video-idle-inhibit;
+in
 {
   environment.etc."sway/config.d/30-autostart.conf".text = ''
     exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
@@ -34,6 +37,9 @@
     # XWayland click offset when no primary output is set. Needs output pos 0 0;
     # hotplug creates a new XWAYLANDn and drops primary.
     exec_always sh -c 'OUT=$(xrandr 2>/dev/null | grep -m1 XWAYLAND | awk "{print \$1}"); [ -n "$OUT" ] && xrandr --output "$OUT" --primary'
+
+    # Hold idle-inhibit while any /dev/video* is open (Zoom/Meet/Discord camera).
+    exec ${wlVideoIdleInhibit}/bin/wl-video-idle-inhibit
 
     # -w waits for each command. swaylock must use -f/--daemonize or idle DPMS never runs
     # (swayidle blocks until unlock). inhibit_idle rules in 20-windows.conf skip games/DAWs.

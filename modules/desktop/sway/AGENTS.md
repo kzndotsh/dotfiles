@@ -33,7 +33,7 @@ Each module pins `~/.config/<app>` → `/etc/...` so XDG does not shadow NixOS (
 - `exec_always xrdb -load /etc/X11/Xresources` — Wine Xft (`modules/wine`).
 - XWayland click offset: `xrandr --output XWAYLAND* --primary` (needs `pos 0 0`; hotplug drops primary).
 - `$mod+Shift+s` runs unmanaged `~/.local/bin/zipline-upload`.
-- **swayidle `-w`:** lock with `swaylock -f` or DPMS never fires. `inhibit_idle focus` on RuneLite/DAWs skips lock while focused.
+- **swayidle `-w`:** lock with `swaylock -f` or DPMS never fires. `inhibit_idle focus` on RuneLite/DAWs skips lock while focused. **`wl-video-idle-inhibit`** (`packages/wl-video-idle-inhibit/`) skips lock while any `/dev/video*` is open.
 - **Tearing:** output `allow_tearing yes` + `max_render_time off` + `for_window` on `steam_app_*` / `gamescope`. Fullscreen only.
 - Stock `config.in` binds we skip: `$mod+r` resize mode, scratchpad `$mod+minus`, brightnessctl, `$mod+Shift+c` reload (we use `$mod+Shift+r`).
 - **Zoom Workplace**: `as_toolbar` + title `^Zoom Workplace$` float; `^Zoom Workplace - Licensed account$` tiled. Older `app_id="zoom"` / `class="zoom"` stay.
