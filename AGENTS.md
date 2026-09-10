@@ -185,6 +185,6 @@ sops-nix. `secrets/vps.yaml` is encrypted and safe to commit. VPS decrypts via a
 
 ## Notes
 
-- Flake inputs: nixpkgs (unstable), disko, NixVirt, terranix, sops-nix, nix-wrappers, kiro-gateway, nix-gaming, spicetify-nix, findDupeTracks, cratedigger, grok-bot
+- Flake inputs: nixpkgs (unstable), disko, NixVirt, terranix, sops-nix, nix-wrappers, kiro-gateway, nix-gaming, spicetify-nix, findDupeTracks, cratedigger, cratesorter, grok-bot
 - `references/` is read-only — not part of the build
 - Git signing: 1Password SSH (`op-ssh-sign`); user/email from `lib/identity.nix`

@@ -35,6 +35,22 @@
         "type": "github"
       }
     },
+    "cratesorter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788215916,
+        "narHash": "sha256-8eLrYt8b+3kaK4NR17GSiwVvBnFTenC4SaiDUjp2ayU=",
+        "owner": "kzndotsh",
+        "repo": "spicetify-cratesorter",
+        "rev": "fd702c5e7195a3c343aff65bc9fa71e7fc1785c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kzndotsh",
+        "repo": "spicetify-cratesorter",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -260,6 +276,7 @@
       "inputs": {
         "NixVirt": "NixVirt",
         "cratedigger": "cratedigger",
+        "cratesorter": "cratesorter",
         "disko": "disko",
         "findDupeTracks": "findDupeTracks",
         "grok-bot": "grok-bot",

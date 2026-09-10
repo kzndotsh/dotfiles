@@ -34,6 +34,10 @@ in
         src = inputs.cratedigger;
         name = "cratedigger.js";
       }
+      {
+        src = inputs.cratesorter;
+        name = "cratesorter.js";
+      }
     ];
   };
 }

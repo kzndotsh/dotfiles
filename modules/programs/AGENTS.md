@@ -60,7 +60,7 @@ uBlock Origin, Dark Reader, Tokyo Night, 1Password, LLMFeeder, SponsorBlock, Vio
 - Flake: `inputs.spicetify-nix` → `nixosModules.spicetify` (desktop only in `flake.nix`)
 - Theme `tokyoNight`, scheme `Night`. `alwaysEnableDevTools = true` (Ctrl+Shift+I)
 - Packaged: `allOfArtist`, `betterGenres`, `hidePodcasts`, `lastfm`, `madeForYouShortcut`, `shuffle`
-- Unpackaged: **Find Duplicate Tracks** (`inputs.findDupeTracks` → `dist/findDupeTracks.mjs`), **crate-digger** (`inputs.cratedigger` → [kzndotsh/spicetify-cratedigger](https://github.com/kzndotsh/spicetify-cratedigger) `cratedigger.js`)
+- Unpackaged: **Find Duplicate Tracks** (`inputs.findDupeTracks` → `dist/findDupeTracks.mjs`), **crate-digger** (`inputs.cratedigger` → [kzndotsh/spicetify-cratedigger](https://github.com/kzndotsh/spicetify-cratedigger) `cratedigger.js`), **crate-sorter** (`inputs.cratesorter` → [kzndotsh/spicetify-cratesorter](https://github.com/kzndotsh/spicetify-cratesorter) `cratesorter.js`)
 - Restart Spotify after switch. Do **not** also put `pkgs.spotify` in `modules/packages`
 - Docs: https://gerg-l.github.io/spicetify-nix/
 

@@ -53,6 +53,11 @@
       flake = false;
     };
 
+    cratesorter = {
+      url = "github:kzndotsh/spicetify-cratesorter";
+      flake = false;
+    };
+
     grok-bot = {
       url = "github:jordangarrison/grok-bot-flake";
       inputs.nixpkgs.follows = "nixpkgs";
