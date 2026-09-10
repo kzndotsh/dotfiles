@@ -135,6 +135,7 @@
           ${tofuPrep}
           ${pkgs.opentofu}/bin/tofu ${command} "$@"
         '');
+        meta.description = "OpenTofu ${command} for the kzn VPS (infra/state/kzn)";
       };
 
       desktop = nixpkgs.lib.nixosSystem {
@@ -207,6 +208,7 @@
             echo "Done. Start the VM from virt-manager."
             echo "LUKS passphrase will be required at boot."
           '');
+          meta.description = "Build the hardened-vm disko image and install it into libvirt";
         };
 
         windows-vm-install = {
@@ -240,6 +242,7 @@
             echo "If the installer sees no disk, load viostor (not vioscsi) from the virtio-win CD."
             echo "After install, eject the Windows ISO so libvirt does not depend on $ISO_DST."
           '');
+          meta.description = "Create the windows-vm qcow2 disk and optionally stage a Windows ISO";
         };
 
         vps-plan = mkTofuApp "vps-plan" "plan";
@@ -287,6 +290,7 @@
 
             rm -rf "$TMPDIR"
           '');
+          meta.description = "Install NixOS on the kzn VPS with nixos-anywhere";
         };
 
         vps-switch = {
@@ -298,6 +302,7 @@
             echo "Switching kzn VPS..."
             nixos-rebuild switch --flake "path:$ROOT#vps" --target-host "$HOST" --use-remote-sudo
           '');
+          meta.description = "Remote nixos-rebuild switch for the kzn VPS";
         };
 
         vps-tunnels-sync = {
@@ -336,6 +341,7 @@
             echo "Wrote $DEST/{kiro,files}.json and $SOPS_OUT"
             echo "Restart user units: systemctl --user restart cloudflared-kiro cloudflared-files"
           '');
+          meta.description = "Sync Cloudflare tunnel credentials from tofu output into sops";
         };
       };
 
