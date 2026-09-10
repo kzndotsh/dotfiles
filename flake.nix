@@ -204,6 +204,39 @@
           '');
         };
 
+        windows-vm-install = {
+          type = "app";
+          program = toString (pkgs.writeShellScript "windows-vm-install" ''
+            set -euo pipefail
+            POOL="/var/lib/libvirt/images/windows-vm"
+            IMG="$POOL/windows-vm.qcow2"
+            ISO_DST="$POOL/installer.iso"
+            ISO_SRC="''${1:-}"
+
+            sudo mkdir -p "$POOL"
+            if [[ ! -f "$IMG" ]]; then
+              echo "Creating 128G qcow2 at $IMG ..."
+              sudo ${pkgs.qemu}/bin/qemu-img create -f qcow2 \
+                -o cluster_size=2M,preallocation=metadata,lazy_refcounts=on \
+                "$IMG" 128G
+            else
+              echo "Disk already exists: $IMG"
+            fi
+
+            if [[ -n "$ISO_SRC" ]]; then
+              [[ -f "$ISO_SRC" ]] || { echo "ISO not found: $ISO_SRC" >&2; exit 1; }
+              echo "Staging Windows ISO -> $ISO_DST"
+              sudo cp --reflink=auto "$ISO_SRC" "$ISO_DST"
+            elif [[ ! -f "$ISO_DST" ]]; then
+              echo "No ISO given. Attach a Windows 11 x64 ISO in virt-manager (CD) for first boot."
+            fi
+
+            echo "Start domain windows-vm from virt-manager."
+            echo "If the installer sees no disk, load viostor (not vioscsi) from the virtio-win CD."
+            echo "After install, eject the Windows ISO so libvirt does not depend on $ISO_DST."
+          '');
+        };
+
         vps-plan = mkTofuApp "vps-plan" "plan";
         vps-apply = mkTofuApp "vps-apply" "apply";
         vps-destroy = mkTofuApp "vps-destroy" "destroy";

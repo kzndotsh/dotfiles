@@ -11,6 +11,7 @@ My personal NixOS flake: [Sway](https://swaywm.org/) desktop, hardened libvirt V
 |--|------------|---------|---------|
 | Desktop | `ikigai` | Ryzen 5800X, RX 6700 XT | Daily driver |
 | Guest | `hardened-vm` | libvirt qcow2 | Throwaway sessions, leaves nothing behind |
+| Guest | `windows-vm` | libvirt qcow2 | Windows 11 (NixVirt; see [`hosts/windows-vm/AGENTS.md`](hosts/windows-vm/AGENTS.md)) |
 | Server | `vps` | Hetzner cx33 | Public services on kzn.sh |
 
 ## Hardware
@@ -110,7 +111,7 @@ Tokyo Night (Night). Same palette across [Sway](https://swaywm.org/), [Waybar](h
 
 ```
 flake.nix          inputs, hosts, deploy apps
-hosts/             desktop, hardened-vm, vps
+hosts/             desktop, hardened-vm, windows-vm, vps
 modules/           NixOS modules (desktop, ai, gaming, …)
 packages/          kiro-gateway, crankshaft, session-desktop, …
 infra/             Hetzner + Cloudflare (Terranix → OpenTofu)
@@ -130,7 +131,8 @@ nix flake show .
 |------|---------|
 | Apply desktop | `nh os switch ~/dotfiles` |
 | Eval desktop | `nix build .#nixosConfigurations.ikigai.config.system.build.toplevel` |
-| Build VM image | `nix run .#vm-install` |
+| Build hardened-vm image | `nix run .#vm-install` |
+| Stage Windows 11 disk + ISO | `nix run .#windows-vm-install -- /path/to/Win11.iso` then attach hdc (see [`hosts/windows-vm/AGENTS.md`](hosts/windows-vm/AGENTS.md)) |
 | VPS plan (DNS/Hetzner) | `nix run .#vps-plan` |
 | VPS apply | `nix run .#vps-apply` |
 | VPS install (wipes disk) | `nix run .#vps-install -- root@<ip>` |
@@ -144,6 +146,7 @@ The `vps-*` apps need `.env.kzn` (Hetzner + Cloudflare tokens, from [`.env.examp
 ## Docs
 
 - [AGENTS.md](AGENTS.md) — module map, sops, boundaries
+- [hosts/windows-vm/AGENTS.md](hosts/windows-vm/AGENTS.md) — Win11 libvirt guest (ISO, virtio drivers, Spice)
 - [docs/resources.md](docs/resources.md) — external docs tied to config in this flake
 
 ## Credits

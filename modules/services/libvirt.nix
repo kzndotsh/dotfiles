@@ -1,5 +1,6 @@
-# libvirtd and virt-manager for the desktop hypervisor. Guest OS config is hosts/hardened-vm/.
-# Domain, pool, and network XML live in hosts/hardened-vm/nixvirt.nix. Default NAT start and
+# libvirtd and virt-manager for the desktop hypervisor.
+# Domains: hosts/hardened-vm/nixvirt.nix (NixOS guest) and hosts/windows-vm/nixvirt.nix (Windows 11).
+# Default NAT start and
 # NetworkManager bridge handling are in vagrant.nix. libvirtd group membership is on the host (user.nix).
 { pkgs, ... }:
 {

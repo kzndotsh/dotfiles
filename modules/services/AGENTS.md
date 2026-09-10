@@ -9,7 +9,7 @@ Desktop services barrel (`default.nix` also imports [`../ai`](../ai/)). sshd is 
 | File | Role |
 |------|------|
 | `default.nix` | Desktop barrel (not sshd). Imports `../ai` plus every file below. |
-| `libvirt.nix` | libvirtd + virt-manager (desktop hypervisor). Domains: `hosts/hardened-vm/nixvirt.nix`. |
+| `libvirt.nix` | libvirtd + virt-manager (desktop hypervisor). Domains: `hosts/hardened-vm/nixvirt.nix`, `hosts/windows-vm/nixvirt.nix`. |
 | `copyparty.nix` | User units: copyparty `:3923` + cloudflared tunnel `files` (`files.kzn.sh`). Account is `~/.secrets/copyparty.env` (`COPYPARTY_ACCOUNT=`), not Nix. Tunnel creds: `~/.secrets/cloudflared/files.json`. |
 | `daemons.nix` | udisks, fstrim (weekly), vnstat, gvfs, ananicy-cpp, journald, oomd |
 | `tor.nix` | System Tor client (`tor.service`), SOCKS `127.0.0.1:9050`, torsocks. Desktop only. |
@@ -92,10 +92,12 @@ nix build .#nixosConfigurations.ikigai.config.system.build.toplevel
 ## Libvirt gotchas
 
 - See `libvirt.nix` comments for upstream refs.
-- This file is the daemon. NixVirt domains/pools are `hosts/hardened-vm/nixvirt.nix`. Default `virbr0` start is `vagrant.nix`.
+- This file is the daemon. NixVirt domains/pools are `hosts/hardened-vm/nixvirt.nix` and `hosts/windows-vm/nixvirt.nix`. Default `virbr0` start is `vagrant.nix`.
 - `libvirtd` group is not set here — desktop `user.nix`.
 - `nss.enableGuest` only works on NATed libvirt networks (dnsmasq leases). Guest NM MAC is `permanent` in `hosts/hardened-vm/configuration.nix` — shared `modules/network` randomizes, which breaks NSS. NixVirt XML does not pin a MAC.
 - `spiceUSBRedirection` is setuid — any local user can pass USB into a VM.
+- Windows guest: [`hosts/windows-vm/AGENTS.md`](../../hosts/windows-vm/AGENTS.md). Clipboard is Spice **vdagent** (guest tools), not qemu-ga. `onShutdown = shutdown` needs the guest agent for a clean ACPI halt.
+- `nh os switch` rewrites NixVirt XML; live `virsh change-media` on windows-vm hdc does not persist.
 
 ## Related
 

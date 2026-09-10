@@ -17,6 +17,7 @@ Links are grouped by topic, then by the Nix file they informed.
 - [Music production](#music-production)
 - [Programs](#programs)
 - [Services](#services)
+- [Windows VM](#windows-vm)
 - [Wine](#wine)
 - [CLI wrappers](#cli-wrappers)
 
@@ -438,6 +439,9 @@ Docker, libvirt, qBittorrent, copyparty, and daemons.
 - `modules/services/libvirt.nix`
   - [libvirt.org — nss](https://libvirt.org/nss.html)
   - [NixOS Wiki — Libvirt](https://wiki.nixos.org/wiki/Libvirt)
+  - [NixOS Wiki — Virt-manager](https://wiki.nixos.org/wiki/Virt-manager)
+  - [QEMU — Hyper-V enlightenments](https://www.qemu.org/docs/master/system/i386/hyperv.html)
+  - Guest install/drivers: [`hosts/windows-vm/AGENTS.md`](../hosts/windows-vm/AGENTS.md)
 - `modules/services/polkit.nix`
   - [freedesktop — polkit.8.html](https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html#polkit-rules)
   - [NixOS Wiki — Polkit](https://wiki.nixos.org/wiki/Polkit)
@@ -455,6 +459,17 @@ Docker, libvirt, qBittorrent, copyparty, and daemons.
   - [NixOS Wiki — Vagrant](https://wiki.nixos.org/wiki/Vagrant)
   - [vagrant-libvirt.github.io — vagrant libvirt](https://vagrant-libvirt.github.io/vagrant-libvirt/)
 
+## Windows VM
+
+NixVirt Windows 11 guest on the desktop hypervisor. Workflow, drivers, Spice: [`hosts/windows-vm/AGENTS.md`](../hosts/windows-vm/AGENTS.md).
+
+- `hosts/windows-vm/nixvirt.nix`
+  - [Microsoft — Windows 11 ISO](https://www.microsoft.com/software-download/windows11)
+  - [Fedora virtio-win](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/)
+  - [QEMU — Hyper-V enlightenments](https://www.qemu.org/docs/master/system/i386/hyperv.html)
+  - [libvirt — domain XML](https://libvirt.org/formatdomain.html)
+  - [AshleyYakeley/NixVirt](https://github.com/AshleyYakeley/NixVirt)
+  - [Raphire/Win11Debloat](https://github.com/Raphire/Win11Debloat)
 
 ## Wine
 

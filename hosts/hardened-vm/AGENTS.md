@@ -39,6 +39,7 @@ nix run .#vm-install   # builds disko image, qcow2 to libvirt
 
 ## Related
 
-- [`nixvirt.nix`](nixvirt.nix) — imported by `hosts/desktop/configuration.nix`
+- [`nixvirt.nix`](nixvirt.nix) — imported by `hosts/desktop/configuration.nix` (owns NixVirt `default` / `virbr0`; do not redefine from windows-vm)
+- [`hosts/windows-vm/AGENTS.md`](../windows-vm/AGENTS.md) — shares `virbr0`
 - [`Root AGENTS.md`](../../AGENTS.md)
 

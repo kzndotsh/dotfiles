@@ -10,7 +10,7 @@
 
 ## Project Overview
 
-NixOS dotfiles managing a desktop workstation, hardened VM, and Hetzner VPS — fully declarative.
+NixOS dotfiles managing a desktop workstation, hardened VM, Windows 11 libvirt guest, and Hetzner VPS — fully declarative.
 
 ## File Tree
 
@@ -24,6 +24,7 @@ dotfiles/
 ├── hosts/
 │   ├── desktop/               # Sway/Wayland workstation (flake attr: ikigai)
 │   ├── hardened-vm/           # Anti-forensics XFCE VM (LUKS, Tor, i2pd, tmpfs)
+│   ├── windows-vm/            # Windows 11 libvirt guest (NixVirt XML only)
 │   └── vps/                   # Hetzner cx33 (`#vps` = kzn.sh)
 ├── modules/                   # no `common/` — imported explicitly by hosts
 │   ├── identity.nix           # NixOS wrapper around lib/identity.nix (`config.my.*`)
@@ -59,7 +60,7 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 
 | Area             | Start here                                                                                        |
 | ---------------- | ------------------------------------------------------------------------------------------------- |
-| Hosts            | `[hosts/AGENTS.md](hosts/AGENTS.md)` → `desktop/`, `vps/`, `hardened-vm/`                       |
+| Hosts            | `[hosts/AGENTS.md](hosts/AGENTS.md)` → `desktop/`, `vps/`, `hardened-vm/`, `windows-vm/` |
 | Modules          | `[modules/AGENTS.md](modules/AGENTS.md)`                                                          |
 | Infra / packages | `[infra/AGENTS.md](infra/AGENTS.md)`, `[packages/AGENTS.md](packages/AGENTS.md)`                  |
 | Secrets / GitHub | `[secrets/AGENTS.md](secrets/AGENTS.md)`, `[.github/AGENTS.md](.github/AGENTS.md)`              |
@@ -85,6 +86,7 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 | VPS service / DNS          | `hosts/vps/configuration.nix`, `infra/cloudflare.nix`              | sops secrets                                 |
 | Provision / destroy VPS    | `infra/state/kzn/`                                                   | `nix run .#vps-plan` (`.env.kzn`)            |
 | Hardened VM image          | `hosts/hardened-vm/`, `nix run .#vm-install`                         | LUKS passphrase → `/tmp/luks-password`       |
+| Windows 11 libvirt guest   | `hosts/windows-vm/`                                               | ISO + viostor/NetKVM/guest tools: `hosts/windows-vm/AGENTS.md` |
 | Custom flake package       | `packages/`, `flake.nix` outputs                                     | Pin hashes on src/patch changes              |
 | VPS secrets                | `secrets/vps.yaml`                                                   | `sops secrets/vps.yaml`                      |
 | Lint Nix                   | repo root                                                            | `statix check .`, `deadnix . --exclude references archive` |
@@ -147,6 +149,7 @@ Before marking a dotfiles task complete:
 - `nix run .#vps-switch -- root@<ip>` — remote switch on installed VPS
 - `nix run .#vps-tunnels-sync` — `~/.secrets/cloudflared/{kiro,files}.json` + `secrets/cloudflared.yaml`
 - `nix run .#vm-install` — hardened-vm disko → libvirt (sudo)
+- `nix run .#windows-vm-install -- /path/to/Win11.iso` — 128G qcow2 + copy ISO to pool (sudo); attach hdc yourself (see `hosts/windows-vm/AGENTS.md`)
 - `sops secrets/vps.yaml` — edit VPS secrets
 
 ## Module structure
@@ -163,8 +166,9 @@ Before marking a dotfiles task complete:
 
 ## Host constraints
 
-- **Desktop**: Zen kernel, AMD RX 6700 XT (ROCm `gfx1030`), 1Password SSH agent, firewall **on** (all ports), NetworkManager, Ollama ROCm
+- **Desktop**: Zen kernel, AMD RX 6700 XT (ROCm `gfx1030`), 1Password SSH agent, firewall **on** (all ports), NetworkManager, Ollama ROCm. Hypervisor for hardened-vm + windows-vm
 - **Hardened-VM**: GRUB MBR `/dev/vda`, `lib.mkForce` for shared-module overrides, IPv6 off, LUKS via `/tmp/luks-password` at image build
+- **Windows-VM**: NixVirt XML only (no `nixosConfigurations`). 32 GiB / 7 pinned vCPU / 128 GiB virtio-blk; no 6700 XT passthrough
 - **VPS**: GRUB EFI `/dev/sda`, `users.mutableUsers = false`, auto-upgrade disabled (LUKS)
 
 ## Secrets

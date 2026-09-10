@@ -34,4 +34,5 @@ Append path to `hosts/desktop/configuration.nix` imports list.
 ## Related
 
 - [`hosts/desktop/AGENTS.md`](../hosts/desktop/AGENTS.md)
+- [`hosts/windows-vm/AGENTS.md`](../hosts/windows-vm/AGENTS.md) — Win11 libvirt guest (imported by desktop)
 - [`Root AGENTS.md`](../AGENTS.md)

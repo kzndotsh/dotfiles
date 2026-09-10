@@ -13,6 +13,7 @@
     ../../modules/programs
     ../../modules/services
     ../hardened-vm/nixvirt.nix
+    ../windows-vm/nixvirt.nix
     ../../modules/hardening/ssh.nix
     ../../modules/hardening/baseline.nix
     ../../modules/network
