@@ -4,6 +4,25 @@
 # PDFs use pkgs.zathura (with-plugins, mupdf) plus /etc/zathurarc — there is no programs.zathura option.
 { lib, pkgs, ... }:
 let
+  swayimgHandler = "swayimg.desktop";
+  # mupdf plugin also registers raster/SVG — conflicts with swayimg in the open-with dialog.
+  zathuraMupdfHandler = "org.pwmt.zathura-pdf-mupdf.desktop";
+  imageTypes = [
+    "image/png"
+    "image/jpeg"
+    "image/jpg"
+    "image/gif"
+    "image/webp"
+    "image/tiff"
+    "image/tiff-fx"
+    "image/bmp"
+    "image/x-bmp"
+    "image/svg"
+    "image/svg+xml"
+    "image/avif"
+    "image/jxl"
+    "image/heif"
+  ];
   archiveHandler = "org.gnome.FileRoller.desktop";
   archiveTypes = [
     "application/zip"
@@ -252,15 +271,9 @@ in
 
     mime = {
       enable = true;
+      # image/* defaults merged via imageTypes + genAttrs below.
       defaultApplications = {
       "inode/directory" = "org.gnome.Nautilus.desktop";
-      "image/png" = "imv.desktop";
-      "image/jpeg" = "imv.desktop";
-      "image/gif" = "imv.desktop";
-      "image/webp" = "imv.desktop";
-      "image/tiff" = "imv.desktop";
-      "image/bmp" = "imv.desktop";
-      "image/svg+xml" = "imv.desktop";
       "text/html" = "firefox.desktop";
       "application/xhtml+xml" = "firefox.desktop";
       "application/pdf" = "org.pwmt.zathura.desktop";
@@ -279,9 +292,11 @@ in
       "x-scheme-handler/sand" = "grok-bot.desktop";
       "x-scheme-handler/grokbot" = "grok-bot.desktop";
     }
+    // lib.genAttrs imageTypes (_: swayimgHandler)
     // lib.genAttrs archiveTypes (_: archiveHandler)
     // lib.genAttrs audioTypes (_: mpvHandler)
     // lib.genAttrs videoTypes (_: mpvHandler);
+      removedAssociations = lib.genAttrs imageTypes (_: [ zathuraMupdfHandler ]);
     };
   };
 }

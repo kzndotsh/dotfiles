@@ -89,7 +89,7 @@
     for_window [window_role="toolbox"] floating enable
     for_window [window_role="webconsole"] floating enable
     for_window [app_id="org.gnome.FileRoller"] floating enable
-    for_window [app_id="imv"] floating enable
+    for_window [app_id="swayimg"] floating enable
     for_window [class="(?i)1password"] floating enable
     for_window [app_id="pinentry"] floating enable
     for_window [class="(?i)pinentry"] floating enable

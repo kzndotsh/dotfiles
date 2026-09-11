@@ -23,7 +23,7 @@ in
       cliphist
       glib.bin # gsettings
       grim
-      imv
+      swayimg
       mpv
       networkmanagerapplet
       playerctl

@@ -70,7 +70,7 @@ Expect: Inter Nerd Font / Inter Nerd Font / JetBrainsMono Nerd Font Mono / Twitt
 | `xmpp:` | Gajim |
 | archives | File Roller |
 | directories | Nautilus |
-| images | imv |
+| images | swayimg |
 
 Zathura: `pkgs.zathura` here (not `modules/packages`). Tokyo Night + recolor in `/etc/zathurarc`. No NixOS `programs.zathura`.
 
