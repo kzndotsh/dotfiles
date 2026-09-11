@@ -11,7 +11,7 @@ My personal NixOS flake: [Sway](https://swaywm.org/) desktop, hardened libvirt V
 |--|------------|---------|---------|
 | Desktop | `ikigai` | Ryzen 5800X, RX 6700 XT | Daily driver |
 | Guest | `hardened-vm` | libvirt qcow2 | Throwaway sessions, leaves nothing behind |
-| Guest | `windows-vm` | libvirt qcow2 | Windows 11 (NixVirt; see [`hosts/windows-vm/AGENTS.md`](hosts/windows-vm/AGENTS.md)) |
+| Guest | `windows-vm` | libvirt qcow2 | Tuned Windows 11 (no GPU passthrough currently) |
 | Server | `vps` | Hetzner cx33 | Public services on kzn.sh |
 
 ## Hardware
