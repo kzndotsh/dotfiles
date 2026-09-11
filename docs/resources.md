@@ -28,6 +28,8 @@ Kernel cmdline, sysctl, systemd-boot, zram, and power management.
 
 - `modules/boot/kernel.nix`
   - [Arch Wiki — CPU frequency scaling (amd pstate)](https://wiki.archlinux.org/title/CPU_frequency_scaling#amd_pstate)
+  - [Arch Wiki — Improving performance (Turn off CPU exploit mitigations)](https://wiki.archlinux.org/title/Improving_performance#Turn_off_CPU_exploit_mitigations)
+  - [Arch Wiki — AMDGPU (Boot parameter)](https://wiki.archlinux.org/title/AMDGPU#Boot_parameter)
   - [Arch Wiki — PCI passthrough via OVMF](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)
   - [Arch Wiki — Professional audio](https://wiki.archlinux.org/title/Professional_audio)
   - [freedesktop — systemd-udevd.service.html](https://www.freedesktop.org/software/systemd/man/latest/systemd-udevd.service.html)
@@ -51,6 +53,7 @@ Kernel cmdline, sysctl, systemd-boot, zram, and power management.
   - [kernel.org — kernel parameters](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)
   - [uapi-group.org — boot loader specification](https://uapi-group.org/specifications/specs/boot_loader_specification)
 - `modules/boot/power.nix`
+  - [Kernel docs — pm / cpufreq](https://docs.kernel.org/admin-guide/pm/cpufreq.html)
   - [Arch Wiki — CPU frequency scaling (Autonomous frequency scaling)](https://wiki.archlinux.org/title/CPU_frequency_scaling#Autonomous_frequency_scaling)
   - [Arch Wiki — Gaming (Improving performance)](https://wiki.archlinux.org/title/Gaming#Improving_performance)
   - [Arch Wiki — NetworkManager (NetworkManager-wait-online)](https://wiki.archlinux.org/title/NetworkManager#NetworkManager-wait-online)
@@ -65,6 +68,18 @@ Kernel cmdline, sysctl, systemd-boot, zram, and power management.
   - [NixOS/nixpkgs/master/nixos/modules/tasks/cpu-freq.nix](https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/tasks/cpu-freq.nix)
   - [redhat.com docs — configuring huge pages monitoring and managing system status and performance](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/monitoring_and_managing_system_status_and_performance/configuring-huge-pages_monitoring-and-managing-system-status-and-performance)
 - `modules/boot/sysctl.nix`
+  - [Arch Wiki — Improving performance (Tuning kernel parameters)](https://wiki.archlinux.org/title/Improving_performance#Tuning_kernel_parameters)
+  - [Arch Wiki — Improving performance (Network)](https://wiki.archlinux.org/title/Improving_performance#Network)
+  - [Arch Wiki — Improving performance (RAM, swap and OOM handling)](https://wiki.archlinux.org/title/Improving_performance#RAM.2C_swap_and_OOM_handling)
+  - [Arch Wiki — Improving performance (Writeback interval and buffer size)](https://wiki.archlinux.org/title/Improving_performance#Writeback_interval_and_buffer_size)
+  - [Arch Wiki — Swap (Swappiness)](https://wiki.archlinux.org/title/Swap#Swappiness)
+  - [Arch Wiki — Swap (Performance)](https://wiki.archlinux.org/title/Swap#Performance)
+  - [Arch Wiki — Swap (VFS cache pressure)](https://wiki.archlinux.org/title/Swap#VFS_cache_pressure)
+  - [Arch Wiki — Sysctl (Enable BBR)](https://wiki.archlinux.org/title/Sysctl#Enable_BBR)
+  - [enterprise-support.nvidia.com — linux sysctl tuning](https://enterprise-support.nvidia.com/s/article/linux-sysctl-tuning)
+  - [google/tcmalloc — tuning (system-level optimizations)](https://github.com/google/tcmalloc/blob/master/docs/tuning.md#system-level-optimizations)
+  - [Red Hat docs — disable source routing](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-server_security-disable-source-routing)
+  - [TLDP — Adv-Routing-HOWTO / lartc.kernel.obscure](https://tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.kernel.obscure.html)
   - [Arch Wiki — Gaming (Increase vm.max map count)](https://wiki.archlinux.org/title/Gaming#Increase_vm.max_map_count)
   - [Arch Wiki — Security (Kernel hardening)](https://wiki.archlinux.org/title/Security#Kernel_hardening) — Arch Security matches these two
   - [Arch Wiki — Sysctl](https://wiki.archlinux.org/title/Sysctl)
@@ -87,6 +102,10 @@ Kernel cmdline, sysctl, systemd-boot, zram, and power management.
   - [wiki.gentoo.org — Kernel Hardening with KSPP](https://wiki.gentoo.org/wiki/User:Pietinger/Tutorials/Kernel_Hardening_with_KSPP) — Gentoo (applies KSPP sysctls)
 - `modules/boot/udev.nix`
   - [Arch Wiki — Improving performance (Changing I/O scheduler)](https://wiki.archlinux.org/title/Improving_performance#Changing_I/O_scheduler)
+  - [Arch Wiki — Improving performance (Input/output schedulers)](https://wiki.archlinux.org/title/Improving_performance#Input/output_schedulers)
+  - [Arch Wiki — Improving performance (The scheduling algorithms)](https://wiki.archlinux.org/title/Improving_performance#The_scheduling_algorithms)
+  - [Arch Wiki — Improving performance (SATA Active Link Power Management)](https://wiki.archlinux.org/title/Improving_performance#SATA_Active_Link_Power_Management)
+  - [Arch Wiki — Improving performance (hdparm)](https://wiki.archlinux.org/title/Improving_performance#hdparm)
   - [Arch Wiki — Wake-on-LAN (systemd.link)](https://wiki.archlinux.org/title/Wake-on-LAN#systemd.link)
   - [freedesktop — systemd.link.html](https://www.freedesktop.org/software/systemd/man/latest/systemd.link.html)
   - [freedesktop — udev.html](https://www.freedesktop.org/software/systemd/man/latest/udev.html)
@@ -95,6 +114,8 @@ Kernel cmdline, sysctl, systemd-boot, zram, and power management.
   - [kernel.org — sysfs devices power](https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-power)
   - [NixOS/nixpkgs/master/nixos/modules/hardware/iosched.nix](https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/hardware/iosched.nix)
   - [NixOS/nixpkgs/master/nixos/modules/tasks/scsi-link-power-management.nix](https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/tasks/scsi-link-power-management.nix)
+- `modules/hardware/default.nix`
+  - [Arch Wiki — AMDGPU (Loading)](https://wiki.archlinux.org/title/AMDGPU#Loading)
 
 
 ## Security hardening
@@ -110,6 +131,11 @@ SSH, sysctl, and VPS baseline hardening.
   - [infosec.mozilla.org — openssh](https://infosec.mozilla.org/guidelines/openssh)
   - [man.openbsd.org — sshd config](https://man.openbsd.org/sshd_config)
   - [stribika.github.io — secure secure shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html)
+- `secrets/vps.yaml` (sops-nix)
+  - [Mic92/sops-nix](https://github.com/Mic92/sops-nix)
+  - [Mic92/sops-nix — get a public key for your target machine](https://github.com/Mic92/sops-nix#3-get-a-public-key-for-your-target-machine)
+  - [Mic92/sops-nix — set secret permission/owner](https://github.com/Mic92/sops-nix#set-secret-permissionowner-and-allow-services-to-access-it)
+  - [NixOS Wiki — Comparison of secret managing schemes](https://wiki.nixos.org/wiki/Comparison_of_secret_managing_schemes)
 - `modules/hardening/sysctl.nix`
   - [Arch Wiki — Security (Kernel hardening)](https://wiki.archlinux.org/title/Security#Kernel_hardening)
   - [Kernel docs — admin guide / sysrq](https://docs.kernel.org/admin-guide/sysrq.html)
@@ -204,10 +230,16 @@ PipeWire, WirePlumber, and pro-audio latency.
 
 - `modules/audio/default.nix`
   - [Arch Wiki — Professional audio](https://wiki.archlinux.org/title/Professional_audio)
+  - [Arch Wiki — Realtime process management](https://wiki.archlinux.org/title/Realtime_process_management)
+  - [Arch Wiki — Realtime process management (Configuring PAM)](https://wiki.archlinux.org/title/Realtime_process_management#Configuring_PAM)
+  - [Arch Wiki — JACK (Comparison of JACK control GUIs)](https://wiki.archlinux.org/title/JACK_Audio_Connection_Kit#Comparison_of_JACK_control_GUIs)
+  - [enterprise-support.nvidia.com — PCIe configuration for maximum performance](https://enterprise-support.nvidia.com/s/article/understanding-pcie-configuration-for-maximum-performance)
   - [man7.org — limits.conf.5](https://man7.org/linux/man-pages/man5/limits.conf.5.html)
   - [NixOS Wiki — PipeWire](https://wiki.nixos.org/wiki/PipeWire)
   - [pipewire.org docs — page module rt](https://docs.pipewire.org/page_module_rt.html)
 - `modules/audio/pipewire.nix`
+  - [Arch Wiki — PipeWire (Configuration)](https://wiki.archlinux.org/title/PipeWire#Configuration)
+  - [Arch Wiki — PipeWire (JACK clients)](https://wiki.archlinux.org/title/PipeWire#JACK_clients)
   - [Arch Wiki — PipeWire (Changing the default sample rate)](https://wiki.archlinux.org/title/PipeWire#Changing_the_default_sample_rate)
   - [pipewire.org docs — page man pipewire conf 5](https://docs.pipewire.org/page_man_pipewire_conf_5.html)
 - `modules/audio/wireplumber.nix`
@@ -234,7 +266,9 @@ Theme, fonts, XDG, keyring, and session defaults.
 - `modules/desktop/security.nix`
   - [man7.org — limits.conf.5](https://man7.org/linux/man-pages/man5/limits.conf.5.html)
 - `modules/desktop/xdg.nix`
+  - [freedesktop — basedir-spec-latest](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
   - [freedesktop — latest](https://specifications.freedesktop.org/basedir-spec/latest/)
+  - [NixOS Wiki — Node.js (Using npm install -g fails)](https://wiki.nixos.org/wiki/Node.js#Using_npm_install_-g_fails)
   - [mise.jdx.dev — settings#all compile](https://mise.jdx.dev/configuration/settings.html#all_compile)
   - [mise.jdx.dev — settings#python.uv_venv_auto](https://mise.jdx.dev/configuration/settings.html#python.uv_venv_auto)
   - [NixOS Wiki — XDG Base Directory](https://wiki.nixos.org/wiki/XDG_Base_Directory)
@@ -278,6 +312,12 @@ Sway, Waybar, portals, clipboard, and window rules.
 
 Editor and dev tooling.
 
+- `flake.nix` (formatting / pre-commit; from [kzndotsh/nixos](https://github.com/kzndotsh/nixos))
+  - [cachix/git-hooks.nix](https://github.com/cachix/git-hooks.nix)
+  - [numtide/treefmt-nix](https://github.com/numtide/treefmt-nix)
+- `modules/nix/default.nix`
+  - [NixOS Wiki — Flakes (Using nix flakes with NixOS)](https://wiki.nixos.org/wiki/Flakes#Using_nix_flakes_with_NixOS)
+  - [zero-to-nix.com — caching](https://zero-to-nix.com/concepts/caching)
 - `modules/dev/mise.nix`
   - [mise.jdx.dev — lang/python](https://mise.jdx.dev/lang/python.html)
   - [mise.jdx.dev — mise-cookbook/python](https://mise.jdx.dev/mise-cookbook/python.html)
@@ -437,6 +477,9 @@ Docker, libvirt, qBittorrent, copyparty, and daemons.
   - [docker.com docs — live restore](https://docs.docker.com/engine/daemon/live-restore/)
   - [docker.com docs — prune](https://docs.docker.com/reference/cli/docker/system/prune/)
   - [NixOS Wiki — Docker](https://wiki.nixos.org/wiki/Docker) — (NixOS default is podman)
+  - [NixOS Wiki — Docker (daemon settings example)](https://wiki.nixos.org/wiki/Docker#Changing_Docker_Daemon.27s_Other_settings_example)
+  - [NixOS Wiki — Docker (Rootless docker)](https://wiki.nixos.org/wiki/Docker#Rootless_docker)
+  - [cachix.org](https://www.cachix.org/)
 - `modules/services/libvirt.nix`
   - [libvirt.org — nss](https://libvirt.org/nss.html)
   - [NixOS Wiki — Libvirt](https://wiki.nixos.org/wiki/Libvirt)
@@ -465,6 +508,7 @@ Docker, libvirt, qBittorrent, copyparty, and daemons.
 Auto-generated SVG diagrams from NixOS configs via [oddlama/nix-topology](https://oddlama.github.io/nix-topology/intro.html).
 
 - `topology.nix`, `flake.nix` (`topology.x86_64-linux`, `topology-render` app)
+  - [oddlama/nix-topology](https://github.com/oddlama/nix-topology) — upstream repo
   - [Installation](https://oddlama.github.io/nix-topology/installation.html)
   - [Defining additional things](https://oddlama.github.io/nix-topology/defining-additional-things.html)
   - [Helpers](https://oddlama.github.io/nix-topology/helpers.html) (`mkInternet`, `mkConnection`, `mkDevice`)
@@ -506,4 +550,4 @@ Upstream docs for themed terminal tools.
 
 ---
 
-*278 links · 13 sections*
+*374 links · 13 sections*
