@@ -62,6 +62,11 @@
       url = "github:jordangarrison/grok-bot-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -88,6 +93,7 @@
           ./hosts/vps/configuration.nix
           inputs.disko.nixosModules.disko
           inputs.sops-nix.nixosModules.sops
+          inputs.nix-topology.nixosModules.default
           "${nixpkgs}/nixos/modules/misc/nixpkgs/read-only.nix"
           { nixpkgs.pkgs = pkgs; }
         ];
@@ -146,6 +152,7 @@
           inputs.wrappers.nixosModules.system-wrappers
           inputs.NixVirt.nixosModules.default
           inputs.spicetify-nix.nixosModules.spicetify
+          inputs.nix-topology.nixosModules.default
           "${nixpkgs}/nixos/modules/misc/nixpkgs/read-only.nix"
           { nixpkgs.pkgs = pkgs; }
         ];
@@ -157,9 +164,27 @@
           ./modules/identity.nix
           ./hosts/hardened-vm/configuration.nix
           inputs.disko.nixosModules.disko
+          inputs.nix-topology.nixosModules.default
           "${nixpkgs}/nixos/modules/misc/nixpkgs/read-only.nix"
           { nixpkgs.pkgs = pkgs; }
         ];
+      };
+
+      # Topology stub — Windows guest; not deployed via nixos-anywhere.
+      windowsVm = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = [
+          ./hosts/windows-vm/configuration.nix
+          inputs.nix-topology.nixosModules.default
+          "${nixpkgs}/nixos/modules/misc/nixpkgs/read-only.nix"
+          { nixpkgs.pkgs = pkgs; }
+        ];
+      };
+
+      topologyPkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ inputs.nix-topology.overlays.default ];
       };
     in
     {
@@ -176,7 +201,16 @@
       nixosConfigurations = {
         ${identity.hostName} = desktop;
         hardened-vm = hardenedVm;
+        windows-vm = windowsVm;
         vps = mkVps;
+      };
+
+      topology.${system} = import inputs.nix-topology {
+        pkgs = topologyPkgs;
+        modules = [
+          ./topology.nix
+          { inherit (self) nixosConfigurations; }
+        ];
       };
 
       apps.${system} = {
@@ -342,6 +376,22 @@
             echo "Restart user units: systemctl --user restart cloudflared-kiro cloudflared-files"
           '');
           meta.description = "Sync Cloudflare tunnel credentials from tofu output into sops";
+        };
+
+        topology-render = {
+          type = "app";
+          program = toString (pkgs.writeShellScript "topology-render" ''
+            set -euo pipefail
+            ROOT="$(git rev-parse --show-toplevel)"
+            OUT="/tmp/nix-topology-out"
+            nix build "$ROOT#topology.x86_64-linux.config.output" --out-link "$OUT"
+            echo "main.svg   -> $OUT/main.svg"
+            echo "network.svg -> $OUT/network.svg"
+            if command -v xdg-open >/dev/null; then
+              xdg-open "$OUT/main.svg" >/dev/null 2>&1 || true
+            fi
+          '');
+          meta.description = "Build nix-topology SVGs and open main.svg";
         };
       };
 

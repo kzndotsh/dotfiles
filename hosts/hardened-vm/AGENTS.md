@@ -8,6 +8,7 @@ Anti-forensics XFCE VM for libvirt — Tor, i2pd, tmpfs, LUKS.
 
 - Libvirt anti-forensics VM. Unix user from `lib/identity.nix` (`kaizen`).
 - **Verify:** `nix build .#nixosConfigurations.hardened-vm.config.system.build.toplevel` (diskoImages currently fails: vmTools `kernel-modules` has no `target`)
+- `topology.self.parent = "ikigai"`; `enp1s0` on `virt`; guest `docker0` on isolated `docker-vm` network.
 
 ## Files
 | File | Role |

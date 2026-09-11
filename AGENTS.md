@@ -35,6 +35,7 @@ dotfiles/
 │   ├── music/ network/ nix/
 │   ├── packages/ programs/ services/ shell/
 │   ├── wine/ wrappers/
+├── topology.nix               # nix-topology extras (internet, shared networks)
 ├── lib/
 │   └── identity.nix           # Person + laptop + kzn.sh VPS
 ├── infra/                     # Terranix Nix; tofu state in `infra/state/kzn/`
@@ -90,6 +91,7 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 | Custom flake package       | `packages/`, `flake.nix` outputs                                     | Pin hashes on src/patch changes              |
 | VPS secrets                | `secrets/vps.yaml`                                                   | `sops secrets/vps.yaml`                      |
 | Lint Nix                   | repo root                                                            | `statix check .`, `deadnix . --exclude references archive` |
+| Infra SVG                  | `topology.nix` + flake `topology.x86_64-linux`                      | `nix build .#topology.x86_64-linux.config.output` |
 
 
 ## Boundaries
@@ -150,6 +152,8 @@ Before marking a dotfiles task complete:
 - `nix run .#vps-tunnels-sync` — `~/.secrets/cloudflared/{kiro,files}.json` + `secrets/cloudflared.yaml`
 - `nix run .#vm-install` — hardened-vm disko → libvirt (sudo)
 - `nix run .#windows-vm-install -- /path/to/Win11.iso` — 128G qcow2 + copy ISO to pool (sudo); attach hdc yourself (see `hosts/windows-vm/AGENTS.md`)
+- `nix run .#topology-render` — build SVGs to `/tmp/nix-topology-out` (IFD; overlay only on `topologyPkgs`)
+- `nix build .#topology.x86_64-linux.config.output` — same without opening the viewer
 - `sops secrets/vps.yaml` — edit VPS secrets
 
 ## Module structure
@@ -185,6 +189,6 @@ sops-nix. `secrets/vps.yaml` is encrypted and safe to commit. VPS decrypts via a
 
 ## Notes
 
-- Flake inputs: nixpkgs (unstable), disko, NixVirt, terranix, sops-nix, nix-wrappers, kiro-gateway, nix-gaming, spicetify-nix, findDupeTracks, cratedigger, cratesorter, grok-bot
+- Flake inputs: nixpkgs (unstable), disko, NixVirt, terranix, sops-nix, nix-wrappers, kiro-gateway, nix-gaming, spicetify-nix, findDupeTracks, cratedigger, cratesorter, grok-bot, nix-topology
 - `references/` is read-only — not part of the build
 - Git signing: 1Password SSH (`op-ssh-sign`); user/email from `lib/identity.nix`

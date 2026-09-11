@@ -227,6 +227,23 @@
     enableIPv6 = false;
   };
 
+  topology.self = {
+    parent = "ikigai";
+    guestType = "libvirt";
+    hardware.info = "LUKS throwaway VM · XFCE · Tor/i2pd";
+    interfaces.enp1s0 = {
+      network = "virt";
+      type = "ethernet";
+    };
+    interfaces.docker0 = {
+      network = "docker-vm";
+      virtual = true;
+      type = "bridge";
+      icon = "devices.cloud-server";
+      addresses = [ "172.17.0.1/16" ];
+    };
+  };
+
   security = {
     protectKernelImage = true;
     # lockKernelModules breaks disk image builds — enforce that at runtime instead.

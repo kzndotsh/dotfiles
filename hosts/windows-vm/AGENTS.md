@@ -2,7 +2,7 @@
 
 > Scope: `hosts/windows-vm` — inherits [`AGENTS.md`](../../AGENTS.md) unless noted.
 
-Windows 11 libvirt guest (UEFI, TPM 2.0, virtio). **Not** a `nixosConfigurations` attr. Imported by the desktop hypervisor (`hosts/desktop/configuration.nix`).
+Windows 11 libvirt guest (UEFI, TPM 2.0, virtio). `nixosConfigurations.windows-vm` is a **topology stub** only (`configuration.nix` + `topology.self`); the OS is Windows. NixVirt domain imported by desktop (`hosts/desktop/configuration.nix`).
 
 ## Quick facts
 
@@ -17,6 +17,7 @@ Windows 11 libvirt guest (UEFI, TPM 2.0, virtio). **Not** a `nixosConfigurations
 
 | File | Role |
 |------|------|
+| `configuration.nix` | Topology stub (`topology.self`); not deployed |
 | `nixvirt.nix` | Pool + domain XML |
 
 ## ISO

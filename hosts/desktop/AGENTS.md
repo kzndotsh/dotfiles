@@ -23,13 +23,14 @@ wrappers, nix, desktop+sway (XDG/keyring/gnupg/sudo/fonts in desktop barrel), bo
 - `time.timeZone = America/New_York`, `i18n.defaultLocale = en_US.UTF-8`
 - `stateVersion = "26.05"`
 - `networking.hostName = config.my.hostName`, permanent Ethernet MAC (overrides shared random MAC)
+- `topology.self` — manual `enp5s0`, `virbr0`, `docker0`; NM/Docker have no nix-topology extractors
 - sshd `PermitRootLogin = no`; TCP forwarding stays OpenSSH default (yes). VPS pins forwarding off.
 - Gaming: Lutris, Heroic, Bottles, Prism Launcher, RuneLite, `audio.lowLatency`
 - Voice: `ai.voice` — speaches + kokoro + fish on; moss / chatterbox off; Open WebUI STT=speaches TTS=fish
 - w-okada: `ai.wOkada` on; `w-okada` starts the user unit (one instance); `--stop` to kill; login autostart is `server.enable` (off); S. Threshold **0.0001** (not `0.00001`); do not change UI CHUNK (Nix 128)
 
 ## Flake
-`nixosConfigurations.ikigai` (alias `nixos`) + `NixVirt` + read-only pkgs. Identity: `lib/identity.nix`.
+`nixosConfigurations.ikigai` (alias `nixos`) + `NixVirt` + `nix-topology` NixOS module + read-only pkgs. Identity: `lib/identity.nix`.
 
 ## Verify
 ```bash

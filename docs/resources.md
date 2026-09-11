@@ -17,6 +17,7 @@ Links are grouped by topic, then by the Nix file they informed.
 - [Music production](#music-production)
 - [Programs](#programs)
 - [Services](#services)
+- [Infrastructure topology](#infrastructure-topology)
 - [Windows VM](#windows-vm)
 - [Wine](#wine)
 - [CLI wrappers](#cli-wrappers)
@@ -458,6 +459,17 @@ Docker, libvirt, qBittorrent, copyparty, and daemons.
   - [libvirt.org — formatnetwork](https://libvirt.org/formatnetwork.html)
   - [NixOS Wiki — Vagrant](https://wiki.nixos.org/wiki/Vagrant)
   - [vagrant-libvirt.github.io — vagrant libvirt](https://vagrant-libvirt.github.io/vagrant-libvirt/)
+
+## Infrastructure topology
+
+Auto-generated SVG diagrams from NixOS configs via [oddlama/nix-topology](https://oddlama.github.io/nix-topology/intro.html).
+
+- `topology.nix`, `flake.nix` (`topology.x86_64-linux`, `topology-render` app)
+  - [Installation](https://oddlama.github.io/nix-topology/installation.html)
+  - [Defining additional things](https://oddlama.github.io/nix-topology/defining-additional-things.html)
+  - [Helpers](https://oddlama.github.io/nix-topology/helpers.html) (`mkInternet`, `mkConnection`, `mkDevice`)
+  - [Connections](https://oddlama.github.io/nix-topology/connections.html)
+  - [Example: complex](https://oddlama.github.io/nix-topology/examples/complex/main.html)
 
 ## Windows VM
 

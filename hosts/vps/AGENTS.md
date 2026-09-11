@@ -2,7 +2,7 @@
 
 > Scope: `hosts/vps` — inherits [`AGENTS.md`](../../AGENTS.md) unless noted.
 
-Hetzner cx33. Flake attr `#vps` is kzn.sh (slim `vpsDns`).
+Hetzner cx33. Flake attr `#vps` is kzn.sh (slim `vpsDns`). Topology node id is `kzn` (`topology.self` in `configuration.nix`).
 
 ## Quick facts
 

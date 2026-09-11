@@ -29,5 +29,7 @@ nix build .#nixosConfigurations.vps.config.system.build.toplevel
 
 ## Related
 
-- [`modules/AGENTS.md`](../modules/AGENTS.md)
-- [`Root AGENTS.md`](../AGENTS.md)
+- NixOS hosts import `nix-topology.nixosModules.default` in `flake.nix`. Overlay is only on `topologyPkgs`.
+- Node ids follow `networking.hostName` (`ikigai`, `kzn`, `hardened-vm`), not flake attrs (`vps`).
+- Global extras in [`topology.nix`](../topology.nix): `internet`, `att-gateway`, `cloudflare`, shared networks (`home`, `hetzner`, `virt`, `docker*`). Per-host `topology.self` in each host `configuration.nix` (including `windows-vm` stub). **kzn** is on `hetzner`, not `home`.
+- Render: `nix run .#topology-render`

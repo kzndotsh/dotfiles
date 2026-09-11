@@ -40,6 +40,74 @@
     networkmanager.ethernet.macAddress = lib.mkForce "permanent";
   };
 
+  # nix-topology: NM has no extractor — enp5s0/virbr0 are manual (live: inxi -Fxxxz / ip route).
+  topology.self = {
+    name = "ikigai";
+    hardware.info = "Ryzen 7 5800X · RX 6700 XT · ASRock B550AM · libvirt hypervisor";
+    interfaces.enp5s0 = {
+      network = "home";
+      type = "ethernet";
+      icon = "interfaces.ethernet";
+      addresses = [ "DHCP" ];
+      gateways = [ "192.168.1.254" ];
+    };
+    interfaces.wlp4s0 = {
+      type = "wifi";
+      icon = "interfaces.wifi";
+      addresses = [ "down" ];
+    };
+    interfaces.virbr0 = {
+      network = "virt";
+      virtual = true;
+      type = "bridge";
+      icon = "interfaces.tap";
+      addresses = [ "192.168.74.1/24" ];
+      physicalConnections = [
+        (config.lib.topology.mkConnection "hardened-vm" "enp1s0")
+        (config.lib.topology.mkConnection "windows-vm" "eth0")
+      ];
+    };
+    interfaces.docker0 = {
+      network = "docker";
+      virtual = true;
+      type = "bridge";
+      icon = "devices.cloud-server";
+      addresses = [ "172.17.0.1/16" ];
+    };
+    interfaces.cf-tunnel = {
+      virtual = true;
+      type = "tunnel";
+      icon = "services.wireguard";
+      physicalConnections = [
+        (config.lib.topology.mkConnection "cloudflare" "edge")
+      ];
+    };
+    services = {
+      kiro-gateway = {
+        name = "kiro-gateway";
+        icon = "services.coder";
+        info = "127.0.0.1:9000";
+        details.tunnel = { text = "kiro.kzn.sh"; order = 50; };
+      };
+      copyparty = {
+        name = "copyparty";
+        icon = "services.samba";
+        info = "127.0.0.1:3923";
+        details.tunnel = { text = "files (cloudflared)"; order = 50; };
+      };
+      comfyui = {
+        name = "ComfyUI";
+        icon = "services.ollama";
+        info = "0.0.0.0:8188";
+      };
+      qbittorrent = {
+        name = "qBittorrent";
+        icon = "services.transmission";
+        info = "127.0.0.1:8080 · torrent :63000";
+      };
+    };
+  };
+
   # Cipher and MAC settings live in hardening/ssh.nix. TCP forwarding stays at the
   # OpenSSH default here; the VPS turns forwarding and tunnels off in system.nix.
   services.openssh.settings.PermitRootLogin = "no";
