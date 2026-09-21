@@ -35,8 +35,10 @@ in
           autocrlf = "input";
           pager = "delta";
           excludesfile = globalExcludes;
-          fsmonitor = true;
-          untrackedCache = true;
+          # Git's fsmonitor daemon misses Cursor/agent writes, so status/diff
+          # keep a stale index and hide dirty files. Do not re-enable.
+          fsmonitor = false;
+          untrackedCache = false;
         };
         column.ui = "auto";
         init.defaultBranch = "main";

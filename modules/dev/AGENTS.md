@@ -9,7 +9,7 @@ Developer tooling — git, direnv, global mise (JS + Python), Cursor argv. Deskt
 | File | Role |
 |------|------|
 | `default.nix` | direnv + nix-direnv; imports `cursor.nix`, `git.nix`, `mise.nix` |
-| `git.nix` | git + LFS, delta pager, global excludes (store), fsmonitor; `core.editor` = Cursor `--wait`; lazygit file edits stay on micro |
+| `git.nix` | git + LFS, delta pager, global excludes (store); `core.fsmonitor` / `untrackedCache` off (Cursor/agent writes); `core.editor` = Cursor `--wait`; lazygit file edits stay on micro |
 | `cursor.nix` | tmpfiles → store symlinks for `argv.json`, `.cursor/worktrees.json`, `.cursor/rules/worktree.mdc` under `config.my.dotfilesDir`; `DOTFILES_DIR` env |
 | `mise.nix` | Global mise: `config.toml` + `conf.d/{nodejs,python}.toml`; `scriptingRequirements` for agent one-shot libs; oneshot `mise-global-tools` |
 
@@ -21,7 +21,7 @@ Developer tooling — git, direnv, global mise (JS + Python), Cursor argv. Deskt
 - `DOTFILES_DIR` env points at `config.my.dotfilesDir` for scripts/agents.
 - Git signing uses `op-ssh-sign` — needs 1Password (`modules/programs/1password.nix`).
 - `core.excludesfile` is a store path — edit patterns in `git.nix`, not `~/.gitignore`.
-- `core.fsmonitor` needs inotify headroom — desktop `boot/sysctl.nix` sets `max_user_watches`.
+- Leave `core.fsmonitor` and `core.untrackedCache` off. The daemon skips Cursor/agent writes; `git status` then looks clean while the worktree is dirty.
 - `core.editor` is `cursor --reuse-window --wait` (commit messages, `rebase -i`). Agents should use `git commit -m`; lazygit file edits use `os.editPreset: micro`, not `core.editor`.
 - Delta is `core.pager` only — no `diff.tool` (delta is not a `git difftool` backend).
 - **mise** (`mise.nix`): single entry point for global tool pins. Edit `conf.d/nodejs.toml` / `conf.d/python.toml` fragments in Nix — not `~/.config/mise/` by hand. Session PATH + home prefixes in `modules/desktop/xdg.nix` (`PYTHONUSERBASE`, `PIP_CONFIG_FILE`, `UV_PYTHON_DOWNLOADS=never`, `~/.local/share/python/bin`; uv uses XDG → `~/.cache/uv`, `~/.local/share/uv`, `~/.config/uv`). **Scripting libs** (requests, httpx, loguru, mcp, …) are pinned in `scriptingRequirements` inside `mise.nix` and installed into global mise python by `mise-global-tools`. **Python CLIs** (`ipython`, `httpie`): nixpkgs in [`../shell/default.nix`](../shell/default.nix). After pin changes: `systemctl --user restart mise-global-tools` or `mise install`. No repo-root `mise.toml`. Compiled wheels need `programs.nix-ld` libs in [`../programs/nix-ld.nix`](../programs/nix-ld.nix).
