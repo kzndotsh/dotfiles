@@ -1,5 +1,6 @@
 /references
 .terraform/
+.venv/
 
 # Secrets
 .env
