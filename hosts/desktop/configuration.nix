@@ -123,6 +123,7 @@
     bottles.enable = true;
     minecraft.prismLauncher.enable = true;
     runelite.enable = true;
+    vr.enable = true;
   };
 
   music = {

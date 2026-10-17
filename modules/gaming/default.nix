@@ -2,7 +2,7 @@
 #
 # Submodules (each gated on gaming.enable plus its own flag where applicable):
 #   steam tools mangohud wine epic games emulators kernel env
-#   prismlauncher runelite crankshaft
+#   prismlauncher runelite crankshaft vr
 #
 # PipeWire quantum size stays in modules/audio (512 @ 48 kHz). This file only loads
 # libpipewire-module-rt. Music uses 97-music-rt (2s budget); this drop-in is 98- so
@@ -25,6 +25,7 @@ in
     ./prismlauncher.nix
     ./runelite.nix
     ./crankshaft.nix
+    ./vr.nix
   ];
 
   options.gaming = {
