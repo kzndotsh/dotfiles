@@ -1,4 +1,4 @@
-# Local AI stack: LLM inference, image gen, chat UI, voice, and the Kiro proxy.
+# Local AI stack: LLM inference, image gen, chat UI, voice, companions, and the Kiro proxy.
 {
   imports = [
     ./ollama.nix
@@ -10,6 +10,8 @@
     ./kirocrew.nix
     ./llmcord.nix
     ./opencode.nix
+    ./risuai.nix
+    ./airi.nix
     # hermes-agent and sillytavern retired — see archive/ (gitignored)
   ];
 

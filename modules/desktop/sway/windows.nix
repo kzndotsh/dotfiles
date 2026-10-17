@@ -99,6 +99,14 @@
     for_window [class="^(Yad|Zenity|zenity)$"] floating enable
     for_window [app_id="(?i)polkit"] floating enable
 
+
+    # AIRI Tamagotchi — companion overlay (Electron). Float + sticky so tiling
+    # does not eat a slot; pin-on-top in-app is unreliable on native Wayland.
+    # appId ai.moeru.airi / productName AIRI — match Wayland app_id and X11 class.
+    for_window [app_id="(?i)^(airi|ai\.moeru\.airi)$"] floating enable, sticky enable, border none
+    for_window [class="(?i)^AIRI$"] floating enable, sticky enable, border none
+    for_window [title="(?i)^AIRI$"] floating enable, sticky enable, border none
+
     # Zoom — tile the main meeting window, float toolbars and pickers.
     for_window [app_id="zoom"] floating disable
     for_window [app_id="zoom"] border normal

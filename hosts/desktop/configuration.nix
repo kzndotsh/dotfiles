@@ -149,6 +149,12 @@
     openWebui.tts = "fish";
   };
 
+  # RisuAI — local character-chat UI (Docker :6001). Start: systemctl start docker-risuai
+  ai.risuai.enable = true;
+
+  # AIRI — Stage Web companion (Docker :6100). Start: systemctl start docker-airi
+  ai.airi.enable = true;
+
   # Kiro Crew — persistent agent workspace (user unit, loopback :5476).
   ai.kirocrew.enable = true;
 
