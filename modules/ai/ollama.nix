@@ -162,6 +162,20 @@ let
         PARAMETER repeat_last_n 64
       '';
     }
+    # Trial vs hauhau-qwen35 / huihui 9B: same Qwen3.5-9B base. HF's :Q5_K_M tag resolves to the
+    # regular (non-MTP) file, ~7.7 GB. Samplers: card, thinking mode (coding: temperature 0.6).
+    {
+      name = "defiant-fable-9b";
+      modelfile = pkgs.writeText "defiant-fable-9b.modelfile" ''
+        FROM hf.co/DavidAU/Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP-GGUF:Q5_K_M
+        PARAMETER num_ctx 8192
+        PARAMETER temperature 1.0
+        PARAMETER top_p 0.95
+        PARAMETER top_k 20
+        PARAMETER min_p 0
+        PARAMETER repeat_penalty 1.0
+      '';
+    }
     # Library tags can't carry our PARAMETERs, so these aliases add the vendor values on top.
     # qwen2.5-coder: Qwen2.5-Coder-7B-Instruct generation_config.json.
     {
