@@ -42,8 +42,10 @@ _:
     "kernel.sched_autogroup_enabled" = 0;
 
     # IDEs and file watchers burn through default inotify limits fast.
+    # max_user_instances raised to 8192: nom opens one inotify fd per tracked
+    # derivation; large rebuilds (dozens of staged changes) saturate 1024.
     "fs.inotify.max_user_watches" = 524288;
-    "fs.inotify.max_user_instances" = 1024;
+    "fs.inotify.max_user_instances" = 8192;
     "fs.inotify.max_queued_events" = 32768;
     "fs.file-max" = 2097152;
     "fs.aio-max-nr" = 1048576;
