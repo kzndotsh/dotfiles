@@ -40,6 +40,7 @@ Comms (**vesktop**, Element, Gajim, Signal, Telegram), media (**`czkawka-full`**
 ## Gotchas
 
 - `inter` here does **not** register the font — that is `fonts.packages` in `modules/desktop/fonts.nix`.
+- `claudeDesktop`: llm-agents' Linux build is a nixpkgs `buildFHSEnv`, whose `/etc` is a fixed list (no `gitconfig`; host `/etc` at `/.host-etc`). Claude Code sessions inside the app then run git without system config. The override adds `extraBwrapArgs` `--ro-bind-try /etc/gitconfig /etc/gitconfig` (same as the pending upstream PR; drop it once merged). Identity/signing also live in `~/.config/git` (see `modules/dev`).
 
 ## Imported by
 Desktop only.
