@@ -8,11 +8,14 @@ let
 
   ollamaCustomModels = [
     # 14B @ 8k is tight on 12 GB — pin 4k on these aliases only.
+    # Samplers: DeepSeek-R1-Distill card (temp 0.5–0.7, 0.6 recommended, top_p 0.95); the library tag ships none.
     {
       name = "deepseek-r1-14b-4k";
       modelfile = pkgs.writeText "deepseek-r1-14b-4k.modelfile" ''
         FROM deepseek-r1:14b
         PARAMETER num_ctx 4096
+        PARAMETER temperature 0.6
+        PARAMETER top_p 0.95
       '';
     }
     {
@@ -20,6 +23,8 @@ let
       modelfile = pkgs.writeText "deepseek-r1-abliterated-14b-4k.modelfile" ''
         FROM huihui_ai/deepseek-r1-abliterated:14b
         PARAMETER num_ctx 4096
+        PARAMETER temperature 0.6
+        PARAMETER top_p 0.95
       '';
     }
     # Custom template — always emits a system block and skips im_end tokens.
@@ -51,19 +56,28 @@ let
         PARAMETER repeat_penalty 1.0
       '';
     }
+    # Samplers: HauhauCS card, thinking mode (non-thinking: temp 0.7, top_p 0.8).
     {
       name = "hauhau-qwen35";
       modelfile = pkgs.writeText "hauhau-qwen35.modelfile" ''
         FROM hf.co/HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive:Q4_K_M
         PARAMETER num_ctx 8192
+        PARAMETER temperature 0.6
+        PARAMETER top_p 0.95
+        PARAMETER top_k 20
+        PARAMETER min_p 0
       '';
     }
     # 4096 matches the old llama-server profile, not the server's 8192 default.
+    # Samplers (both Gemma 4 aliases): Google's Gemma 4 values, quoted on the HauhauCS card.
     {
       name = "hauhau-gemma4";
       modelfile = pkgs.writeText "hauhau-gemma4.modelfile" ''
         FROM hf.co/HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive:Q4_K_M
         PARAMETER num_ctx 4096
+        PARAMETER temperature 1.0
+        PARAMETER top_p 0.95
+        PARAMETER top_k 64
       '';
     }
     # Measured uncensored 12B that fits 12 GB at Q4. `/set nothink` in Ollama for the heretic path.
@@ -72,6 +86,9 @@ let
       modelfile = pkgs.writeText "gemma4-12b-heretic.modelfile" ''
         FROM igorls/gemma-4-12B-it-heretic-GGUF:Q4_K_M
         PARAMETER num_ctx 8192
+        PARAMETER temperature 1.0
+        PARAMETER top_p 0.95
+        PARAMETER top_k 64
       '';
     }
     # 9B RP, Q4 ~5.8 GB. Extra alias next to gemma4-12b-heretic.
@@ -145,6 +162,36 @@ let
         PARAMETER repeat_last_n 64
       '';
     }
+    # Library tags can't carry our PARAMETERs, so these aliases add the vendor values on top.
+    # qwen2.5-coder: Qwen2.5-Coder-7B-Instruct generation_config.json.
+    {
+      name = "qwen2.5-coder-7b-tuned";
+      modelfile = pkgs.writeText "qwen2.5-coder-7b-tuned.modelfile" ''
+        FROM qwen2.5-coder:7b
+        PARAMETER temperature 0.7
+        PARAMETER top_p 0.8
+        PARAMETER top_k 20
+        PARAMETER repeat_penalty 1.1
+      '';
+    }
+    # huihui's tag lacks the presence_penalty 1.5 the official qwen3.5:9b ships; other params inherit.
+    {
+      name = "qwen3.5-abliterated-9b-tuned";
+      modelfile = pkgs.writeText "qwen3.5-abliterated-9b-tuned.modelfile" ''
+        FROM huihui_ai/qwen3.5-abliterated:9b
+        PARAMETER presence_penalty 1.5
+      '';
+    }
+    # JoyCaption Beta One: card example (temperature 0.6, top_p 0.9, top_k off); keeps the uploader's num_ctx 4096.
+    {
+      name = "joycaption-beta-one";
+      modelfile = pkgs.writeText "joycaption-beta-one.modelfile" ''
+        FROM aha2025/llama-joycaption-beta-one-hf-llava:Q4_K_M
+        PARAMETER temperature 0.6
+        PARAMETER top_p 0.9
+        PARAMETER top_k 0
+      '';
+    }
   ];
 
   # No 30B/35B disk cache — those are RAM-offload on 12 GB and showed up as slow leftovers.
@@ -169,6 +216,10 @@ in
       "qwen3-embedding:0.6b"
       "huihui_ai/qwen3.5-abliterated:9b"
       "huihui_ai/deepseek-r1-abliterated:14b"
+      # Vision: captioning / image Q&A (JoyCaption also has a tuned alias above).
+      "aha2025/llama-joycaption-beta-one-hf-llava:Q4_K_M"
+      "minicpm-v4.6"
+      "moondream"
     ];
     # Only ollama.service sees these — a bare `ollama run` talks to the server on 127.0.0.1:11434.
     environmentVariables = {
