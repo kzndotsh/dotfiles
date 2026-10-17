@@ -8,6 +8,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Fish Audio proxy (nixosModules.default → services.fish-audio-suite-proxy).
+    fish-audio-suite = {
+      url = "github:kzndotsh/fish-audio-suite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     NixVirt = {
       url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,10 +69,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    llmcord = {
+      url = "github:jakobdylanc/llmcord";
+      flake = false;
+    };
+
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # claude-desktop (official Linux .deb repack); no follows — keeps numtide cache hits
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
@@ -153,6 +167,7 @@
           inputs.NixVirt.nixosModules.default
           inputs.spicetify-nix.nixosModules.spicetify
           inputs.nix-topology.nixosModules.default
+          inputs.fish-audio-suite.nixosModules.default
           "${nixpkgs}/nixos/modules/misc/nixpkgs/read-only.nix"
           { nixpkgs.pkgs = pkgs; }
         ];
