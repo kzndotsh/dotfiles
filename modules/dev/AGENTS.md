@@ -9,7 +9,7 @@ Developer tooling — git, direnv, global mise (JS + Python), Cursor argv. Deskt
 | File | Role |
 |------|------|
 | `default.nix` | direnv + nix-direnv; imports `cursor.nix`, `git.nix`, `mise.nix` |
-| `git.nix` | git + LFS, delta pager, global excludes (store); `core.fsmonitor` / `untrackedCache` off (Cursor/agent writes); `core.editor` = Cursor `--wait`; lazygit file edits stay on micro; `/etc/git/identity` + writable `~/.config/git/config` that includes it |
+| `git.nix` | git + LFS, delta pager, global excludes (store); `core.fsmonitor` / `untrackedCache` off (Cursor/agent writes); `core.editor` = Cursor `--wait`; lazygit file edits stay on micro; `/etc/git/identity` + writable `~/.config/git/config` that includes it; `/etc/git/allowed_signers` (from `my.sshKey`) so local `git log --show-signature` verifies our SSH signatures |
 | `cursor.nix` | tmpfiles → store symlinks for `argv.json`, `.cursor/worktrees.json`, `.cursor/rules/worktree.mdc`, `.cursor/setup-worktree-unix.sh` under `config.my.dotfilesDir`; `DOTFILES_DIR` env |
 | `mise.nix` | Global mise: `config.toml` + `conf.d/{nodejs,python}.toml`; `scriptingRequirements` for agent one-shot libs; oneshot `mise-global-tools` |
 

@@ -104,7 +104,11 @@ in
           gpgsign = true;
         };
         gpg.format = "ssh";
-        "gpg \"ssh\"".program = "/run/current-system/sw/bin/op-ssh-sign";
+        "gpg \"ssh\"" = {
+          program = "/run/current-system/sw/bin/op-ssh-sign";
+          # lets `git log --show-signature` / verify-commit trust our own SSH signatures
+          allowedSignersFile = "/etc/git/allowed_signers";
+        };
         status = {
           showUntrackedFiles = "all";
           branch = true;
@@ -149,15 +153,21 @@ in
     ];
   };
 
-  environment.systemPackages = with pkgs; [ delta gh ];
+  environment = {
+    systemPackages = with pkgs; [ delta gh ];
 
-  # Some apps only check the global scope (~/.config/git/config), not /etc/gitconfig.
-  # Keep that file a real, writable file (tools add to it) that includes the identity.
-  environment.etc."git/identity".text = ''
-    [user]
-    	name = ${config.my.gitName}
-    	email = ${config.my.gitEmail}
-  '';
+    # Some apps only check the global scope (~/.config/git/config), not /etc/gitconfig.
+    # Keep that file a real, writable file (tools add to it) that includes the identity.
+    etc."git/identity".text = ''
+      [user]
+      	name = ${config.my.gitName}
+      	email = ${config.my.gitEmail}
+    '';
+    etc."git/allowed_signers".text = ''
+      ${config.my.gitEmail} namespaces="git" ${config.my.sshKey}
+    '';
+  };
+
   systemd.tmpfiles.rules = [
     "d ${config.my.home}/.config/git 0755 ${config.my.username} users -"
     "f ${config.my.home}/.config/git/config 0644 ${config.my.username} users - [include]\\n\\tpath = /etc/git/identity\\n"
