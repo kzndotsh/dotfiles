@@ -53,6 +53,7 @@
     bluejay # Qt manager
     bluetui # TUI
     bluetuith # TUI (connection-focused)
+    librepods # AirPods ANC/transparency, ear detection, battery (GUI + librepods-ctl)
   ];
 
   # Point VA-API, VDPAU, and Vulkan at Mesa RADV on amdgpu.
