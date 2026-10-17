@@ -10,6 +10,8 @@
 let
   dataDir = "${config.my.home}/.config/kiro-gateway";
   aiEnvFile = "${config.my.secretsDir}/ai.env";
+  # One-line key for OpenCode {file:…} (session does not source ai.env).
+  proxyKeyFile = "${config.my.secretsDir}/kiro-proxy-api-key";
 
   kiroGatewayPkg = import (self + /packages/kiro-gateway) {
     inherit (pkgs) lib python3 runCommand writeShellApplication;
@@ -26,6 +28,8 @@ let
       exit 1
     fi
     export PROXY_API_KEY="''${PROXY_API_KEY:-$KIRO_GATEWAY_API_KEY}"
+    umask 077
+    printf '%s' "''${PROXY_API_KEY}" > ${proxyKeyFile}
     export ACCOUNTS_CONFIG_FILE="''${ACCOUNTS_CONFIG_FILE:-${dataDir}/credentials.json}"
     export ACCOUNTS_STATE_FILE="''${ACCOUNTS_STATE_FILE:-${dataDir}/state.json}"
     export ACCOUNT_SYSTEM="''${ACCOUNT_SYSTEM:-true}"
