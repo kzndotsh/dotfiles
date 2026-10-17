@@ -38,11 +38,17 @@ let
         PARAMETER num_ctx 8192
       '';
     }
+    # Samplers: base Qwen3-4B-Thinking-2507 card (Temperature 0.6, TopP 0.95, TopK 20, MinP 0).
     {
       name = "satyr-v0.1-4b";
       modelfile = pkgs.writeText "satyr-v0.1-4b.modelfile" ''
         FROM hf.co/PantheonUnbound/Satyr-V0.1-4B:Q4_K_M
         PARAMETER num_ctx 8192
+        PARAMETER temperature 0.6
+        PARAMETER top_p 0.95
+        PARAMETER top_k 20
+        PARAMETER min_p 0
+        PARAMETER repeat_penalty 1.0
       '';
     }
     {
@@ -69,43 +75,74 @@ let
       '';
     }
     # 9B RP, Q4 ~5.8 GB. Extra alias next to gemma4-12b-heretic.
+    # Card has no samplers: DavidAU baseline (min_p 0.05, top_p 0.95, rep pen 1.05 over 64); Gemma 2 wants temp ~1.
     {
       name = "gemmasutra-9b";
       modelfile = pkgs.writeText "gemmasutra-9b.modelfile" ''
         FROM hf.co/TheDrummer/Gemmasutra-9B-v1-GGUF:Q4_K_M
         PARAMETER num_ctx 8192
+        PARAMETER temperature 1.0
+        PARAMETER min_p 0.05
+        PARAMETER top_p 0.95
+        PARAMETER top_k 40
+        PARAMETER repeat_penalty 1.05
+        PARAMETER repeat_last_n 64
       '';
     }
-    # 12B merge, Q4 ~7.6 GB.
+    # 12B merge, Q4 ~7.6 GB. Samplers: Marcjoni/HyperNovaSynth-12B card (temp 0.75–1.25, min_p 0.035, top_k 0, top_p 1).
     {
       name = "hypernovasynth-12b";
       modelfile = pkgs.writeText "hypernovasynth-12b.modelfile" ''
         FROM hf.co/mradermacher/HyperNovaSynth-12B-GGUF:Q4_K_M
         PARAMETER num_ctx 8192
+        PARAMETER temperature 1.0
+        PARAMETER min_p 0.035
+        PARAMETER top_p 1.0
+        PARAMETER top_k 0
+        PARAMETER repeat_penalty 1.05
+        PARAMETER repeat_last_n 64
       '';
     }
-    # UnslopNemo 12B v4.1, Q4 ~7.6 GB.
+    # UnslopNemo 12B v4.1, Q4 ~7.6 GB. Card has no samplers: DavidAU baseline.
     {
       name = "unslopnemo-12b";
       modelfile = pkgs.writeText "unslopnemo-12b.modelfile" ''
         FROM hf.co/mradermacher/UnslopNemo-12B-v4.1-GGUF:Q4_K_M
         PARAMETER num_ctx 8192
+        PARAMETER temperature 0.8
+        PARAMETER min_p 0.05
+        PARAMETER top_p 0.95
+        PARAMETER top_k 40
+        PARAMETER repeat_penalty 1.05
+        PARAMETER repeat_last_n 64
       '';
     }
-    # Impish Bloodmoon 12B Abliterated, Q4 ~7.6 GB.
+    # Impish Bloodmoon 12B Abliterated, Q4 ~7.6 GB. Samplers: the Ollama-supported part of the
+    # card's RP preset (Impish_Nemo Dynamic_Paragraph_XTC_ST.json); its DRY/XTC/dynatemp 0.85–1.3 need llama.cpp.
     {
       name = "impish-bloodmoon-12b";
       modelfile = pkgs.writeText "impish-bloodmoon-12b.modelfile" ''
         FROM hf.co/mradermacher/Impish_Bloodmoon_12B_Abliterated-GGUF:Q4_K_M
         PARAMETER num_ctx 8192
+        PARAMETER temperature 1.0
+        PARAMETER min_p 0.05
+        PARAMETER top_p 0.75
+        PARAMETER top_k 20
+        PARAMETER repeat_penalty 1.0
       '';
     }
-    # KansenSakura Eclipse 12B, Q4 ~7.6 GB.
+    # KansenSakura Eclipse 12B, Q4 ~7.6 GB. Samplers: Retreatcost/KansenSakura-Eclipse-RP-12b card.
     {
       name = "kansensakura-eclipse-12b";
       modelfile = pkgs.writeText "kansensakura-eclipse-12b.modelfile" ''
         FROM hf.co/mradermacher/KansenSakura-Eclipse-RP-12b-GGUF:Q4_K_M
         PARAMETER num_ctx 8192
+        PARAMETER temperature 0.8
+        PARAMETER min_p 0.025
+        PARAMETER top_p 0.97
+        PARAMETER top_k 0
+        PARAMETER repeat_penalty 1.05
+        PARAMETER repeat_last_n 64
       '';
     }
   ];
@@ -159,16 +196,26 @@ in
       bindsTo = [ "ollama.service" ];
       environment = config.systemd.services.ollama.environment;
       # DynamicUser is fine — create/pull go through the server HTTP API; blobs live in ollama's home.
-      serviceConfig = { Type = "oneshot"; RemainAfterExit = true; DynamicUser = true; };
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        DynamicUser = true;
+        # Stamp per alias = Modelfile store path, so an edited Modelfile re-creates the alias.
+        StateDirectory = "ollama-custom-models";
+      };
       script = ''
         set -uo pipefail
         failures=0
         ${lib.concatMapStringsSep "\n" (m: ''
-          if ${ollamaExe} show ${lib.escapeShellArg m.name} >/dev/null 2>&1; then
-            echo "Already exists: ${m.name}"
+          stamp="$STATE_DIRECTORY/"${lib.escapeShellArg m.name}
+          if ${ollamaExe} show ${lib.escapeShellArg m.name} >/dev/null 2>&1 \
+            && [[ "$(cat "$stamp" 2>/dev/null)" == ${lib.escapeShellArg "${m.modelfile}"} ]]; then
+            echo "Up to date: ${m.name}"
           else
             echo "Creating ${m.name}..."
-            if ! ${ollamaExe} create ${lib.escapeShellArg m.name} -f ${lib.escapeShellArg m.modelfile}; then
+            if ${ollamaExe} create ${lib.escapeShellArg m.name} -f ${lib.escapeShellArg m.modelfile}; then
+              printf '%s' ${lib.escapeShellArg "${m.modelfile}"} > "$stamp"
+            else
               echo "ERROR: failed to create ${m.name}" >&2
               failures=$((failures + 1))
             fi
