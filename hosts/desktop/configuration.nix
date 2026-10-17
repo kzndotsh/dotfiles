@@ -152,6 +152,15 @@
   # Kiro Crew — persistent agent workspace (user unit, loopback :5476).
   ai.kirocrew.enable = true;
 
+  # llmcord — Discord LLM frontend backed by kiro-gateway (needs ~/.secrets/llmcord.env).
+  ai.llmcord = {
+    enable = true;
+    adminIds = [ 1555808113330757632 ];
+    max_messages = 50;
+    allowDms = false;
+    statusMessage = "@ me to chat";
+  };
+
   # w-okada RVC — w-okada-setup once, then `w-okada` + virtual mic.
   ai.wOkada = {
     enable = true;

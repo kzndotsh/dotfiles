@@ -8,6 +8,7 @@
     ./w-okada.nix
     ./kiro-gateway.nix
     ./kirocrew.nix
+    ./llmcord.nix
     # hermes-agent and sillytavern retired — see archive/ (gitignored)
   ];
 
