@@ -202,6 +202,33 @@ The Yeti X picks up audio bleeding from headphones. w-okada converts everything 
 - Docker web is secondary for browser access only
 - Browser: Chromium-based with WebGPU preferred for Live2D/VRM stage
 
+## Benchmarks & evaluations (Oct 2026)
+
+Measured on this host. Links: [`docs/resources.md`](../../docs/resources.md#ai-local-models).
+
+### Ollama ROCm vs llama.cpp Vulkan
+
+UnslopNemo 12B Q4_K_M, full offload, flash attention, q8_0 KV, `llama-bench` from nixpkgs `llama-cpp-vulkan` / `llama-cpp-rocm` (v0.6.0) vs Ollama 0.40.3 (`ollama-rocm`):
+
+| Test | Vulkan | ROCm (llama.cpp) | Ollama ROCm |
+|------|-------:|-----------------:|------------:|
+| pp512 | 672 | 617 | ~560 |
+| tg128 | 46.8 | 44.4 | 42–45 |
+| pp4096 | 601 | 567 | — |
+| tg128 @ 4k depth | **42.6** | 36.4 | — |
+
+- Vulkan wins decode by 5–17%, and the gap grows with context depth. ROCm only ties on prefill at depth. Matches the upstream gfx1031 report (llama.cpp #26702), which also shows ROCm winning 8k prefill
+- No matrix cores on RDNA2 (`matrix cores: none`), so the big Vulkan gains reported for RDNA3/4 don't apply here
+- Cheapest switch if ever wanted: `ollamaPkg = pkgs.ollama-vulkan` (drops `rocmOverrideGfx` + `HSA_NO_SCRATCH_RECLAIM` VRAM tax). Not benchmarked through Ollama itself yet
+- Not switched: a 5–17% gain doesn't justify touching aliases, Open WebUI, RisuAI/AIRI, GameMode unload
+
+### Higgs Audio v3 TTS (bosonai/higgs-tts-3-4b)
+
+- Official serving (SGLang-Omni / vLLM-Omni) is CUDA-only. Ran on ROCm via the community ComfyUI node's `native.py` (Saganaki22/Higgs_v3-TTS-ComfyUI) in a throwaway venv (torch 2.11.0+rocm7.1, transformers 5.5.0)
+- **bf16 is ~8× slower than fp16** on gfx1030 (no bf16 hardware path): RTF ~11.5. fp16 LM + fp32 codec: **RTF 4–5**, 8.6 GB peak VRAM, finite audio
+- Verdict: OK for offline clips, too slow for realtime voice-call RP on this card. Voice/accent come only from a reference clip (+ transcript); no text voice description, no presets locally. 43 inline tags (emotion/prosody/style/sfx)
+- License: research / non-commercial (creator grant with attribution); no cloning without consent
+
 ## See also
 
 - [`modules/hardware/`](../hardware/) — AMDGPU, ROCm, LACT

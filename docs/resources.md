@@ -194,6 +194,7 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
   - [rocm.docs.amd.com — system requirements](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html)
   - [ROCm/ROCm — issue #2720](https://github.com/ROCm/ROCm/issues/2720)
   - [ROCm/tensorflow-upstream — issue #2629](https://github.com/ROCm/tensorflow-upstream/issues/2629)
+  - [ggml-org/llama.cpp — issue #26702](https://github.com/ggml-org/llama.cpp/issues/26702) — RX 6700 XT (gfx1031) Vulkan vs ROCm; matches our own benchmark in `modules/ai/AGENTS.md`
 - `modules/ai/opencode.nix`
   - [opencode.ai — config schema](https://opencode.ai/config.json)
 - `modules/ai/open-webui.nix`
@@ -234,6 +235,9 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
   - [speaches.ai — installation](https://speaches.ai/installation/) — installation/ configuration/
   - [speaches.ai — speech to text](https://speaches.ai/usage/speech-to-text/)
   - [SYSTRAN/faster-whisper](https://github.com/SYSTRAN/faster-whisper)
+- Higgs Audio v3 TTS (tested, not wired in Nix; results in `modules/ai/AGENTS.md`)
+  - [huggingface.co — bosonai/higgs-audio-v3-tts-4b](https://huggingface.co/bosonai/higgs-audio-v3-tts-4b) — redirects to `higgs-tts-3-4b`; PROMPTING.md has the tag catalog
+  - [Saganaki22/Higgs_v3-TTS-ComfyUI](https://github.com/Saganaki22/Higgs_v3-TTS-ComfyUI) — plain-PyTorch loader; the only path that ran on ROCm here
 
 
 ## Audio & PipeWire
