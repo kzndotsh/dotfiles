@@ -195,6 +195,18 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
   - [ROCm/ROCm — issue #2720](https://github.com/ROCm/ROCm/issues/2720)
   - [ROCm/tensorflow-upstream — issue #2629](https://github.com/ROCm/tensorflow-upstream/issues/2629)
   - [ggml-org/llama.cpp — issue #26702](https://github.com/ggml-org/llama.cpp/issues/26702) — RX 6700 XT (gfx1031) Vulkan vs ROCm; matches our own benchmark in `modules/ai/AGENTS.md`
+  - [DavidAU — Maximizing Model Performance (samplers/parameters)](https://huggingface.co/DavidAU/Maximizing-Model-Performance-All-Quants-Types-And-Full-Precision-by-Samplers_Parameters) — baseline presets (`min_p 0.05`, `top_p 0.95`, rep pen ~1.05 over `repeat_last_n 64`) for aliases whose cards give none; quant ranking and imatrix notes
+  - [ollama/ollama — openai/openai.go](https://github.com/ollama/ollama/blob/main/openai/openai.go) — the `/v1` API maps only temperature, top_p, presence/frequency penalty, seed, stop and max tokens; `min_p`/`top_k`/repeat penalty must live in Modelfiles
+  - Sampler presets per alias (model cards):
+    - [deepseek-ai/DeepSeek-R1-Distill-Qwen-14B](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B) — temp 0.6 (0.5–0.7), top_p 0.95
+    - [HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive](https://huggingface.co/HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive) — Qwen thinking/non-thinking values
+    - [HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive](https://huggingface.co/HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive) — Gemma 4: temp 1.0, top_p 0.95, top_k 64
+    - [Qwen/Qwen3-4B-Thinking-2507](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507) — base of `satyr-v0.1-4b`
+    - [Qwen/Qwen2.5-Coder-7B-Instruct — generation_config.json](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct/blob/main/generation_config.json) — `qwen2.5-coder-7b-tuned`
+    - [Marcjoni/HyperNovaSynth-12B](https://huggingface.co/Marcjoni/HyperNovaSynth-12B)
+    - [Retreatcost/KansenSakura-Eclipse-RP-12b](https://huggingface.co/Retreatcost/KansenSakura-Eclipse-RP-12b)
+    - [SicariusSicariiStuff/Impish_Bloodmoon_12B](https://huggingface.co/SicariusSicariiStuff/Impish_Bloodmoon_12B) and its [RP preset JSON](https://huggingface.co/SicariusSicariiStuff/Impish_Nemo_12B/blob/main/Silly_Tavern_Settings/Dynamic_Paragraph_XTC_ST.json) — only the Ollama-supported part applies (no DRY/XTC/dynatemp)
+    - [fancyfeast/llama-joycaption-beta-one-hf-llava](https://huggingface.co/fancyfeast/llama-joycaption-beta-one-hf-llava) — `joycaption-beta-one`: temp 0.6, top_p 0.9
 - `modules/ai/opencode.nix`
   - [opencode.ai — config schema](https://opencode.ai/config.json)
 - `modules/ai/open-webui.nix`
@@ -288,6 +300,8 @@ Theme, fonts, XDG, keyring, and session defaults.
   - [mise.jdx.dev — settings#all compile](https://mise.jdx.dev/configuration/settings.html#all_compile)
   - [mise.jdx.dev — settings#python.uv_venv_auto](https://mise.jdx.dev/configuration/settings.html#python.uv_venv_auto)
   - [NixOS Wiki — XDG Base Directory](https://wiki.nixos.org/wiki/XDG_Base_Directory)
+  - [NixOS Discourse — SSL errors with uv's standalone Python](https://discourse.nixos.org/t/fix-ssl-sslcertverificationerror-with-uvs-standalone-python/71138) — python-build-standalone (mise/uv) looks for `/etc/ssl/cert.pem`; why `SSL_CERT_FILE` + the `cert.pem` link exist
+  - [pydevtools — python-build-standalone](https://pydevtools.com/handbook/reference/python-build-standalone.md)
 
 
 ## Sway & Wayland
@@ -342,6 +356,13 @@ Editor and dev tooling.
   - [NixOS Wiki — Python quickstart using uv](https://wiki.nixos.org/wiki/Python_quickstart_using_uv)
 - `modules/dev/cursor.nix`
   - [cursor.com — docs](https://www.cursor.com/docs)
+- `modules/dev/git.nix`
+  - [code.claude.com — sandboxing](https://code.claude.com/docs/en/sandboxing) — symlinked git config can be unreadable inside the sandbox; why `~/.config/git/identity` is a real file
+  - [NixOS/nixpkgs — build-fhsenv-bubblewrap](https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/build-fhsenv-bubblewrap/default.nix) — `etcBindEntries`: the fixed host `/etc` list (no `gitconfig`) that FHS apps such as Claude Desktop see
+- `modules/packages/default.nix` (claude-desktop override)
+  - [numtide/llm-agents.nix — claude-desktop package](https://github.com/numtide/llm-agents.nix/blob/main/packages/claude-desktop/package.nix) — Linux build is a `buildFHSEnv`
+  - [numtide/llm-agents.nix — PR #10954](https://github.com/numtide/llm-agents.nix/pull/10954) — upstream fix binding `/etc/gitconfig`; drop the local override once merged
+  - [NixOS/nixpkgs — issue #353975](https://github.com/NixOS/nixpkgs/issues/353975) — same FHS `/etc` gap for dconf (upstream list change never merged)
 
 
 ## Gaming
