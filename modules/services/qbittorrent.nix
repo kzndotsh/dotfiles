@@ -23,10 +23,6 @@ let
       Public = categoryDefaults // { save_path = "${home}/Public"; };
       Torrents = categoryDefaults // { save_path = "${home}/Downloads/torrents"; };
       X = categoryDefaults // { save_path = "${home}/Downloads/X"; };
-      whisparr = categoryDefaults // {
-        download_path = false;
-        save_path = "${home}/Arr/downloads/adult";
-      };
     }
   );
 
