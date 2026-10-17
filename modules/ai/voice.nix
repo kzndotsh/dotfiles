@@ -1,14 +1,15 @@
-# Voice backends for Open WebUI — STT/TTS Docker containers, all on-demand.
+# Voice backends for Open WebUI — STT/TTS Docker containers plus the native Fish proxy, all on-demand.
 #
 #   speaches   :8300  STT  CPU
 #   kokoro     :8880  TTS  CPU
-#   fish       :8849  TTS  cloud (FISH_API_KEY in ai.env)
+#   fish       :8849  TTS  cloud — fish-audio-suite proxy, systemd service (FISH_API_KEY in ai.env)
+#                           + `fish-voice` duplex CLI from the same flake
 #   moss       :8851  TTS  CPU  (off by default)
 #   chatterbox :8850  TTS  GPU  (off by default — fights Ollama for VRAM)
 #
 # `enable` creates the systemd unit but does not auto-start it.
 # Pick backends in hosts/desktop/configuration.nix; Open WebUI reads ai.voice.openWebui.
-{ config, lib, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   cfg = config.ai.voice;
 
@@ -46,14 +47,14 @@ let
   mkEnable = name: default: lib.mkOption {
     type = lib.types.bool;
     inherit default;
-    description = "Define the ${name} container (on-demand, not auto-start)";
+    description = "Define the ${name} backend (on-demand, not auto-start)";
   };
 in
 {
   options.ai.voice = {
     speaches.enable = mkEnable "speaches STT" true;
     kokoro.enable = mkEnable "kokoro TTS" true;
-    fish.enable = mkEnable "Fish Audio TTS proxy" true;
+    fish.enable = mkEnable "Fish Audio TTS proxy (fish-audio-suite service)" true;
     moss.enable = mkEnable "MOSS-TTS-Nano" false;
     chatterbox.enable = mkEnable "Chatterbox TTS (ROCm)" false;
 
@@ -90,6 +91,18 @@ in
       }
     ];
 
+    # fish-audio-suite flake: native proxy service (start: systemctl start fish-audio-suite-proxy)
+    services.fish-audio-suite-proxy = lib.mkIf cfg.fish.enable {
+      enable = true;
+      autoStart = false;
+      environmentFiles = [ "${config.my.secretsDir}/ai.env" ]; # FISH_API_KEY
+    };
+
+    # fish-voice duplex CLI (PortAudio wrapped in); run: fish-voice --env-file <env with FISH_VOICE_ID + LLM key> (e.g. the suite repo .env)
+    environment.systemPackages = lib.mkIf cfg.fish.enable [
+      inputs.fish-audio-suite.packages.${pkgs.stdenv.hostPlatform.system}.fish-audio-suite-voice
+    ];
+
     virtualisation.oci-containers.containers = lib.mkMerge [
       (lib.mkIf cfg.speaches.enable {
         speaches = {
@@ -119,15 +132,6 @@ in
         kokoro-tts = {
           image = "ghcr.io/remsky/kokoro-fastapi-cpu:latest";
           ports = [ "127.0.0.1:8880:8880" ];
-          autoStart = false;
-        };
-      })
-
-      (lib.mkIf cfg.fish.enable {
-        fish-tts-proxy = {
-          image = "fish-tts-proxy:latest";
-          ports = [ "127.0.0.1:8849:8849" ];
-          environmentFiles = [ "${config.my.secretsDir}/ai.env" ]; # FISH_API_KEY
           autoStart = false;
         };
       })
