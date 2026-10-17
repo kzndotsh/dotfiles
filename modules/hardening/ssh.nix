@@ -1,5 +1,5 @@
 # Shared sshd settings for VPS and desktop. Root login and forwarding are set per-host.
-# VPS turns off TCP forwarding and tunnels in hosts/vps/configuration.nix; desktop keeps OpenSSH defaults.
+# VPS turns off TCP forwarding and tunnels in hosts/vps/system.nix; desktop keeps OpenSSH defaults.
 _:
 {
   services.openssh = {

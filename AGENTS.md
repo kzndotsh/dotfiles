@@ -18,26 +18,31 @@ NixOS dotfiles managing a desktop workstation, hardened VM, Windows 11 libvirt g
 dotfiles/
 ├── flake.nix                  # inputs, outputs, apps, nixosConfigurations
 ├── flake.lock
+├── README.md
 ├── .sops.yaml
+├── .statix.toml
 ├── .env.example               # tofu token template (copy to `.env.kzn`)
 ├── AGENTS.md
+├── .github/                   # AGENTS.md only (no Actions workflows)
+├── docs/                      # resources.md (reference links)
 ├── hosts/
 │   ├── desktop/               # Sway/Wayland workstation (flake attr: ikigai)
 │   ├── hardened-vm/           # Anti-forensics XFCE VM (LUKS, Tor, i2pd, tmpfs)
-│   ├── windows-vm/            # Windows 11 libvirt guest (NixVirt XML only)
+│   ├── windows-vm/            # Windows 11 libvirt guest (NixVirt XML; flake entry is a topology stub)
 │   └── vps/                   # Hetzner cx33 (`#vps` = kzn.sh)
 ├── modules/                   # no `common/` — imported explicitly by hosts
 │   ├── identity.nix           # NixOS wrapper around lib/identity.nix (`config.my.*`)
-│   ├── ai/                    # Ollama, ComfyUI, Open WebUI, voice, kiro
+│   ├── ai/                    # Ollama, ComfyUI, Open WebUI, voice, w-okada, kiro, kirocrew, llmcord, opencode, RisuAI, AIRI
 │   ├── audio/ boot/ desktop/  # desktop/sway/ is the WM
 │   ├── dev/ gaming/ hardware/
 │   ├── hardening/             # VPS whole dir; desktop imports ssh.nix + baseline.nix; VM none
+│   ├── lab/                   # security tools, NM VPN, local vuln Docker targets
 │   ├── music/ network/ nix/
 │   ├── packages/ programs/ services/ shell/
 │   ├── wine/ wrappers/
 ├── topology.nix               # nix-topology extras (internet, shared networks)
 ├── lib/
-│   └── identity.nix           # Person + laptop + kzn.sh VPS
+│   └── identity.nix           # Person + desktop (ikigai) + kzn.sh VPS
 ├── infra/                     # Terranix Nix; tofu state in `infra/state/kzn/`
 ├── packages/                  # one subdir per package (see packages/AGENTS.md)
 ├── secrets/vps.yaml           # encrypted VPS (kzn.sh)
@@ -53,6 +58,7 @@ Restore steps: `archive/README.md`.
 - **Hermes** — Discord agent. Runtime: `~/.hermes-state/`, `~/.secrets/hermes-discord-bot-token`. kiro-gateway `:9000` stays.
 - **SillyTavern** — RP UI (`:8400`). Do **not** enable upstream `services.sillytavern`.
 - **SimpleX custom package** — desktop uses nixpkgs `simplex-chat-desktop`.
+- **Fish TTS proxy + fish-voice-agent** (`packages/fish-*`) — replaced by the `fish-audio-suite` flake input (`services.fish-audio-suite-proxy` + `fish-voice` CLI).
 
 ## Per-directory `AGENTS.md` index
 
@@ -76,11 +82,18 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 | Add shared NixOS module    | `modules/<name>/` + import in `hosts/desktop/configuration.nix`      | No auto-discovery — explicit imports list    |
 | Sway keybinds / bar / lock | `modules/desktop/sway/`                                              | `config.nix`, `keybinds.nix`, `waybar.nix`, … |
 | Gaming / Steam / Wine      | `modules/gaming/`                                                    | Requires `nix-gaming` input + Cachix        |
+| Quest VR (WiVRn / WayVR)   | `modules/gaming/vr.nix` (`gaming.vr`)                                | Quest 2 wireless; `systemctl --user start wivrn`, `wayvr --replace --show` |
 | Music production           | `modules/music/`                                                     | See `music/AGENTS.md`                        |
 | Wine (shared)              | `modules/wine/`                                                      | wine-tkg; gaming + music                     |
 | kiro-gateway / models      | `modules/ai/kiro-gateway.nix`, `packages/kiro-gateway/`              | `:9000`, keys in `~/.secrets/ai.env`         |
+| llmcord (Discord bot)      | `modules/ai/llmcord.nix`                                             | `ai.llmcord`; `~/.secrets/llmcord.env` (`DISCORD_BOT_TOKEN`, `DISCORD_CLIENT_ID`) |
+| Kiro Crew                  | `modules/ai/kirocrew.nix`, `packages/kirocrew/`                      | User unit, loopback `:5476`, drives `kiro-cli` |
+| OpenCode                   | `modules/ai/opencode.nix`                                            | `~/.config/opencode/opencode.jsonc` (tmpfiles); Kiro provider → `:9000` |
+| RisuAI / AIRI              | `modules/ai/risuai.nix`, `modules/ai/airi.nix`, `packages/{risuai,airi}/` | Docker `:6001` / `:6100`; `systemctl start docker-risuai` / `docker-airi` |
 | Local LLM / image gen      | `modules/ai/`                                                        | Ollama `:11434`, ComfyUI `:8188`             |
-| Voice (STT + TTS)          | `modules/ai/voice.nix` + `ai.voice` in desktop host                  | Open WebUI follows `openWebui.stt` / `tts`   |
+| Voice (STT + TTS)          | `modules/ai/voice.nix` + `ai.voice` in desktop host                  | Open WebUI follows `openWebui.stt` / `tts`; Fish proxy `:8849` + `fish-voice` CLI from `fish-audio-suite` |
+| Security lab               | `modules/lab/` (`lab.*` in desktop host)                             | Tools, NM OpenVPN, vuln Docker targets on localhost (not autostart) |
+| Google Drive               | `modules/services/gdrive.nix`                                        | rclone automount `/mnt/gdrive`; token in `~/.config/rclone/rclone.conf` |
 | Realtime RVC (w-okada)     | `modules/ai/w-okada.nix` + `ai.wOkada`                              | `w-okada-setup` once                         |
 | Themed CLI wrappers        | `modules/wrappers/`                                                  | fuzzel, ghostty, profanity, btop-rocm, micro, lazygit |
 | Global JS/Python (mise)    | `modules/dev/mise.nix`, `modules/desktop/xdg.nix`                      | Pins in Nix; `systemctl --user restart mise-global-tools` after changes |
@@ -98,7 +111,7 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 
 ### Always (without asking)
 
-- Run `statix check .` and `deadnix .` after non-trivial Nix edits
+- Run `statix check .` and `deadnix . --exclude references archive` after non-trivial Nix edits
 - Run `nix build` or `nix flake check --no-build` for the host(s) you touched
 - Edit the **nearest** `AGENTS.md` when structure, imports, or workflows in that directory change
 - Use 2-space Nix indent, Tokyo Night for desktop UI modules
@@ -120,8 +133,8 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 
 Before marking a dotfiles task complete:
 
-- Nix change builds: `nix build .#nixosConfigurations.<host>.config.system.build.toplevel` (or disko image for hardened-vm)
-- `statix check .` and `deadnix .` pass (or only pre-existing issues documented)
+- Nix change builds: `nix build .#nixosConfigurations.<host>.config.system.build.toplevel` (hardened-vm: `toplevel`; disko image build currently fails)
+- `statix check .` and `deadnix . --exclude references archive` pass (or only pre-existing issues documented)
 - Nearest `AGENTS.md` updated if imports, paths, commands, or gotchas changed
 - No secrets or credentials in the diff
 - If desktop deploy was requested: `nh os switch ~/dotfiles` succeeded (or failure reported with logs)
@@ -142,8 +155,8 @@ Before marking a dotfiles task complete:
 
 ## Commands
 
-- `nh os switch ~/dotfiles` — desktop (flake attr `ikigai`; alias `nixos`)
-- `nix build .#nixosConfigurations.hardened-vm.config.system.build.diskoImages` — VM image
+- `nh os switch ~/dotfiles` — desktop (flake attr `ikigai`)
+- `nix build .#nixosConfigurations.hardened-vm.config.system.build.diskoImages` — VM image (currently fails: vmTools `kernel-modules` has no `target`; verify with `.toplevel`)
 - `nix build .#nixosConfigurations.vps.config.system.build.toplevel` — kzn VPS eval
 - `nix flake check --no-build` — validate flake
 - `nix run .#vps-plan` / `vps-apply` / `vps-destroy` — OpenTofu (`.env.kzn`, `infra/state/kzn/`); does not install NixOS
@@ -170,9 +183,9 @@ Before marking a dotfiles task complete:
 
 ## Host constraints
 
-- **Desktop**: Zen kernel, AMD RX 6700 XT (ROCm `gfx1030`), 1Password SSH agent, firewall **on** (all ports), NetworkManager, Ollama ROCm. Hypervisor for hardened-vm + windows-vm
-- **Hardened-VM**: GRUB MBR `/dev/vda`, `lib.mkForce` for shared-module overrides, IPv6 off, LUKS via `/tmp/luks-password` at image build
-- **Windows-VM**: NixVirt XML only (no `nixosConfigurations`). 32 GiB / 7 pinned vCPU / 128 GiB virtio-blk; no 6700 XT passthrough
+- **Desktop**: Zen kernel, AMD RX 6700 XT (`gfx1031`, ROCm `gfx1030` override), 1Password SSH agent, firewall **on** (all ports), NetworkManager, Ollama ROCm. Hypervisor for hardened-vm + windows-vm
+- **Hardened-VM**: GPT + 1M BIOS-boot (EF02) partition, GRUB on `/dev/vda`, `lib.mkForce` for shared-module overrides, IPv6 off, LUKS via `/tmp/luks-password` at image build
+- **Windows-VM**: libvirt domain is NixVirt XML; `nixosConfigurations.windows-vm` is only a nix-topology stub (not bootable). 32 GiB / 7 pinned vCPU / 128 GiB virtio-blk; no 6700 XT passthrough
 - **VPS**: GRUB EFI `/dev/sda`, `users.mutableUsers = false`, auto-upgrade disabled (LUKS)
 
 ## Secrets
@@ -189,6 +202,6 @@ sops-nix. `secrets/vps.yaml` is encrypted and safe to commit. VPS decrypts via a
 
 ## Notes
 
-- Flake inputs: nixpkgs (unstable), disko, NixVirt, terranix, sops-nix, nix-wrappers, kiro-gateway, nix-gaming, spicetify-nix, findDupeTracks, cratedigger, cratesorter, grok-bot, nix-topology
+- Flake inputs: nixpkgs (unstable), disko, NixVirt, terranix, sops-nix, nix-wrappers, kiro-gateway, nix-gaming, spicetify-nix, findDupeTracks, cratedigger, cratesorter, grok-bot, llmcord, nix-topology, fish-audio-suite, llm-agents (claude-desktop; numtide cache in `modules/nix`)
 - `references/` is read-only — not part of the build
 - Git signing: 1Password SSH (`op-ssh-sign`); user/email from `lib/identity.nix`

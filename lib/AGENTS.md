@@ -8,16 +8,16 @@ Pure Nix constants shared by flake, NixOS, and Terranix. Terranix **cannot** see
 
 | File | Role |
 |------|------|
-| `identity.nix` | Person + laptop + kzn.sh VPS: `kaizen`, `ikigai`, `sshKey` (desktop pubkey), slim `vpsDns`, named tunnels |
+| `identity.nix` | Person + desktop + kzn.sh VPS: `kaizen`, `ikigai`, `sshKey` (desktop pubkey), slim `vpsDns`, named tunnels |
 
 ## Usage
 
 | Consumer | How |
 |----------|-----|
-| NixOS desktop / hardened-vm | `specialArgs.identity` (`hostName` = laptop) |
+| NixOS desktop / hardened-vm | `specialArgs.identity` (`hostName` = desktop `ikigai`) |
 | NixOS `#vps` | same file, flake overlays `hostName = vpsHostName` + `sopsFile` |
 | OpenTofu | same VPS identity; cwd `infra/state/kzn` |
-| Flake | desktop attr `ikigai` (alias `nixos`) |
+| Flake | desktop attr `ikigai` (from `identity.hostName`; no alias) |
 
 Do **not** default `my.home` from `config.users` (recursion). Import this file directly — no `lib/default.nix` barrel.
 

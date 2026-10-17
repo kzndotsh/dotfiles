@@ -17,6 +17,7 @@ Links are grouped by topic, then by the Nix file they informed.
 - [Music production](#music-production)
 - [Programs](#programs)
 - [Services](#services)
+- [Security lab](#security-lab)
 - [Infrastructure topology](#infrastructure-topology)
 - [Windows VM](#windows-vm)
 - [Wine](#wine)
@@ -153,6 +154,8 @@ SSH, sysctl, and VPS baseline hardening.
 
 Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
 
+- `modules/ai/airi.nix`
+  - [moeru-ai/airi](https://github.com/moeru-ai/airi) — AIRI upstream (Stage Web image + desktop app)
 - `modules/ai/comfyui.nix`
   - [Comfy-Org/ComfyUI — issue #2471](https://github.com/Comfy-Org/ComfyUI/issues/2471)
   - [Comfy-Org/ComfyUI/master/comfy/cli_args.py](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy/cli_args.py)
@@ -170,6 +173,10 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
 - `modules/ai/kiro-gateway.nix`
   - [jwadow/kiro-gateway](https://github.com/jwadow/kiro-gateway) — kiro-gateway upstream
   - [jwadow/kiro-gateway/main/.env.example](https://github.com/jwadow/kiro-gateway/blob/main/.env.example)
+- `modules/ai/kirocrew.nix`
+  - [kirodotdev/KiroCrew](https://github.com/kirodotdev/KiroCrew) — Kiro Crew upstream (pinned wheel in `packages/kirocrew`)
+- `modules/ai/llmcord.nix`
+  - [jakobdylanc/llmcord](https://github.com/jakobdylanc/llmcord) — llmcord upstream (flake input)
 - `modules/ai/ollama.nix`
   - [amd/skills/main/staging/rocm-doctor/reference.md](https://github.com/amd/skills/blob/main/staging/rocm-doctor/reference.md)
   - [huggingface.co — ollama](https://huggingface.co/docs/hub/ollama)
@@ -187,6 +194,8 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
   - [rocm.docs.amd.com — system requirements](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html)
   - [ROCm/ROCm — issue #2720](https://github.com/ROCm/ROCm/issues/2720)
   - [ROCm/tensorflow-upstream — issue #2629](https://github.com/ROCm/tensorflow-upstream/issues/2629)
+- `modules/ai/opencode.nix`
+  - [opencode.ai — config schema](https://opencode.ai/config.json)
 - `modules/ai/open-webui.nix`
   - [huggingface.co — Juggernaut XL V9 RDPhoto2 Lightning 4S](https://huggingface.co/imagepipeline/Juggernaut-XL-V9-RDPhoto2-Lightning_4S)
   - [localhost:11434](http://localhost:11434) — name is now OLLAMA_BASE_URL (default )
@@ -200,7 +209,10 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
   - [openwebui.com docs — env configuration#ollama base url](https://docs.openwebui.com/getting-started/env-configuration#ollama_base_url)
   - [openwebui.com docs — env variables](https://docs.openwebui.com/features/chat-conversations/audio/speech-to-text/env-variables)
   - [openwebui.com docs — installation](https://docs.openwebui.com/features/open-terminal/setup/installation/) — Open WebUI open-terminal setup
+- `modules/ai/risuai.nix`
+  - [kwaroran/RisuAI](https://github.com/kwaroran/RisuAI) — RisuAI upstream (image built by `packages/risuai/build.sh`)
 - `modules/ai/voice.nix`
+  - [kzndotsh/fish-audio-suite](https://github.com/kzndotsh/fish-audio-suite) — Fish proxy service + `fish-voice` CLI (flake input)
   - [api.fish.audio — tts](https://api.fish.audio/v1/tts) — Fish's native API is POST (model in header), not /v1/audio/speech
   - [devnen/Chatterbox-TTS-Server](https://github.com/devnen/Chatterbox-TTS-Server)
   - [devnen/Chatterbox-TTS-Server/main/docker-compose-rocm.yml](https://github.com/devnen/Chatterbox-TTS-Server/blob/main/docker-compose-rocm.yml)
@@ -502,6 +514,23 @@ Docker, libvirt, qBittorrent, copyparty, and daemons.
   - [libvirt.org — formatnetwork](https://libvirt.org/formatnetwork.html)
   - [NixOS Wiki — Vagrant](https://wiki.nixos.org/wiki/Vagrant)
   - [vagrant-libvirt.github.io — vagrant libvirt](https://vagrant-libvirt.github.io/vagrant-libvirt/)
+
+## Security lab
+
+Local vulnerable practice apps (`lab.targets.*`, loopback Docker).
+
+- `modules/lab/targets.nix`
+  - [digininja/DVWA](https://github.com/digininja/DVWA)
+  - [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
+  - [WebGoat/WebGoat](https://github.com/WebGoat/WebGoat)
+  - [erev0s/VAmPI](https://github.com/erev0s/VAmPI)
+  - [lmoroz/bWAPP](https://github.com/lmoroz/bWAPP) — upstream [itsecgames.com](http://www.itsecgames.com/)
+  - [webpwnized/mutillidae](https://github.com/webpwnized/mutillidae)
+  - [dolevf/Damn-Vulnerable-GraphQL-Application](https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application)
+  - [appsecco/dvna](https://github.com/appsecco/dvna)
+  - [SasanLabs/VulnerableApp](https://github.com/SasanLabs/VulnerableApp)
+  - [OWASP/wrongsecrets](https://github.com/OWASP/wrongsecrets)
+  - [OWASP/railsgoat](https://github.com/OWASP/railsgoat)
 
 ## Infrastructure topology
 

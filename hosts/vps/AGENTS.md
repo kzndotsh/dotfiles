@@ -2,7 +2,7 @@
 
 > Scope: `hosts/vps` — inherits [`AGENTS.md`](../../AGENTS.md) unless noted.
 
-Hetzner cx33. Flake attr `#vps` is kzn.sh (slim `vpsDns`). Topology node id is `kzn` (`topology.self` in `configuration.nix`).
+Hetzner cx33. Flake attr `#vps` is kzn.sh (slim `vpsDns`). Topology node id is `kzn` (from `networking.hostName`); `topology.self.name = "kzn.sh"` in `configuration.nix` is the display name.
 
 ## Quick facts
 
@@ -17,9 +17,9 @@ Hetzner cx33. Flake attr `#vps` is kzn.sh (slim `vpsDns`). Topology node id is `
 | `matrix.nix` | Synapse + PostgreSQL |
 | `caddy.nix` | reverse proxy; vhosts follow `identity.vpsDns` |
 | `authelia.nix` | SSO |
-| `utilities.nix` | Zipline (on slim stack). Wastebin + `paste` DNS exist in tree but **off** unless added to `identity.vpsDns` |
+| `utilities.nix` | Zipline (`vpsDns` key `zipline` → `i.kzn.sh`, on slim stack). Wastebin (key `wastebin` → DNS `paste`) exists in tree but is **off** unless `wastebin` is added to `identity.vpsDns` |
 | `disko.nix` | GPT EFI + LUKS on `/dev/sda` |
-| `initrd_host_key` | **Gitignored** — SSH LUKS unlock |
+| `initrd_host_key`, `initrd_host_key.pub` | **Gitignored, untracked** — SSH LUKS unlock |
 
 ## Secrets
 `sops-nix` + `secrets/vps.yaml`.

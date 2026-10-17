@@ -43,7 +43,7 @@ Shell helpers for [w-okada/voice-changer](https://github.com/w-okada/voice-chang
 | Stutter | +16 CHUNK | drop EXTRA to 16384 | or F0 `rmvpe_onnx`; raise until `res` < `buf` |
 
 - **Server Device** not Client (latency); Sup1/Sup2 strip natural detail — use sparingly
-- Clean mic > filters; noise gate default **-110** (don't set -41 unless loud room)
+- Clean mic > filters; noise gate: `silentThreshold` code default `0.00001` (`default.nix`), desktop host overrides to `0.0001` (`hosts/desktop/configuration.nix`)
 - PipeWire PortAudio `pipewire` device reports **128 channels** — `w-okada` patches `ServerDevice.py` to cap at stereo (stutter if skipped).
 - Full cheat sheet: this file + comments in `default.nix`
 
@@ -104,19 +104,27 @@ Restart w-okada after seeding; refresh Web UI → AUDIO → **server** (not clie
 - Override torch index: `W_OKADA_TORCH_INDEX=https://download.pytorch.org/whl/rocm6.2`
 - Re-run `w-okada-setup` after Nix changes to refresh venv deps
 - `w-okada` is a **singleton**: user unit `w-okada.service` + flock. Second `w-okada` is a no-op. Stop with `w-okada --stop`.
-- CHUNK dropdown is **client worklet** (default **192**), not `serverReadChunkSize`. Leave it; picking **8192** (list bottom) crashes the audio callback. Stop hangs: HIP ignores SIGTERM — unit SIGKILLs after 10s (after `nh os switch`).
+- CHUNK dropdown is UI/client behaviour (not `serverReadChunkSize`; default and the 8192-crash report unverified in repo). Stop hangs: HIP ignores SIGTERM — unit SIGKILLs after 10s (after `nh os switch`).
+- **Venv broken after rebuild/GC:** `rm -rf ~/.local/share/w-okada/.venv && git -C ~/.local/share/w-okada/src stash && w-okada-setup`. The stash is needed because the Nix wrapper pre-patches `ServerDevice.py`, leaving an unstaged change that blocks `git pull`. Setup re-applies the patch. The final `libzstd` error in setup output is expected (no LD_LIBRARY_PATH in setup context) — venv is fine.
+- **ServerDevice.py patch** (`default.nix`, applied in `w-okada-setup` and every `w-okada` start): `cap_portaudio_channels` caps PortAudio channels to 2 (PipeWire device reports 128); output/monitor queue drain keeps up to 2 backlog frames instead of dropping all (`# vc-nix: queue-depth-fix`). Fails loudly if upstream layout changes. Do not revert.
+- **voiceChangerType is RVCr2** — all standard `.pth` models load as `RVCr2`. Debug inference issues in `voice_changer/RVC/RVCr2.py`, not `RVC.py`.
+- **[0,0,0,0] perf display is normal** — `enableMainprocessTimer = False` hardcoded upstream. Does not indicate broken inference. Verify audio with `pw-record --target VoiceChanger-Mic /tmp/t.wav; sleep 3; ffmpeg -i /tmp/t.wav -af volumedetect -f null /dev/null 2>&1 | grep max_volume`.
+- **Web UI unresponsive / won't load** — inference loop starving the SocketIO thread (too many stdout prints, or model thrashing). `w-okada --stop && w-okada` to recover.
+- **Server audio not auto-starting** — `apply-audio.py` fires before the server is ready to accept API calls. Open http://127.0.0.1:18888 and click Start, or: `curl -s http://127.0.0.1:18888/update_settings -X POST -F "key=serverAudioStated" -F "val=1"`.
 
 ## Starter models (`w-okada-models`)
 
-Default install is **48 kHz slot 0**. 32 kHz / 40 kHz models resample every chunk and sound choppy at server 48 kHz.
+Default install is **slot 0** (48 kHz). Only slot 0 is 48 kHz; slots 1-4 are 32/40 kHz and resample every chunk at server 48 kHz (`default.nix` comment: choppy). Ids/slots/tune from `starterModels` in `default.nix`:
 
-| Slot | SR | Notes | TUNE start |
-|------|----|-------|------------|
-| 0 | 48 kHz | default | +12 |
-| 1 | 32 kHz | extra resample | +11 |
-| 2 | 32 kHz | extra resample | +12 |
-| 3 | 40 kHz | JP — credit [amitaro.net](https://amitaro.net/) if streaming | +12 |
-| 4 | 40 kHz | extra resample | +12 |
+| Slot | id | SR | Tune | Source | Notes |
+|------|----|----|------|--------|-------|
+| 0 | `pendmg-48k` | 48 kHz | +12 | zip (pendmg/Models `egirl.zip`) | default; "w-okada recommended" |
+| 1 | `sansin` | 32 kHz | +11 | zip | extra resample |
+| 2 | `dmr-32k` | 32 kHz | +12 | zip | extra resample |
+| 3 | `amitaro` | 40 kHz | +12 | .pth + .index | JP; credit amitaro.net if streaming |
+| 4 | `okiba-k3` | 40 kHz | +12 | .pth + .index | extra resample |
+
+**For gaming:** stay on slot 0 (only 48 kHz model, no per-chunk resample). Slots 1-4 need `W_OKADA_MODELS=all`. Reports of resampy memory leaks / large index cost on 32/40 kHz slots are community claims, not verifiable from this repo. `W_OKADA_SKIP_INDEX=1` skips `.index` downloads. Registered slots get `defaultIndexRatio` 0.6, `defaultProtect` 0.5.
 
 ```bash
 w-okada-models                         # 48 kHz slot 0

@@ -24,6 +24,7 @@ JACK compat and `libpipewire-module-rt` are **not** here: `music/` (`97-music-rt
 - WirePlumber: sink `priority.session` > 1500 can make the sink monitor the default source. FiiO is 2000; Yeti input is 2500 so the mic still wins.
 - `allowed-rates` includes 44100 — PipeWire default is empty (kernel/BT issues). Graph switches only when idle.
 - Screencast knobs are in the Sway portal, not here.
+- Bluetooth audio (AirPods Pro) has no WirePlumber rules here: it appears as a `bluez5` card after pairing + reconnect, but the FiiO/Yeti priorities keep it from becoming the default sink — pick it in pavucontrol. Default profile is A2DP SBC-XQ (AAC available); the mic only exists in `headset-head-unit` (CVSD, no mSBC profile offered), which drops playback to call quality.
 
 ## Verify
 

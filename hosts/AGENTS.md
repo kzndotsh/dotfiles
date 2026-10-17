@@ -19,7 +19,7 @@ NixOS machines plus the Windows libvirt guest.
 ## Build matrix
 ```bash
 nix build .#nixosConfigurations.ikigai.config.system.build.toplevel
-nix build .#nixosConfigurations.hardened-vm.config.system.build.diskoImages
+nix build .#nixosConfigurations.hardened-vm.config.system.build.toplevel  # diskoImages currently fails (vmTools kernel-modules has no target)
 nix build .#nixosConfigurations.vps.config.system.build.toplevel
 ```
 

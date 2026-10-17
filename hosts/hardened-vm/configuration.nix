@@ -213,7 +213,7 @@
     };
   };
 
-  # Enable the firewall with SSH as the only open port — unlike the desktop, which leaves it off.
+  # Enable the firewall with SSH as the only open port — unlike the desktop, whose firewall is on but allows all ports.
   networking = {
     hostName = lib.mkForce "hardened-vm";
     # Use a stable MAC; the shared random-MAC default breaks libvirt name resolution.

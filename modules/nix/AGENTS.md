@@ -9,12 +9,13 @@ Nix daemon, substituters, flake registry — needs `inputs` arg.
 - Substituters, registry — needs `inputs`
 
 ## Substituters
-nixos, nix-community, comfyui, cuda, ai, nixpkgs-unfree, **nix-gaming**
+nixos, nix-community, comfyui, ai, nixpkgs-unfree, **nix-gaming**, cache.numtide.com (llm-agents)
 
 ## Settings
 - `experimental-features` including flakes
 - `nix.gc.automatic = false` — use `nh` for cleanup
-- Registry pins flake inputs
+- Registry pins flake inputs; `nixPath` is derived from the registry (`key=flake:key`)
+- nh clean (`modules/programs/nh.nix`): weekly, `--keep 5`
 
 ## Rules
 - Flake must pass `specialArgs` with `inputs`, `self`, and `identity` (flake overlays `identity` for `#vps`)

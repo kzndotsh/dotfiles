@@ -12,7 +12,7 @@ WM-agnostic desktop: greeter, theme, fonts, audio, XDG/session, keyring, gnupg b
 | `greetd.nix` | regreet in cage, wallpaper from `assets/wallpaper.png`, `GDK_SCALE=2` |
 | `theme.nix` | GTK3/4 (Tokyonight-Dark derivation), Kvantum, Qt, cursor |
 | `fonts.nix` | `fonts.packages` + fontconfig rasterizer + `defaultFonts` |
-| `xdg.nix` | mime defaults, zathura + `/etc/zathurarc`, session env (1Password agent, ghostty, mise, npm/pnpm/bun/python PATH + prefixes) |
+| `xdg.nix` | mime defaults, zathura + `/etc/zathurarc`, session env (1Password agent, ghostty, mise, npm/pnpm/bun/python PATH + prefixes), `SSL_CERT_FILE` + `/etc/ssl/cert.pem` symlink |
 | `keyring.nix` | gnome-keyring + greetd PAM (`enableGnomeKeyring`) |
 | `gnupg.nix` | `gnupg-xdg-bootstrap` (`config.my.home` / `username`) |
 | `security.nix` | `wheelNeedsPassword = mkDefault false`, `@users` memlock infinity |
@@ -21,13 +21,17 @@ WM-agnostic desktop: greeter, theme, fonts, audio, XDG/session, keyring, gnupg b
 
 | File | Role |
 |------|------|
-| `assets/wallpaper.png` | Regreet + Sway/swaylock (`greetd.nix`; Sway copies to `/etc/sway/wallpaper.png`) |
+| `assets/wallpaper.png` | Regreet (`greetd.nix`) + Sway `output … background` (copied to `/etc/sway/wallpaper.png`). swaylock uses `screenshots` + effects, not the image |
 
 Replace wallpaper → rebuild desktop. No EXIF GPS in commits.
 
 ## Sway
 
 All WM config in `desktop/sway/` — import that directory from the host separately.
+
+## TLS certs (`xdg.nix`)
+
+mise/uv standalone Python (python-build-standalone) ships its own OpenSSL, which looks for `/etc/ssl/cert.pem`. NixOS has no such file, so HTTPS fails with certificate errors. `xdg.nix` sets `SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt` and links `/etc/ssl/cert.pem` to the same bundle. The env var needs a re-login; the symlink works after switch.
 
 ## Hardened-VM
 
@@ -38,7 +42,7 @@ Imports **`theme.nix` + `fonts.nix` only** — not this barrel. XFCE theme extra
 Family strings are load-bearing. Rename `Inter Nerd Font` / `JetBrainsMono Nerd Font Mono` in GTK, Sway, greetd, Firefox, Ghostty, fuzzel, and XFCE together.
 
 - greetd also sets `font.package = pkgs.inter-nerdfont` — cage does not inherit this list automatically.
-- `inter` in `packages/default.nix` does **not** register the font. Only `fonts.packages` does.
+- `inter` in `modules/packages/default.nix` does **not** register the font. Only `fonts.packages` does.
 - `serif` is Inter (sans) on purpose — matches Firefox. `Noto Serif` is the real serif fallback.
 - Wine Xft (`wine/default.nix`) must stay aligned with hintslight / rgb / lcddefault. `fonts.fontDir.enable` is off; `/run/current-system/sw/share/X11/fonts` does not exist.
 - `cache32Bit` is off. 32-bit Wine may miss the fontconfig cache.

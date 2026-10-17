@@ -8,21 +8,22 @@ NixOS modules for desktop (+ cherry-picked for hardened-vm). Identity lives in [
 | Dir | Purpose |
 |-----|---------|
 | `identity.nix` | `config.my.*` defaults from `lib/identity.nix` (imported via flake, not this list) |
-| `ai/` | Ollama, ComfyUI, Open WebUI, voice, kiro-gateway |
+| `ai/` | Ollama, ComfyUI, Open WebUI, voice, kiro-gateway, kirocrew, llmcord, opencode, airi, risuai, w-okada |
 | `audio/` | PipeWire + WirePlumber (Yeti X, FiiO) |
 | `boot/` | systemd-boot, Zen kernel, sysctl, udev, zram/THP |
 | `desktop/` | greetd/regreet, theme, fonts, XDG/session, keyring, gnupg, workstation sudo |
 | `desktop/sway/` | Full Sway session |
 | `dev/` | git (1Password sign), direnv, global mise (JS/Python/uv), Cursor argv |
-| `gaming/` | Steam, emulators, RuneLite, crankshaft (Wine stack is `wine/`) |
+| `gaming/` | Steam, emulators, RuneLite, crankshaft, WiVRn/WayVR Quest VR (Wine stack is `wine/`) |
+| `lab/` | Security / OSINT nixpkgs tools, NM VPN, 11 optional loopback Docker targets (`lab.targets.*`: dvwa … railsgoat) |
 | `music/` | DAWs, plugins, yabridge, audio production tools |
-| `hardening` | VPS whole dir. Desktop imports `ssh.nix` + `baseline.nix` (not `sysctl.nix`). |
-| `hardware/` | AMDGPU, ROCm, LACT, Bluetooth (Blueman), Solaar |
+| `hardening/` | VPS whole dir. Desktop imports `ssh.nix` + `baseline.nix` (not `sysctl.nix`). |
+| `hardware/` | AMDGPU, ROCm, LACT, Bluetooth (Blueman, LibrePods for AirPods), Solaar |
 | `network/` | NetworkManager, IPv4-only, DoT |
 | `nix/` | substituters, registry, GC off |
 | `packages/` | Desktop-only systemPackages (flat list) |
 | `programs/` | Desktop barrel (1Password, Firefox, nh, SSH, Spicetify). VM imports `firefox.nix` only. |
-| `services/` | Desktop barrel: Docker, libvirt, Vagrant, copyparty, daemons, AI/torrent (not sshd) |
+| `services/` | Desktop barrel: Docker, libvirt, Vagrant, copyparty, daemons, gdrive, tor, qui, qbittorrent, polkit, AI (not sshd) |
 | `shell/` | zsh, starship, fzf |
 | `wrappers/` | nix-wrappers (fuzzel, ghostty, profanity, btop, micro, lazygit) |
 | `wine/` | Shared Wine stack (wine-tkg, winetricks, Xft rendering) |

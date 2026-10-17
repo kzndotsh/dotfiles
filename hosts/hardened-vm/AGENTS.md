@@ -13,9 +13,9 @@ Anti-forensics XFCE VM for libvirt — Tor, i2pd, tmpfs, LUKS.
 ## Files
 | File | Role |
 |------|------|
-| `configuration.nix` | ~340 lines inline security/desktop (XFCE, Tor, AppArmor, USBGuard) |
+| `configuration.nix` | ~350 lines inline security/desktop (XFCE, Tor, AppArmor, USBGuard) |
 | `xfce-theme-etc.nix` | XFCE / LightDM Tokyo Night + Inter (host-only, not `desktop/theme.nix`) |
-| `disko.nix` | `/dev/vda` 20G, MBR/GRUB, LUKS via `/tmp/luks-password` (`nix run .#vm-install` writes it) |
+| `disko.nix` | `/dev/vda` 20G, GPT + 1M EF02 BIOS-boot partition, GRUB, LUKS via `/tmp/luks-password` (`nix run .#vm-install` writes it) |
 | `nixvirt.nix` | NixVirt domain/pool/network — **desktop hypervisor import**, not this guest |
 
 ## Imports (cherry-pick)
@@ -23,10 +23,15 @@ nix, shell, network, **`programs/firefox.nix` only**, **theme + fonts** from des
 
 Firefox is the shared desktop module: 2 GiB disk cache on `/tmp/firefox-cache` can fill guest `/tmp` (2G tmpfs). 1Password extension is force-installed here even though the VM has no 1Password app.
 
-## Overrides (`lib.mkForce` in host)
-- Firewall **on** (SSH only), permanent Ethernet MAC, hostname `hardened-vm`
+## Overrides
+`lib.mkForce`: hostname `hardened-vm`, permanent Ethernet MAC, `firewall.enable`, `programs.zsh.histFile` / `HISTFILE` / `LESSHISTFILE`.
+
+Plain settings (no mkForce): IPv6 off (`enableIPv6 = false`), `allowedTCPPorts = [ 22 ]`.
+
+**Gotcha — firewall is effectively open:** the shared `modules/network/default.nix` `allowedTCPPortRanges` / `allowedUDPPortRanges` (1-65535) still merge in (`nix eval .#nixosConfigurations.hardened-vm.config.networking.firewall.allowedTCPPortRanges`), so ALL ports are open. "SSH only" is not met until those ranges are `mkForce`d empty (pending approval).
+
 - No 1Password / XDG session leak (desktop barrel not imported). `TERMINAL=foot`.
-- History: `programs.zsh.histFile` + `HISTFILE` / `LESSHISTFILE` forced to `/dev/null` (zshrc overwrites env `HISTFILE`)
+- History forced to `/dev/null` (zshrc overwrites env `HISTFILE`)
 - No gaming, no AI
 - Tiny host `systemPackages`: vim/htop/btop-rocm/micro, curl/wget/file/git, foot, unzip/p7zip/file-roller (Thunar), spice-vdagent, panic script. Desktop wraps `btop`/`micro` in `modules/wrappers/`. Shell provides eza/vivid/zoxide/mise.
 

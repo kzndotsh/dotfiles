@@ -14,7 +14,7 @@ Not here: Profanity is [`../wrappers/`](../wrappers/AGENTS.md). Cursor argv is [
 | `firefox.nix` | Policies + prefs. Shared with the VM. |
 | `1password.nix` | CLI + GUI; `polkitPolicyOwners = [ config.my.username ]` |
 | `ssh.nix` | **Client** `programs.ssh.extraConfig` — not sshd |
-| `nix-ld.nix` | `programs.nix-ld` — Python/uv wheel libs (wiki set) + dbus / libxcb / libxkbcommon |
+| `nix-ld.nix` | `programs.nix-ld` — Python/uv wheel libs (wiki set) + dbus / libxcb / libxkbcommon + audio (libpulseaudio / portaudio) |
 | `nh.nix` | `programs.nh` → `config.my.dotfilesDir`; weekly clean `--keep 5` |
 | `spicetify.nix` | Tokyo Night Spotify (needs `spicetify-nix` flake module on desktop) |
 
@@ -27,7 +27,7 @@ Not here: Profanity is [`../wrappers/`](../wrappers/AGENTS.md). Cursor argv is [
 ## nix-ld
 
 - Required for mise/uv **prebuilt** Python and compiled wheels (numpy, selectolax, …) on NixOS — not for nixpkgs `python3` in services.
-- Library set follows [NixOS Wiki — Python](https://wiki.nixos.org/wiki/Python) plus desktop GUI libs (`dbus`, `libxcb`, `libxkbcommon`).
+- Library set follows [NixOS Wiki — Python](https://wiki.nixos.org/wiki/Python) plus desktop GUI libs (`dbus`, `libxcb`, `libxkbcommon`) and audio libs (`libpulseaudio`, `portaudio`) for wheels like sounddevice.
 - Global Python pins: [`../dev/mise.nix`](../dev/mise.nix).
 
 ## SSH client (`ssh.nix`)
@@ -58,8 +58,8 @@ uBlock Origin, Dark Reader, Tokyo Night, 1Password, LLMFeeder, SponsorBlock, Vio
 ## Spicetify (desktop)
 
 - Flake: `inputs.spicetify-nix` → `nixosModules.spicetify` (desktop only in `flake.nix`)
-- Theme `tokyoNight`, scheme `Night`. `alwaysEnableDevTools = true` (Ctrl+Shift+I)
-- Packaged: `allOfArtist`, `betterGenres`, `hidePodcasts`, `lastfm`, `madeForYouShortcut`, `shuffle`
+- Theme `tokyoNight`, scheme `Night`. `alwaysEnableDevTools = true` is set but inert on this pin (Ctrl+Shift+I does not work; see comment in `spicetify.nix`)
+- Packaged: `allOfArtist`, `hidePodcasts`, `lastfm`, `madeForYouShortcut`, `shuffle`
 - Unpackaged: **Find Duplicate Tracks** (`inputs.findDupeTracks` → `dist/findDupeTracks.mjs`), **crate-digger** (`inputs.cratedigger` → [kzndotsh/spicetify-cratedigger](https://github.com/kzndotsh/spicetify-cratedigger) `cratedigger.js`), **crate-sorter** (`inputs.cratesorter` → [kzndotsh/spicetify-cratesorter](https://github.com/kzndotsh/spicetify-cratesorter) `cratesorter.js`)
 - Restart Spotify after switch. Do **not** also put `pkgs.spotify` in `modules/packages`
 - Docs: https://gerg-l.github.io/spicetify-nix/

@@ -13,6 +13,7 @@ Desktop services barrel (`default.nix` also imports [`../ai`](../ai/)). sshd is 
 | `copyparty.nix` | User units: copyparty `:3923` + cloudflared tunnel `files` (`files.kzn.sh`). Account is `~/.secrets/copyparty.env` (`COPYPARTY_ACCOUNT=`), not Nix. Tunnel creds: `~/.secrets/cloudflared/files.json`. |
 | `daemons.nix` | udisks, fstrim (weekly), vnstat, gvfs, ananicy-cpp, journald, oomd |
 | `tor.nix` | System Tor client (`tor.service`), SOCKS `127.0.0.1:9050`, torsocks. Desktop only. |
+| `gdrive.nix` | rclone FUSE automount of Google Drive at `/mnt/gdrive`. Token is `~/.config/rclone/rclone.conf`, not Nix. |
 | `polkit.nix` | Passwordless udisks2 unlock/mount for wheel (incl. HintSystem) |
 | `docker.nix` | Docker daemon (desktop + hardened-vm). VPS does not import this module. |
 | `vagrant.nix` | Vagrant + start libvirt `default` + NM unmanaged virbr* |
@@ -80,6 +81,17 @@ nix build .#nixosConfigurations.ikigai.config.system.build.toplevel
 - Desktop client only — SOCKS on `127.0.0.1:9050`. No TransPort/DNSPort (those live in `hosts/hardened-vm`).
 - `tor-browser` in `modules/packages` ships its own Tor; system daemon is for `torsocks`, curl `--socks5-hostname`, etc.
 - After switch: `systemctl status tor` / `curl --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip`
+
+## Google Drive gotchas
+
+- On-demand mount, not a full local mirror. Opened files are cached under `/var/cache/rclone` (cap 50G, stop if the disk has under 20G free).
+- One-time auth, as the desktop user: `rclone config` → remote name `gdrive`, type `drive`, scope full access. Create your own OAuth client when asked. rclone's shared client id is retired during 2026 (https://rclone.org/drive/#making-your-own-client-id). That writes `~/.config/rclone/rclone.conf`. Do not put that file in the Nix store.
+- Mount unit is `mnt-gdrive.automount`. It stays idle until something touches `/mnt/gdrive`, so a missing config does not fail boot or `nh os switch`. No idle unmount: that would drop the in-memory dir cache and stop Drive polling.
+- Cache dir must be a filesystem that supports sparse files (this machine's root does). Leave `--buffer-size` and `--vfs-read-chunk-size` at rclone defaults.
+- Polling sees your own My Drive. It does not see Shared drives or folder shortcuts; those stay stale until the dir cache expires.
+- `allow_other` plus `uid`/`gid` of the desktop user: the mount is root's FUSE daemon, files look like the user. `programs.fuse.userAllowOther` is on.
+- `drive-skip-gdocs` is on, so Docs/Sheets/Slides do not appear in the mount. Walking the tree (`find`, indexers) is still slow and burns Drive API quota.
+- Remote name in the unit is `gdrive:`. A different `rclone config` name will not mount.
 
 ## Docker gotchas
 

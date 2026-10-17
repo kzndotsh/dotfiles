@@ -48,7 +48,7 @@ What `ikigai` actually runs on.
 | Theme | Tokyo Night (GTK, Qt, Ghostty, Firefox, Spotify) |
 | Gaming | [Steam](https://store.steampowered.com/), Wine, emulators via [nix-gaming](https://github.com/fufexan/nix-gaming) |
 | Dev runtimes | [mise](https://mise.jdx.dev/) — pinned node/pnpm/bun/python/uv (`modules/dev/mise.nix`); projects use direnv + [uv](https://docs.astral.sh/uv/) sync |
-| AI | [Ollama](https://ollama.com/), [ComfyUI](https://github.com/comfyanonymous/ComfyUI), [Open WebUI](https://openwebui.com/), [kiro-gateway](https://github.com/jwadow/kiro-gateway), [w-okada](https://github.com/w-okada/voice-changer) (RVC) |
+| AI | [Ollama](https://ollama.com/), [ComfyUI](https://github.com/comfyanonymous/ComfyUI), [Open WebUI](https://openwebui.com/), [kiro-gateway](https://github.com/jwadow/kiro-gateway), [w-okada](https://github.com/w-okada/voice-changer) (RVC), [RisuAI](https://github.com/kwaroran/RisuAI), [AIRI](https://github.com/moeru-ai/airi), [Kiro Crew](https://github.com/kirodotdev/KiroCrew), [llmcord](https://github.com/jakobdylanc/llmcord), [OpenCode](https://opencode.ai/), voice (speaches, kokoro, [Fish Audio](https://github.com/kzndotsh/fish-audio-suite)) |
 
 ## Theme
 
@@ -135,9 +135,11 @@ nix flake show .
 | Stage Windows 11 disk + ISO | `nix run .#windows-vm-install -- /path/to/Win11.iso` then attach hdc (see [`hosts/windows-vm/AGENTS.md`](hosts/windows-vm/AGENTS.md)) |
 | VPS plan (DNS/Hetzner) | `nix run .#vps-plan` |
 | VPS apply | `nix run .#vps-apply` |
+| VPS destroy | `nix run .#vps-destroy` |
 | VPS install (wipes disk) | `nix run .#vps-install -- root@<ip>` |
 | VPS switch (installed) | `nix run .#vps-switch -- root@<ip>` |
 | Sync tunnel creds | `nix run .#vps-tunnels-sync` |
+| Render topology SVGs | `nix run .#topology-render` |
 | Validate flake | `nix flake check --no-build` |
 | Lint Nix | `statix check .` && `deadnix . --exclude references archive` |
 

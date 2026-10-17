@@ -1,5 +1,5 @@
 # Native Linux plugins installed to /run/current-system/sw/lib/{lv2,vst3,clap,ladspa,…}.
-# Discovery paths are set in default.nix. Full catalog is in AGENTS.md in this directory.
+# Discovery paths are set in default.nix. Package list lives here (not duplicated in AGENTS.md).
 #
 # Vendor Linux builds (u-he, TAL, Pianoteq, Arturia): extract to ~/.vst3 or ~/.lv2, then rescan.
 { config, lib, pkgs, ... }:

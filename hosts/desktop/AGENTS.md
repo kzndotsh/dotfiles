@@ -12,25 +12,26 @@ Primary desktop — Zen kernel, AMD RX 6700 XT, Sway, local AI stack.
 ## Files
 | File | Role |
 |------|------|
-| `configuration.nix` | Module imports, gaming / music / `ai.voice` flags, locale |
+| `configuration.nix` | Module imports, gaming / music / `ai.voice` / `ai.risuai` / `ai.airi` / `ai.kirocrew` / `ai.llmcord` / `lab` flags, locale |
 | `user.nix` | Desktop NixOS user (`kaizen`, uid **1002** + groups) |
 | `hardware-configuration.nix` | LUKS NVMe root, `/boot` vfat, `kvm-amd`, no swap |
 
 ## Imported modules
-wrappers, nix, desktop+sway (XDG/keyring/gnupg/sudo/fonts in desktop barrel), boot, hardware, shell, programs (includes Spicetify), services (pulls in `ai/`), `hosts/hardened-vm/nixvirt.nix` + `hosts/windows-vm/nixvirt.nix` (libvirt domains), `hardening/ssh.nix` + `baseline.nix` (not sysctl), network, packages, dev, gaming, music, wine
+wrappers, nix, desktop+sway (XDG/keyring/gnupg/sudo/fonts in desktop barrel), boot, hardware, shell, programs (includes Spicetify), services (pulls in `ai/`), `hosts/hardened-vm/nixvirt.nix` + `hosts/windows-vm/nixvirt.nix` (libvirt domains), `hardening/ssh.nix` + `baseline.nix` (not sysctl), network, packages, dev, gaming, music, wine, **lab**
 
 ## Host-only options
 - `time.timeZone = America/New_York`, `i18n.defaultLocale = en_US.UTF-8`
 - `stateVersion = "26.05"`
 - `networking.hostName = config.my.hostName`, permanent Ethernet MAC (overrides shared random MAC)
-- `topology.self` — manual `enp5s0`, `virbr0`, `docker0`; NM/Docker have no nix-topology extractors
+- `topology.self` — manual `enp5s0`, `wlp4s0`, `virbr0`, `docker0`, `cf-tunnel` interfaces + `services` (kiro-gateway, copyparty, ComfyUI, qBittorrent); NM/Docker have no nix-topology extractors
 - sshd `PermitRootLogin = no`; TCP forwarding stays OpenSSH default (yes). VPS pins forwarding off.
-- Gaming: Lutris, Heroic, Bottles, Prism Launcher, RuneLite, `audio.lowLatency`
-- Voice: `ai.voice` — speaches + kokoro + fish on; moss / chatterbox off; Open WebUI STT=speaches TTS=fish
+- Gaming: Lutris, Heroic, Bottles, Prism Launcher, RuneLite, `audio.lowLatency`, `vr.enable` (WiVRn + WayVR for Quest 2 — start with `systemctl --user start wivrn`; see [`modules/gaming/AGENTS.md`](../../modules/gaming/AGENTS.md))
+- Voice: `ai.voice` — speaches + kokoro (Docker) + fish (native `fish-audio-suite-proxy` service, not Docker) on; moss / chatterbox off; Open WebUI STT=speaches TTS=fish
 - w-okada: `ai.wOkada` on; `w-okada` starts the user unit (one instance); `--stop` to kill; login autostart is `server.enable` (off); S. Threshold **0.0001** (not `0.00001`); do not change UI CHUNK (Nix 128)
+- Lab: `lab.enable` on; VPN/capture default on; vuln Docker targets on (not autostart) — ports in [`modules/lab/AGENTS.md`](../../modules/lab/AGENTS.md)
 
 ## Flake
-`nixosConfigurations.ikigai` (alias `nixos`) + `NixVirt` + `nix-topology` NixOS module + read-only pkgs. Identity: `lib/identity.nix`.
+`nixosConfigurations.ikigai` + NixOS modules from `wrappers` (system-wrappers), `NixVirt`, `spicetify-nix`, `nix-topology`, `fish-audio-suite` + read-only pkgs. Identity: `lib/identity.nix`.
 
 ## Verify
 ```bash
@@ -46,7 +47,7 @@ ls -l /nix/var/nix/profiles/system   # must be TODAY — else bootloader was not
 Auto-login (`greetd` `initial_session`) is **off** in `modules/desktop/sway/default.nix` so a missing user cannot lock you out of ReGreet. Re-enable there if you want it.
 
 ## AI stack (via `modules/ai/`)
-128 GB RAM + RX 6700 XT 12 GB. See [`modules/ai/`](../../modules/ai/) for Ollama / ComfyUI / kiro-gateway.
+128 GB RAM + RX 6700 XT 12 GB. See [`modules/ai/`](../../modules/ai/) for Ollama / ComfyUI / kiro-gateway / Kiro Crew (`:5476`) / RisuAI (Docker `:6001`) / AIRI (Docker `:6100`).
 
 ## Related
 

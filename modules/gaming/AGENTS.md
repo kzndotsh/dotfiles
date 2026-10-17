@@ -13,9 +13,9 @@ Declarative gaming stack for the **`ikigai` desktop host only** (AMD RX 6700 XT 
 
 | File | Role |
 |------|------|
-| `default.nix` | `options.gaming.*`, master enable, PipeWire RT when `audio.lowLatency` |
+| `default.nix` | `options.gaming.*` (except `gaming.vr.*`, declared in `vr.nix`), master enable, PipeWire RT when `audio.lowLatency` |
 | `steam.nix` | Steam, proton-ge, FHS, launch-option docs in comments |
-| `wine.nix` | Lutris/Bottles/Heroic + openldap FHS workaround; gates `modules/wine` via `gaming.wine.enable` |
+| `wine.nix` | Lutris/Bottles/Heroic + openldap FHS workaround; always installs `umu-launcher` + `legendary-gl` regardless of flags; gates `modules/wine` via `gaming.wine.enable` |
 | `tools.nix` | gamemode (unload Ollama on start), gamescope, optional game-wrapper |
 | `mangohud.nix` | `/etc/xdg/MangoHud/`, `mkForce perf_event_paranoid=1` |
 | `kernel.nix` | SteamOS sysctls, `ntsync` kernel module (≥6.14) — not `hardware/` |
@@ -24,6 +24,7 @@ Declarative gaming stack for the **`ikigai` desktop host only** (AMD RX 6700 XT 
 | `prismlauncher.nix` | Prism + pinned `minecraft-fo` `.mrpack` |
 | `runelite.nix` | Wrapped RuneLite + configure desktop entry |
 | `crankshaft.nix` | `self.packages.crankshaft` (`packages/crankshaft/`) |
+| `vr.nix` | `gaming.vr` — WiVRn (Quest 2 wireless PCVR) with `highPriority` + pacing env, Steam OXR import, `wayvr` + `android-tools` packages, optional encoder override |
 | `epic.nix` | Legendary / Rocket League optional |
 | `games.nix` | Per-title toggles (osu, MO2, Star Citizen sysctl) |
 
@@ -56,6 +57,8 @@ Master switch: `gaming.enable = true`.
 | `games.rocketLeague.enable` | `false` | nix-gaming rocket-league |
 | `minecraft.prismLauncher.enable` | `true` | Prism + `minecraft-fo` (FO 14.0.0-beta.6 / MC 26.2) |
 | `runelite.enable` | `true` | Wrapped RuneLite (`_JAVA_AWT_WM_NONREPARENTING`, `runelite-configure`) |
+| `vr.enable` | `true` | WiVRn server, avahi (module-enabled), `highPriority` (CAP_SYS_NICE wrapper), `U_PACING_COMP_MIN_TIME_MS=5`, `steam.importOXRRuntimes`, `wayvr` + `android-tools`; `autoStart=false` — start with `systemctl --user start wivrn` |
+| `vr.encoder` | `null` | Force `vulkan`/`vaapi`/`x264` (h265); null = WiVRn auto |
 
 
 ## Dependencies & Integrations
@@ -102,7 +105,7 @@ After copying `~/.local/share/Steam` to a new account, fix at minimum:
 
 Steam **account** display name in `localconfig.vdf` can stay the old handle; only filesystem paths must match `$HOME`.
 
-RPCS3 PS3 firmware installed once via GUI. Star Citizen needs `gaming.games.starCitizen.enable` for sysctl bump.
+RPCS3 is not installed (`emulators.nix`); PS3 firmware applies only if it is enabled. Star Citizen needs `gaming.games.starCitizen.enable` for sysctl bump.
 
 ## Steam Launch Options (per-game)
 
@@ -115,6 +118,22 @@ gamescope -W 2560 -H 1440 -r 144 -f -e --mangoapp -- %command%
 ```
 
 Use `--mangoapp` with Gamescope, not `mangohud`.
+
+## VR (WiVRn / Quest 2)
+
+- Quest 2 has no AV1 decode; RX 6700 XT has no AV1 encode → h265. Try `vr.encoder = "vaapi"` only if vulkan latency is bad (VCN fence timeouts seen with forced VA-API, see `programs/firefox.nix`).
+- Steam games need Proton 9+; if the socket is not visible add `PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc %command%`. Re-login after first switch for `PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES` (until then start Steam as `PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1 steam`). Steam launch options take exactly one `%command%` (env before, args after).
+- `highPriority = true` installs `/run/wrappers/bin/wivrn-server` with `cap_sys_nice`; the unit starts through it (verify `CapEff` bit 23 on the service `MainPID`). `U_PACING_COMP_MIN_TIME_MS` comes from LVRA's NixOS page, documented for Monado — unconfirmed for WiVRn. Turn `highPriority` off first if the wrapper misbehaves.
+- **Switching/restarting while a headset is connected crashed `wivrn-server` (SEGV on exit, once)** — stop WayVR and disconnect first. If the unit is down after a switch, `systemctl --user start wivrn` (`autoStart` is off).
+- AMD clocks throttle between frames → LACT "VR" power profile (LACT GUI: Performance Level Manual + Power Profile Mode VR). Terminal equivalent per LVRA: `power_dpm_force_performance_level=manual`, then write the `VR` index from `pp_power_profile_mode`; the `cardN` index is unverified here. Not declarative.
+- **Mouse clicks dead while WayVR runs:** seen once (physical G502 could not click until `pkill -x wayvr` removed its uinput "WayVR Mouse"/"WayVR Keyboard"). Root cause unconfirmed; stop WayVR when not in VR.
+- **adb:** `android-tools` is in `vr.nix`. Quest needs developer mode + USB debugging authorised in the headset, or `adb devices` stays empty (Quest then exposes only USB mass storage). If it later says "no permissions", `/dev/bus/usb/*` is `root:root 664` with no uaccess ACL — add a udev rule for vendor `2833`. Battery: `adb shell dumpsys battery`.
+- **WayVR recipe:** connect the headset to WiVRn, then `wayvr --replace --show`. Apps from its dashboard **Apps** tab run in WayVR's own Wayland session (`wayland-20`, not Sway's `wayland-1`), so no PC-side window. Launch each app **once**. Single-instance apps (Nautilus, Firefox) forward to an already-running desktop copy over D-Bus, so the window opens on Sway instead — close the desktop copy first (check `pgrep -x .nautilus-wrapp`; `pkill -x nautilus` misses the wrapper name), and don't open that app on the desktop while the VR copy runs. Untested workaround: launch the VR copy under `dbus-run-session`.
+- `wayvr` (desktop overlay in VR) is installed; run it manually after the headset connects, not via WiVRn `application` autostart (screens/apps break). On Sway it captures via wlr-screencopy (`Using ScreenCopy capture` in `/tmp/wayvr.log`), so no portal dialog; the "Could not load PipeWire tokens" and XR binding/fcitx5 warnings are harmless.
+- **WayVR clicks (Quest controllers):** click type follows laser color — blue left, orange right, purple middle. Defaults (embedded in the 26.8.0 binary; no `~/.config/wayvr/openxr_actions.json5` exists): right-click modifier = *touching* B (right) / Y (left); middle-click modifier = *touching* A (right) / X (left). Resting a thumb on A/X makes folders open in a new tab (Nautilus middle-click). Trigger = click, grip = grab, thumbstick = scroll, double-Y = show/hide. Rebind in the dashboard **Controls** tab.
+- **WayVR passthrough:** `use_passthrough` in `~/.config/wayvr/conf.d/zz-saved-config.json5` shows the camera feed as background; WayVR rewrites that file on exit, so change it with WayVR stopped (or via dashboard Settings).
+- Do not copy blog/LVRA snippets blindly: `steam-run wayvr` is unnecessary here, `adbusers`/`plugdev` groups do not exist on this host, the `XR_RUNTIME_JSON=…/opencomposite_runtime.json` launch option points at a file nixpkgs' `opencomposite` does not ship, KDE `monadoEnvironment` values are wrong for Sway, and WiVRn `config.application = [ wayvr ]` autostart breaks WayVR screens/apps. `openxr_wivrn.json` is at `/run/current-system/sw/share/openxr/1/` already.
+- Avoid SteamVR on NixOS (async reprojection needs bwrap/kernel patches). Firewall is already all-open; `openFirewall` is belt-and-braces.
 
 ## Conventions
 
