@@ -1,11 +1,11 @@
 # `kaizen@ikigai ~/dotfiles ❄`
 
+![Desktop demo](assets/demo.png)
+
 My personal NixOS flake: [Sway](https://swaywm.org/) desktop, hardened libvirt VM, Hetzner VPS. System modules only; no Home Manager. [Tokyo Night](https://github.com/folke/tokyonight.nvim) on the desktop stack.
 
 > [!IMPORTANT]
 > These dotfiles are built for my hardware, domain, workflows, and secrets. **Not a template**; they will not work out of the box on your machine. Do not `nh os switch` or `nixos-rebuild switch` this flake on foreign hardware. If you fork, start with [`lib/identity.nix`](lib/identity.nix), your own `hardware-configuration.nix`, `.env.kzn`, and `~/.secrets/`; see [AGENTS.md](AGENTS.md) for the rest.
-
-![Desktop demo](assets/demo.png)
 
 ## Hosts
 
