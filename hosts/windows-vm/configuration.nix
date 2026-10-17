@@ -11,6 +11,7 @@
     fsType = "ext4";
   };
   boot.loader.grub.devices = [ "/dev/sda" ];
+  system.stateVersion = "26.05"; # silences the eval warning; nothing stateful runs from this stub
 
   topology.self = {
     deviceType = lib.mkForce "device";

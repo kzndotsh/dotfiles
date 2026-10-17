@@ -2,7 +2,7 @@
 #
 # NixOS programs.sway has no extraConfig — compositor config lives in /etc/sway/config
 # (config.nix plus config.d fragments). This file handles the session layer only.
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   # WebRTC apps (Meet, Zoom, Vesktop) can exhaust xdpw's default two PipeWire buffers and freeze
   # on the last frame (emersion/xdg-desktop-portal-wlr#395). nixpkgs 0.8.1 still ships the default

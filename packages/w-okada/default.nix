@@ -229,19 +229,15 @@ if changed:
   inherit audioDefaults processingDefaults;
 
   processingDefaultsJson = builtins.toJSON {
+    inherit (processingDefaults)
+      extraConvertSize crossFadeOverlapSize f0Detector indexRatio
+      silenceFront silentThreshold protect;
     serverReadChunkSize = processingDefaults.readChunkSize;
-    extraConvertSize = processingDefaults.extraConvertSize;
-    crossFadeOverlapSize = processingDefaults.crossFadeOverlapSize;
     serverAudioSampleRate = processingDefaults.sampleRate;
     serverInputAudioSampleRate = processingDefaults.sampleRate;
     serverOutputAudioSampleRate = processingDefaults.sampleRate;
     serverMonitorAudioSampleRate = processingDefaults.sampleRate;
-    f0Detector = processingDefaults.f0Detector;
-    indexRatio = processingDefaults.indexRatio;
     tran = processingDefaults.pitchSemitones;
-    silenceFront = processingDefaults.silenceFront;
-    silentThreshold = processingDefaults.silentThreshold;
-    protect = processingDefaults.protect;
   };
 
   applyProcessingDefaultsPy = pkgs.writeText "w-okada-apply-processing.py" ''
