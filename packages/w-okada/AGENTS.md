@@ -13,7 +13,7 @@ Shell helpers for [w-okada/voice-changer](https://github.com/w-okada/voice-chang
 | `w-okada-audio` | Seed server mode + processing defaults → `stored_setting.json` (CHUNK, EXTRA, F0, …) |
 | `w-okada` | Singleton start (`systemctl --user start w-okada`) → http://127.0.0.1:18888/ |
 | `w-okada --stop` | Stop unit + leftover `MMVCServerSIO` |
-| `w-okada-mic` | Legacy pactl cleanup + verify declarative nodes exist |
+| `w-okada-mic` | Legacy pactl cleanup + verify the virtual nodes exist (only while w-okada runs, unless `virtualMic.persistent`) |
 
 ## Consumer
 
@@ -57,12 +57,12 @@ Sources: [Lenylvt HF guide](https://huggingface.co/blog/Lenylvt/w-okada), issues
 |------|-----------------|---------------|
 | input | `pipewire\|default` | mic via PipeWire default source (never Yeti hw) |
 | output | `pipewire` + `PULSE_SINK=VoiceChanger-Output` | set by `w-okada` launcher |
-| monitor | **disabled** (`-1`) | hear self via declarative pulse loopback → FiiO |
+| monitor | **disabled** (`-1`) | hear self via the "Voice Changer Monitor" pulse loopback → default sink |
 
-Virtual graph is **declarative** in `modules/ai/w-okada.nix` (`virtualMic.enable`):
-- null sinks (`context.objects`)
-- WirePlumber Lua: output monitor → virtual mic
-- `pulse.cmd` loopback: output monitor → `@DEFAULT_SINK@`
+Virtual graph is defined in `modules/ai/w-okada.nix` (`virtualMic.enable`):
+- Voice Changer Output / Mic null sinks — **on demand** by default: the `w-okada` user unit creates them in `ExecStartPre` (`pw-cli create-node`) and removes them in `ExecStopPost`, so pwvucontrol/Discord only see them while it runs. `virtualMic.persistent = true` puts them in `context.objects` (always present) instead
+- WirePlumber Lua: output monitor → virtual mic (always loaded; links whenever the nodes appear)
+- "Voice Changer Monitor" loopback: output monitor → `@DEFAULT_SINK@` (`virtualMic.monitor.enable`, default on). pipewire-pulse only keeps spaces in `node.description` written as `sink_input_properties="node.description='…'"`
 
 ```bash
 w-okada-audio --list          # PortAudio indices + names

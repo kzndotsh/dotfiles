@@ -82,7 +82,7 @@ SDXL alone works with Ollama unloaded. SDXL + large LLM or FLUX schnell alone wi
 - Start: `w-okada` (singleton user unit, Web UI :18888) — **unload Ollama first** on 12 GB VRAM
 - Stop / restart: `w-okada --stop` then `w-okada` (or `systemctl --user restart w-okada`). Unit `TimeoutStopSec=10s` then SIGKILL — HIP children ignore TERM. Do not `systemd-run` a second copy
 - Do **not** change Web UI **CHUNK** — dropdown is the worklet default (192), last entries go to **8192** and explode the PortAudio buffer. Server is Nix **128**; pick 128 only to sync the label
-- Virtual mic: declarative PipeWire graph in `w-okada.nix` — sinks, WirePlumber links, pulse loopback
+- Virtual mic: PipeWire graph in `w-okada.nix` — sinks + "Voice Changer Monitor" loopback exist only while the `w-okada` unit runs (`virtualMic.persistent` for always-on; `virtualMic.monitor.enable` toggles the loopback); WirePlumber links are always loaded
 - **Server** audio mode in Web UI (not client) — client mode shows empty devices on Linux
 - Output routing: `PULSE_SINK=VoiceChanger-Output` in `w-okada` (no route daemon)
 - Auto routing: `w-okada-audio` or `ai.wOkada.audio.autoDefaults`

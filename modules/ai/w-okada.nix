@@ -59,6 +59,43 @@ let
 
   sinkName = "VoiceChanger-Output";
   micName = "VoiceChanger-Mic";
+  monitorDesc = "Voice Changer Monitor";
+  # pipewire-pulse only keeps spaces in a description quoted like this.
+  loopbackArgList = [
+    "module-loopback"
+    "source=${sinkName}.monitor"
+    "sink=@DEFAULT_SINK@"
+    "latency_msec=120"
+    "source_output_properties=\"node.description='${monitorDesc}'\""
+    "sink_input_properties=\"node.description='${monitorDesc}'\""
+  ];
+  loopbackArgs = lib.concatStringsSep " " loopbackArgList;
+
+  # On-demand graph: the unit creates the virtual devices on start and removes them on stop.
+  devicesUp = pkgs.writeShellScript "w-okada-devices-up" ''
+    PATH=${lib.makeBinPath [ pkgs.pipewire pkgs.pulseaudio pkgs.jq pkgs.gnugrep pkgs.coreutils ]}
+    exists() {
+      pw-dump | jq -e --arg n "$1" 'any(.[]; .type == "PipeWire:Interface:Node" and .info.props."node.name" == $n)' >/dev/null
+    }
+    mk() {
+      exists "$1" || pw-cli create-node adapter "{ factory.name=support.null-audio-sink node.name=$1 node.description=\"$2\" media.class=$3 audio.position=[ FL FR ] object.linger=true }" >/dev/null
+    }
+    mk ${sinkName} "Voice Changer Output" Audio/Sink
+    mk ${micName} "Voice Changer Mic" Audio/Source/Virtual
+    ${lib.optionalString cfg.virtualMic.monitor.enable ''
+      for _ in $(seq 50); do pactl list short sinks | grep -q '\s${sinkName}\s' && break; sleep 0.1; done
+      pactl list short modules | grep -q 'source=${sinkName}.monitor' || pactl load-module ${lib.escapeShellArgs loopbackArgList} >/dev/null
+    ''}
+  '';
+
+  devicesDown = pkgs.writeShellScript "w-okada-devices-down" ''
+    PATH=${lib.makeBinPath [ pkgs.pipewire pkgs.pulseaudio pkgs.jq pkgs.gawk pkgs.findutils ]}
+    pactl list short modules | awk '/module-loopback/ && /source=${sinkName}\.monitor/ {print $1}' | xargs -r -n1 pactl unload-module || true
+    for n in ${micName} ${sinkName}; do
+      id=$(pw-dump | jq -r --arg n "$n" '.[] | select(.type == "PipeWire:Interface:Node" and .info.props."node.name" == $n) | .id')
+      [ -n "$id" ] && pw-cli destroy "$id" >/dev/null || true
+    done
+  '';
 
   # WirePlumber 0.5 — output monitor → virtual mic (issue #313 pattern).
   linkNodesLua = ''
@@ -156,9 +193,24 @@ in
         type = lib.types.bool;
         default = true;
         description = ''
-          Declarative PipeWire graph: null sinks, WirePlumber monitor→mic
+          PipeWire graph: null sinks, WirePlumber monitor→mic
           links, pulse loopback to @DEFAULT_SINK@.
         '';
+      };
+
+      persistent = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = ''
+          Keep Voice Changer Output/Mic in the PipeWire config at all times. Off: the w-okada unit
+          creates them on start and removes them on stop, so they only show while it runs.
+        '';
+      };
+
+      monitor.enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Loopback the converted voice to @DEFAULT_SINK@ (\"${monitorDesc}\") so you hear yourself";
       };
     };
 
@@ -355,80 +407,84 @@ in
             ${pkgs.procps}/bin/pkill -x -f "python MMVCServerSIO.py -p ${toString cfg.server.port}" || true
           '';
           ExecStart = lib.getExe vcPkg.w-okada;
+        } // lib.optionalAttrs (cfg.virtualMic.enable && !cfg.virtualMic.persistent) {
+          ExecStartPre = devicesUp;
+          ExecStopPost = devicesDown;
         };
       };
     })
 
-    (lib.mkIf (cfg.enable && cfg.virtualMic.enable) {
-      services.pipewire = {
-        extraConfig = {
-          pipewire."91-w-okada" = {
-            "context.objects" = [
-              {
-                factory = "adapter";
-                args = {
-                  "factory.name" = "support.null-audio-sink";
-                  "node.name" = sinkName;
-                  "node.description" = "Voice Changer Output";
-                  "media.class" = "Audio/Sink";
-                  "audio.position" = "FL,FR";
-                };
-              }
-              {
-                factory = "adapter";
-                args = {
-                  "factory.name" = "support.null-audio-sink";
-                  "node.name" = micName;
-                  "node.description" = "Voice Changer Mic";
-                  "media.class" = "Audio/Source/Virtual";
-                  "audio.position" = "FL,FR";
-                };
-              }
-            ];
-          };
-
-          # Hear converted audio on the default sink without VC monitor device.
-          pipewire-pulse."92-w-okada-monitor" = {
-            "pulse.cmd" = [
-              {
-                cmd = "load-module";
-                args = "module-loopback source=${sinkName}.monitor sink=@DEFAULT_SINK@ latency_msec=120";
-                flags = [ "nofail" ];
-              }
-            ];
-          };
+    (lib.mkIf (cfg.enable && cfg.virtualMic.enable && cfg.virtualMic.persistent) {
+      services.pipewire.extraConfig = {
+        pipewire."91-w-okada" = {
+          "context.objects" = [
+            {
+              factory = "adapter";
+              args = {
+                "factory.name" = "support.null-audio-sink";
+                "node.name" = sinkName;
+                "node.description" = "Voice Changer Output";
+                "media.class" = "Audio/Sink";
+                "audio.position" = "FL,FR";
+              };
+            }
+            {
+              factory = "adapter";
+              args = {
+                "factory.name" = "support.null-audio-sink";
+                "node.name" = micName;
+                "node.description" = "Voice Changer Mic";
+                "media.class" = "Audio/Source/Virtual";
+                "audio.position" = "FL,FR";
+              };
+            }
+          ];
         };
 
-        wireplumber = {
-          extraConfig."93-w-okada-streams" = {
-            "stream.rules" = [
-              {
-                matches = [
-                  { "application.name" = "w-okada"; }
-                ];
-                actions = {
-                  "update-props" = {
-                    "target.object" = sinkName;
-                  };
+        # Hear converted audio on the default sink without VC monitor device.
+        pipewire-pulse."92-w-okada-monitor" = lib.mkIf cfg.virtualMic.monitor.enable {
+          "pulse.cmd" = [
+            {
+              cmd = "load-module";
+              args = loopbackArgs;
+              flags = [ "nofail" ];
+            }
+          ];
+        };
+      };
+    })
+
+    # Routing rules apply whenever the devices exist (persistent or created by the unit).
+    (lib.mkIf (cfg.enable && cfg.virtualMic.enable) {
+      services.pipewire.wireplumber = {
+        extraConfig."93-w-okada-streams" = {
+          "stream.rules" = [
+            {
+              matches = [
+                { "application.name" = "w-okada"; }
+              ];
+              actions = {
+                "update-props" = {
+                  "target.object" = sinkName;
                 };
-              }
-            ];
-          };
-
-          extraScripts."w-okada/link-nodes.lua" = linkNodesLua;
-
-          extraConfig."92-w-okada-links" = {
-            "wireplumber.components" = [
-              {
-                name = "w-okada/link-nodes.lua";
-                type = "script/lua";
-                provides = "w-okada.link-nodes";
-              }
-            ];
-            "wireplumber.profiles" = {
-              main = {
-                "w-okada.link-nodes" = "required";
               };
+            }
+          ];
+        };
+
+        extraScripts."w-okada/link-nodes.lua" = linkNodesLua;
+
+        extraConfig."92-w-okada-links" = {
+          "wireplumber.components" = [
+            {
+              name = "w-okada/link-nodes.lua";
+              type = "script/lua";
+              provides = "w-okada.link-nodes";
+            }
+          ];
+          "wireplumber.profiles" = {
+            main = {
+              "w-okada.link-nodes" = "required";
             };
           };
         };

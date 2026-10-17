@@ -806,7 +806,7 @@ in {
         exit 1
       fi
 
-      echo "w-okada routing is declarative (modules/ai/w-okada.nix)."
+      echo "w-okada routing lives in modules/ai/w-okada.nix (devices exist only while w-okada runs, unless virtualMic.persistent)."
       echo "Cleaning legacy pactl modules from older setups..."
 
       while read -r mid _rest; do
@@ -816,18 +816,18 @@ in {
       if pactl list short sinks | awk '{print $2}' | grep -qx "VoiceChanger-Output"; then
         echo "  VoiceChanger-Output: OK"
       else
-        echo "  VoiceChanger-Output: missing — nh os switch, then restart PipeWire" >&2
+        echo "  VoiceChanger-Output: missing — start w-okada (systemctl --user start w-okada) first" >&2
         exit 1
       fi
 
       if pactl list short sources | awk '{print $2}' | grep -qx "VoiceChanger-Mic"; then
         echo "  VoiceChanger-Mic: OK"
       else
-        echo "  VoiceChanger-Mic: missing" >&2
+        echo "  VoiceChanger-Mic: missing — start w-okada first" >&2
         exit 1
       fi
 
-      echo "Start w-okada; Discord/OBS mic = Voice Changer Mic"
+      echo "Discord/OBS mic = Voice Changer Mic"
     '';
   };
 }
