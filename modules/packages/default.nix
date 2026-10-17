@@ -129,7 +129,6 @@ in
     mumble
     gcc
     code-cursor
-    gitkraken
     inputs.grok-bot.packages.${pkgs.stdenv.hostPlatform.system}.default
     claudeDesktop
     duf

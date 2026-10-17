@@ -95,7 +95,7 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 | Security lab               | `modules/lab/` (`lab.*` in desktop host)                             | Tools, NM OpenVPN, vuln Docker targets on localhost (not autostart) |
 | Google Drive               | `modules/services/gdrive.nix`                                        | rclone automount `/mnt/gdrive`; token in `~/.config/rclone/rclone.conf` |
 | Realtime RVC (w-okada)     | `modules/ai/w-okada.nix` + `ai.wOkada`                              | `w-okada-setup` once                         |
-| Themed CLI wrappers        | `modules/wrappers/`                                                  | fuzzel, ghostty, profanity, btop-rocm, micro, lazygit |
+| Themed CLI wrappers        | `modules/wrappers/`                                                  | fuzzel, ghostty, profanity, btop-rocm, micro, lazygit, gitkraken |
 | Global JS/Python (mise)    | `modules/dev/mise.nix`, `modules/desktop/xdg.nix`                      | Pins in Nix; `systemctl --user restart mise-global-tools` after changes |
 | VPS service / DNS          | `hosts/vps/configuration.nix`, `infra/cloudflare.nix`              | sops secrets                                 |
 | Provision / destroy VPS    | `infra/state/kzn/`                                                   | `nix run .#vps-plan` (`.env.kzn`)            |

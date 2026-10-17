@@ -6,7 +6,7 @@ nix-wrappers flake input — declarative CLI wrappers.
 
 ## Quick facts
 
-- fuzzel, ghostty, profanity, btop-rocm, micro, lazygit
+- fuzzel, ghostty, profanity, btop-rocm, micro, lazygit, gitkraken
 - Desktop only (`system-wrappers` in `flake.nix`). Do **not** also list these in `modules/packages`.
 
 ## Files
@@ -19,6 +19,7 @@ nix-wrappers flake input — declarative CLI wrappers.
 | `btop.nix` | `btop-rocm` (`--config` + `--themes-dir`) |
 | `micro.nix` | micro (preRun symlink settings into `~/.config/micro`) |
 | `lazygit.nix` | lazygit (`--use-config-file=`; Tokyo Night + delta pager) |
+| `gitkraken.nix` | GitKraken (`--password-store=gnome-libsecret` + libsecret on `LD_LIBRARY_PATH`; `preRun` jq-merges profile settings) |
 
 ## Import
 `hosts/desktop/configuration.nix` — first in module list
@@ -46,6 +47,13 @@ nix-wrappers flake input — declarative CLI wrappers.
 - `os.editPreset: micro` for lazygit **file** edits (`e`, line hyperlinks) — stays in the TUI/terminal. **`core.editor`** (Cursor `--wait`) is separate: commit messages, `rebase -i`, merges without `-m`.
 - Do not set `showIcons` alongside `nerdFontsVersion: "3"` (deprecated; forces v2 icons).
 - Default diff renderer is **unified** delta (`DELTA_FEATURES=-side-by-side`; git config has side-by-side on for CLI). Press `|` to cycle to **side-by-side**. Line-number hyperlinks open files in micro (`lazygit-edit://`).
+
+## GitKraken
+- nixpkgs rpath only has `libgnome-keyring`; Electron dlopens `libsecret-1.so.0`. Without the `LD_LIBRARY_PATH` prefix the flag silently falls back to plaintext token storage.
+- Custom themes are disabled upstream since 11.8.0 (still off in 12.x) — no Tokyo Night. Pick a built-in in Preferences → UI Customization; `~/.gitkraken/config` is app-managed, don't template it.
+- `preRun` deep-merges a fixed key set into every `~/.gitkraken/profiles/*/profile` (first run keeps `profile.pre-nix`). Managed keys reset each launch; unmanaged keys stay app-owned. Key names are from 12.4.1 `getDefaultSettings` in `app.asar` — re-check after major bumps.
+- External editor/terminal are `custom` → `gitkraken-open` (micro in a fresh Ghostty). GitKraken replaces `$REPO_PATH`/`$FILE_PATH` only as whole args and spawns with no cwd, hence the script.
+- Identity/SSH signing come from `~/.config/git/{config,identity}` (modules/dev/git.nix); Wayland flags come from the package's `NIXOS_OZONE_WL` wrapper.
 
 ## Rules
 - Wrapper-only config; wrap nixpkgs binaries, do not duplicate them in `packages/`

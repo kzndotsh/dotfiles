@@ -6,5 +6,6 @@
     ./btop.nix
     ./micro.nix
     ./lazygit.nix
+    ./gitkraken.nix
   ];
 }
