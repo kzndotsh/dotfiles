@@ -12,5 +12,6 @@
     ./daemons.nix
     ./polkit.nix
     ./tor.nix
+    ./gdrive.nix
   ];
 }
