@@ -221,6 +221,19 @@ UnslopNemo 12B Q4_K_M, full offload, flash attention, q8_0 KV, `llama-bench` fro
 - No matrix cores on RDNA2 (`matrix cores: none`), so the big Vulkan gains reported for RDNA3/4 don't apply here
 - Cheapest switch if ever wanted: `ollamaPkg = pkgs.ollama-vulkan` (drops `rocmOverrideGfx` + `HSA_NO_SCRATCH_RECLAIM` VRAM tax). Not benchmarked through Ollama itself yet
 - Not switched: a 5–17% gain doesn't justify touching aliases, Open WebUI, RisuAI/AIRI, GameMode unload
+- Ollama blobs are plain GGUF (`ollama show --modelfile <name>` → `FROM /var/lib/ollama/models/blobs/…`), but root-only (DynamicUser). `sudo cat` a copy for llama.cpp tests instead of re-downloading
+
+### Bleeding-edge builds & speculative decoding (same model, q8_0 KV, flash attention)
+
+| Build | pp4096 | tg128 | pp4096 @ 4k | tg128 @ 4k |
+|-------|-------:|------:|------------:|-----------:|
+| Lemonade `llamacpp-rocm` b1347 gfx103X (TheRock ROCm 10.2 nightly) | 586 | 42.7 | **500** | 33.5 |
+| nixpkgs llama.cpp ROCm | 567 | 42.7 | 481 | 36.4 |
+| nixpkgs llama.cpp Vulkan | **601** | **45.7** | 469 | **42.6** |
+
+- Lemonade gfx103X runs natively as gfx1031 (no `HSA_OVERRIDE_GFX_VERSION`), Ubuntu zip works via nix-ld with `LD_LIBRARY_PATH=<unzip dir>`. Slightly better prefill, worse deep decode — not worth it over Vulkan
+- llama-server speculative decoding (Vulkan, 256-token RP replies): `ngram-mod` = no gain on fresh text (44.9 vs 45.5 t/s); only speeds up text already seen. Mistral-Small-3.1-DRAFT-0.5B is **vocab-incompatible** with Nemo 12B finetunes (server refuses it); no small Nemo-tokenizer draft known
+- RDNA2 fork "+75%" claims come from model-specific MTP/draft setups, not kernels — don't expect them on Nemo/Gemma RP GGUFs
 
 ### Higgs Audio v3 TTS (bosonai/higgs-tts-3-4b)
 
