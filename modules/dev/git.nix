@@ -150,4 +150,16 @@ in
   };
 
   environment.systemPackages = with pkgs; [ delta gh ];
+
+  # Some apps only check the global scope (~/.config/git/config), not /etc/gitconfig.
+  # Keep that file a real, writable file (tools add to it) that includes the identity.
+  environment.etc."git/identity".text = ''
+    [user]
+    	name = ${config.my.gitName}
+    	email = ${config.my.gitEmail}
+  '';
+  systemd.tmpfiles.rules = [
+    "d ${config.my.home}/.config/git 0755 ${config.my.username} users -"
+    "f ${config.my.home}/.config/git/config 0644 ${config.my.username} users - [include]\\n\\tpath = /etc/git/identity\\n"
+  ];
 }
