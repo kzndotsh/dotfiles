@@ -9,12 +9,14 @@
     bzip2
     curl
     dbus
+    libpulseaudio
     libssh
     libxcb
     libxkbcommon
     libsodium
     libxml2
     openssl
+    portaudio
     stdenv.cc.cc
     systemd
     util-linux
