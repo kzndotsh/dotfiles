@@ -22,6 +22,7 @@
     ../../modules/gaming
     ../../modules/music
     ../../modules/wine
+    ../../modules/lab
   ];
 
   time.timeZone = "America/New_York";
@@ -165,6 +166,23 @@
     max_messages = 50;
     allowDms = false;
     statusMessage = "@ me to chat";
+  };
+
+  lab = {
+    enable = true;
+    targets = {
+      dvwa.enable = true;
+      juiceShop.enable = true;
+      webgoat.enable = true;
+      vampi.enable = true;
+      bwapp.enable = true;
+      mutillidae.enable = true;
+      dvga.enable = true;
+      dvna.enable = true;
+      vulnerableApp.enable = true;
+      wrongSecrets.enable = true;
+      railsgoat.enable = true;
+    };
   };
 
   # w-okada RVC — w-okada-setup once, then `w-okada` + virtual mic.
