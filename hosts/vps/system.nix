@@ -81,15 +81,15 @@ in
       };
     };
 
-    journald.extraConfig = ''
-      Storage=persistent
-      SystemMaxUse=500M
-      MaxRetentionSec=30d
-      Compress=yes
-      ForwardToSyslog=no
-      ForwardToConsole=no
-      RateLimitIntervalSec=0
-    '';
+    journald.settings.Journal = {
+      Storage = "persistent";
+      SystemMaxUse = "500M";
+      MaxRetentionSec = "30d";
+      Compress = "yes";
+      ForwardToSyslog = "no";
+      ForwardToConsole = "no";
+      RateLimitIntervalSec = "0";
+    };
     rsyslogd.enable = false;
     fstrim.enable = true;
   };

@@ -13,14 +13,12 @@
       package = pkgs.ananicy-cpp;
       rulesProvider = pkgs.ananicy-rules-cachyos;
     };
-    journald = {
-      forwardToSyslog = false;
-      extraConfig = ''
-        SystemMaxUse=1G
-        SystemKeepFree=2G
-        MaxRetentionSec=1month
-        Compress=yes
-      '';
+    journald.settings.Journal = {
+      ForwardToSyslog = "no";
+      SystemMaxUse = "1G";
+      SystemKeepFree = "2G";
+      MaxRetentionSec = "1month";
+      Compress = "yes";
     };
   };
 

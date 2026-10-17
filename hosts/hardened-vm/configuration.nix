@@ -110,13 +110,13 @@
       torsocks.enable = true;
     };
 
-    journald.extraConfig = ''
-      Storage=volatile
-      RuntimeMaxUse=16M
-      MaxRetentionSec=5min
-      Compress=yes
-      ForwardToSyslog=no
-    '';
+    journald.settings.Journal = {
+      Storage = "volatile";
+      RuntimeMaxUse = "16M";
+      MaxRetentionSec = "5min";
+      Compress = "yes";
+      ForwardToSyslog = "no";
+    };
 
     logind.settings.Login.NAutoVTs = 0;
 
