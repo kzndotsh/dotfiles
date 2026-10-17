@@ -82,13 +82,16 @@ _:
       ];
     };
 
-    # Default capture volume when WirePlumber has no saved route (0.8 = 80% linear).
+    # Default capture volume when WirePlumber has no saved route. Linear: 0.22 is the 60% that
+    # pavucontrol and `wpctl` show (0.6^3), about -13 dB, which measured well for fish-voice.
+    # 0.8 linear would be about -2 dB, far louder. A saved route in
+    # ~/.local/state/wireplumber/default-routes overrides this.
     "54-yeti-volume" = {
       "monitor.alsa.rules" = [
         {
           matches = [{ "device.name" = "~alsa_card.usb-Blue_Microphones*"; }];
           actions.update-props = {
-            "device.routes.default-source-volume" = 0.8;
+            "device.routes.default-source-volume" = 0.22;
           };
         }
       ];
