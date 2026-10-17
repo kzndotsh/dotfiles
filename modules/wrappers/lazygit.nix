@@ -7,7 +7,7 @@ let
     gui:
       nerdFontsVersion: "3"
       border: rounded
-      wrapLinesInStagingView: true
+      wrapLinesInDiffView: true
       theme:
         activeBorderColor:
           - "#ff9e64"
