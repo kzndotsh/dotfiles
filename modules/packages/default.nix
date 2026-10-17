@@ -10,6 +10,16 @@ let
       hash = "sha256-tAfLiGPiumh9RD9k5BfD3Lu1G5NKuCK4PMS2gmGZUcw=";
     };
   });
+
+  # Electron can't detect a keyring backend under Sway (XDG_CURRENT_DESKTOP=sway) and falls back to "no keyring".
+  claudeDesktop = pkgs.symlinkJoin {
+    name = "claude-desktop";
+    paths = [ inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/claude-desktop --add-flags "--password-store=gnome-libsecret"
+    '';
+  };
 in
 {
   environment.systemPackages = with pkgs; [
@@ -76,6 +86,18 @@ in
     deadnix
     nvd
     nix-output-monitor
+    # Formatters / linters
+    nixfmt            # Nix (RFC-166 official formatter)
+    ruff              # Python linter + formatter
+    shellcheck        # shell script linter
+    shfmt             # shell formatter
+    taplo             # TOML formatter
+    yamllint          # YAML linter
+    markdownlint-cli2 # Markdown linter
+    mdformat          # Markdown formatter (CommonMark)
+    prettier          # JS / TS / JSON / CSS / HTML / MD
+    typos             # source-code spell checker
+    wakatime-cli      # coding time tracker CLI (editor plugins call it)
     inxi
     fastfetch
     ripgrep
@@ -98,7 +120,9 @@ in
     mumble
     gcc
     code-cursor
+    gitkraken
     inputs.grok-bot.packages.${pkgs.stdenv.hostPlatform.system}.default
+    claudeDesktop
     duf
     ncdu
     tokei
