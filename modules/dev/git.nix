@@ -1,5 +1,5 @@
 # Git — delta pager, Cursor commit editor, 1Password SSH signing, gh credential helper, LFS.
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   globalExcludes = pkgs.writeText "git-global-excludes" ''
     # OS
@@ -16,6 +16,25 @@ let
     .direnv/
     result
   '';
+
+  home = config.my.home;
+  signingProgram = "/run/current-system/sw/bin/op-ssh-sign";
+  identityText = lib.generators.toGitINI {
+    user = {
+      name = config.my.gitName;
+      email = config.my.gitEmail;
+      signingkey = "~/.ssh/id_ed25519.pub";
+    };
+    gpg.format = "ssh";
+    "gpg \"ssh\"" = {
+      program = signingProgram;
+      allowedSignersFile = "~/.config/git/allowed_signers";
+    };
+    commit.gpgsign = true;
+  };
+  allowedSigners = "${config.my.gitEmail} namespaces=\"git\" ${config.my.sshKey}\n";
+  # tmpfiles `f` arguments take C escapes, one line per rule.
+  tmpfilesText = s: builtins.replaceStrings [ "\\" "\n" "\t" ] [ "\\\\" "\\n" "\\t" ] s;
 in
 {
   programs.git = {
@@ -105,9 +124,9 @@ in
         };
         gpg.format = "ssh";
         "gpg \"ssh\"" = {
-          program = "/run/current-system/sw/bin/op-ssh-sign";
+          program = signingProgram;
           # lets `git log --show-signature` / verify-commit trust our own SSH signatures
-          allowedSignersFile = "/etc/git/allowed_signers";
+          allowedSignersFile = "~/.config/git/allowed_signers";
         };
         status = {
           showUntrackedFiles = "all";
@@ -153,23 +172,15 @@ in
     ];
   };
 
-  environment = {
-    systemPackages = with pkgs; [ delta gh ];
+  environment.systemPackages = with pkgs; [ delta gh ];
 
-    # Some apps only check the global scope (~/.config/git/config), not /etc/gitconfig.
-    # Keep that file a real, writable file (tools add to it) that includes the identity.
-    etc."git/identity".text = ''
-      [user]
-      	name = ${config.my.gitName}
-      	email = ${config.my.gitEmail}
-    '';
-    etc."git/allowed_signers".text = ''
-      ${config.my.gitEmail} namespaces="git" ${config.my.sshKey}
-    '';
-  };
-
+  # Global-scope copy of identity + signing. Some apps only read ~/.config/git/config, and the
+  # Claude desktop sandbox can't see /etc/gitconfig (a NixOS symlink into /etc/static) at all.
+  # tmpfiles rewrites these real files on every switch; config itself stays user-writable.
   systemd.tmpfiles.rules = [
-    "d ${config.my.home}/.config/git 0755 ${config.my.username} users -"
-    "f ${config.my.home}/.config/git/config 0644 ${config.my.username} users - [include]\\n\\tpath = /etc/git/identity\\n"
+    "d ${home}/.config/git 0755 ${config.my.username} users -"
+    "f+ ${home}/.config/git/identity 0644 ${config.my.username} users - ${tmpfilesText identityText}"
+    "f+ ${home}/.config/git/allowed_signers 0644 ${config.my.username} users - ${tmpfilesText allowedSigners}"
+    "f ${home}/.config/git/config 0644 ${config.my.username} users - [include]\\n\\tpath = identity\\n"
   ];
 }
