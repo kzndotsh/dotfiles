@@ -255,8 +255,15 @@ in
       HISTFILE = "$HOME/.local/state/bash/history";
 
       GST_PLUGIN_SYSTEM_PATH_1_0 = "/run/current-system/sw/lib/gstreamer-1.0";
+
+      # mise Python (and any other non-Nix binary) uses its own OpenSSL which defaults to
+      # /etc/ssl/cert.pem — that path doesn't exist on NixOS.  Point it at the system bundle.
+      SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
     };
   };
+
+  # same fix for processes that never see sessionVariables (system units, sudo, sandboxed apps)
+  environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-certificates.crt";
 
   xdg = {
     # micro.desktop is Terminal=true — GLib/Nautilus needs xdg.terminal-exec to spawn Ghostty.
