@@ -208,6 +208,7 @@
           inherit (pkgs) lib python3 runCommand writeShellApplication;
           kiroGatewaySrc = inputs.kiro-gateway;
         };
+        kirocrew = pkgs.callPackage ./packages/kirocrew { };
         crankshaft = pkgs.callPackage ./packages/crankshaft { };
         session-desktop = pkgs.callPackage ./packages/session-desktop { };
         wl-video-idle-inhibit = pkgs.callPackage ./packages/wl-video-idle-inhibit { };

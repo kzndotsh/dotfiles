@@ -7,6 +7,7 @@
     ./voice.nix
     ./w-okada.nix
     ./kiro-gateway.nix
+    ./kirocrew.nix
     # hermes-agent and sillytavern retired — see archive/ (gitignored)
   ];
 

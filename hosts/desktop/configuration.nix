@@ -149,6 +149,9 @@
     openWebui.tts = "fish";
   };
 
+  # Kiro Crew — persistent agent workspace (user unit, loopback :5476).
+  ai.kirocrew.enable = true;
+
   # w-okada RVC — w-okada-setup once, then `w-okada` + virtual mic.
   ai.wOkada = {
     enable = true;
