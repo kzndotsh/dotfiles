@@ -21,7 +21,6 @@ in
     colorScheme = "Night";
     enabledExtensions = [
       spicePkgs.extensions.allOfArtist
-      spicePkgs.extensions.betterGenres
       spicePkgs.extensions.hidePodcasts
       spicePkgs.extensions.lastfm
       spicePkgs.extensions.madeForYouShortcut
