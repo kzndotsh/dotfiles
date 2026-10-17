@@ -80,11 +80,11 @@ in
       "gpl" = "git pull";
       "gs" = "git status";
       "gd" = "git diff";
-      "l" = "eza -lh --icons --git --group-directories-first --color=auto --header --octal-permissions";
-      "ls" = "eza --icons --group-directories-first --color=auto";
-      "ll" = "eza -l --icons --git --group-directories-first --color=auto --header";
-      "la" = "eza -la --icons --git --group-directories-first --color=auto --header";
-      "tree" = "eza --tree --icons --group-directories-first --color=auto";
+      "l" = "eza -lh --icons=auto --git --group-directories-first --color=auto --header --octal-permissions";
+      "ls" = "eza --icons=auto --group-directories-first --color=auto";
+      "ll" = "eza -l --icons=auto --git --group-directories-first --color=auto --header";
+      "la" = "eza -la --icons=auto --git --group-directories-first --color=auto --header";
+      "tree" = "eza --tree --icons=auto --group-directories-first --color=auto";
       "c" = "clear";
       "x" = "exit";
       "q" = "exit";
@@ -229,7 +229,7 @@ in
         zstyle ':fzf-tab:*' use-fzf-default-opts yes
         zstyle ':fzf-tab:*' fzf-flags --height=40% --layout=reverse --border
         zstyle ':fzf-tab:*' switch-group '<' '>'
-        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons $realpath'
+        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=auto -- $realpath'
         zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
         zstyle ':fzf-tab:complete:git-*:*' fzf-preview 'git diff --color=always $word 2>/dev/null || git log --oneline --color=always -5 $word 2>/dev/null'
       '')
