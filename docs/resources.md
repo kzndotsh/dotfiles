@@ -206,6 +206,8 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
     - [Marcjoni/HyperNovaSynth-12B](https://huggingface.co/Marcjoni/HyperNovaSynth-12B)
     - [Retreatcost/KansenSakura-Eclipse-RP-12b](https://huggingface.co/Retreatcost/KansenSakura-Eclipse-RP-12b)
     - [SicariusSicariiStuff/Impish_Bloodmoon_12B](https://huggingface.co/SicariusSicariiStuff/Impish_Bloodmoon_12B) and its [RP preset JSON](https://huggingface.co/SicariusSicariiStuff/Impish_Nemo_12B/blob/main/Silly_Tavern_Settings/Dynamic_Paragraph_XTC_ST.json) — only the Ollama-supported part applies (no DRY/XTC/dynatemp)
+    - [TheDrummer/Rocinante-X-12B-v1](https://huggingface.co/TheDrummer/Rocinante-X-12B-v1) — Mistral v3 Tekken, no `[SYSTEM_PROMPT]`; replaced UnslopNemo
+    - [HauhauCS/Gemma4-12B-QAT-Uncensored-HauhauCS-Balanced](https://huggingface.co/HauhauCS/Gemma4-12B-QAT-Uncensored-HauhauCS-Balanced) — own samplers (temp 0.6, top_k 64, top_p 0.9, min_p 0.05, rep pen 1.1); Q4_K_M only (QAT)
     - [fancyfeast/llama-joycaption-beta-one-hf-llava](https://huggingface.co/fancyfeast/llama-joycaption-beta-one-hf-llava) — `joycaption-beta-one`: temp 0.6, top_p 0.9
 - `modules/ai/opencode.nix`
   - [opencode.ai — config schema](https://opencode.ai/config.json)

@@ -69,7 +69,7 @@ let
       '';
     }
     # 4096 matches the old llama-server profile, not the server's 8192 default.
-    # Samplers (both Gemma 4 aliases): Google's Gemma 4 values, quoted on the HauhauCS card.
+    # Samplers: Google's Gemma 4 values, quoted on the HauhauCS card.
     {
       name = "hauhau-gemma4";
       modelfile = pkgs.writeText "hauhau-gemma4.modelfile" ''
@@ -80,18 +80,21 @@ let
         PARAMETER top_k 64
       '';
     }
-    # Measured uncensored 12B that fits 12 GB at Q4. `/set nothink` in Ollama for the heretic path.
+    # Uncensored Gemma 4 12B from the official QAT weights, so Q4_K_M (the only text quant) holds
+    # quality; ships a vision projector. Samplers: its card, which tunes them away from stock Gemma.
     {
-      name = "gemma4-12b-heretic";
-      modelfile = pkgs.writeText "gemma4-12b-heretic.modelfile" ''
-        FROM igorls/gemma-4-12B-it-heretic-GGUF:Q4_K_M
+      name = "hauhau-gemma4-12b";
+      modelfile = pkgs.writeText "hauhau-gemma4-12b.modelfile" ''
+        FROM hf.co/HauhauCS/Gemma4-12B-QAT-Uncensored-HauhauCS-Balanced:Q4_K_M
         PARAMETER num_ctx 8192
-        PARAMETER temperature 1.0
-        PARAMETER top_p 0.95
+        PARAMETER temperature 0.6
         PARAMETER top_k 64
+        PARAMETER top_p 0.9
+        PARAMETER min_p 0.05
+        PARAMETER repeat_penalty 1.1
       '';
     }
-    # 9B RP, Q4 ~5.8 GB. Extra alias next to gemma4-12b-heretic.
+    # 9B RP, Q4 ~5.8 GB.
     # Card has no samplers: DavidAU baseline (min_p 0.05, top_p 0.95, rep pen 1.05 over 64); Gemma 2 wants temp ~1.
     {
       name = "gemmasutra-9b";
@@ -120,11 +123,24 @@ let
         PARAMETER repeat_last_n 64
       '';
     }
-    # UnslopNemo 12B v4.1, Q4 ~7.6 GB. Card has no samplers: DavidAU baseline.
+    # Rocinante-X 12B v1 (TheDrummer, Nemo), Q4 ~7.5 GB. Card: Mistral v3 Tekken, "NOT v7, REMOVE
+    # [SYSTEM_PROMPT]". Without a TEMPLATE, Ollama uses HF's registry template, which is v7. A
+    # tool-less TEMPLATE makes Ollama 0.40 prefer the GGUF's own chat template, which is v3 Tekken;
+    # this one is v3 too, for when the Go path is forced (OLLAMA_GO_TEMPLATE). Check with
+    # _debug_render_only. Card has no samplers: DavidAU baseline.
     {
-      name = "unslopnemo-12b";
-      modelfile = pkgs.writeText "unslopnemo-12b.modelfile" ''
-        FROM hf.co/mradermacher/UnslopNemo-12B-v4.1-GGUF:Q4_K_M
+      name = "rocinante-x-12b";
+      modelfile = pkgs.writeText "rocinante-x-12b.modelfile" ''
+        FROM hf.co/TheDrummer/Rocinante-X-12B-v1-GGUF:Q4_K_M
+        TEMPLATE """{{- $system := "" }}{{- range .Messages }}{{- if eq .Role "system" }}{{- $system = .Content }}{{- end }}{{- end }}
+        {{- $first := true }}
+        {{- range .Messages }}
+        {{- if eq .Role "user" }}[INST]{{ if and $first $system }}{{ $system }}
+
+        {{ end }}{{ .Content }}[/INST]{{- $first = false }}
+        {{- else if eq .Role "assistant" }}{{ .Content }}</s>
+        {{- end }}
+        {{- end }}"""
         PARAMETER num_ctx 8192
         PARAMETER temperature 0.8
         PARAMETER min_p 0.05
