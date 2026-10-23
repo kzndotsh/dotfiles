@@ -2,13 +2,13 @@
 
 > Scope: `modules/dev` — inherits [`AGENTS.md`](../../AGENTS.md) unless noted.
 
-Developer tooling — git, direnv, global mise (JS + Python), Cursor argv. Desktop only (hardened-vm does not import this dir).
+Developer tooling — git, direnv, Java (openjdk21), global mise (JS + Python), Cursor argv. Desktop only (hardened-vm does not import this dir).
 
 ## Files
 
 | File | Role |
 |------|------|
-| `default.nix` | direnv + nix-direnv; imports `cursor.nix`, `git.nix`, `mise.nix` |
+| `default.nix` | direnv + nix-direnv; system Java (`programs.java` openjdk21 + `JAVA_HOME` session var); imports `cursor.nix`, `git.nix`, `mise.nix` |
 | `git.nix` | git + LFS, delta pager, global excludes (store); `core.fsmonitor` / `untrackedCache` off (Cursor/agent writes); `core.editor` = Cursor `--wait`; lazygit file edits stay on micro; global-scope `~/.config/git/{identity,allowed_signers}` (tmpfiles `f+`, rewritten each switch) + writable `~/.config/git/config` that includes `identity` |
 | `cursor.nix` | tmpfiles → store symlinks for `argv.json`, `.cursor/worktrees.json`, `.cursor/rules/worktree.mdc`, `.cursor/setup-worktree-unix.sh` under `config.my.dotfilesDir`; `DOTFILES_DIR` env |
 | `mise.nix` | Global mise: `config.toml` + `conf.d/{nodejs,python}.toml`; `scriptingRequirements` for agent one-shot libs; oneshot `mise-global-tools` |
