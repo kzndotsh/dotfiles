@@ -10,7 +10,10 @@ in
       seclists
 
       # osint
-      bbot
+      # bbot 3.0.2 pins puremagic<2; nixpkgs ships 2.x
+      (bbot.overridePythonAttrs (old: {
+        pythonRelaxDeps = (old.pythonRelaxDeps or [ ]) ++ [ "puremagic" ];
+      }))
       sn0int
       amass
       subfinder

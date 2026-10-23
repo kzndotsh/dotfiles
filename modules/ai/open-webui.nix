@@ -1,6 +1,6 @@
 # Open WebUI chat UI — always on, talks to Ollama, ComfyUI, and the voice backends.
 # Binds 0.0.0.0:4000; desktop firewall allows all ports so LAN clients can reach it.
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   voice = config.ai.voice;
   stt = voice.catalog.${voice.openWebui.stt};
@@ -67,6 +67,10 @@ in
 {
   services.open-webui = {
     enable = true;
+    # wrapPythonPrograms no longer word-splits makeWrapperArgs; upstream passes one string
+    package = pkgs.open-webui.overridePythonAttrs (old: {
+      makeWrapperArgs = [ "--set" "FRONTEND_BUILD_DIR" "${old.passthru.frontend}/share/open-webui" ];
+    });
     host = "0.0.0.0"; # Listen on all interfaces, not just localhost
     port = 4000;
     environment = {

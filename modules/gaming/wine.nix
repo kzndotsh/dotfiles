@@ -15,6 +15,7 @@
 # Drop the workaround when nixpkgs#lutris is reliably cached.
 #
 # patool tests break on Python 3.14 (bzip2/lzma detection) — skip checks in Bottles only.
+# pyrate-limiter timing tests flake under build load (via moddb) — skip checks in Lutris only.
 { config, lib, pkgs, ... }:
 let
   cfg = config.gaming;
@@ -39,7 +40,16 @@ let
     bottles-unwrapped = bottlesUnwrapped;
   };
 
-  lutris = pkgs.lutris.override { buildFHSEnv = openldapFixedFHSEnv; };
+  lutrisPatched = let
+    pythonFixed = pkgs.python3Packages.overrideScope (_: prev: {
+      pyrate-limiter = prev.pyrate-limiter.overridePythonAttrs (_: { doCheck = false; });
+    });
+  in pkgs.lutris.override {
+    buildFHSEnv = openldapFixedFHSEnv;
+    lutris-unwrapped = pkgs.lutris-unwrapped.override { python3Packages = pythonFixed; };
+  };
+
+  lutris = lutrisPatched;
   bottles = bottlesPatched;
   # Heroic uses steam.buildRuntimeEnv and doesn't need the openldap FHS hook.
   heroic = pkgs.heroic.override {

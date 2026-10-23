@@ -75,11 +75,11 @@ py.buildPythonApplication rec {
   # keep PYTHONPATH (minimal_env, and `-s` does not drop it), so publish the
   # same site dirs there.
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ kiro-cli-unwrapped uv ]}"
-    "--prefix PYTHONPATH : $out/${py.python.sitePackages}:${py.makePythonPath dependencies}"
+    "--prefix" "PATH" ":" (lib.makeBinPath [ kiro-cli-unwrapped uv ])
+    "--prefix" "PYTHONPATH" ":" "${placeholder "out"}/${py.python.sitePackages}:${py.makePythonPath dependencies}"
     # Unattended spawns refuse a PATH lookup. Pin the same unwrapped binary.
-    "--set-default KIROCREW_KIRO_BIN ${kiro-cli-unwrapped}/bin/kiro-cli"
-    "--set-default SSL_CERT_FILE ${cacert}/etc/ssl/certs/ca-bundle.crt"
+    "--set-default" "KIROCREW_KIRO_BIN" "${kiro-cli-unwrapped}/bin/kiro-cli"
+    "--set-default" "SSL_CERT_FILE" "${cacert}/etc/ssl/certs/ca-bundle.crt"
   ];
 
   pythonImportsCheck = [ "kiro_crew" ];
