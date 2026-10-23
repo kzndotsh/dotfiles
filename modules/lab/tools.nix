@@ -66,6 +66,7 @@ in
       gef
       pwntools
       radare2
+      ghidra
 
       # wireless / mitm on lan
       aircrack-ng
@@ -78,6 +79,8 @@ in
 
     environment.sessionVariables = {
       NUCLEI_TEMPLATES = "${pkgs.nuclei-templates}/share/nuclei-templates";
+      # REA (reverse-engineer-anything) needs this to find Ghidra for decompilation.
+      GHIDRA_INSTALL_DIR = "${pkgs.ghidra}/lib/ghidra";
     };
   };
 }
