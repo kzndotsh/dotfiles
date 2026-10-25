@@ -11,6 +11,14 @@ let
     };
   });
 
+  # fastmcp marks itself broken on mcp >= 2; build mcp-nixos against the mcp 1.x line.
+  mcpNixos = pkgs.mcp-nixos.override {
+    python3Packages =
+      (pkgs.python3.override {
+        packageOverrides = pyFinal: _: { mcp = pyFinal.mcp_1; };
+      }).pkgs;
+  };
+
   # buildFHSEnv only links a fixed list of /etc entries, so Claude Code sessions inside the app
   # never see /etc/gitconfig (aliases, signing, credential helper). Same change as the upstream
   # PR to numtide/llm-agents.nix; drop this override once it lands.
@@ -34,7 +42,7 @@ in
   environment.systemPackages = with pkgs; [
     sops
     weechat
-    mcp-nixos
+    mcpNixos
     kiro
     kiro-cli
     pwvucontrol

@@ -11,7 +11,7 @@ Imported via `hosts/desktop/configuration.nix`. Not used by hardened-vm (GRUB in
 | File | Role |
 |------|------|
 | `default.nix` | Imports the five modules below |
-| `loader.nix` | systemd-boot, initrd systemd, tmpfs `/tmp`, Plymouth, quiet boot |
+| `loader.nix` | systemd-boot, tmpfs `/tmp`, Plymouth, quiet boot |
 | `kernel.nix` | `linuxPackages_zen`, cmdline, modules, blacklist (`kernelFile=bzImage`) |
 | `sysctl.nix` | TCP/BBR, VM/zram, hardening |
 | `udev.nix` | I/O schedulers, ALPM, NIC `.link`, remaining ATTR/RUN |

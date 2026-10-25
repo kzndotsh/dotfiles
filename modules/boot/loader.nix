@@ -15,9 +15,6 @@
       efi.canTouchEfiVariables = true;
     };
 
-    # systemd in initrd for LUKS unlock; also applies systemd.network.links early (see udev.nix).
-    initrd.systemd.enable = true;
-
     # /tmp on tmpfs — raise tmpfsSize if large nix builds run out of space.
     tmp.useTmpfs = true;
 
@@ -32,9 +29,8 @@
       ];
     };
 
-    # Quiet boot: suppress kernel spam and initrd verbose output.
+    # Quiet boot: suppress kernel spam (initrd is always systemd now).
     # kernel.nix adds quiet, udev.log_level=3, and the Tokyo Night VT palette.
     consoleLogLevel = 0;
-    initrd.verbose = false;
   };
 }

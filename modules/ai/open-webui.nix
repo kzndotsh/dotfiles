@@ -63,12 +63,23 @@ let
     { type = "steps"; node_ids = [ "1" ]; key = "steps"; }
     { type = "seed"; node_ids = [ "1" ]; key = "seed"; }
   ];
+
+  # posthog (transitive dep) is marked broken only because its test deps need mcp < 2; runtime is fine.
+  python3Packages =
+    (pkgs.python3.override {
+      packageOverrides = _: pyPrev: {
+        posthog = pyPrev.posthog.overridePythonAttrs (old: {
+          doCheck = false;
+          meta = old.meta // { broken = false; };
+        });
+      };
+    }).pkgs;
 in
 {
   services.open-webui = {
     enable = true;
     # wrapPythonPrograms no longer word-splits makeWrapperArgs; upstream passes one string
-    package = pkgs.open-webui.overridePythonAttrs (old: {
+    package = (pkgs.open-webui.override { inherit python3Packages; }).overridePythonAttrs (old: {
       makeWrapperArgs = [ "--set" "FRONTEND_BUILD_DIR" "${old.passthru.frontend}/share/open-webui" ];
     });
     host = "0.0.0.0"; # Listen on all interfaces, not just localhost
