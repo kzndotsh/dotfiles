@@ -17,6 +17,10 @@
       # libvirt_guest NSS resolves ssh user@<domain-name> from dnsmasq leases on NAT networks.
       # The guest needs a stable hostname/MAC — the VM pins MAC; desktop network randomizes by default.
       nss.enableGuest = true;
+      # Stock is true: an Include of libvirt's ssh proxy (ssh qemu/<vm> over vsock) in /etc/ssh/ssh_config.
+      # Off: that store file shows as owned by nobody inside a user-namespace sandbox, and ssh refuses it.
+      # ssh user@<vm> still resolves through nss.enableGuest above.
+      sshProxy = false;
       qemu = {
         # Stock package is full qemu (all arches). qemu_kvm is host arch only.
         package = pkgs.qemu_kvm;
