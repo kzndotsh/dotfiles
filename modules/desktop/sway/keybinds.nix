@@ -21,6 +21,8 @@
     bindsym --release Control+Print exec grim -g "$(slurp)" -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
     bindsym $mod+Shift+s exec ~/.local/bin/zipline-upload
     bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | wl-copy
+    # OBS replay buffer (modules/programs/obs.nix).
+    bindsym --no-repeat $mod+Print exec obs-replay-save
 
     # Focus movement and workspace switching.
     bindsym $mod+Left focus left

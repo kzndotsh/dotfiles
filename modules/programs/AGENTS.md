@@ -10,13 +10,14 @@ Not here: Profanity is [`../wrappers/`](../wrappers/AGENTS.md). Cursor argv is [
 
 | File | Role |
 |------|------|
-| `default.nix` | Barrel: firefox, 1Password, ssh (client), nix-ld, nh, spicetify |
+| `default.nix` | Barrel: firefox, 1Password, ssh (client), nix-ld, nh, spicetify, obs |
 | `firefox.nix` | Policies + prefs. Shared with the VM. |
 | `1password.nix` | CLI + GUI; `polkitPolicyOwners = [ config.my.username ]` |
 | `ssh.nix` | **Client** `programs.ssh.extraConfig` — not sshd |
 | `nix-ld.nix` | `programs.nix-ld` — Python/uv wheel libs (wiki set) + dbus / libxcb / libxkbcommon + audio (libpulseaudio / portaudio) |
 | `nh.nix` | `programs.nh` → `config.my.dotfilesDir`; weekly clean `--keep 5` |
 | `spicetify.nix` | Tokyo Night Spotify (needs `spicetify-nix` flake module on desktop) |
+| `obs.nix` | `programs.obs-studio` + plugins, v4l2loopback virtual cam, `obs-cmd` / `obs-replay-save` |
 
 ## Import
 
@@ -63,6 +64,16 @@ uBlock Origin, Dark Reader, Tokyo Night, 1Password, LLMFeeder, SponsorBlock, Vio
 - Unpackaged: **Find Duplicate Tracks** (`inputs.findDupeTracks` → `dist/findDupeTracks.mjs`), **crate-digger** (`inputs.cratedigger` → [kzndotsh/spicetify-cratedigger](https://github.com/kzndotsh/spicetify-cratedigger) `cratedigger.js`), **crate-sorter** (`inputs.cratesorter` → [kzndotsh/spicetify-cratesorter](https://github.com/kzndotsh/spicetify-cratesorter) `cratesorter.js`)
 - Restart Spotify after switch. Do **not** also put `pkgs.spotify` in `modules/packages`
 - Docs: https://gerg-l.github.io/spicetify-nix/
+
+## OBS (`obs.nix`)
+
+- Plugins only load via `programs.obs-studio.plugins` (`wrapOBS`) — not `systemPackages`. Do not also add `obs-studio` to `modules/packages`
+- Plugins: `obs-pipewire-audio-capture` (per-app audio), `obs-vkcapture` (Steam: `obs-gamecapture %command%`), `obs-vaapi`, `wlrobs` (fallback if portal capture breaks)
+- Virtual cam is `/dev/video10`. Do **not** use `enableVirtualCamera`: it hardcodes `video_nr=1`, which the webcam owns
+- `v4l2loopback` 0.15.4 ships depmod indexes that collide with the kernel in buildEnv; `obs.nix` strips `modules.*` in `postInstall`. Drop the override once nixpkgs fixes it
+- `$mod+Print` → `obs-replay-save` (`modules/desktop/sway/keybinds.nix`). Needs OBS **Tools → WebSocket Server Settings** enabled, replay buffer running, and `~/.secrets/obs-websocket.url` = `obsws://localhost:4455/<password>` (mode 600)
+- OBS rewrites `~/.config/obs-studio/` at runtime — seed with tmpfiles `C`, never `L+`
+- RX 6700 XT: H.264/HEVC VA-API only, no AV1 encode
 
 ## Related
 

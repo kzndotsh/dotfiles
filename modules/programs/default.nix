@@ -6,5 +6,6 @@
     ./nix-ld.nix
     ./nh.nix
     ./spicetify.nix
+    ./obs.nix
   ];
 }
