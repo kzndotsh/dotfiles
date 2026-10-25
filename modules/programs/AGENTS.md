@@ -14,7 +14,7 @@ Not here: Profanity is [`../wrappers/`](../wrappers/AGENTS.md). Cursor argv is [
 | `firefox.nix` | Policies + prefs. Shared with the VM. |
 | `1password.nix` | CLI + GUI; `polkitPolicyOwners = [ config.my.username ]` |
 | `ssh.nix` | **Client** `programs.ssh.extraConfig` — not sshd |
-| `nix-ld.nix` | `programs.nix-ld` — Python/uv wheel libs (wiki set) + dbus / libxcb / libxkbcommon + audio (libpulseaudio / portaudio) |
+| `nix-ld.nix` | `programs.nix-ld` — FHS-style lib set for prebuilt wheels/binaries (core, libc++, audio, GL/X11/GTK); `LIBRARY_PATH` for `find_library` |
 | `nh.nix` | `programs.nh` → `config.my.dotfilesDir`; weekly clean `--keep 5` |
 | `spicetify.nix` | Tokyo Night Spotify (needs `spicetify-nix` flake module on desktop) |
 | `obs.nix` | `programs.obs-studio` + plugins, v4l2loopback virtual cam, `obs-cmd` / `obs-replay-save` |
@@ -28,7 +28,9 @@ Not here: Profanity is [`../wrappers/`](../wrappers/AGENTS.md). Cursor argv is [
 ## nix-ld
 
 - Required for mise/uv **prebuilt** Python and compiled wheels (numpy, selectolax, …) on NixOS — not for nixpkgs `python3` in services.
-- Library set follows [NixOS Wiki — Python](https://wiki.nixos.org/wiki/Python) plus desktop GUI libs (`dbus`, `libxcb`, `libxkbcommon`) and audio libs (`libpulseaudio`, `portaudio`) for wheels like sounddevice.
+- Library set: wiki Python set + `libcxx` (clang-built wheels, e.g. ten-vad) + audio (`alsa-lib`, `libpulseaudio`, `libsndfile`, `portaudio`) + GL/X11/GTK for opencv / Qt / Electron-ish binaries. A wheel failing with `libfoo.so: cannot open shared object file` → add the package here, don't reach for `LD_LIBRARY_PATH`.
+- nix-ld only serves `dlopen` by soname. Python's `ctypes.util.find_library` (sounddevice, soundfile) instead searches ldconfig / gcc / `LD_LIBRARY_PATH`, so `LIBRARY_PATH` is set to the nix-ld dir for its gcc fallback. Link-time only — never export the nix-ld dir as `LD_LIBRARY_PATH` (shadows Nix binaries' RPATH; see the btop wrapper).
+- Verify a lib: `python -c 'import ctypes.util as u; print(u.find_library("portaudio"))'` (needs a fresh login after switch).
 - Global Python pins: [`../dev/mise.nix`](../dev/mise.nix).
 
 ## SSH client (`ssh.nix`)
