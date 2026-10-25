@@ -32,6 +32,19 @@ in
       android-tools
     ];
 
+    # nixpkgs' wivrn module still sets the obsolete avahi.publish.* options; null them and use settings.
+    services.avahi = {
+      publish = {
+        enable = lib.mkForce null;
+        userServices = lib.mkForce null;
+      };
+      settings.publish = {
+        disable-publishing = false;
+        disable-user-service-publishing = false;
+        publish-addresses = true;
+      };
+    };
+
     services.wivrn = {
       enable = true;
       # avahi (mDNS 5353) is enabled by the module; the desktop firewall already allows
