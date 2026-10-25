@@ -64,6 +64,8 @@ in
     basePackage = pkgs.btop-rocm;
     systemWide = true;
     executables.btop = {
+      # dev shells exporting an older libstdc++ would shadow btop's RPATH
+      environment.LD_LIBRARY_PATH.unset = true;
       args.prefix = [
         "--config"
         "${conf}"
