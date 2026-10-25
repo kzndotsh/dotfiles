@@ -19,19 +19,10 @@ let
       }).pkgs;
   };
 
-  # buildFHSEnv only links a fixed list of /etc entries, so Claude Code sessions inside the app
-  # never see /etc/gitconfig (aliases, signing, credential helper). Same change as the upstream
-  # PR to numtide/llm-agents.nix; drop this override once it lands.
-  claudeDesktopFhs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop.override {
-    buildFHSEnv = args: pkgs.buildFHSEnv (args // {
-      extraBwrapArgs = (args.extraBwrapArgs or [ ]) ++ [ "--ro-bind-try /etc/gitconfig /etc/gitconfig" ];
-    });
-  };
-
   # Electron can't detect a keyring backend under Sway (XDG_CURRENT_DESKTOP=sway) and falls back to "no keyring".
   claudeDesktop = pkgs.symlinkJoin {
     name = "claude-desktop";
-    paths = [ claudeDesktopFhs ];
+    paths = [ inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/claude-desktop --add-flags "--password-store=gnome-libsecret"
