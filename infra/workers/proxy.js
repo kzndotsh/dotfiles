@@ -13,11 +13,14 @@
 import { connect } from 'cloudflare:sockets';
 
 const BROWSER_HEADERS = [
-  ['User-Agent',      'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0'],
+  ['User-Agent',      'Mozilla/5.0 (X11; Linux x86_64; rv:158.0) Gecko/20100101 Firefox/158.0'],
   ['Accept',          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'],
-  ['Accept-Language', 'en-US,en;q=0.5'],
-  ['DNT',             '1'],
+  ['Accept-Language', 'en-US,en;q=0.9'],
   ['Upgrade-Insecure-Requests', '1'],
+  ['Sec-Fetch-Dest',  'document'],
+  ['Sec-Fetch-Mode',  'navigate'],
+  ['Sec-Fetch-Site',  'none'],
+  ['DNT',             '1'],
 ];
 
 // Headers from the caller we forward (only Content-* for POST bodies)
@@ -128,13 +131,7 @@ export default {
     const sep  = text.indexOf('\r\n\r\n');
 
     if (sep === -1) {
-      // Debug: return raw buffer info to diagnose
-      const preview = buf.slice(0, 200);
-      const dec2 = new TextDecoder('utf-8', { fatal: false });
-      return new Response(
-        `No header separator found. Buffer: ${buf.length} bytes.\nFirst 200 bytes:\n${dec2.decode(preview)}`,
-        { status: 502 }
-      );
+      return new Response('Malformed HTTP response from upstream', { status: 502 });
     }
 
     const headerSection = text.slice(0, sep);
