@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# cx — routes requests through the CF proxy worker.
+#
+# Usage (same flags as curl):
+#   cx https://example.com/path
+#   cx -X POST -d 'field=val' https://example.com/path
+#   cx -D - https://example.com/
+#
+# Set PROXY_WORKER in your env or .env.kzn:
+#   export PROXY_WORKER="https://proxy.<acct>.workers.dev"
+
+set -euo pipefail
+
+WORKER="${PROXY_WORKER:-}"
+if [[ -z "$WORKER" ]]; then
+  echo "cx: set PROXY_WORKER=https://proxy.<acct>.workers.dev" >&2
+  exit 1
+fi
+
+# Separate target URL (last non-flag argument) from curl flags
+ARGS=()
+TARGET=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -*)
+      # Flags that consume a value argument
+      if [[ "$1" =~ ^-(d|D|H|o|u|A|e|m|x|X|F|E|K|r|z|T|Q|y|Y|-data*|-header*|-output*|-user*|-user-agent*|-referer*|-max-time*|-proxy*|-request*|-form*|-cert*|-cacert*) ]]; then
+        ARGS+=("$1" "$2"); shift 2
+      else
+        ARGS+=("$1"); shift
+      fi
+      ;;
+    *)
+      TARGET="$1"; shift
+      ;;
+  esac
+done
+
+if [[ -z "$TARGET" ]]; then
+  echo "pcurl: no target URL supplied" >&2
+  exit 1
+fi
+
+ENCODED="$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1],safe=''))" "$TARGET")"
+
+exec curl "${ARGS[@]}" "${WORKER}/?url=${ENCODED}"

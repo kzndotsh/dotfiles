@@ -4,6 +4,7 @@
   imports = [
     ./hetzner.nix
     ./cloudflare.nix
+    ./workers.nix
   ]
   ++ lib.optionals ((identity.namedTunnels or { }) != { }) [ ./tunnels.nix ];
 
