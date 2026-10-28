@@ -88,7 +88,7 @@ export default {
     try {
       socket = connect(`${host}:${port}`, {
         secureTransport: useTLS ? 'on' : 'off',
-        allowHalfOpen:   false,
+        allowHalfOpen:   true,   // keep readable open after we're done writing
       });
     } catch (err) {
       return new Response(`Connect failed: ${err.message}`, { status: 502 });
@@ -99,7 +99,8 @@ export default {
     try {
       await writer.write(enc.encode(rawRequest));
       if (bodyBytes && bodyBytes.length > 0) await writer.write(bodyBytes);
-      await writer.close();
+      // Release but don't close — server closes its end after responding
+      writer.releaseLock();
     } catch (err) {
       return new Response(`Write failed: ${err.message}`, { status: 502 });
     }
