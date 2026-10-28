@@ -128,7 +128,13 @@ export default {
     const sep  = text.indexOf('\r\n\r\n');
 
     if (sep === -1) {
-      return new Response('Malformed HTTP response from upstream', { status: 502 });
+      // Debug: return raw buffer info to diagnose
+      const preview = buf.slice(0, 200);
+      const dec2 = new TextDecoder('utf-8', { fatal: false });
+      return new Response(
+        `No header separator found. Buffer: ${buf.length} bytes.\nFirst 200 bytes:\n${dec2.decode(preview)}`,
+        { status: 502 }
+      );
     }
 
     const headerSection = text.slice(0, sep);
