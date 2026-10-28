@@ -11,9 +11,6 @@
 { lib, ... }:
 let
   accountId = lib.tf.ref "var.cloudflare_account_id";
-  # Base64-encode the script at Nix evaluation time so there's no
-  # relative-path dependency when tofu runs from infra/state/kzn/.
-  scriptB64 = builtins.toBase64 (builtins.readFile ./workers/proxy.js);
 in
 {
   # 1 ── Worker container (name, subdomain toggle) ──────────────────────
@@ -24,15 +21,16 @@ in
   };
 
   # 2 ── Immutable script version ───────────────────────────────────────
+  # tofu runs from infra/state/kzn/; ../../workers/proxy.js → infra/workers/proxy.js
   resource.cloudflare_worker_version.proxy = {
     account_id         = accountId;
     worker_id          = lib.tf.ref "cloudflare_worker.proxy.id";
     compatibility_date = "2025-07-01";
     main_module        = "proxy.js";
     modules = [{
-      name           = "proxy.js";
-      content_type   = "application/javascript+module";
-      content_base64 = scriptB64;
+      name         = "proxy.js";
+      content_type = "application/javascript+module";
+      content_file = "../../workers/proxy.js";
     }];
   };
 
