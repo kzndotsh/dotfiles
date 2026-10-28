@@ -1,33 +1,49 @@
 # Cloudflare Worker: proxy
-# Deploys a fetch-relay Worker through CF edge IPs.
-# Available at: https://proxy.<account-subdomain>.workers.dev
+# Uses cloudflare_worker + cloudflare_worker_version + cloudflare_workers_deployment
+# (the v5 three-resource form) so we can deploy an ES module Worker.
+# The ES module format lets us use `import { connect } from 'cloudflare:sockets'`
+# for raw TCP connections that carry no Cf-Worker / Cf-Ray headers.
 #
-# Deploy: nix run .#vps-apply -- -target=cloudflare_workers_script.proxy
-#
-# Uses cloudflare_workers_script (v5, single-resource form — no separate
-# cloudflare_worker_version/deployment needed for simple scripts).
-# Content is inlined via builtins.readFile so no file path dependency in the
-# Terraform working dir.
+# Deploy:
+#   nix run .#vps-apply -- -target=cloudflare_worker.proxy \
+#     -target=cloudflare_worker_version.proxy \
+#     -target=cloudflare_workers_deployment.proxy -auto-approve
 { lib, ... }:
 let
   accountId = lib.tf.ref "var.cloudflare_account_id";
+  # Base64-encode the script at Nix evaluation time so there's no
+  # relative-path dependency when tofu runs from infra/state/kzn/.
+  scriptB64 = builtins.toBase64 (builtins.readFile ./workers/proxy.js);
 in
 {
-  # cloudflare_account_id is declared in tunnels.nix; no duplicate needed here.
-
-  resource.cloudflare_workers_script.proxy = {
-    account_id         = accountId;
-    script_name        = "proxy";
-    content            = builtins.readFile ./workers/proxy.js;
-    compatibility_date = "2025-07-01";
+  # 1 ── Worker container (name, subdomain toggle) ──────────────────────
+  resource.cloudflare_worker.proxy = {
+    account_id = accountId;
+    name       = "proxy";
+    subdomain  = { enabled = true; };
   };
 
-  # Enable workers.dev subdomain routing for this script.
-  # Without this, the script exists but is unreachable at *.workers.dev.
-  resource.cloudflare_workers_domain.proxy_subdomain = {
+  # 2 ── Immutable script version ───────────────────────────────────────
+  resource.cloudflare_worker_version.proxy = {
+    account_id         = accountId;
+    worker_id          = lib.tf.ref "cloudflare_worker.proxy.id";
+    compatibility_date = "2025-07-01";
+    main_module        = "proxy.js";
+    modules = [{
+      name           = "proxy.js";
+      content_type   = "application/javascript+module";
+      content_base64 = scriptB64;
+    }];
+  };
+
+  # 3 ── Deployment: 100 % to latest version ────────────────────────────
+  resource.cloudflare_workers_deployment.proxy = {
     account_id  = accountId;
-    hostname    = "proxy.kzn-sh.workers.dev";
-    service     = "proxy";
-    environment = "production";
+    script_name = lib.tf.ref "cloudflare_worker.proxy.name";
+    strategy    = "percentage";
+    versions    = [{
+      percentage = 100;
+      version_id = lib.tf.ref "cloudflare_worker_version.proxy.id";
+    }];
   };
 }
