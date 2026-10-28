@@ -19,8 +19,6 @@ in
     account_id         = accountId;
     script_name        = "proxy";
     content            = builtins.readFile ./workers/proxy.js;
-    # ES module format (export default { async fetch() {} })
-    module             = true;
     compatibility_date = "2025-07-01";
   };
 }
