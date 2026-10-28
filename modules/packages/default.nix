@@ -122,6 +122,9 @@ in
     magic-wormhole
     copyparty
     cloudflared
+    wrangler            # CF Workers CLI — deploy/dev without full tofu flow
+    opentofu            # tofu CLI directly (also available via nix run .#vps-*)
+    cloudflare-warp     # warp-cli (daemon needs services.cloudflare-warp NixOS module)
     # session-desktop is commented out — upstream pnpm lockfile was broken (2026-07-08).
     simplex-chat-desktop
     vesktop

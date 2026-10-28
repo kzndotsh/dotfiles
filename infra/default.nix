@@ -14,8 +14,8 @@
       version = "~> 1.62";
     };
     cloudflare = {
-      source = "cloudflare/cloudflare";
-      version = "~> 5.19";
+      source  = "cloudflare/cloudflare";
+      version = "~> 5.20";
     };
   };
 
