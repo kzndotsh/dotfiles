@@ -21,4 +21,13 @@ in
     content            = builtins.readFile ./workers/proxy.js;
     compatibility_date = "2025-07-01";
   };
+
+  # Enable workers.dev subdomain routing for this script.
+  # Without this, the script exists but is unreachable at *.workers.dev.
+  resource.cloudflare_workers_domain.proxy_subdomain = {
+    account_id  = accountId;
+    hostname    = "proxy.kzn-sh.workers.dev";
+    service     = "proxy";
+    environment = "production";
+  };
 }
