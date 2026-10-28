@@ -122,6 +122,7 @@ in
     magic-wormhole
     copyparty
     cloudflared
+    curl-impersonate    # browser TLS/JA3 fingerprint impersonation — curl_firefox147, curl_chrome150, etc.
     wrangler            # CF Workers CLI — deploy/dev without full tofu flow
     opentofu            # tofu CLI directly (also available via nix run .#vps-*)
     cloudflare-warp     # warp-cli (daemon needs services.cloudflare-warp NixOS module)
