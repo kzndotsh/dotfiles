@@ -29,7 +29,6 @@ in
     initrd = {
       availableKernelModules = [ "virtio_pci" "virtio_scsi" "ahci" "sd_mod" "virtio_net" ];
       systemd = {
-        enable = true;
         network.networks."eth0" = {
           matchConfig.Name = "en* eth*";
           networkConfig.DHCP = "yes";
