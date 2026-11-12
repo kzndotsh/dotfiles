@@ -72,6 +72,18 @@ let
           doCheck = false;
           meta = old.meta // { broken = false; };
         });
+        # zstd-sys probes libzstd via pkg-config, and aws-lc-sys is told to link a system AWS-LC; primp ships neither.
+        primp = pyPrev.primp.overridePythonAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+          buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.zstd pkgs.aws-lc ];
+        });
+        # sqlx-macros links -lsqlite3 and jemalloc-sys needs a real JEMALLOC_OVERRIDE; chromadb provides neither.
+        chromadb = pyPrev.chromadb.overridePythonAttrs (old: {
+          buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite pkgs.rust-jemalloc-sys ];
+          env = (old.env or { }) // {
+            JEMALLOC_OVERRIDE = "${pkgs.rust-jemalloc-sys}/lib/libjemalloc.so";
+          };
+        });
       };
     }).pkgs;
 in
@@ -129,7 +141,8 @@ in
   # https://docs.openwebui.com/features/open-terminal/setup/installation/
   virtualisation.oci-containers.containers.open-terminal = {
     image = "ghcr.io/open-webui/open-terminal";
-    ports = [ "8000:8000" ]; # Binds 0.0.0.0 — desktop firewall allows LAN access
+    # Loopback only: it's a shell API, and Docker port publishing bypasses the NixOS firewall.
+    ports = [ "127.0.0.1:8000:8000" ];
     volumes = [ "open-terminal:/home/user" ];
     # Dedicated secrets file — don't point at ai.env (this container is a shell; env would leak other keys).
     environmentFiles = [ "${config.my.secretsDir}/open-terminal.env" ];
