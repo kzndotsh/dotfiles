@@ -30,12 +30,12 @@ let
   rjieba = callPackage ./rjieba.nix { };
   app = py.buildPythonPackage rec {
     pname = "kirocrew";
-    version = "0.11.1";
+    version = "0.12.2";
     format = "wheel";
 
     src = fetchurl {
       url = "https://github.com/kirodotdev/KiroCrew/releases/download/v${version}/kirocrew-${version}-py3-none-any.whl";
-      hash = "sha256-Vg+CxBUOygCpEI9GnCJl/yO548gXNiikIE6JlV5Fi1Q=";
+      hash = "sha256-m9fiqA/kE7zZ0ZOXR6pWuK4DHNF6JDi/ngFHaP2wt6g=";
     };
 
     # Nix sqlite is built with FTS5. pkgs.uv replaces the PyPI uv wheel.
@@ -52,6 +52,8 @@ let
 
     dependencies = with py; [
       aiohttp
+      httpx
+      h2 # httpx[http2]
       yarl
       multidict
       slack-sdk
