@@ -17,8 +17,9 @@ packages/
 ├── kiro-gateway/       # flake output — Anthropic proxy :9000
 ├── kirocrew/           # flake output — Kiro Crew gateway :5476
 ├── crankshaft/         # flake output — Steam overlay AppImage
-├── session-desktop/    # flake output — wrapped Session (not in systemPackages)
+├── session-desktop/    # flake output — wrapped Session (systemPackages uses plain nixpkgs instead)
 ├── wl-video-idle-inhibit/ # flake output — webcam idle inhibit for Sway
+├── xembedsniproxy/     # flake output — patched XEmbed → SNI tray proxy
 ├── airi/               # AIRI: Stage Web Docker build.sh + desktop FHS (not a flake output)
 ├── risuai/             # RisuAI Docker build.sh (not a flake output)
 ├── llm-cors-proxy/     # uv script — CORS pass-through for browser RisuAI :8850 (not a flake output)
@@ -30,10 +31,11 @@ packages/
 | Directory | Flake output | Role |
 |-----------|--------------|------|
 | `kiro-gateway/` | `kiro-gateway` | Local model proxy :9000 |
-| `kirocrew/` | `kirocrew` | Kiro Crew gateway :5476 (pinned wheel **0.7.2**) |
+| `kirocrew/` | `kirocrew` | Kiro Crew gateway :5476 (pinned wheel **0.11.1**) |
 | `crankshaft/` | `crankshaft` | KraXen72 overlay AppImage (**2.0.1**, `crankshaft-x64.AppImage`) |
-| `session-desktop/` | `session-desktop` | Session wrap; **not** in `systemPackages` (broken pnpm lock) |
+| `session-desktop/` | `session-desktop` | Session wrap; **not** in `systemPackages` (plain nixpkgs `session-desktop` is) |
 | `wl-video-idle-inhibit/` | `wl-video-idle-inhibit` | Inhibit swayidle while `/dev/video*` open |
+| `xembedsniproxy/` | `xembedsniproxy` | KDE XEmbed → SNI tray proxy, patched for AWT icons (SimpleX) |
 | `w-okada/` | *(module callPackage)* | w-okada RVC helpers for `ai/w-okada.nix` |
 | `airi/` | *(none)* | `airi:local` image (`build.sh`, `ai/airi.nix`) + desktop FHS wrapper `fhs.nix` |
 | `risuai/` | *(none)* | `risuai:local` image (`build.sh`, `ai/risuai.nix`) |
@@ -47,8 +49,8 @@ packages/
 - `modules/ai/w-okada.nix` — w-okada scripts
 - `modules/ai/airi.nix` — airi image
 - `modules/ai/risuai.nix` — risuai image
-- `modules/desktop/sway/autostart.nix` — wl-video-idle-inhibit
-- `session-desktop` — flake output only; commented out in `modules/packages/default.nix`
+- `modules/desktop/sway/autostart.nix` — wl-video-idle-inhibit, xembedsniproxy
+- `session-desktop` — flake output only; `modules/packages/default.nix` installs plain nixpkgs `session-desktop`
 
 ## Verify
 
@@ -58,6 +60,7 @@ nix build .#packages.x86_64-linux.kirocrew
 nix build .#packages.x86_64-linux.crankshaft
 nix build .#packages.x86_64-linux.session-desktop
 nix build .#packages.x86_64-linux.wl-video-idle-inhibit
+nix build .#packages.x86_64-linux.xembedsniproxy
 nix build .#nixosConfigurations.ikigai.config.system.build.toplevel
 ```
 
