@@ -71,6 +71,7 @@ nmcli connection modify "CONNECTION_NAME" +vpn.data "data-ciphers=AES-256-CBC:AE
 - `responder`, `bettercap`, and `masscan` on a home LAN can disrupt other devices.
 - Disconnect lab VPN when not in a box.
 - Burp / mitmproxy CA trust is manual in the browser.
+- `mitmproxy` is overridden to skip `test_emudhra` (fixture CA vs current openssl); drop the override once nixpkgs fixes it.
 
 ## Related
 
