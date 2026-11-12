@@ -2,6 +2,7 @@
 # exec runs once per session; exec_always runs on every reload (gsettings, env, xrdb).
 { pkgs, self, ... }:
 let
+  inherit (self.packages.${pkgs.stdenv.hostPlatform.system}) xembedsniproxy;
   wlVideoIdleInhibit = self.packages.${pkgs.stdenv.hostPlatform.system}.wl-video-idle-inhibit;
 in
 {
@@ -21,6 +22,8 @@ in
     exec blueman-applet
     exec --no-startup-id swayrd
     exec --no-startup-id udiskie --tray
+    # XEmbed -> SNI bridge so XWayland tray icons (Java AWT, Wine) show in waybar.
+    exec ${xembedsniproxy}/bin/xembedsniproxy
 
     exec wl-clip-persist --clipboard regular --all-mime-type-regex '.*'
     exec wl-paste --type text --watch cliphist store
