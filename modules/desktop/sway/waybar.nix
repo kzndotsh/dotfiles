@@ -1,12 +1,28 @@
 # Waybar status bar — Tokyo Night palette, matching sway client.* and swaylock colors.
 { pkgs, ... }:
+let
+  # amdgpu sysfs → waybar JSON (text = busy %, tooltip = clocks/VRAM/temps/power/fan)
+  gpuStatus = pkgs.writeShellScript "waybar-gpu" ''
+    dev=$(dirname "$(echo /sys/class/drm/card*/device/gpu_busy_percent | cut -d' ' -f1)")
+    hw=$(echo "$dev"/hwmon/hwmon*)
+    r() { cat "$1" 2>/dev/null || echo 0; }
+    busy=$(r "$dev/gpu_busy_percent")
+    used=$(( $(r "$dev/mem_info_vram_used") / 1048576 ))
+    total=$(( $(r "$dev/mem_info_vram_total") / 1048576 ))
+    tip="Load: $busy%\\nVRAM: $used / $total MiB"
+    tip="$tip\\nCore: $(( $(r "$hw/freq1_input") / 1000000 )) MHz  Mem: $(( $(r "$hw/freq2_input") / 1000000 )) MHz"
+    tip="$tip\\nEdge: $(( $(r "$hw/temp1_input") / 1000 ))°C  Junction: $(( $(r "$hw/temp2_input") / 1000 ))°C  Mem: $(( $(r "$hw/temp3_input") / 1000 ))°C"
+    tip="$tip\\nPower: $(( $(r "$hw/power1_average") / 1000000 )) / $(( $(r "$hw/power1_cap") / 1000000 )) W  Fan: $(r "$hw/fan1_input") RPM"
+    printf '{"text":"G %s%%","tooltip":"%s"}\n' "$busy" "$tip"
+  '';
+in
 {
   environment.etc."xdg/waybar/config.jsonc".text = builtins.toJSON {
     position = "bottom";
     height = 24;
     modules-left = [ "sway/workspaces" ];
     modules-center = [ "mpris" ];
-    modules-right = [ "cpu" "memory" "pulseaudio" "pulseaudio#input" "custom/notifications" "tray" "clock" ];
+    modules-right = [ "custom/gpu" "cpu" "memory" "pulseaudio" "pulseaudio#input" "custom/notifications" "tray" "clock" ];
 
     "sway/workspaces" = {
       disable-scroll = true;
@@ -14,9 +30,19 @@
     };
 
     mpris = {
-      format = "{title} - {artist}";
-      format-paused = "{title} - {artist} (paused)";
+      format = "<span font_family='JetBrainsMono Nerd Font Mono'>{status_icon}</span>  {title} - {artist}";
+      status-icons = {
+        playing = "󰐊";
+        paused = "󰏤";
+        stopped = "󰓛";
+      };
       max-length = 40;
+    };
+
+    "custom/gpu" = {
+      exec = "${gpuStatus}";
+      return-type = "json";
+      interval = 2;
     };
 
     cpu = {
@@ -70,6 +96,7 @@
       border-radius: 0;
       font-family: "Inter Nerd Font", monospace;
       font-size: 13px;
+      font-weight: normal;
     }
 
     window#waybar {
@@ -98,16 +125,12 @@
       background: #db4b4b;
     }
 
-    #cpu, #memory, #pulseaudio, #custom-notifications, #tray, #clock, #mpris {
+    #custom-gpu, #cpu, #memory, #pulseaudio, #custom-notifications, #tray, #clock, #mpris {
       padding: 0 8px;
     }
 
     #custom-notifications {
-      font-size: 16px;
-    }
-
-    #clock {
-      font-weight: bold;
+      font-size: 18px;
     }
   '';
 
