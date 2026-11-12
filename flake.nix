@@ -167,6 +167,7 @@
         "cloudflare_zero_trust_access_identity_provider.onetimepin"
         "cloudflare_zero_trust_access_policy.crew"
         "cloudflare_zero_trust_access_application.crew"
+        "cloudflare_ruleset.no_rum_protected"
       ];
 
       mkCrewApp = name: command: {
