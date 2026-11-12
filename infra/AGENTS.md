@@ -29,12 +29,12 @@ OS install/switch: `vps-install` / `vps-switch`.
 | `hetzner.nix` | cx33 `nbg1`, firewall, SSH key |
 | `cloudflare.nix` | A/AAAA/SRV via `identity.fqdn` — **proxied = false**. Proxied CNAMEs for `namedTunnels`. |
 | `tunnels.nix` | kiro + files + crew. Needs `TF_VAR_cloudflare_account_id`. |
-| `access.nix` | Cloudflare Access (email OTP) for tunnels with `access = true` (`crew`). Needs `TF_VAR_crew_access_emails`. |
+| `access.nix` | Cloudflare Access (email OTP) for tunnels with `access = true` (`crew`). Needs `TF_VAR_crew_access_emails`. Also a zone Configuration Rule (`cloudflare_ruleset.no_rum_protected`, phase `http_config_settings`) turning Web Analytics off for those hosts only: the injected beacon breaks Kiro Crew's CSP and boot guard (3 auto-reloads). Only one `http_config_settings` ruleset per zone — add other config rules to it, not a new one. |
 | `state/kzn/` | Gitignored tofu workspace |
 
 ## Environment
 
-Copy `.env.example` to `.env.kzn`. Needs `TF_VAR_cloudflare_account_id`. Token needs **Cloudflare Tunnel:Edit** and **Access: Apps and Policies:Edit**. `TF_VAR_crew_access_emails` (JSON list in `.env.kzn`) lists who may pass Access; not committed. After apply: `nix run .#vps-tunnels-sync`.
+Copy `.env.example` to `.env.kzn`. Needs `TF_VAR_cloudflare_account_id`. Token needs **Cloudflare Tunnel:Edit** and **Access: Apps and Policies:Edit**, plus **Zone: Config Rules:Edit** for the RUM rule. `TF_VAR_crew_access_emails` (JSON list in `.env.kzn`) lists who may pass Access; not committed. After apply: `nix run .#vps-tunnels-sync`.
 
 ## Rules
 
