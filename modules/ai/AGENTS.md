@@ -2,7 +2,7 @@
 
 > Scope: `modules/ai` — inherits [`AGENTS.md`](../../AGENTS.md) unless noted.
 
-Desktop AI inference, voice, and kiro-gateway. RX 6700 XT (12 GB VRAM, gfx1030) + 128 GB RAM.
+Desktop AI inference, voice, and kiro-gateway. RX 6700 XT (12 GB VRAM, gfx1031; ROCm runs it as gfx1030) + 128 GB RAM.
 
 **Rule:** Only one heavy GPU consumer at a time — Ollama or ComfyUI.
 
@@ -13,11 +13,12 @@ Desktop AI inference, voice, and kiro-gateway. RX 6700 XT (12 GB VRAM, gfx1030) 
 | `default.nix` | — | — | Dispatcher; Docker backend |
 | `ollama.nix` | `:11434` | yes | Ollama ROCm + custom models (no 30B/35B disk cache) |
 | `comfyui.nix` | `:8188` | no | Image gen (Docker) — on-demand |
-| `open-webui.nix` | `:4000` | yes | Chat UI + ComfyUI image gen + open-terminal (`:8000`, container on `0.0.0.0` — LAN-reachable) |
+| `open-webui.nix` | `:4000` | yes | Chat UI + ComfyUI image gen + open-terminal (`127.0.0.1:8000` only) |
 | `voice.nix` | catalog | no | STT/TTS; flags in `hosts/desktop/configuration.nix` |
 | `w-okada.nix` | `:18888` | no | w-okada RVC (ROCm venv + virtual mic) |
 | `kiro-gateway.nix` | `:9000` | yes | Anthropic-compatible proxy |
-| `kirocrew.nix` | `:5476` | login | Kiro Crew gateway (user unit; drives `kiro-cli`) |
+| `kirocrew.nix` | `:5476` | login | Kiro Crew gateway (user unit, or system unit with `mullvad.enable`; drives `kiro-cli`) |
+| `kirocrew-mullvad.nix` | — | with crew | Netns `crew` + Mullvad WireGuard + host forwarders (`ai.kirocrew.mullvad`) |
 | `llmcord.nix` | — | yes | Discord bot (llmcord) → kiro-gateway `:9000`; `ai.llmcord.*`; token in `~/.secrets/llmcord.env` |
 | `opencode.nix` | — | — | Declarative `~/.config/opencode/opencode.jsonc` (tmpfiles symlink) |
 | `risuai.nix` | `:6001` | no | RisuAI character-chat UI (Docker) — on-demand; loopback only |
@@ -162,6 +163,7 @@ The Yeti X picks up audio bleeding from headphones. w-okada converts everything 
 - `ENABLE_IMAGE_PROMPT_GENERATION=False` — thinking models break JSON prompt parser
 - `COMFYUI_WORKFLOW_NODES`: `type` + `node_ids` + `key` (not `field` + `node_id`)
 - open-terminal key: `~/.secrets/open-terminal.env` (`OPEN_TERMINAL_API_KEY`)
+- open-terminal is a shell API: keep it on `127.0.0.1`. Docker-published ports bypass the NixOS firewall, and a `0.0.0.0` bind was reached by internet scanners through a router forward. In Open WebUI, point the integration at `http://localhost:8000`.
 
 ## OpenCode gotchas
 
@@ -172,8 +174,8 @@ The Yeti X picks up audio bleeding from headphones. w-okada converts everything 
 
 - Enable: `ai.kirocrew.enable` in `hosts/desktop/configuration.nix` (on)
 - Package: pinned wheel in `packages/kirocrew` (not nixpkgs, not `curl | sh`)
-- Unit: **user** `kirocrew.service` — `systemctl --user start kirocrew`. Do not run `kirocrew service install` (writes `/etc/systemd` outside Nix)
-- URL: http://127.0.0.1:5476 after the user unit is up. Loopback only
+- Unit: **user** `kirocrew.service` (`systemctl --user start kirocrew`), or **system** `kirocrew.service` when `mullvad.enable` is on (desktop: on). Do not run `kirocrew service install` (writes `/etc/systemd` outside Nix)
+- URL: http://127.0.0.1:5476 after the unit is up. Loopback only (Mullvad mode: host forwarder into the netns)
 - Agent: wrapper sets `KIROCREW_KIRO_BIN` to nixpkgs `kiro-cli-unwrapped` (not the FHS `bwrap` wrapper — that cannot nest inside Crew's mount namespace). Login is the existing Builder ID under `~/.kiro`
 - PATH: the user unit adds `/run/wrappers` and `/run/current-system/sw`, so the gateway sees `environment.systemPackages` (`git`, `gh`, …). It does not see `~/.local/bin`
 - State: `~/.kiro/crew`. First start downloads the ~610 MB embedding model into `~/.kiro/crew/models/`
@@ -183,6 +185,10 @@ The Yeti X picks up audio bleeding from headphones. w-okada converts everything 
 
 - Binds `127.0.0.1:9000`; official API key env is `PROXY_API_KEY` in `~/.secrets/ai.env`
 - Syncs `~/.secrets/kiro-proxy-api-key` (mode `600`) for OpenCode on each service start
+- Kiro Crew confinement (`ai.kirocrew.confine`): user unit runs with `ProtectHome=tmpfs`. Read-write is `projectDirs` plus `stateDirs`; toolchains (`readOnlyDirs`) are read-only. `/mnt`, `/tmp`, docker/libvirt/system-dbus sockets and `/run/user` are hidden because the desktop user is in `docker` and `libvirtd`. Git uses a Nix-written config (no signing). The nix daemon socket is hidden too (user is a nix trusted-user), so `nix` fails inside agents. Tor works via `127.0.0.1:9050` (`curl --socks5-hostname` or `torsocks`); the control socket stays hidden. Residual: full network incl. loopback, world-readable `/etc` and `/nix/store`, readable `~/.kiro/crew/config.json`. Do not point `InaccessiblePaths` at `/mnt/gdrive` (it triggers the automount).
+- Kiro Crew project dirs: keep private paths out of git. List them in `~/.secrets/kirocrew-projects` (`confine.projectDirsFile`; absolute, under `$HOME`, one per line, `#` comments). A systemd generator turns it into a `BindPaths=` drop-in (`kirocrew.service.d/50-projects.conf`); the system generator in Mullvad mode, the user generator otherwise. Lines with whitespace, `..` or outside `$HOME` are skipped (logged to the journal). Apply edits: `sudo systemctl daemon-reload && sudo systemctl restart kirocrew` (`--user` variants without Mullvad). `confine.projectDirs` is for public paths only.
+- Kiro Crew via Mullvad (`ai.kirocrew.mullvad.enable`, `modules/ai/kirocrew-mullvad.nix`): the gateway becomes a **system** unit (runs as the desktop user) inside netns `crew`; its only default route is WireGuard from `~/.secrets/mullvad-crew.conf` (Mullvad site, Linux, no kill switch). No LAN or host loopback access, so qBittorrent and Ollama are unreachable. Host forwarders: `127.0.0.1:5476` → dashboard, `10.200.0.1:9050` → Tor. The unit is `systemctl status kirocrew` (not `--user`); `mullvad-crew.service` owns the namespace. The desktop firewall allows all TCP ports, so the namespace is restricted by `iptables -I INPUT` rules in `kirocrew-mullvad.nix` (replies + `9050` only), not by `firewall.interfaces`. Residual: agents can still reach the dashboard on the namespace's own `127.0.0.1:5476`. `kirocrew token` from a normal shell fails (403, namespace mismatch by design); use `kirocrew-token [--ttl 2h]` (sudo + nsenter into the gateway). Do not enable before the conf exists: `kirocrew` binds to `mullvad-crew` and will not start without it.
+- Kiro Crew tunnel: `ai.kirocrew.tunnel.enable` → user unit `cloudflared-crew` → `crew.kzn.sh`, gated by Cloudflare Access (`infra/access.nix`). Creds from `vps-tunnels-sync`. Never expose `:5476` without Access: the agent has shell access.
 - `kiro-gateway` is a **system** unit; named tunnel `cloudflared-kiro` → `kiro.kzn.sh` is a **user** unit (creds from `nix run .#vps-tunnels-sync`)
 - Patches: `packages/kiro-gateway/patch-cursor.py`
 
@@ -222,11 +228,31 @@ UnslopNemo 12B Q4_K_M, full offload, flash attention, q8_0 KV, `llama-bench` fro
 | pp4096 | 601 | 567 | — |
 | tg128 @ 4k depth | **42.6** | 36.4 | — |
 
-- Vulkan wins decode by 5–17%, and the gap grows with context depth. ROCm only ties on prefill at depth. Matches the upstream gfx1031 report (llama.cpp #26702), which also shows ROCm winning 8k prefill
+- Vulkan wins decode by 5–17%, and the gap grows with context depth. ROCm only ties on prefill at depth. Matches the upstream gfx1031 report (llama.cpp #26702) on decode; its ROCm 8k-prefill win is IQ4_NL-specific (see below)
 - No matrix cores on RDNA2 (`matrix cores: none`), so the big Vulkan gains reported for RDNA3/4 don't apply here
-- Cheapest switch if ever wanted: `ollamaPkg = pkgs.ollama-vulkan` (drops `rocmOverrideGfx` + `HSA_NO_SCRATCH_RECLAIM` VRAM tax). Not benchmarked through Ollama itself yet
-- Not switched: a 5–17% gain doesn't justify touching aliases, Open WebUI, RisuAI/AIRI, GameMode unload
+- Cheapest switch if ever wanted: `ollamaPkg = pkgs.ollama-vulkan` (drops `rocmOverrideGfx` + `HSA_NO_SCRATCH_RECLAIM` VRAM tax). `ollama-rocm` ships only `lib/ollama/rocm_v7_2`, so `OLLAMA_VULKAN=1` alone does nothing
 - Ollama blobs are plain GGUF (`ollama show --modelfile <name>` → `FROM /var/lib/ollama/models/blobs/…`), but root-only (DynamicUser). `sudo cat` a copy for llama.cpp tests instead of re-downloading
+
+### Ollama Vulkan vs Ollama ROCm (29 Oct 2026)
+
+Both Ollama 0.40.6, Rocinante-X 12B Q4_K_M, same service env (FA, q8_0 KV, 8k ctx), raw `/api/generate`, `num_gpu 99`, mean of 3 after warmup. Vulkan ran as a second server on `:11435` against a scratch copy of the blob.
+
+| Test | Ollama Vulkan | Ollama ROCm |
+|------|--------------:|------------:|
+| pp ~580 tok | **652** | 612 |
+| tg128 | **45.3** | 40.2 |
+| pp ~4.6k tok | **580** | 520 |
+| tg128 @ 4.6k depth | **42.0** | 36.4 |
+
+- Vulkan through Ollama matches raw llama.cpp Vulkan; +13–15% decode, +7–12% prefill over current ROCm
+- ~7.6k-token prefill: tie (530 vs 533); decode after it 40.2 vs 33.9. Upstream #26702's +84% ROCm 8k prefill was Gemma 4 IQ4_NL — all our tags are K-quants, so it doesn't carry over
+- Ollama #19201 (RDNA2 + RADV, ~30× tg drop on repeated prompts with `--cache-ram`) does **not** reproduce here: identical repeats and 4-turn chat held ~45 t/s with prefix reuse. Workaround if it ever appears: `LLAMA_ARG_CACHE_RAM=0`
+- **Gotcha:** without `num_gpu 99`, Vulkan's llama-server auto-fit keeps a 1 GiB free margin and with ~3.9 GB of VRAM already used by the desktop it left 2/41 layers on CPU → tg **25 / 20 t/s**. A switch needs `PARAMETER num_gpu 99` (or `LLAMA_ARG_FIT_TARGET` lowered) or it is slower than ROCm
+- Avoid IQ-quant GGUFs if on Vulkan — their prefill is where ROCm wins big
+- Untested on Vulkan: vision tags (joycaption / minicpm-v / moondream mmproj), `qwen3-embedding` for Open WebUI RAG, and VRAM detection under the service's DynamicUser sandbox (Ollama docs: Vulkan free-VRAM read may need caps/root; the test ran as the desktop user)
+- Mesa RADV bumps on nixpkgs-unstable now move LLM perf; re-bench after big Mesa updates
+- Switching only moves Ollama — ComfyUI, Chatterbox, w-okada, Higgs are PyTorch and stay ROCm
+- Still on ROCm (Oct 2026). Repro: second `ollama-vulkan serve` on `:11435` with the service env, `ollama create bench` from a blob copy, time `/api/generate` with unique-prefix prompts (defeats prefix cache), then the same against `:11434`
 
 ### Bleeding-edge builds & speculative decoding (same model, q8_0 KV, flash attention)
 
