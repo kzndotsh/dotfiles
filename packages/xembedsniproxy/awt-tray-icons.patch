@@ -1,0 +1,247 @@
+--- a/xembed-sni-proxy/sniproxy.cpp
++++ b/xembed-sni-proxy/sniproxy.cpp
+@@ -51,6 +51,61 @@
+ 
+ int SNIProxy::s_serviceCount = 0;
+ 
++// Java AWT is never given an ARGB visual, so it paints tray icons onto an opaque
++// solid background (light gray). When an icon is fully opaque and its four corners
++// share one colour, treat that colour as the background and remove it with
++// colour-to-alpha (the GIMP algorithm), which keeps anti-aliased edges clean.
++static QImage removeSolidBackground(QImage image)
++{
++    if (image.width() < 2 || image.height() < 2) {
++        return image;
++    }
++    image = image.convertToFormat(QImage::Format_ARGB32);
++    const int w = image.width();
++    const int h = image.height();
++    const QRgb bg = image.pixel(0, 0);
++    if (qAlpha(bg) != 255 || image.pixel(w - 1, 0) != bg || image.pixel(0, h - 1) != bg || image.pixel(w - 1, h - 1) != bg) {
++        return image;
++    }
++    for (int y = 0; y < h; ++y) {
++        const auto *line = reinterpret_cast<const QRgb *>(image.constScanLine(y));
++        for (int x = 0; x < w; ++x) {
++            if (qAlpha(line[x]) != 255) {
++                return image; // already has transparency
++            }
++        }
++    }
++
++    const auto channelAlpha = [](int c, int b) -> double {
++        if (c > b) {
++            return (c - b) / double(255 - b);
++        }
++        if (c < b) {
++            return (b - c) / double(b);
++        }
++        return 0.0;
++    };
++    const auto unblend = [](int c, int b, double a) -> int {
++        return std::clamp(int(std::lround((c - b) / a + b)), 0, 255);
++    };
++    const int br = qRed(bg);
++    const int bgr = qGreen(bg);
++    const int bb = qBlue(bg);
++    for (int y = 0; y < h; ++y) {
++        auto *line = reinterpret_cast<QRgb *>(image.scanLine(y));
++        for (int x = 0; x < w; ++x) {
++            const QRgb px = line[x];
++            const double a = std::max({channelAlpha(qRed(px), br), channelAlpha(qGreen(px), bgr), channelAlpha(qBlue(px), bb)});
++            if (a <= 0.0) {
++                line[x] = qRgba(0, 0, 0, 0);
++                continue;
++            }
++            line[x] = qRgba(unblend(qRed(px), br, a), unblend(qGreen(px), bgr, a), unblend(qBlue(px), bb, a), int(std::lround(a * 255)));
++        }
++    }
++    return image;
++}
++
+ void xembed_message_send(xcb_window_t towin, long message, long d1, long d2, long d3)
+ {
+     xcb_client_message_event_t ev;
+@@ -119,8 +174,10 @@
+     m_containerWid = xcb_generate_id(c);
+     uint32_t values[5];
+     uint32_t mask = XCB_CW_BACK_PIXEL | XCB_CW_BORDER_PIXEL | XCB_CW_OVERRIDE_REDIRECT | XCB_CW_EVENT_MASK | XCB_CW_COLORMAP;
+-    values[0] = Xcb::trayVisual->blackPixel; // draw a solid background so the embedded icon doesn't get garbage in it
+-    values[1] = Xcb::trayVisual->blackPixel; // required when visual is diffrent from parent
++    // Transparent, not blackPixel: compositors other than KWin ignore _NET_WM_WINDOW_OPACITY,
++    // so a black container shows over the tray. The icon is captured from the redirected child.
++    values[0] = 0;
++    values[1] = 0; // required when visual is diffrent from parent
+     values[2] = true; // bypass wM
+     values[3] = XCB_EVENT_MASK_STRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT;
+     values[4] = Xcb::trayVisual->colormap; // required when visual is diffrent from parent
+@@ -222,6 +279,7 @@
+         qCDebug(SNIPROXY) << "No xembed icon for" << m_windowId << Title();
+         return;
+     }
++    image = removeSolidBackground(std::move(image));
+ 
+     int w = image.width();
+     int h = image.height();
+@@ -461,6 +519,14 @@
+ 
+         const uint32_t stackData[] = {XCB_STACK_MODE_BELOW};
+         xcb_configure_window(c, m_containerWid, XCB_CONFIG_WINDOW_STACK_MODE, stackData);
++
++        // XWayland draws unmanaged windows above everything regardless of X stacking.
++        // Park the container off the root window between clicks; sendClick moves it back.
++        if (qgetenv("XDG_SESSION_TYPE") == "wayland") {
++            const int32_t offscreen = -2 * s_embedSize;
++            const uint32_t moveVals[2] = {static_cast<uint32_t>(offscreen), static_cast<uint32_t>(offscreen)};
++            xcb_configure_window(c, m_containerWid, XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y, moveVals);
++        }
+     }
+ }
+ 
+@@ -494,6 +560,12 @@
+ 
+ QString SNIProxy::Id() const
+ {
++    // Titles are not unique per app (every AWT tray icon is "JavaEmbeddedFrame"); WM_CLASS is.
++    KWindowInfo window(m_windowId, NET::Properties(), NET::WM2WindowClass);
++    const QString windowClass = QString::fromUtf8(window.windowClassClass());
++    if (!windowClass.isEmpty()) {
++        return windowClass;
++    }
+     const auto title = Title();
+     // we always need /some/ ID so if no window title exists, just use the winId.
+     if (title.isEmpty()) {
+@@ -521,7 +593,12 @@
+ QString SNIProxy::Title() const
+ {
+     KWindowInfo window(m_windowId, NET::WMName);
+-    return window.name();
++    const QString name = window.name();
++    // AWT names every tray window this; it is not a useful tooltip.
++    if (name == QLatin1String("JavaEmbeddedFrame")) {
++        return {};
++    }
++    return name;
+ }
+ 
+ int SNIProxy::WindowId() const
+@@ -555,6 +632,40 @@
+     }
+ }
+ 
++// Innermost viewable descendant of win containing (x, y) (win-relative; rewritten to be
++// relative to the returned window). A real click lands there; AWT only handles tray mouse
++// input on its nested canvas, so a synthetic event sent to the embedded top-level is ignored.
++static xcb_window_t deepestWindowAt(xcb_connection_t *c, xcb_window_t win, int16_t &x, int16_t &y)
++{
++    for (;;) {
++        UniqueCPointer<xcb_query_tree_reply_t> tree(xcb_query_tree_reply(c, xcb_query_tree(c, win), nullptr));
++        if (!tree) {
++            return win;
++        }
++        const xcb_window_t *children = xcb_query_tree_children(tree.get());
++        xcb_window_t next = XCB_WINDOW_NONE;
++        // children are bottom-to-top; check topmost first
++        for (int i = xcb_query_tree_children_length(tree.get()) - 1; i >= 0; --i) {
++            UniqueCPointer<xcb_get_window_attributes_reply_t> attrs(
++                xcb_get_window_attributes_reply(c, xcb_get_window_attributes(c, children[i]), nullptr));
++            if (!attrs || attrs->map_state != XCB_MAP_STATE_VIEWABLE || attrs->_class != XCB_WINDOW_CLASS_INPUT_OUTPUT) {
++                continue;
++            }
++            UniqueCPointer<xcb_get_geometry_reply_t> geom(xcb_get_geometry_reply(c, xcb_get_geometry(c, children[i]), nullptr));
++            if (geom && x >= geom->x && y >= geom->y && x < geom->x + geom->width && y < geom->y + geom->height) {
++                x -= geom->x;
++                y -= geom->y;
++                next = children[i];
++                break;
++            }
++        }
++        if (next == XCB_WINDOW_NONE) {
++            return win;
++        }
++        win = next;
++    }
++}
++
+ void SNIProxy::sendClick(uint8_t mouseButton, int x, int y)
+ {
+     // it's best not to look at this code
+@@ -602,24 +713,29 @@
+         xcb_warp_pointer(c, XCB_NONE, m_windowId, 0, 0, 0, 0, clickPoint.x(), clickPoint.y());
+     }
+ 
++    int16_t targetX = static_cast<int16_t>(clickPoint.x());
++    int16_t targetY = static_cast<int16_t>(clickPoint.y());
++    const xcb_window_t target = m_injectMode == Direct ? deepestWindowAt(c, m_windowId, targetX, targetY) : m_windowId;
++
+     // mouse down
+     if (m_injectMode == Direct) {
+         auto *event = new xcb_button_press_event_t;
+         memset(event, 0x00, sizeof(xcb_button_press_event_t));
+         event->response_type = XCB_BUTTON_PRESS;
+-        event->event = m_windowId;
++        event->event = target;
+         event->time = XCB_CURRENT_TIME;
+         event->same_screen = 1;
+         event->root = DefaultRootWindow(m_x11Interface->display());
+         event->root_x = x;
+         event->root_y = y;
+-        event->event_x = static_cast<int16_t>(clickPoint.x());
+-        event->event_y = static_cast<int16_t>(clickPoint.y());
++        event->event_x = targetX;
++        event->event_y = targetY;
+         event->child = 0;
+         event->state = 0;
+         event->detail = mouseButton;
+ 
+-        xcb_send_event(c, false, m_windowId, XCB_EVENT_MASK_BUTTON_PRESS, (char *)event);
++        // propagate like a real click if the target itself does not select button events
++        xcb_send_event(c, true, target, XCB_EVENT_MASK_BUTTON_PRESS, (char *)event);
+         delete event;
+     } else {
+         sendXTestPressed(m_x11Interface->display(), mouseButton);
+@@ -630,34 +746,30 @@
+         auto *event = new xcb_button_release_event_t;
+         memset(event, 0x00, sizeof(xcb_button_release_event_t));
+         event->response_type = XCB_BUTTON_RELEASE;
+-        event->event = m_windowId;
++        event->event = target;
+         event->time = XCB_CURRENT_TIME;
+         event->same_screen = 1;
+         event->root = DefaultRootWindow(m_x11Interface->display());
+         event->root_x = x;
+         event->root_y = y;
+-        event->event_x = static_cast<int16_t>(clickPoint.x());
+-        event->event_y = static_cast<int16_t>(clickPoint.y());
++        event->event_x = targetX;
++        event->event_y = targetY;
+         event->child = 0;
+         event->state = 0;
+         event->detail = mouseButton;
+ 
+-        xcb_send_event(c, false, m_windowId, XCB_EVENT_MASK_BUTTON_RELEASE, (char *)event);
++        xcb_send_event(c, true, target, XCB_EVENT_MASK_BUTTON_RELEASE, (char *)event);
+         delete event;
+     } else {
+         sendXTestReleased(m_x11Interface->display(), mouseButton);
+     }
+ 
+-    if (m_injectMode == Direct) {
+-        setActiveForInput(false);
++    // Delayed on Wayland: XTest input goes XWayland -> compositor -> X, and AWT reads the
++    // tray window's screen position when it places its popup menu (we park the container
++    // off-screen on deactivate, so doing it immediately puts the menu at 0,0).
++    if (qgetenv("XDG_SESSION_TYPE") == QByteArrayLiteral("wayland")) {
++        m_deactivateTimer.start();
+     } else {
+-        // delayed because on xwayland with the new libei path it will go to XWayland
+-        // then kwin, then back to X
+-        // we need to delay slightly until that happens
+-        if (qgetenv("XDG_SESSION_TYPE") == QByteArrayLiteral("wayland")) {
+-            m_deactivateTimer.start();
+-        } else {
+-            setActiveForInput(false);
+-        }
++        setActiveForInput(false);
+     }
+ }
