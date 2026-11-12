@@ -13,7 +13,7 @@ Sway Wayland session — config, bar, lock, notifications, launcher.
 | `keybinds.nix` | `/etc/sway/config.d/10-keybinds.conf` |
 | `windows.nix` | `/etc/sway/config.d/20-windows.conf` — `for_window` / `no_focus` |
 | `autostart.nix` | `/etc/sway/config.d/30-autostart.conf` |
-| `waybar.nix` | Tokyo Night CSS + JSONC |
+| `waybar.nix` | Tokyo Night CSS + JSONC; `custom/gpu` script reads amdgpu sysfs (`card*`/`hwmon*`) |
 | `swaylock.nix` | swaylock-effects (not stock swaylock) |
 | `swaync.nix` | notification center + RuneLite focus-on-notify |
 | `swayr.nix` | fuzzel window switcher + `swayrd` |
@@ -28,6 +28,7 @@ Each module pins `~/.config/<app>` → `/etc/...` so XDG does not shadow NixOS (
 - **Includes are explicit** (not `config.d/*`): `nixos.conf` first, then `10-keybinds`, `20-windows`, `30-autostart`. man 5: the same include is loaded only once; a glob would still list `nixos.conf` plus our files. NixOS writes `nixos.conf` (`sway-session.target`).
 - **`programs.sway.extraPackages`** is overridden: `pulseaudio` (`pactl`), `swayidle`, `swaylock-effects`. Default would also install `foot`, `wmenu`, `brightnessctl`, stock `swaylock`.
 - Autotiling: `exec` not `exec_always`.
+- **XEmbed tray** (Java AWT `SystemTray`, Wine, e.g. SimpleX): waybar only hosts SNI, so `autostart.nix` runs the patched `xembedsniproxy` from [`packages/xembedsniproxy`](../../../packages/xembedsniproxy/AGENTS.md) (gray AWT background removed, Id = WM_CLASS). Do not add a waybar `tray.icons` override for these; the live icon comes through. AWT checks for a tray once at startup, so restart the app if the proxy came up later. SimpleX also needs Settings → Appearance → close behavior **Minimize to tray**.
 - Volume/mic binds use `pactl` + `--locked` (work on lock screen). Waybar mixer click is `pwvucontrol`. No brightness binds (desktop).
 - GTK icons: `gsettings` must stay **TokyoNight-SE** (`theme.nix`). Papirus is for fuzzel/swayr only.
 - `exec_always xrdb -load /etc/X11/Xresources` — Wine Xft (`modules/wine`).
