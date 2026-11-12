@@ -31,7 +31,7 @@ packages/
 | Directory | Flake output | Role |
 |-----------|--------------|------|
 | `kiro-gateway/` | `kiro-gateway` | Local model proxy :9000 |
-| `kirocrew/` | `kirocrew` | Kiro Crew gateway :5476 (pinned wheel **0.11.1**) |
+| `kirocrew/` | `kirocrew` | Kiro Crew gateway :5476 (pinned wheel **0.12.2**) |
 | `crankshaft/` | `crankshaft` | KraXen72 overlay AppImage (**2.0.1**, `crankshaft-x64.AppImage`) |
 | `session-desktop/` | `session-desktop` | Session wrap; **not** in `systemPackages` (plain nixpkgs `session-desktop` is) |
 | `wl-video-idle-inhibit/` | `wl-video-idle-inhibit` | Inhibit swayidle while `/dev/video*` open |
