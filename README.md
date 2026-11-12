@@ -9,12 +9,12 @@ My personal NixOS flake: [Sway](https://swaywm.org/) desktop, hardened libvirt V
 
 ## Hosts
 
-| | Flake attr | Machine | Purpose |
-|--|------------|---------|---------|
-| Desktop | `ikigai` | Ryzen 5800X, RX 6700 XT | Daily driver |
-| Guest | `hardened-vm` | libvirt qcow2 | Throwaway sessions, leaves nothing behind |
-| Guest | `windows-vm` | libvirt qcow2 | Tuned Windows 11 (no GPU passthrough currently) |
-| Server | `vps` | Hetzner cx33 | Public services on kzn.sh |
+| | Flake attr | Note |
+|--|------------|------|
+| Desktop | `ikigai` | Ryzen 5800X, RX 6700 XT; daily driver |
+| Guest | `hardened-vm` | libvirt qcow2; throwaway sessions, leaves nothing behind |
+| Guest | `windows-vm` | libvirt qcow2; tuned Windows 11, no GPU passthrough currently. Domain XML lives in the desktop config; the flake attr is only a topology stub |
+| Server | `vps` | Hetzner cx33; public services on kzn.sh |
 
 ## Hardware
 
@@ -31,7 +31,7 @@ What `ikigai` actually runs on.
 | Storage | WD SN550 1 TB NVMe, Samsung 870 QVO 2 TB SATA, 14 TB HDD (LUKS, `/mnt/crypt`) |
 | Network | Intel I211 gigabit (`enp5s0`), Intel AC 3168 Wi-Fi + Bluetooth |
 | Audio in / out | Logitech Yeti X, FiiO E10 DAC |
-| Peripherals | Logitech G502 Lightspeed (solaar), Corsair keyboard (ckb-next), EMEET Nova 4K cam |
+| Peripherals | Logitech G502 Lightspeed (solaar), Corsair K70 RGB TKL (ckb-next), EMEET Nova 4K cam |
 
 ## Desktop
 
@@ -48,7 +48,10 @@ What `ikigai` actually runs on.
 | Audio | [PipeWire](https://pipewire.org/) + [WirePlumber](https://pipewire.pages.freedesktop.org/wireplumber/) |
 | Kernel / GPU stack | [Zen](https://github.com/zen-kernel/zen-kernel) kernel, Mesa RADV, [ROCm](https://rocm.docs.amd.com/) (`gfx1030` override), VA-API radeonsi |
 | Theme | Tokyo Night (GTK, Qt, Ghostty, Firefox, Spotify) |
-| Gaming | [Steam](https://store.steampowered.com/), Wine, emulators via [nix-gaming](https://github.com/fufexan/nix-gaming) |
+| Gaming | [Steam](https://store.steampowered.com/), Wine, emulators via [nix-gaming](https://github.com/fufexan/nix-gaming); Lutris, Heroic, Bottles, Prism Launcher, RuneLite |
+| VR | Quest 2 over Wi-Fi: [WiVRn](https://github.com/WiVRn/WiVRn) + [WayVR](https://github.com/wayvr-org/wayvr) |
+| Music | [Bitwig](https://www.bitwig.com/), [LMMS](https://lmms.io/), FL Studio (Wine), synth/effect/drum plugin packs |
+| Security | [CrowdSec](https://www.crowdsec.net/) + firewall bouncer, key-only SSH, local pentest lab (tools, OpenVPN, vulnerable Docker targets) |
 | Dev runtimes | [mise](https://mise.jdx.dev/) — pinned node/pnpm/bun/python/uv (`modules/dev/mise.nix`); projects use direnv + [uv](https://docs.astral.sh/uv/) sync |
 | AI | [Ollama](https://ollama.com/), [ComfyUI](https://github.com/comfyanonymous/ComfyUI), [Open WebUI](https://openwebui.com/), [kiro-gateway](https://github.com/jwadow/kiro-gateway), [w-okada](https://github.com/w-okada/voice-changer) (RVC), [RisuAI](https://github.com/kwaroran/RisuAI), [AIRI](https://github.com/moeru-ai/airi), [Kiro Crew](https://github.com/kirodotdev/KiroCrew), [llmcord](https://github.com/jakobdylanc/llmcord), [OpenCode](https://opencode.ai/), voice (speaches, kokoro, [Fish Audio](https://github.com/kzndotsh/fish-audio-suite)) |
 
@@ -105,7 +108,7 @@ Tokyo Night (Night). Same palette across [Sway](https://swaywm.org/), [Waybar](h
 
 - Hosts import modules from **explicit lists** in each `configuration.nix`. Nothing is auto-discovered.
 - [`lib/identity.nix`](lib/identity.nix) feeds NixOS hosts and Terranix (`infra/`).
-- **Cloud** (`vps-plan`, `vps-apply`) provisions Hetzner + Cloudflare DNS. **NixOS** (`vps-install`, `nh os switch`) is a separate step.
+- **Cloud** (`vps-plan`, `vps-apply`) provisions Hetzner, Cloudflare DNS, a Cloudflare Worker, and named tunnels from the desktop (`kiro`, `files`, `crew`). `crew` sits behind Cloudflare Access (email one-time PIN). **NixOS** (`vps-install`, `vps-switch`) is a separate step.
 - **Secrets**: sops ciphertext in `secrets/`; private keys and runtime env in `~/.secrets/`.
 - **Substituters**: desktop + VM import [`modules/nix/default.nix`](modules/nix/default.nix), which adds Cachix caches (including [nix-gaming](https://github.com/fufexan/nix-gaming)). No separate Cachix CLI install; VPS uses minimal nix settings only.
 
@@ -118,7 +121,9 @@ modules/           NixOS modules (desktop, ai, gaming, …)
 packages/          kiro-gateway, crankshaft, session-desktop, …
 infra/             Hetzner + Cloudflare (Terranix → OpenTofu)
 secrets/           sops ciphertext
-lib/identity.nix   username, domain, SSH public key
+lib/identity.nix   username, domain, SSH public key, named tunnels
+topology.nix       nix-topology diagram extras
+docs/              external reference links
 ```
 
 Flake outputs (hosts, packages, apps):
@@ -133,11 +138,12 @@ nix flake show .
 |------|---------|
 | Apply desktop | `nh os switch ~/dotfiles` |
 | Eval desktop | `nix build .#nixosConfigurations.ikigai.config.system.build.toplevel` |
-| Build hardened-vm image | `nix run .#vm-install` |
+| Build hardened-vm image | `nix run .#vm-install` (disko image build is currently broken, see [AGENTS.md](AGENTS.md)) |
 | Stage Windows 11 disk + ISO | `nix run .#windows-vm-install -- /path/to/Win11.iso` then attach hdc (see [`hosts/windows-vm/AGENTS.md`](hosts/windows-vm/AGENTS.md)) |
 | VPS plan (DNS/Hetzner) | `nix run .#vps-plan` |
 | VPS apply | `nix run .#vps-apply` |
 | VPS destroy | `nix run .#vps-destroy` |
+| Crew tunnel + Access only | `nix run .#crew-plan` / `nix run .#crew-apply` |
 | VPS install (wipes disk) | `nix run .#vps-install -- root@<ip>` |
 | VPS switch (installed) | `nix run .#vps-switch -- root@<ip>` |
 | Sync tunnel creds | `nix run .#vps-tunnels-sync` |
@@ -145,7 +151,7 @@ nix flake show .
 | Validate flake | `nix flake check --no-build` |
 | Lint Nix | `statix check .` && `deadnix . --exclude references archive` |
 
-The `vps-*` apps need `.env.kzn` (Hetzner + Cloudflare tokens, from [`.env.example`](.env.example)); `vps-install` also needs the age key at `~/.secrets/vps-age.key`. Everything else is self-contained in the flake.
+The `vps-*` and `crew-*` apps need `.env.kzn` (Hetzner + Cloudflare tokens, Cloudflare account ID, and the Access email list; template in [`.env.example`](.env.example)); `vps-install` also needs the age key at `~/.secrets/vps-age.key`. Everything else is self-contained in the flake.
 
 ## Docs
 
