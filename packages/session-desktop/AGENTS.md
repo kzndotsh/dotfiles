@@ -7,7 +7,7 @@ Wrapped nixpkgs `session-desktop` with `SESSION_ALLOW_APP_SUSPENSION=1` so it do
 ## Quick facts
 
 - Flake output: `packages.x86_64-linux.session-desktop`
-- **Not** in `systemPackages` — upstream pnpm lockfile was broken (see `modules/packages/default.nix`)
+- **Not** in `systemPackages`: `modules/packages/default.nix` installs plain nixpkgs `session-desktop`, so the `SESSION_ALLOW_APP_SUSPENSION` fix is not active. Swap in `self.packages.<system>.session-desktop` if orphan `systemd-inhibit` returns
 
 ## Files
 
