@@ -48,6 +48,19 @@
     libjpeg
     libpng
     libxkbcommon
+    # Playwright's downloaded Chromium (atk, at-spi, cups) and WebKit (wayland, GTK helpers).
+    atk
+    at-spi2-atk
+    at-spi2-core
+    cups
+    enchant
+    hyphen
+    libmanette
+    libpsl
+    libsecret
+    libtasn1
+    nghttp2
+    wayland
     nspr
     nss
     pango
