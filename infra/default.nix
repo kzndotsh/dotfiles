@@ -6,7 +6,7 @@
     ./cloudflare.nix
     ./workers.nix
   ]
-  ++ lib.optionals ((identity.namedTunnels or { }) != { }) [ ./tunnels.nix ];
+  ++ lib.optionals ((identity.namedTunnels or { }) != { }) [ ./tunnels.nix ./access.nix ];
 
   terraform.required_providers = {
     hcloud = {
