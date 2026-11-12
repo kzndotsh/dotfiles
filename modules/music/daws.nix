@@ -19,6 +19,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.music;
+  pwJack = import ./pw-jack.nix { inherit pkgs; inherit (config.services.pipewire.package) jack; };
 in
 {
   options.music.daw = {
@@ -31,19 +32,19 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = lib.flatten [
-      (lib.optional cfg.daw.bitwig.enable pkgs.bitwig-studio)
+      (lib.optional cfg.daw.bitwig.enable (pwJack pkgs.bitwig-studio))
       (lib.optionals cfg.daw.reaper.enable [
-        pkgs.reaper
+        (pwJack pkgs.reaper)
         pkgs.reaper-sws-extension
       ])
-      (lib.optional cfg.daw.ardour.enable pkgs.ardour)
-      (lib.optional cfg.daw.lmms.enable (pkgs.lmms.overrideAttrs (old: {
+      (lib.optional cfg.daw.ardour.enable (pwJack pkgs.ardour))
+      (lib.optional cfg.daw.lmms.enable (pwJack (pkgs.lmms.overrideAttrs (old: {
         postFixup = (old.postFixup or "") + ''
           wrapProgram $out/bin/lmms --set QT_QPA_PLATFORM xcb
         '';
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
-      })))
-      (lib.optional cfg.daw.zrythm.enable pkgs.zrythm)
+      }))))
+      (lib.optional cfg.daw.zrythm.enable (pwJack pkgs.zrythm))
     ];
   };
 }
