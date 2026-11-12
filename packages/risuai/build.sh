@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Build risuai:local with VITE_RISU_LEGAL_CONFIGURED=TRUE (private self-host).
 set -euo pipefail
-ROOT="$(cd "$(dirname "$0")" && pwd)"
 WORKDIR="${TMPDIR:-/tmp}/risuai-build-$$"
 cleanup() { rm -rf "$WORKDIR"; }
 trap cleanup EXIT
