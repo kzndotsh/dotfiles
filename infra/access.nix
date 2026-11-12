@@ -44,5 +44,23 @@ in
         }
       ];
     }) protected;
+
+    # Web Analytics auto-injects a module <script> that the apps' CSP blocks; Kiro Crew's boot
+    # guard treats that as a failed boot and reloads up to 3x. Keep RUM on every other host.
+    cloudflare_ruleset.no_rum_protected = lib.mkIf (protected != { }) {
+      zone_id = lib.tf.ref "local.zone_id";
+      name = "Disable Web Analytics on Access apps";
+      kind = "zone";
+      phase = "http_config_settings";
+      rules = [
+        {
+          description = "No RUM beacon on ${lib.concatStringsSep ", " (map identity.fqdn (lib.attrNames protected))}";
+          expression = "(http.host in {${lib.concatMapStringsSep " " (n: ''"${identity.fqdn n}"'') (lib.attrNames protected)}})";
+          action = "set_config";
+          action_parameters.disable_rum = true;
+          enabled = true;
+        }
+      ];
+    };
   };
 }
