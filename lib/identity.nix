@@ -37,5 +37,10 @@ rec {
   namedTunnels = {
     kiro.origin = "http://127.0.0.1:9000";
     files.origin = "http://127.0.0.1:3923";
+    # Agent dashboard with shell access: gated by Cloudflare Access (infra/access.nix).
+    crew = {
+      origin = "http://127.0.0.1:5476";
+      access = true;
+    };
   };
 }
