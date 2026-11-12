@@ -10,6 +10,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.music;
+  pwJack = import ./pw-jack.nix { inherit pkgs; inherit (config.services.pipewire.package) jack; };
 in
 {
   options.music.tools = {
@@ -19,19 +20,19 @@ in
   config = lib.mkIf (cfg.enable && cfg.tools.enable) {
     environment.systemPackages = with pkgs; [
       # Editing and analysis tools.
-      tenacity
+      (pwJack tenacity)
       spek
       sox
 
       # Hosts and routing utilities.
-      carla
+      (pwJack carla)
       pavucontrol # per-app levels; qpwgraph (default.nix) is the graph view
 
       # Audio capture tools.
-      jack_capture
+      (pwJack jack_capture)
 
       # MIDI utilities.
-      qmidiarp
+      (pwJack qmidiarp)
       kmidimon
 
       # ALSA debugging helpers.
