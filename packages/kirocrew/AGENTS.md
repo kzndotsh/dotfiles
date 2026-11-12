@@ -8,7 +8,7 @@ Pinned [Kiro Crew](https://github.com/kirodotdev/KiroCrew) wheel. Not the Anthro
 
 - Flake package `packages.x86_64-linux.kirocrew`
 - Launched through a `python313.withPackages` env (`-m kiro_crew`), not the stock app wrapper: the gateway re-execs `sys.executable` and md-notebook runs `python -I`, which ignores `PYTHONPATH`. `passthru.app` is the unwrapped wheel.
-- Wheel **0.11.1** from the GitHub release (stable). Bump `version` and `hash` together.
+- Wheel **0.12.2** from the GitHub release (stable). Bump `version` and `hash` together; diff the wheel METADATA `Requires-Dist` between versions (0.12 added `httpx[http2]`). The in-app updater only notifies here (not a managed venv); update through this file.
 - `rjieba.nix`: Rust abi3 wheel (kirocrew pins `rjieba==0.2.1`, not in nixpkgs). Bump with kirocrew.
 - Python 3.13. `pysqlite3-binary` and the PyPI `uv` wheel are removed; FTS5 comes from Nix sqlite, `uv` from nixpkgs.
 
