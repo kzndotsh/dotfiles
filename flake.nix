@@ -133,6 +133,7 @@
         : "''${CLOUDFLARE_API_TOKEN:?missing CLOUDFLARE_API_TOKEN}"
         : "''${TF_VAR_cloudflare_zone_id:?missing TF_VAR_cloudflare_zone_id}"
         : "''${TF_VAR_cloudflare_account_id:?missing TF_VAR_cloudflare_account_id — Cloudflare account ID (Zero Trust)}"
+        : "''${TF_VAR_crew_access_emails:?missing TF_VAR_crew_access_emails — JSON list of emails allowed through Cloudflare Access}"
       '';
 
       tofuPrep = ''
@@ -156,6 +157,26 @@
           ${pkgs.opentofu}/bin/tofu ${command} "$@"
         '');
         meta.description = "OpenTofu ${command} for the kzn VPS (infra/state/kzn)";
+      };
+
+      # Crew tunnel only: -target keeps tofu away from the VPS, firewall and other DNS records.
+      crewTargets = nixpkgs.lib.concatMapStringsSep " " (t: "-target=${t}") [
+        "random_bytes.crew"
+        "cloudflare_zero_trust_tunnel_cloudflared.crew"
+        "cloudflare_dns_record.crew"
+        "cloudflare_zero_trust_access_identity_provider.onetimepin"
+        "cloudflare_zero_trust_access_policy.crew"
+        "cloudflare_zero_trust_access_application.crew"
+      ];
+
+      mkCrewApp = name: command: {
+        type = "app";
+        program = toString (pkgs.writers.writeBash name ''
+          set -euo pipefail
+          ${tofuPrep}
+          ${pkgs.opentofu}/bin/tofu ${command} ${crewTargets} "$@"
+        '');
+        meta.description = "OpenTofu ${command} for the crew.kzn.sh tunnel + Access only (-target)";
       };
 
       desktop = nixpkgs.lib.nixosSystem {
@@ -212,6 +233,7 @@
         crankshaft = pkgs.callPackage ./packages/crankshaft { };
         session-desktop = pkgs.callPackage ./packages/session-desktop { };
         wl-video-idle-inhibit = pkgs.callPackage ./packages/wl-video-idle-inhibit { };
+        xembedsniproxy = pkgs.callPackage ./packages/xembedsniproxy { };
       };
 
       nixosConfigurations = {
@@ -298,6 +320,8 @@
         vps-plan = mkTofuApp "vps-plan" "plan";
         vps-apply = mkTofuApp "vps-apply" "apply";
         vps-destroy = mkTofuApp "vps-destroy" "destroy";
+        crew-plan = mkCrewApp "crew-plan" "plan";
+        crew-apply = mkCrewApp "crew-apply" "apply";
 
         vps-install = {
           type = "app";
@@ -378,9 +402,10 @@
             PLAIN="$(mktemp)"
             trap 'rm -f "$PLAIN"' EXIT
             ALL="$(${pkgs.opentofu}/bin/tofu output -json)"
-            ${pkgs.jq}/bin/jq '{kiro: .kiro.value, files: .files.value}' <<<"$ALL" > "$PLAIN"
+            ${pkgs.jq}/bin/jq --argjson n '${builtins.toJSON (builtins.attrNames identity.namedTunnels)}' \
+              'with_entries(select(.key | IN($n[]))) | map_values(.value)' <<<"$ALL" > "$PLAIN"
 
-            for name in kiro files; do
+            for name in ${nixpkgs.lib.concatStringsSep " " (builtins.attrNames identity.namedTunnels)}; do
               ${pkgs.jq}/bin/jq -c --arg n "$name" '.[$n]' "$PLAIN" > "$DEST/$name.json"
               chmod 600 "$DEST/$name.json"
             done
@@ -388,8 +413,8 @@
             ${pkgs.sops}/bin/sops --encrypt --input-type json --output-type yaml \
               --filename-override "$SOPS_OUT" "$PLAIN" > "$SOPS_OUT"
 
-            echo "Wrote $DEST/{kiro,files}.json and $SOPS_OUT"
-            echo "Restart user units: systemctl --user restart cloudflared-kiro cloudflared-files"
+            echo "Wrote $DEST/*.json and $SOPS_OUT"
+            echo "Restart user units: systemctl --user restart ${nixpkgs.lib.concatMapStringsSep " " (n: "cloudflared-${n}") (builtins.attrNames identity.namedTunnels)}"
           '');
           meta.description = "Sync Cloudflare tunnel credentials from tofu output into sops";
         };
