@@ -183,7 +183,7 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
   - [NixOS option search](https://search.nixos.org/options?query=services.ollama)
   - [NixOS Wiki — Ollama](https://wiki.nixos.org/wiki/Ollama)
   - [ollama.com docs — faq](https://docs.ollama.com/faq)
-  - [ollama.com docs — gpu](https://docs.ollama.com/gpu) — Ollama: (6800/6900 yes; 6700 XT no)
+  - [ollama.com docs — gpu](https://docs.ollama.com/gpu) — Ollama: (6800/6900 yes; 6700 XT no). Vulkan is on by default when the backend is installed (`OLLAMA_VULKAN=0` disables); reading free VRAM may need extra capabilities/root
   - [ollama.com docs — llms.txt](https://docs.ollama.com/llms.txt)
   - [ollama.com docs — modelfile](https://docs.ollama.com/modelfile)
   - [ollama.com docs — modelfile#template](https://docs.ollama.com/modelfile#template)
@@ -194,7 +194,19 @@ Ollama, ComfyUI, Open WebUI, voice/TTS, Fish Audio, and ROCm on AMD.
   - [rocm.docs.amd.com — system requirements](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html)
   - [ROCm/ROCm — issue #2720](https://github.com/ROCm/ROCm/issues/2720)
   - [ROCm/tensorflow-upstream — issue #2629](https://github.com/ROCm/tensorflow-upstream/issues/2629)
-  - [ggml-org/llama.cpp — issue #26702](https://github.com/ggml-org/llama.cpp/issues/26702) — RX 6700 XT (gfx1031) Vulkan vs ROCm; matches our own benchmark in `modules/ai/AGENTS.md`
+  - [ggml-org/llama.cpp — issue #26702](https://github.com/ggml-org/llama.cpp/issues/26702) — RX 6700 XT (gfx1031) Vulkan vs ROCm; decode matches our benchmark in `modules/ai/AGENTS.md`. Its +84% ROCm pp8192 is Gemma 4 **IQ4_NL** — with our K-quants 7.6k prefill tied
+  - Vulkan vs ROCm (Ollama Vulkan benchmarked 29 Oct 2026 — results in `modules/ai/AGENTS.md`):
+    - [ollama/ollama — issue #19201](https://github.com/ollama/ollama/issues/19201) — RX 6600 XT + RADV, ~30× decode drop on repeated prompts with host prompt cache (0.40.8, open). Not reproduced on our 6700 XT; workaround `LLAMA_ARG_CACHE_RAM=0`
+    - [ollama/ollama — issue #11247](https://github.com/ollama/ollama/issues/11247) — Vulkan backend request (closed as duplicate)
+    - [ollama/ollama — issue #17748](https://github.com/ollama/ollama/issues/17748) — 780M iGPU Vulkan `ErrorDeviceLost` regression (iGPU only; not our setup)
+    - [ollama/ollama — issue #13791](https://github.com/ollama/ollama/issues/13791) — 780M Vulkan crash on context shift (Windows)
+    - [ollama/ollama — issue #16677](https://github.com/ollama/ollama/issues/16677) — bundled Vulkan loader misses RX 6650 XT (Windows)
+    - [glukhov.org — ROCm vs Vulkan for AMD LLM hosting (2026)](https://glukhov.org/llm-hosting/comparisons/amd-rocm-vs-vulkan-llm-hosting/) — pros/cons roundup; no RDNA2 data
+    - [phoronix.com — ROCm 7.1 vs RADV Vulkan for llama.cpp](https://www.phoronix.com/review/rocm-71-llama-cpp-vulkan) — RDNA4 (R9700): HIP wins prefill on Q8_0
+    - [ggml-org/llama.cpp — discussion #10879](https://github.com/ggml-org/llama.cpp/discussions/10879) — community Vulkan scoreboard
+    - [ggml-org/llama.cpp — discussion #15021](https://github.com/ggml-org/llama.cpp/discussions/15021) — community ROCm/HIP scoreboard
+    - [runaihome.com — RDNA4 Vulkan vs ROCm 7.2](https://runaihome.com/blog/rdna4-vulkan-vs-rocm-local-llm-benchmark-2026/) — RDNA4 only
+    - [popularai.org — Ollama sees AMD GPU but uses CPU](https://www.popularai.org/p/ollama-amd-gpu-cpu-rocm-7) — ROCm 7 driver mismatch → CPU fallback
   - [DavidAU — Maximizing Model Performance (samplers/parameters)](https://huggingface.co/DavidAU/Maximizing-Model-Performance-All-Quants-Types-And-Full-Precision-by-Samplers_Parameters) — baseline presets (`min_p 0.05`, `top_p 0.95`, rep pen ~1.05 over `repeat_last_n 64`) for aliases whose cards give none; quant ranking and imatrix notes
   - [ollama/ollama — openai/openai.go](https://github.com/ollama/ollama/blob/main/openai/openai.go) — the `/v1` API maps only temperature, top_p, presence/frequency penalty, seed, stop and max tokens; `min_p`/`top_k`/repeat penalty must live in Modelfiles
   - Sampler presets per alias (model cards):
