@@ -11,7 +11,7 @@ These apps are **cloud only** (server + DNS). They do not install or switch NixO
 | Env | `.env.kzn` |
 | Identity | `lib/identity.nix` (flake VPS overlay) |
 | Cwd / state | `infra/state/kzn/` |
-| Apps | `vps-plan` / `vps-apply` / `vps-destroy` / `vps-tunnels-sync` (names say `vps-*`; state is kzn-only) |
+| Apps | `crew-plan` / `crew-apply` (crew tunnel + Access only, `-target`) / `vps-plan` / `vps-apply` / `vps-destroy` / `vps-tunnels-sync` (names say `vps-*`; state is kzn-only) |
 
 OS install/switch: `vps-install` / `vps-switch`.
 
@@ -28,12 +28,13 @@ OS install/switch: `vps-install` / `vps-switch`.
 | `default.nix` | Providers: `hcloud ~> 1.62`, `cloudflare ~> 5.19` |
 | `hetzner.nix` | cx33 `nbg1`, firewall, SSH key |
 | `cloudflare.nix` | A/AAAA/SRV via `identity.fqdn` — **proxied = false**. Proxied CNAMEs for `namedTunnels`. |
-| `tunnels.nix` | kiro + files. Needs `TF_VAR_cloudflare_account_id`. |
+| `tunnels.nix` | kiro + files + crew. Needs `TF_VAR_cloudflare_account_id`. |
+| `access.nix` | Cloudflare Access (email OTP) for tunnels with `access = true` (`crew`). Needs `TF_VAR_crew_access_emails`. |
 | `state/kzn/` | Gitignored tofu workspace |
 
 ## Environment
 
-Copy `.env.example` to `.env.kzn`. Needs `TF_VAR_cloudflare_account_id`. Token needs **Cloudflare Tunnel:Edit**. After apply: `nix run .#vps-tunnels-sync`.
+Copy `.env.example` to `.env.kzn`. Needs `TF_VAR_cloudflare_account_id`. Token needs **Cloudflare Tunnel:Edit** and **Access: Apps and Policies:Edit**. `TF_VAR_crew_access_emails` (JSON list in `.env.kzn`) lists who may pass Access; not committed. After apply: `nix run .#vps-tunnels-sync`.
 
 ## Rules
 
