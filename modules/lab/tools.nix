@@ -24,7 +24,10 @@ in
 
       # web
       burpsuite
-      mitmproxy
+      # test_emudhra rejects its fixture CA against the current openssl; the rest pass
+      (mitmproxy.overridePythonAttrs (old: {
+        disabledTests = (old.disabledTests or [ ]) ++ [ "test_emudhra" ];
+      }))
       ffuf
       feroxbuster
       nuclei
