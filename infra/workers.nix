@@ -13,35 +13,37 @@ let
   accountId = lib.tf.ref "var.cloudflare_account_id";
 in
 {
-  # 1 ── Worker container (name, subdomain toggle) ──────────────────────
-  resource.cloudflare_worker.proxy = {
-    account_id = accountId;
-    name       = "proxy";
-    subdomain  = { enabled = true; };
-  };
+  resource = {
+    # 1 ── Worker container (name, subdomain toggle) ──────────────────────
+    cloudflare_worker.proxy = {
+      account_id = accountId;
+      name       = "proxy";
+      subdomain  = { enabled = true; };
+    };
 
-  # 2 ── Immutable script version ───────────────────────────────────────
-  # tofu runs from infra/state/kzn/; ../../workers/proxy.js → infra/workers/proxy.js
-  resource.cloudflare_worker_version.proxy = {
-    account_id         = accountId;
-    worker_id          = lib.tf.ref "cloudflare_worker.proxy.id";
-    compatibility_date = "2025-07-01";
-    main_module        = "proxy.js";
-    modules = [{
-      name         = "proxy.js";
-      content_type = "application/javascript+module";
-      content_file = "../../workers/proxy.js";
-    }];
-  };
+    # 2 ── Immutable script version ───────────────────────────────────────
+    # tofu runs from infra/state/kzn/; ../../workers/proxy.js → infra/workers/proxy.js
+    cloudflare_worker_version.proxy = {
+      account_id         = accountId;
+      worker_id          = lib.tf.ref "cloudflare_worker.proxy.id";
+      compatibility_date = "2025-07-01";
+      main_module        = "proxy.js";
+      modules = [{
+        name         = "proxy.js";
+        content_type = "application/javascript+module";
+        content_file = "../../workers/proxy.js";
+      }];
+    };
 
-  # 3 ── Deployment: 100 % to latest version ────────────────────────────
-  resource.cloudflare_workers_deployment.proxy = {
-    account_id  = accountId;
-    script_name = lib.tf.ref "cloudflare_worker.proxy.name";
-    strategy    = "percentage";
-    versions    = [{
-      percentage = 100;
-      version_id = lib.tf.ref "cloudflare_worker_version.proxy.id";
-    }];
+    # 3 ── Deployment: 100 % to latest version ────────────────────────────
+    cloudflare_workers_deployment.proxy = {
+      account_id  = accountId;
+      script_name = lib.tf.ref "cloudflare_worker.proxy.name";
+      strategy    = "percentage";
+      versions    = [{
+        percentage = 100;
+        version_id = lib.tf.ref "cloudflare_worker_version.proxy.id";
+      }];
+    };
   };
 }
