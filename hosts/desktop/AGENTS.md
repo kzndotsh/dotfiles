@@ -17,7 +17,7 @@ Primary desktop — Zen kernel, AMD RX 6700 XT, Sway, local AI stack.
 | `hardware-configuration.nix` | LUKS NVMe root, `/boot` vfat, `kvm-amd`, no swap |
 
 ## Imported modules
-wrappers, nix, desktop+sway (XDG/keyring/gnupg/sudo/fonts in desktop barrel), boot, hardware, shell, programs (includes Spicetify), services (pulls in `ai/`), `hosts/hardened-vm/nixvirt.nix` + `hosts/windows-vm/nixvirt.nix` (libvirt domains), `hardening/ssh.nix` + `baseline.nix` (not sysctl), network, packages, dev, gaming, music, wine, **lab**
+wrappers, nix, desktop+sway (XDG/keyring/gnupg/sudo/fonts in desktop barrel), boot, hardware, shell, programs (includes Spicetify), services (pulls in `ai/`), `hosts/hardened-vm/nixvirt.nix` + `hosts/windows-vm/nixvirt.nix` (libvirt domains), `hardening/ssh.nix` + `baseline.nix` + `crowdsec.nix` (not sysctl), network, packages, dev, gaming, music, wine, **lab**
 
 ## Host-only options
 - `time.timeZone = America/New_York`, `i18n.defaultLocale = en_US.UTF-8`
