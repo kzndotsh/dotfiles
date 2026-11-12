@@ -3,7 +3,7 @@
 # Image-Line does not ship Linux and does not support Wine.
 # Community reports and WineHQ AppDB are the best references for what works.
 #
-# Audio path: WineASIO → JACK → PipeWire JACK compat (modules/audio + music jack.enable).
+# Audio path: WineASIO → libjack → PipeWire (fl-studio puts PipeWire's libjack on LD_LIBRARY_PATH).
 # Register per prefix with `wine regsvr32 wineasio.dll` (nixpkgs has no wineasio-register helper).
 # Skip ASIO4ALL in the installer — it does not work under Wine.
 # In FL: Options → Audio → Device → WineASIO. Turn off "Mix in buffer switch" if you get xruns
@@ -118,6 +118,8 @@ let
       export WINEESYNC=0
       export WINEFSYNC=1
       export WINEDLLOVERRIDES="winemenubuilder.exe=d"
+      # pw-jack: WineASIO's libjack resolves to PipeWire's.
+      export LD_LIBRARY_PATH="${config.services.pipewire.package.jack}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
       if [ -n "''${FL_STUDIO_REPL:-}" ]; then
         exec bash
