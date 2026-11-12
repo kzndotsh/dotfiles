@@ -12,7 +12,7 @@ sops-nix encrypted secrets (safe to commit ciphertext for the **kzn.sh** VPS).
 | File | Host | Contents (examples) |
 |------|------|---------------------|
 | `vps.yaml` | `#vps` | Cloudflare, Coturn, Authelia, Zipline, Synapse |
-| `cloudflared.yaml` | desktop (sops backup) | Named tunnel cred JSON for `kiro` / `files` |
+| `cloudflared.yaml` | desktop (sops backup) | Named tunnel cred JSON for `kiro` / `files` / `crew` |
 | `../.sops.yaml` | rules | Age recipients |
 
 ## Commands
