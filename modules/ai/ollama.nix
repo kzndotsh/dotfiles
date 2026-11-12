@@ -262,7 +262,7 @@ in
       OLLAMA_NO_CLOUD = "1"; # Local models only — no cloud fallback or web search
       HSA_NO_SCRATCH_RECLAIM = "1"; # Hold ROCm scratch until service exit — timeout mitigation, VRAM tax when idle
       # HSA_ENABLE_SDMA left unset for Ollama (ComfyUI/chatterbox set 0 for gfx1030 page faults).
-      # Fallback if ROCm dies: OLLAMA_VULKAN=1. Don't set AMD_SERIALIZE_KERNEL or HCC_AMDGPU_TARGET.
+      # Fallback if ROCm dies: ollamaPkg = pkgs.ollama-vulkan (ollama-rocm ships no Vulkan backend, so OLLAMA_VULKAN=1 is a no-op here). Don't set AMD_SERIALIZE_KERNEL or HCC_AMDGPU_TARGET.
     };
   };
 
