@@ -7,13 +7,14 @@ Pinned [Kiro Crew](https://github.com/kirodotdev/KiroCrew) wheel. Not the Anthro
 ## Quick facts
 
 - Flake package `packages.x86_64-linux.kirocrew`
-- Wheel **0.7.2** from the GitHub release (stable). Bump `version` and `hash` together.
+- Launched through a `python313.withPackages` env (`-m kiro_crew`), not the stock app wrapper: the gateway re-execs `sys.executable` and md-notebook runs `python -I`, which ignores `PYTHONPATH`. `passthru.app` is the unwrapped wheel.
+- Wheel **0.11.1** from the GitHub release (stable). Bump `version` and `hash` together.
+- `rjieba.nix`: Rust abi3 wheel (kirocrew pins `rjieba==0.2.1`, not in nixpkgs). Bump with kirocrew.
 - Python 3.13. `pysqlite3-binary` and the PyPI `uv` wheel are removed; FTS5 comes from Nix sqlite, `uv` from nixpkgs.
 
 ## Runtime
 
 - Wrapper sets `KIROCREW_KIRO_BIN` to `kiro-cli-unwrapped` and puts that bin plus `uv` on `PATH`. The FHS `kiro-cli` bwrap wrapper cannot nest inside Crew's mount namespace (`bwrap: Failed to make / slave`)
-- Wrapper puts this package and its Python deps on `PYTHONPATH`. Builtin app backends (`dev-fleet` and the rest) are re-exec'd with the bare interpreter and only inherit `PYTHONPATH`
 - Host tools (`git`, `gh`, and the rest of `environment.systemPackages`) come from the user unit `path` in `modules/ai/kirocrew.nix`, not from this wrapper
 - Mutable state is `~/.kiro/crew`, owned by the user service in `modules/ai/kirocrew.nix`
 
