@@ -14,7 +14,7 @@ Not here: Profanity is [`../wrappers/`](../wrappers/AGENTS.md). Cursor argv is [
 | `firefox.nix` | Policies + prefs. Shared with the VM. |
 | `1password.nix` | CLI + GUI; `polkitPolicyOwners = [ config.my.username ]` |
 | `ssh.nix` | **Client** `programs.ssh.extraConfig` — not sshd |
-| `nix-ld.nix` | `programs.nix-ld` — FHS-style lib set for prebuilt wheels/binaries (core, libc++, audio, GL/X11/GTK); `LIBRARY_PATH` for `find_library` |
+| `nix-ld.nix` | `programs.nix-ld` — FHS-style lib set for prebuilt wheels/binaries (core, libc++, audio, GL/X11/GTK, Playwright Chromium/WebKit deps); `LIBRARY_PATH` for `find_library` |
 | `nh.nix` | `programs.nh` → `config.my.dotfilesDir`; weekly clean `--keep 5` |
 | `spicetify.nix` | Tokyo Night Spotify (needs `spicetify-nix` flake module on desktop) |
 | `obs.nix` | `programs.obs-studio` + plugins, v4l2loopback virtual cam, `obs-cmd` / `obs-replay-save` |
