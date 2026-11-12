@@ -35,7 +35,7 @@ dotfiles/
 │   ├── ai/                    # Ollama, ComfyUI, Open WebUI, voice, w-okada, kiro, kirocrew, llmcord, opencode, RisuAI, AIRI
 │   ├── audio/ boot/ desktop/  # desktop/sway/ is the WM
 │   ├── dev/ gaming/ hardware/
-│   ├── hardening/             # VPS whole dir; desktop imports ssh.nix + baseline.nix; VM none
+│   ├── hardening/             # VPS whole dir; desktop imports ssh.nix + baseline.nix + crowdsec.nix; VM none
 │   ├── lab/                   # security tools, NM VPN, local vuln Docker targets
 │   ├── music/ network/ nix/
 │   ├── packages/ programs/ services/ shell/
@@ -87,7 +87,7 @@ Every tracked directory has an **AGENTS.md** except generated `.terraform/`, ven
 | Wine (shared)              | `modules/wine/`                                                      | wine-tkg; gaming + music                     |
 | kiro-gateway / models      | `modules/ai/kiro-gateway.nix`, `packages/kiro-gateway/`              | `:9000`, keys in `~/.secrets/ai.env`         |
 | llmcord (Discord bot)      | `modules/ai/llmcord.nix`                                             | `ai.llmcord`; `~/.secrets/llmcord.env` (`DISCORD_BOT_TOKEN`, `DISCORD_CLIENT_ID`) |
-| Kiro Crew                  | `modules/ai/kirocrew.nix`, `packages/kirocrew/`                      | User unit, loopback `:5476`, drives `kiro-cli` |
+| Kiro Crew                  | `modules/ai/kirocrew.nix`, `kirocrew-mullvad.nix`, `packages/kirocrew/` | Loopback `:5476`, drives `kiro-cli`; Mullvad netns → **system** unit; `crew.kzn.sh` behind Cloudflare Access |
 | OpenCode                   | `modules/ai/opencode.nix`                                            | `~/.config/opencode/opencode.jsonc` (tmpfiles); Kiro provider → `:9000` |
 | RisuAI / AIRI              | `modules/ai/risuai.nix`, `modules/ai/airi.nix`, `packages/{risuai,airi}/` | Docker `:6001` / `:6100`; `systemctl start docker-risuai` / `docker-airi` |
 | Local LLM / image gen      | `modules/ai/`                                                        | Ollama `:11434`, ComfyUI `:8188`             |
@@ -160,9 +160,10 @@ Before marking a dotfiles task complete:
 - `nix build .#nixosConfigurations.vps.config.system.build.toplevel` — kzn VPS eval
 - `nix flake check --no-build` — validate flake
 - `nix run .#vps-plan` / `vps-apply` / `vps-destroy` — OpenTofu (`.env.kzn`, `infra/state/kzn/`); does not install NixOS
+- `nix run .#crew-plan` / `crew-apply` — same, `-target`ed to the crew tunnel + Cloudflare Access only
 - `nix run .#vps-install -- root@<ip>` — nixos-anywhere (`~/.secrets/vps-age.key` + initrd host key)
 - `nix run .#vps-switch -- root@<ip>` — remote switch on installed VPS
-- `nix run .#vps-tunnels-sync` — `~/.secrets/cloudflared/{kiro,files}.json` + `secrets/cloudflared.yaml`
+- `nix run .#vps-tunnels-sync` — `~/.secrets/cloudflared/<name>.json` for each `identity.namedTunnels` entry (kiro, files, crew) + `secrets/cloudflared.yaml`
 - `nix run .#vm-install` — hardened-vm disko → libvirt (sudo)
 - `nix run .#windows-vm-install -- /path/to/Win11.iso` — 128G qcow2 + copy ISO to pool (sudo); attach hdc yourself (see `hosts/windows-vm/AGENTS.md`)
 - `nix run .#topology-render` — build SVGs to `/tmp/nix-topology-out` (IFD; overlay only on `topologyPkgs`)
