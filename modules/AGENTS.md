@@ -17,7 +17,7 @@ NixOS modules for desktop (+ cherry-picked for hardened-vm). Identity lives in [
 | `gaming/` | Steam, emulators, RuneLite, crankshaft, WiVRn/WayVR Quest VR (Wine stack is `wine/`) |
 | `lab/` | Security / OSINT nixpkgs tools, NM VPN, 11 optional loopback Docker targets (`lab.targets.*`: dvwa … railsgoat) |
 | `music/` | DAWs, plugins, yabridge, audio production tools |
-| `hardening/` | VPS whole dir. Desktop imports `ssh.nix` + `baseline.nix` (not `sysctl.nix`). |
+| `hardening/` | VPS whole dir. Desktop imports `ssh.nix` + `baseline.nix` + `crowdsec.nix` (not `sysctl.nix`). |
 | `hardware/` | AMDGPU, ROCm, LACT, Bluetooth (Blueman, LibrePods for AirPods), Solaar |
 | `network/` | NetworkManager, IPv4-only, DoT |
 | `nix/` | substituters, registry, GC off |
