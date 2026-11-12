@@ -28,6 +28,9 @@ let
       wrapProgram $out/bin/claude-desktop --add-flags "--password-store=gnome-libsecret"
     '';
   };
+
+  # nixpkgs sets AWS_LC_SYS_USE_SYSTEM=1, so Rust apps that only ship openssl fail in aws-lc-sys.
+  withAwsLc = p: p.overrideAttrs (old: { buildInputs = old.buildInputs ++ [ pkgs.aws-lc ]; });
 in
 {
   environment.systemPackages = with pkgs; [
@@ -58,12 +61,13 @@ in
       ];
     }))
     halloy
-    newsflash
+    (withAwsLc newsflash)
     nicotine-plus
     seahorse
-    tsukimi
+    (withAwsLc tsukimi)
     opencode
     just
+    dbeaver-bin # SQL client (MySQL / Postgres / SQLite)
     element-desktop
     telegram-desktop
     zoom-us
@@ -126,7 +130,7 @@ in
     wrangler            # CF Workers CLI — deploy/dev without full tofu flow
     opentofu            # tofu CLI directly (also available via nix run .#vps-*)
     cloudflare-warp     # warp-cli (daemon needs services.cloudflare-warp NixOS module)
-    # session-desktop is commented out — upstream pnpm lockfile was broken (2026-07-08).
+    session-desktop
     simplex-chat-desktop
     vesktop
     mumble
