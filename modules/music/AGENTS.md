@@ -14,7 +14,8 @@ Declarative music production stack for the **`ikigai` desktop host only**. Syste
 
 | File | Role |
 |------|------|
-| `default.nix` | options, JACK compat, env vars, udev, PipeWire RT (`97-music-rt`), qpwgraph |
+| `default.nix` | options, env vars, udev, PipeWire RT (`97-music-rt`), qpwgraph |
+| `pw-jack.nix` | Per-app wrapper: PipeWire's `libjack` on that app's `LD_LIBRARY_PATH` (what `pw-jack` does) |
 | `daws.nix` | Bitwig, REAPER+SWS, Ardour, LMMS, Zrythm |
 | `flstudio.nix` | FL Studio via Wine |
 | `plugins.nix` | Native synths, effects, drums (~31 plugins) |
@@ -65,7 +66,7 @@ Commercial Linux builds → extract to `~/.vst3/` or `~/.lv2/`. Windows VSTs →
 |---------|-------|-----|
 | PipeWire RT | 2s (`97-music-rt`) | Plugin scan / heavy loads |
 | inotify watches | 600000 (`mkForce`) | Large sample libraries |
-| JACK compat | `jack.enable = true` | DAWs via PipeWire |
+| JACK compat | `pw-jack.nix` wrappers on JACK clients (DAWs, Carla, Tenacity, QMidiArp, jack_capture); FL Studio's launcher exports it | `services.pipewire.jack.enable` is deprecated (global `LD_LIBRARY_PATH`). A new JACK app needs `pwJack`, or run it as `pw-jack <app>` |
 
 ## Conflicts
 
