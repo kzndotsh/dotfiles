@@ -16,6 +16,7 @@
     ../windows-vm/nixvirt.nix
     ../../modules/hardening/ssh.nix
     ../../modules/hardening/baseline.nix
+    ../../modules/hardening/crowdsec.nix
     ../../modules/network
     ../../modules/packages
     ../../modules/dev
@@ -45,43 +46,49 @@
   topology.self = {
     name = "ikigai";
     hardware.info = "Ryzen 7 5800X · RX 6700 XT · ASRock B550AM · libvirt hypervisor";
-    interfaces.enp5s0 = {
-      network = "home";
-      type = "ethernet";
-      icon = "interfaces.ethernet";
-      addresses = [ "DHCP" ];
-      gateways = [ "192.168.1.254" ];
-    };
-    interfaces.wlp4s0 = {
-      type = "wifi";
-      icon = "interfaces.wifi";
-      addresses = [ "down" ];
-    };
-    interfaces.virbr0 = {
-      network = "virt";
-      virtual = true;
-      type = "bridge";
-      icon = "interfaces.tap";
-      addresses = [ "192.168.74.1/24" ];
-      physicalConnections = [
-        (config.lib.topology.mkConnection "hardened-vm" "enp1s0")
-        (config.lib.topology.mkConnection "windows-vm" "eth0")
-      ];
-    };
-    interfaces.docker0 = {
-      network = "docker";
-      virtual = true;
-      type = "bridge";
-      icon = "devices.cloud-server";
-      addresses = [ "172.17.0.1/16" ];
-    };
-    interfaces.cf-tunnel = {
-      virtual = true;
-      type = "tunnel";
-      icon = "services.wireguard";
-      physicalConnections = [
-        (config.lib.topology.mkConnection "cloudflare" "edge")
-      ];
+    interfaces = {
+      enp5s0 = {
+        network = "home";
+        type = "ethernet";
+        icon = "interfaces.ethernet";
+        addresses = [ "DHCP" ];
+        gateways = [ "192.168.1.254" ];
+      };
+
+      wlp4s0 = {
+        type = "wifi";
+        icon = "interfaces.wifi";
+        addresses = [ "down" ];
+      };
+
+      virbr0 = {
+        network = "virt";
+        virtual = true;
+        type = "bridge";
+        icon = "interfaces.tap";
+        addresses = [ "192.168.74.1/24" ];
+        physicalConnections = [
+          (config.lib.topology.mkConnection "hardened-vm" "enp1s0")
+          (config.lib.topology.mkConnection "windows-vm" "eth0")
+        ];
+      };
+
+      docker0 = {
+        network = "docker";
+        virtual = true;
+        type = "bridge";
+        icon = "devices.cloud-server";
+        addresses = [ "172.17.0.1/16" ];
+      };
+
+      cf-tunnel = {
+        virtual = true;
+        type = "tunnel";
+        icon = "services.wireguard";
+        physicalConnections = [
+          (config.lib.topology.mkConnection "cloudflare" "edge")
+        ];
+      };
     };
     services = {
       kiro-gateway = {
@@ -89,6 +96,12 @@
         icon = "services.coder";
         info = "127.0.0.1:9000";
         details.tunnel = { text = "kiro.kzn.sh"; order = 50; };
+      };
+      kirocrew = {
+        name = "Kiro Crew";
+        icon = "services.coder";
+        info = "127.0.0.1:5476";
+        details.tunnel = { text = "crew.kzn.sh (Access)"; order = 50; };
       };
       copyparty = {
         name = "copyparty";
@@ -141,32 +154,59 @@
     tools.enable = true;
   };
 
-  ai.voice = {
-    speaches.enable = true;
-    kokoro.enable = true;
-    fish.enable = true;
-    moss.enable = false;
-    chatterbox.enable = false;
-    openWebui.stt = "speaches";
-    openWebui.tts = "fish";
-  };
+  ai = {
+    voice = {
+      speaches.enable = true;
+      kokoro.enable = true;
+      fish.enable = true;
+      moss.enable = false;
+      chatterbox.enable = false;
+      openWebui.stt = "speaches";
+      openWebui.tts = "fish";
+    };
 
-  # RisuAI — local character-chat UI (Docker :6001). Start: systemctl start docker-risuai
-  ai.risuai.enable = true;
+    # RisuAI — local character-chat UI (Docker :6001). Start: systemctl start docker-risuai
+    risuai.enable = true;
 
-  # AIRI — Stage Web companion (Docker :6100). Start: systemctl start docker-airi
-  ai.airi.enable = true;
+    # AIRI — Stage Web companion (Docker :6100). Start: systemctl start docker-airi
+    airi.enable = true;
 
-  # Kiro Crew — persistent agent workspace (user unit, loopback :5476).
-  ai.kirocrew.enable = true;
+    # Kiro Crew — persistent agent workspace (user unit, loopback :5476).
+    kirocrew = {
+      enable = true;
+      tunnel.enable = true;
+      mullvad.enable = true;
+      confine = {
+        enable = true;
+        # Project dirs: ~/.secrets/kirocrew-projects (untracked), see modules/ai/AGENTS.md.
+        gitSshKey = ".ssh/id_crew_git";
+      };
+    };
 
-  # llmcord — Discord LLM frontend backed by kiro-gateway (needs ~/.secrets/llmcord.env).
-  ai.llmcord = {
-    enable = true;
-    adminIds = [ 1555808113330757632 ];
-    max_messages = 50;
-    allowDms = false;
-    statusMessage = "@ me to chat";
+    # llmcord — Discord LLM frontend backed by kiro-gateway (needs ~/.secrets/llmcord.env).
+    llmcord = {
+      enable = true;
+      adminIds = [ 1555808113330757632 ];
+      max_messages = 50;
+      allowDms = false;
+      statusMessage = "@ me to chat";
+    };
+
+    # w-okada RVC — w-okada-setup once, then `w-okada` + virtual mic.
+    wOkada = {
+      enable = true;
+      virtualMic.enable = true;
+      server.enable = false;
+      defaults = {
+        pitchSemitones = 12;
+        readChunkSize = 128;
+        extraConvertSize = 32768;
+        f0Detector = "rmvpe";
+        silenceFront = false;
+        silentThreshold = 0.0001;
+        force = true;
+      };
+    };
   };
 
   lab = {
@@ -183,22 +223,6 @@
       vulnerableApp.enable = true;
       wrongSecrets.enable = true;
       railsgoat.enable = true;
-    };
-  };
-
-  # w-okada RVC — w-okada-setup once, then `w-okada` + virtual mic.
-  ai.wOkada = {
-    enable = true;
-    virtualMic.enable = true;
-    server.enable = false;
-    defaults = {
-      pitchSemitones = 12;
-      readChunkSize = 128;
-      extraConvertSize = 32768;
-      f0Detector = "rmvpe";
-      silenceFront = false;
-      silentThreshold = 0.0001;
-      force = true;
     };
   };
 }
