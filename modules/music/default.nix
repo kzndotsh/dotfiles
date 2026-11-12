@@ -46,11 +46,9 @@ in
     };
 
     services = {
-      # PipeWire JACK bridge and realtime budget for the audio group.
-      # JACK clients talk to PipeWire — no separate jackd.
+      # Realtime budget for the audio group. JACK clients reach PipeWire through
+      # per-app pw-jack wrappers (pw-jack.nix), not a global LD_LIBRARY_PATH.
       pipewire = {
-        jack.enable = true;
-
         # Default rt.time is 200ms, which SIGKILLs DAW plugin scans.
         # 2s matches musnix-style studio boxes. Filename 97- loads before gaming's
         # 98-gaming-rt — PipeWire uses the first libpipewire-module-rt instance only.
